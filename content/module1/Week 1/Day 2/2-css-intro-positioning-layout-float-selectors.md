@@ -10,54 +10,67 @@ pre: "<b>5. </b>"
 
 ## Learning Objectives
 
-- intro
+- ### intro
 
   - Cascading style sheets
   - inline, internal (on the HTML page), external (in the separate stylesheet file)
 
-- user agent styles
+
+
+- ### user agent styles
 
   Different browsers set different default CSS rules.  **reset.css** or a **normalise.css**
 
-- CSS reset
+
+
+- ### CSS reset
 
   <http://www.pitt.edu/~ctomer/lis2600/css_reset/index.html>
 
   **CSS Reset** is a short, often compressed, or “minified,” set of **CSS **rules that **resets** the styling of all HTML elements to a consistent baseline. **Resets** are particularly useful for normalizing the text size and removing all margins.
 
-  
 
-- rule-set (css syntax)
+
+- ### rule-set (css syntax)
 
   <https://www.w3schools.com/css/css_syntax.asp>
 
-- declaration: property, value
+  - declaration: property, value
 
-  
 
-- selectors
+
+- ### selectors
 
   - Element / tag selector `div {}`
   - Universal selector `* {}`
   - class selectors `.` 
   - id selectors `#` (must be unique)
 
-- properties - name few most used ones (at least 10 - 15).
 
-- size units :
+
+- ### properties - name few most used ones (at least 10 - 15).
+
+
+
+- ### size units :
 
   - absolute - *px*, *cm*, *inch*
+
   - relative-  *%*, *em* (font-size of the element), rem (root element font-size), *vw*, *vh*
 
-- colors
+    
 
-- shorthand properties
+- ### colors
+
+
+
+- ### shorthand properties
 
   <https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties>
 
-  
 
-- specificity
+
+- ### specificity
 
   If 2 or more CSS rules point to the same element, browser uses specificity to determine which one applies.
 
@@ -79,7 +92,7 @@ pre: "<b>5. </b>"
 
   
 
-- pseudo-class
+- ### pseudo-class
 
   - `:hover`
 
@@ -97,15 +110,15 @@ pre: "<b>5. </b>"
     }
     ```
 
-    
 
-- box model
 
-  <https://www.w3schools.com/css/css_boxmodel.asp>
 
-- width, padding, margin
 
-- float, clear
+- ### width, padding, margin - Examples
+
+  
+
+- ### float, clear
 
   - <https://www.youtube.com/watch?v=xara4Z1b18I>
 
@@ -113,13 +126,14 @@ pre: "<b>5. </b>"
 
     
 
-- overflow (scroll, hidden, auto, visible(default))
+- ### overflow (scroll, hidden, auto, visible(default))
 
   ​	<https://codepen.io/Denzelzeldi/pen/jJdwbz>
 
-  
 
-- CSS Layout - position  (static, relative, fixed, absolute, sticky)
+
+
+- ### CSS Layout - position  (static, relative, fixed, absolute, sticky)
 
   ​	<https://codepen.io/Denzelzeldi/pen/QoYgqB>
 
@@ -127,7 +141,7 @@ pre: "<b>5. </b>"
 
   ​	**relative ** - children can be positioned against it, can set top,bottom,left, right.
 
-  ​	**fixed** - positioned relative to the viewport
+  ​	**fixed** - positioned relative to the viewport.
 
   ​	**absolute** - relative to the nearest positioned ancestor (anyone except `static` ones), else uses the document body.
 
@@ -139,7 +153,7 @@ pre: "<b>5. </b>"
 
   
 
-- 100% of what!?
+- ### 100% of what!?
 
   <https://codepen.io/Denzelzeldi/pen/XGOgvm>
 

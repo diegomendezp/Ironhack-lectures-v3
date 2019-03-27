@@ -1,4 +1,8 @@
-# JS | Arrays - Sort and Reverse
+# JS | Arrays - Sort, Reverse, Splice
+
+
+
+#### Note: `sort`,  `reverse`, `splice` methods mutate/ change the original array. 
 
 
 
@@ -69,15 +73,15 @@ arr.sort(function (a,b) {
 
 `a` and `b` are two elements being compared, then:
 
-- If `compareFunction(a, b)` is less than 0, sort `a` to an index lower than `b` (i.e. `a`comes first).
+- If `compareFunction(a, b)` is less than 0  **( -1 )**, sort `a` to an index lower than `b` (i.e. `a`comes first).
 
   
 
-- If `compareFunction(a, b)` returns 0, leave `a` and `b` unchanged with respect to each other, but sorted with respect to all different elements. Note: the ECMAscript standard does not guarantee this behaviour, and thus not all browsers (e.g. Mozilla versions dating back to at least 2003) respect this.
+- If `compareFunction(a, b)` returns 0, leave `a` and `b` unchanged with respect to each other, but sorted with respect to all different elements. Note: the ECMAscript standard does not guarantee this behavior, and thus not all browsers (e.g. Mozilla versions dating back to at least 2003) respect this.
 
   
 
-- If `compareFunction(a, b)` is greater than 0, sort `b` to an index lower than `a` (i.e. `b`comes first).
+- If `compareFunction(a, b)` is greater than 0 **( 1 )**, sort `b` to an index lower than `a` (i.e. `b`comes first).
 
 
 
@@ -145,13 +149,100 @@ numbers.sort((a, b) => b - a);
 
 
 
-###### Lets try example - ON THE BOARD With array `[22, 23, 68, 0, 9, 1, 99]`:
+### **We can also sort by different attributes, such as length**.
 
-1. `22 < 23`, they’re in the correct order!
-2. `23 < 68`, they’re in the correct order!
-3. `68 > 0`, switch places!
-4. `68 > 9`, switch places!
-5. `68 > 1`, switch places!
-6. `68 < 99`, they’re in the correct order!
+```js
+const words = ["Hello", "Goodbye", "First", "A", "a", "Second", "Third"];
 
-…and repeat until it sorts the array.
+words.sort((a, b) => {
+    if (a.length > b.length){
+        return -1;
+    }
+
+    if (a.length < b.length){
+        return 1;
+    }
+
+    return 0;
+});
+
+console.log(words);
+// [ 'Goodbye', 'Second', 'Hello', 'First', 'Third', 'A', 'a' ]
+```
+
+
+
+
+
+
+
+### `reverse()`
+
+##### [Reverse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse) method reverses an array in place. The first array element becomes the last, and the last array element becomes the first.
+
+
+
+##### `reverse()` mutates the original array. As it sorts it in place.
+
+
+
+Example
+
+```js
+const a = ['one', 'two', 'three'];
+const reversed = a.reverse();
+
+console.log(a);        // ['three', 'two', 'one']
+console.log(reversed); // ['three', 'two', 'one']
+```
+
+
+
+
+
+### `splice()`
+
+##### The splice() method adds/removes items to/from an array, and returns the removed item(s).
+
+**Note:** This method changes the original array.
+
+
+
+****
+
+**syntax**
+
+```js
+array.splice(index, howmany, item1, ....., itemX);
+```
+
+```js
+const fruits = ["Coconut","Banana", "Pear", "Orange", "Apple", "Mango", "Kiwi"];
+
+const arr1 = fruits.splice(0,2);
+console.log(arr1);
+
+fruits.splice(2, 0, "Lemon", "Watermelon");
+```
+
+
+
+
+
+### How to read MDN and Array reference
+
+- start with this link:
+
+<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array>
+
+
+
+- if you don't understand : try [W3Schools](<https://www.w3schools.com/js/js_array_methods.asp>) (examples are written very well and simply explained)
+
+  
+
+- if you still need examples or clarification, search StackOverflow on the topic.
+
+
+
+- Documentation gets easier to read with time and eventualy natural.
