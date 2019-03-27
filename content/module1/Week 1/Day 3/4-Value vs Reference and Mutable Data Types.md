@@ -393,3 +393,5 @@ Immutable are ones that perform an action but don't change the original object o
 - [The JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method
 - [The JSON.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method
 - [Spread Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+- [Mutating vs non-mutating array methods](<https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/>)
+
