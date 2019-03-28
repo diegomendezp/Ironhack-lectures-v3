@@ -20,8 +20,8 @@ pre: "<b>3. </b>"
 ### types
 
 - number: 1 1.3 Infinity NaN
-- boolean: true false
 - string: "hello world"
+- boolean: true false
 - undefined
 - object
 - function
@@ -73,6 +73,7 @@ pre: "<b>3. </b>"
   - str.substring(0,1)
   - str.indexOf('foo')
   - str.charCodeAt(1)
+  - str.repeat(numberOfRepetitions)
 
 ## Math
 - Math.PI
