@@ -20,13 +20,19 @@ pre: "<b>12. </b>"
 
 - Difference between array and object ? Where would you use them?
 
-- Type checking:
+  
+
+- Type checking and special cases (array and null):
 
   - `typeof <objectVariable>`
 
-  - `typeof <arrayVariable>` - returns  `"object"`
+    
+
+  - `typeof <array>` - returns  `"object"`
 
     - solution `Array.isArray()` method
+
+  
 
   - `typeof null` - returns `"object"`  - 
 
@@ -35,7 +41,40 @@ pre: "<b>12. </b>"
     
 
 - Nested arrays example
-- Nested objects example
+
+
+
+- Nested objects and other data types example
+
+```js
+var obj = {
+
+  propertyOne: "I am a string",
+  propertThree: true,
+  propertyFour: 101,
+  
+  propertyFiveObj: {
+    prop1: "I am a string as well",
+    prop2: false,    
+    prop3: {
+      somePropName1: "hello",
+      somePropName1: "world"
+    }
+  },
+    
+  propertySixObj: {
+    prop1: ['Bob', 'Sarah', 'John'],
+    prop2: 123
+  },
+  
+  propertySevenObj: {}  
+};
+```
+
+
+
+
+
 - Mixed nesting objects and arrays
 
 
@@ -55,6 +94,10 @@ pre: "<b>12. </b>"
   - https://glovoapp.com/en/macchina-pasta-bar-2/ (mobile)
     - array of categories (sections) with different produts inside
     - https://api.glovoapp.com/v3/stores/11281/addresses/18796/collections/27278
+
+
+
+**Exercise**
 
 
 ```js
@@ -77,6 +120,8 @@ var cohorts = [{
 - for (var ix = 0; ix < cohorts length>)
 - for (var ox = 0; ox < cohort[ix].sudents.length>)
 - if (country === 'en') { console.log(name); }
+
+
 
 
 

@@ -9,19 +9,24 @@ pre: "<b>8. </b>"
 ---
 
 ## Learning Objectives
-- set display:flex on parent
-- parent manages direct children
-- properties of the flex parent
+- set `display: flex` on parent - this is a flex container
+- parent manages direct children -the **flex items**
+- properties of the flex parent - container
   - `justify-content` - across the main axis
+
   - `align-items` - across the cross axis
+
   - `flex-direction` - row/column/column-reverse/row-reverse
+
   - `flex-wrap` - wrap/nowrap
-- properties of the flex children
+
+- properties of the flex children - flex items
   - `width: 50%` - percentage of the flex parent
   - `width: 200px` - static, not managed by the flex parent
+  - `flex-grow`
   - `flex: 1` - 1 out X - where X is total of all the children
-  - `flex: <can grow> <can shrink> <base width>` - advanced (see layout example 1)
-   
+  - `flex: <grow> <can shrink> <base width>` - advanced (see layout example 1)
+
 ## Flexbox Grid
 
 - Strategy 1:

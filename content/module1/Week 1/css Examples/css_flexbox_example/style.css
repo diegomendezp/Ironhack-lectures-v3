@@ -1,0 +1,35 @@
+body { 
+  background: rgb(25, 7, 37);
+}
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row; /* default -> row */
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  align-items: stretch;
+}
+.child {
+  width: 50px;
+  text-align: center;
+  margin: 5px;
+  font-size: 30px;
+  background: green;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 100px;
+}
+.child1 {
+  height: 180px;
+  flex-grow: 1;
+  flex-shrink: 10;
+  background: aqua;
+  align-self: center;
+}
+.child3 {
+  height: 120px;
+}
+#example {
+  border: 1px solid red;
+}

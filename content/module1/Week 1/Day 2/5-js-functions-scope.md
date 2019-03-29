@@ -11,10 +11,16 @@ pre: "<b>9. </b>"
 ## Learning Objectives
 
 - function statement
+
 - anonymous function
+
 - functions are first-class objects
+
 - function as vairables
+
 - callbacks
+
+  
 
 ## concept function
 

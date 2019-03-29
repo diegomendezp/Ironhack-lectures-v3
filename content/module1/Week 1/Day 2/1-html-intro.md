@@ -11,13 +11,23 @@ pre: "<b>2. </b>"
 ## Learning Objectives
 
 - What is HTML?
+
+  
+
 - DOM tree
+
 - DOM nodes: root, ancestor, descendent, parent, child, sibling, elements
+
 - html, head & body
+
 - attributes and values
+
 - self-closing tags
+
 - semantic tags
+
 - block vs inline elements
+
 - How to structure web
 
 ## Resources

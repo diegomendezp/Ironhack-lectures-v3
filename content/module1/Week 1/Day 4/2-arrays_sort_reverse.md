@@ -38,6 +38,8 @@ console.log(mixed);
 
 
 
+
+
 ### Sorting Strings - works as expected
 
 ```js
@@ -49,7 +51,7 @@ fruits.sort();
 
 
 
-#### Sorting the numbers or random sorting
+#### Sorting the numbers - right way with the compareFunction
 
 
 
@@ -102,6 +104,10 @@ function compare(a, b) {
 ```
 
 
+
+##### Compare function - sketch it on the board
+
+![sort_function](/home/ross-u/Desktop/IronHack_Lectures_done/content/module1/Week 1/Day 4/sort_function.jpg)
 
 
 

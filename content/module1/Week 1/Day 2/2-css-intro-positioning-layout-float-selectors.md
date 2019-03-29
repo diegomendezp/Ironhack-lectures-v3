@@ -23,17 +23,10 @@ pre: "<b>5. </b>"
 
 
 
-- ### CSS reset
-
-  <http://www.pitt.edu/~ctomer/lis2600/css_reset/index.html>
-
-  **CSS Reset** is a short, often compressed, or “minified,” set of **CSS **rules that **resets** the styling of all HTML elements to a consistent baseline. **Resets** are particularly useful for normalizing the text size and removing all margins.
-
-
-
 - ### rule-set (css syntax)
 
-  <https://www.w3schools.com/css/css_syntax.asp>
+
+- <https://www.w3schools.com/css/css_syntax.asp>
 
   - declaration: property, value
 
@@ -112,9 +105,41 @@ pre: "<b>5. </b>"
 
 
 
+- ### CSS reset
+
+  <http://www.pitt.edu/~ctomer/lis2600/css_reset/index.html>
+
+  **CSS Reset** is a short, often compressed, or “minified,” set of **CSS **rules that **resets** the styling of all HTML elements to a consistent baseline. **Resets** are particularly useful for normalizing the text size and removing all margins.
+
+- ### import 
+
+  used to import additional css stylesheet or the css reset stylesheet
 
 
-- ### width, padding, margin - Examples
+
+```css
+@import "newstyle.css";
+
+/*
+
+OR the following  syntax
+
+@import "newstyle.css";
+
+IMPORT THE CSS RESET 
+
+*/
+```
+
+
+
+
+
+
+
+- ### width, padding, margin - quick Examples
+
+  
 
   
 
