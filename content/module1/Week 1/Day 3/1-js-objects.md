@@ -7,23 +7,35 @@ day: 4
 pre: "<b>11. </b>"
 
 ---
-## Learning Objectives s
+## Learning Objectives
 
 
-
-Same as primitive values Objects are variables too. 
 
 But objects can contain many values. Think of an object as a bag for other values.
 
 
 
-##### Object is a container for named values, called properties and methods.
-
-Property - value stored in an object
-
-Method - function stored in an object
+##### Object is a collection of values and functions that belong together. 
 
 
+
+The value's in object can be any type:  strings, numbers, arrays, functions and even other objects!
+
+
+
+
+
+##### How do we call them ?
+
+​	**Properties** - values stored in an object - they hold some value
+
+​	**Methods** - functions stored in an object - they do something
+
+
+
+
+
+Properties and methods are stored in the object as **key: value** pairs
 
 
 
@@ -36,8 +48,9 @@ var obj = {
     key: value
 }
 */
+// Each pair is separated with coma 
 
-var obj = {
+var person = {
     name: 'Sarah',
     age: 30
 }
@@ -47,11 +60,11 @@ var obj = {
 
 
 
-##### Arrays and objects use case is :
-
 ##### - Arrays are used when you need elements saved by index number, lined up, so that you can iterate.
 
-##### - Objects are used when you want to store elements by key name, not by index number. For example object person that has named properties.
+##### - Objects are used when you want to store elements by key name, not by index number. For example object `person` that has named properties `name` and  `age` .
+
+
 
 
 
@@ -106,7 +119,9 @@ var obj2 = {
 
 
 
-	### Dot notation
+### Dot notation
+
+
 
 ```js
 obj.name = 'foo'
@@ -143,12 +158,47 @@ console.log( myArray[1 + 1] );
 
 
 
+## Creating object methods - simple example
+
+```js
+var person = {
+    firstName: 'John',
+    lastName: 'Carr',
+    age: 30,
+    from: 'Scotland',
+    married: false,
+    
+    sayHello: function (name) {
+        console.log('Hello ' + name + '! I am John.')
+    }
+}
+
+// Assignment in the object is done with ':'
+// Assignment outside of the object is done with '=' 
+
+// Adding a method using a dot notation
+person.myAge = function () {
+    console.log('I am 30.')
+}
+
+// Adding a method using a square notation
+person[myBirthplace] = function () {
+    console.log('I am from Scotland.');
+};
+```
+
+
+
+
+
+
+
 ## Deleting object properties - keyword `delete`
 
 ```js
 var obj = {
     name: 'John',
-    age: 40,
+    age: 30,
 };
 
 console.log('before', obj);
@@ -168,10 +218,157 @@ console.log('after delete - bracket notation',obj);
 
 
 
-* for (var key in obj) { ... }
-* Object static methods
-  * Object.keys(obj);
-  * Object.values(obj);
+## `for...in` statement - *iterates over property names*
+
+
+
+##### The `for...in` statement iterates over all property names of an object. Only name's not values.
+
+
+
+
+
+**Syntax**
+
+```js
+for (variable in objectName) { ...
+	// do something in here
+}
+```
+
+
+
+````js
+var obj = {a: 15, b: 25, c: 35};
+
+
+for (var propName in obj) {
+  console.log(propName);
+}
+
+// Output:
+// "a"
+// "b"
+// "c"
+
+
+// We can access the values with the bracket notation
+for (var propName in obj) {
+  console.log(obj[propName]);
+}
+
+
+// Output:
+// "15"
+// "25"
+// "35"
+````
+
+
+
+
+
+
+
+## Object prototype methods
+
+
+
+`Object` prototype is the "parent" class that holds static methods that we use only with objects. 
+
+These static methods are `Object.keys` and `Object.values()`
+
+
+
+### `Object.keys()` - returns array of property names
+
+
+
+The `Object.keys()` method returns an array of a given object's own property names, in the same order as we get with a normal loop.
+
+Caveat, this names are not guaranteed to return in the exact order 100% times, like looping over an array which has numbered indexes.
+
+
+
+
+
+**Example**
+
+```js
+var obj1 = {a: 1, b: 2, c: 3};
+
+var obj2 = { 
+  firstName: 'John',
+  lastName: 'Carr',
+  age: 30
+}
+
+console.log('obj1: ', Object.keys(obj1));
+
+console.log('obj2: ', Object.keys(obj2));
+
+```
+
+
+
+### `Object.values()` - returns array of objects property valuea - 
+
+
+
+The Object.values() method returns an array of a given object's own enumerable property values, in the same order as that provided by a for...in loop (the difference being that a for-in loop enumerates properties in the prototype chain as well).
+
+
+
+**Example**
+
+```js
+var obj1 = {a: 1, b: 2, c: 3};
+
+var obj2 = { 
+  firstName: 'John',
+  lastName: 'Carr',
+  age: 40
+}
+
+console.log('obj1: ', Object.keys(obj1));
+
+console.log('obj2: ', Object.keys(obj2));
+```
+
+
+
+
+
+### **Quick Excercise**
+
+Iterate over the following object:
+
+```js
+var joke = {
+  category: 'Chuck Norris Jokes',
+  url: 'https://api.chucknorris.io/jokes/I5_UU3f7Q2e2qao2TJz9aw',
+  content: 'Anything you can do, Chuck Norris does better.'
+}
+
+// Task 1
+// Using `for..in`, `console.log` all property names of the `joke` object, concatenating string `joke.` first. 
+// Expected result : 'joke.category', `joke.url`, `joke.content`
+
+
+// Task 2
+// Using `Object.keys` return new array of property names (keys) and `console.log` that array.
+
+
+// Task 3
+// Using keyword `delete`, remove the property `url`.
+
+
+// Task 4 
+// Using dot notation add method (function) `print` to the object. Method should `console.log` the 
+
+```
+
+
 
 ## Resources
 
