@@ -9,40 +9,286 @@ pre: "<b>8. </b>"
 ---
 
 ## Learning Objectives
-- set `display: flex` on parent - this is a flex container
-- parent manages direct children -the **flex items**
-- properties of the flex parent - container
-  - `justify-content` - across the main axis
 
-  - `align-items` - across the cross axis
 
-  - `flex-direction` - row/column/column-reverse/row-reverse
 
-  - `flex-wrap` - wrap/nowrap
+### Flex Container
 
-- properties of the flex children - flex items
-  - `width: 50%` - percentage of the flex parent
-  - `width: 200px` - static, not managed by the flex parent
-  - `flex-grow`
-  - `flex: 1` - 1 out X - where X is total of all the children
-  - `flex: <grow> <can shrink> <base width>` - advanced (see layout example 1)
+##### The flex container is the parent element in which `flex` items are contained. 
 
-## Flexbox Grid
+ 
 
-- Strategy 1:
-  - [Demo on codepen](https://codepen.io/tawebbcn/pen/WgQewq?editors=1100)
-  - set the children`s flex grow to 1
-  - set the children`s flex basis to a number below the column % (e.g. 45% for 2 cols, 30% for 3 cols)
-  - set the children`s horizontal margin to Ypx
-  - set the parent`s horizontal margin to -Ypx
-  - **Downside:** orphan items will still grow to available space
 
-- Strategy 2:
-  - [Demo on codepen](https://codepen.io/tawebbcn/pen/PdPYOL?editors=1100)
-  - set the children`s width to the exact % (e.g. 50% for 2 cols, 33.33333% for 3 cols)
-  - set the children`s horizontal padding to Ypx
-  - set the parent`s horizontal margin to -Ypx
-  - **Downside:** because we are using padding on the flex children, we need to move our card class to another child div
+
+#### Visual explanation of directions in Flex box
+
+![img](https://cdn-images-1.medium.com/max/1600/1*_Ruy6jFG7gUpSf76IUcJTQ.png)
+
+
+
+
+
+`display: inline-flex` makes the *flex container* display inline and not block. 
+
+```html
+  <div class="container">
+    <div class="child">1</div>
+    <div class="child">2</div>
+    <div class="child">3</div>
+    <div class="child">4</div>
+    <div class="child">5</div>
+    <div class="child">6</div>
+    <div class="child">7</div>
+    <div class="child">8</div>
+    <div class="child">9</div>
+    <div class="child">10</div>
+  </div>
+```
+
+
+
+```js
+body { 
+  background: rgb(25, 7, 37);
+}
+
+.child {
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  margin: 5px;
+  font-size: 30px;
+  background: green;
+}
+
+.container {
+  display: flex;
+}
+```
+
+
+
+
+
+### Flex container (as a parent) manages direct children -the **flex items**
+
+
+
+### Flex Parent Properties :
+
+
+
+#### `flex-direction` - default `row`
+
+This specifies the **main-axis**, and direction how flex items are placed in the flex container.
+
+
+
+```css
+.container {
+  flex-direction: row(default) | row-reverse | column | column-reverse;
+}
+```
+
+
+
+#### `flex-wrap` 
+
+- **nowrap** (default): all flex items will be on one line
+- **wrap**: flex items will wrap onto multiple lines, from top to bottom.
+- **wrap-reverse**: flex items will wrap onto multiple lines from bottom to top.
+
+```js
+.container{
+  flex-wrap: nowrap | wrap | wrap-reverse;
+}
+```
+
+
+
+
+
+### `justify-content` - position content across the main axis
+
+**default**: `justify-content: flex-start`
+
+```css
+.container {
+  justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;
+}
+```
+
+
+
+
+
+### `align-content` - aligns content on the cross axis
+
+```css
+.container {
+  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+}
+```
+
+
+
+
+
+### `align-items` - aligns items on a single line across the cross axis
+
+
+
+### !! We should  delete `align-content`  before using `align-items` on the same element (either one or the other).
+
+```css
+/* delete align-content if it exists on the same element */
+
+.container {
+  align-items: flex-start | flex-end | center | baseline | stretch;
+}
+```
+
+
+
+
+
+
+
+
+
+## Properties of the flex children - flex items
+
+
+
+### `order` - allows reordering the **flex items** within a container
+
+
+
+By default, flex items are laid out in the source order, with **default** `order : 0`
+
+```html
+<div class="child one">5</div>
+```
+
+```css
+.one {
+  order: 1;
+  background: orange
+}
+```
+
+
+
+
+
+
+
+
+
+### `flex-grow` -  defines the ability for a flex item to grow if neccesary.
+
+
+
+If all items have flex-grow set to 1, the remaining space in the container will be distributed equally to all children. 
+
+If one of the children has a value of 2, the remaining space would take up twice as much space as the others (or it will try to, at least)
+
+![img](<https://css-tricks.com/wp-content/uploads/2018/10/flex-grow.svg>)
+
+```html
+<div class="child bigger">6</div>
+```
+
+```css
+.bigger {
+  flex-grow: 2;
+  background: pink;
+}
+
+/* resize the browser width to be buggerto see the effect */
+```
+
+
+
+
+
+### `flex-basis` - sets the default size of an element before the remaining space is distributed.
+
+
+
+#### Negative numbers are invalid
+
+```css
+.item {
+  flex-basis: <length> | auto; /* default auto */
+}
+```
+
+
+
+
+
+### `fex-shrink` - defines the ability for a flex item to shrink if needed.
+
+
+
+For the flex-shrink to work we need to give the item a default width by setting its **flex-basis** or **width** property.
+
+
+
+```css
+.item { flex-shrink: <number>; /* default 0 */ }
+```
+
+
+
+```html
+<div class="child flexible">3</div>
+```
+
+```css
+.flexible { 
+  /* default width is set by `.child` width */
+  flex-grow: 2;
+	flex-shrink: 3;
+  background: lightsalmon;
+}
+```
+
+Negative numbers are invalid.
+
+
+
+
+
+### `flex` -  shorthand for `flex-grow`, `flex-shrink` and `flex-basis` 
+
+
+
+##### The second and third parameters (`flex-shrink` and `flex-basis`) are optional. 
+
+##### The default is **0 1 auto**.
+
+```css
+.item {
+  flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+}
+```
+
+
+
+```css
+/* Refactor .flexible */
+
+.flexible {
+  flex:2 3 200px;
+  background: lightsalmon;
+}
+```
+
+
+
+
 
 
 ## Resources

@@ -355,6 +355,74 @@ console.log('global scope x -> ', x);  //  5
 
 
 
+### function arguments - are function's internal variables
+
+
+
+```js
+function testArgs (a,b) {
+  // var a = a;	// this is what secretly happens when function is invoked
+  // var b = b;	// this is what secretly happens when function is invoked
+  console.log(a + b);
+}
+```
+
+
+
+```js
+var num = 10;
+
+function changeNum (num) {
+	num = 999;
+}
+
+// What is the result ?
+
+changeNum();
+console.log(num)
+
+
+/* Explanation 
+
+JS creates an internal variable named `num` and then assign's it the value that we pass when invoking the function.
+
+function changeNum (num) {
+	// var num = num;
+	num = 999;
+}
+
+*/
+
+```
+
+#### 
+
+
+
+### Never change the passed arguments
+
+```js
+// BAD - changing the parameters invites bugs and bug prone code
+function concatFullName(firstName, lastName) {
+  firstName = firstName + ' ' + lastName;
+  return firstName;
+}
+
+// GOOD
+function concatFullName(firstName, lastName) {
+  var result = firstName + ' ' + lastName; // arguments are not tampered with 
+  return result;
+}
+```
+
+
+
+
+
+
+
+
+
 ### Unnamed variables - 
 
 
@@ -380,6 +448,12 @@ console.log('global scope x -> ', x);
 
 // ANSWER 100
 ```
+
+
+
+
+
+
 
 
 
@@ -511,6 +585,8 @@ setTimeout( function(){
 
 
 
+
+
 ### Functions returning functions
 
 ```js
@@ -532,9 +608,95 @@ printName('John');  // `printName` variable is now the anonymous function that `
 
 
 
+## Functional Programming
+
+Functional Programming (FP) is a programming paradigm based on the follwing principles:
+
+- using `pure functions`
+
+- avoiding data mutation and
+
+- avoiding side-effects.
+
+  
 
 
-### Closure
+**Pure function** is a function which:
+
+- given the same inputs always returns the same outputs
+- has no side-effects.
+- doesn't depend on variables that may change
+
+
+
+```js
+// Pure function
+function sumPure(num1, num2) {
+	return sum1 + sum2;
+}
+
+console.log('sumPure(10, 10) -> ', sum(10,10));
+console.log('sumPure(10, 10) -> ', sum(10,10));
+
+
+// Function with side effects
+var a = 50;
+
+function sumWithSideEffect(num) {
+    a += num;	// This function affects `a` (side effect) and changes it 
+    return a;
+}
+
+console.log('before',a);
+
+sumWithSideEffect(55);
+
+console.log('after',a);
+```
+
+
+
+
+
+### The call stack
+
+
+The way how JavaScript read the script/program step by step is called **control flow**.
+
+JavaScript uses **call stack** in order to know where it is at the moment:
+
+
+
+```js
+function greet(who) {
+console.log("Hello " + who);
+}
+greet("Harry");
+console.log("Bye");
+```
+
+
+
+![call stack](/home/ross-u/Desktop/IronHack_Lectures_done/content/module1/Week 1/Day 2/functions call stack.jpg)
+
+
+
+**Example - show the stack**
+
+```js
+function chicken() {
+	console.log('chicken');
+	return egg();
+}
+
+function egg() {
+	console.log('egg');
+	return chicken();
+}
+
+debugger;
+chicken();
+```
 
 
 
@@ -542,7 +704,7 @@ printName('John');  // `printName` variable is now the anonymous function that `
 
 
 
-- https://github.com/ironhack/bcn-webdev-cheatsheet/tree/master/m1#js-concepts)
+https://github.com/ironhack/bcn-webdev-cheatsheet/tree/master/m1#js-concepts)
 
 ## Ironhack Learning Platform
 
