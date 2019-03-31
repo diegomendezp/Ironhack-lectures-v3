@@ -45,13 +45,9 @@ pre: "<b>5. </b>"
 
 
 
-- ### size units :
 
-  - absolute - *px*, *cm*, *inch*
 
-  - relative-  *%*, *em* (font-size of the element), rem (root element font-size), *vw*, *vh*
 
-    
 
 - ### colors
 

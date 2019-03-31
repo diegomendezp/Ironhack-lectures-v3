@@ -53,7 +53,11 @@ HTML special instructions are the building blocks of web pages.
 
 ### HTML DOM tree
 
-Every HTML Document can be **represented** as a tree using the Document Object Model (DOM), 
+
+
+#### Every HTML Document can be **represented** as a tree.
+
+#### This is called  Document Object Model (DOM), 
 
 The DOM structure is usually represented as a tree of nodes, 
 
