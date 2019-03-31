@@ -177,6 +177,63 @@ console.log( nameString.split('a') );
 
 
 
+### `slice()` - Copy elements from array (non-mutating)
+
+**syntax**
+
+```js
+array.slice([begin[, end]]);
+```
+
+
+
+```js
+var arrayNames2 = ["Pedro", "Bob", "Jake", "Joan", "Sarah", "Anna", "Jennifer", "Marco"];
+
+// Copy entire array
+var allNames = arrayNames2.slice();
+console.log(allNames);
+
+var firstTwo = arrayNames2.slice(0,2);
+console.log(firstTwo);
+
+var secondElement = arrayNames2.slice(1,2);
+console.log(secondElement);
+
+var lastTwo = arrayNames2.slice(-2);
+console.log(lastTwo);
+```
+
+
+
+### 
+
+
+
+### `splice()` - Remove elements from array (mutating)
+
+**syntax**
+
+```js
+array.splice(start, deleteCount)
+```
+
+
+
+```js
+var arrayNames2 = ["Pedro", "Bob", "Jake", "Joan", "Sarah", "Anna", "Jennifer", "Marco"];
+
+var pedro = arrayNames.splice(0,1);
+console.log(arrayNames);
+
+arrayNames.splice(0,1); // ["Bob"]
+arrayNames.splice(1,1); // ["Joan"]
+
+// Deleting from the end
+arrayNames.splice(-1); // ['Marco']
+arrayNames.splice(-2); // ['Anna', 'Jennifer']
+```
+
 
 
 ### `forEach` - 
@@ -231,11 +288,11 @@ arr.forEach( function (currentValue [, index [, array]]) {
 
 > What is a **callback function**?
 
-** A callback is a function that is to be executed* **after** *another function has finished executing — hence the name ‘call back’.*
+** A callback is a function that is passed as a parameter and the called, by that function’.*
 
 In our case using `forEach`;
 
-In our case once each element is read, the callback is being called for each element. So read the element call the callback and give it the element.
+In our case once each element is read, the forEach invokes the callback.
 
 
 
@@ -278,7 +335,7 @@ console.log('Result', result);
 
 ### Mutating and Non-mutating
 
-Be aware that some array methods are mutating like the once we did now  and some are non-mutating (we will do them in next lessons).
+**Note to remember :**  Methods that modify the array are called mutating, and the ones that just copy from it and don't change it are called Non-mutating.
 
 
 
