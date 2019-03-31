@@ -152,6 +152,42 @@ doFoo(1, 2, 3);
 
 
 
+### Arrow function 
+
+```js
+// Arrow function ES6
+
+var greeting = (name) => {
+	return 'Hello ' + name;
+}
+
+console.log(greeting() );
+```
+
+
+
+
+
+### Concise Arrow function 
+
+```js
+// Concise arrow function ES6
+/*
+	Concise arrow function is used for code that can fit in one line and it doesn't have "{}" and "return". 
+Function still returns value same like the "return" keyword is present.
+*/
+
+var greeting = (name) =>  'Hello ' + name;
+
+console.log(greeting() );
+```
+
+
+
+
+
+
+
 
 
 ### Function return
@@ -170,6 +206,10 @@ function sumNumbers(num1, num2) {
 var result = sumNumbers(10, 40);
 console.log('result = ' + result);
 ```
+
+
+
+
 
 
 
@@ -395,26 +435,6 @@ function changeNum (num) {
 
 ```
 
-#### 
-
-
-
-### Never change the passed arguments
-
-```js
-// BAD - changing the parameters invites bugs and bug prone code
-function concatFullName(firstName, lastName) {
-  firstName = firstName + ' ' + lastName;
-  return firstName;
-}
-
-// GOOD
-function concatFullName(firstName, lastName) {
-  var result = firstName + ' ' + lastName; // arguments are not tampered with 
-  return result;
-}
-```
-
 
 
 
@@ -450,6 +470,31 @@ console.log('global scope x -> ', x);
 ```
 
 
+
+
+
+
+
+**Excercise** 
+
+Let's practice the syntax:
+
+
+
+```js
+/* 1.Create function declaration that takes `firstName` and `lastName` and returns a new string `fullName`.  */
+
+
+
+// 2. Create the same as a function expression. 
+
+
+// 3. Create the same as arrow function.
+
+
+
+// 4. Bonus - create the same function as concise arrow function.
+```
 
 
 
@@ -570,6 +615,8 @@ Anonymous functions are usually used by the methods.
 ```js
 // Methods use anonymous functions
 
+var arr = ['Sarah', 'John', 'Anna', 'Tom'];
+
 arr.forEach( function (arrElement) {
 	console.log(arrElement);
 });
@@ -579,7 +626,17 @@ arr.forEach( function (arrElement) {
 setTimeout( function(){
     console.log("This is just an example of anonymous function since this function really does't have a name.")
 }, 2000);
+
+
+// anonymous arrow function ES6
+
+arr.forEach( (arrElement) => {
+	console.log(arrElement);
+});
+
 ```
+
+
 
 
 
@@ -605,6 +662,10 @@ printName('John');  // `printName` variable is now the anonymous function that `
 
 
 ```
+
+
+
+
 
 
 
@@ -653,6 +714,32 @@ sumWithSideEffect(55);
 
 console.log('after',a);
 ```
+
+
+
+
+
+
+
+### Never change the passed arguments
+
+```js
+// BAD - changing the parameters invites bugs and bug prone code
+function concatFullName(firstName, lastName) {
+  firstName = firstName + ' ' + lastName;
+  return firstName;
+}
+
+// GOOD
+function concatFullName(firstName, lastName) {
+  var result = firstName + ' ' + lastName; // arguments are not tampered with 
+  return result;
+}
+```
+
+
+
+
 
 
 

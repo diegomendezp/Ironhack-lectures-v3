@@ -11,6 +11,10 @@ After this lesson you will:
 - Get more familiar with **string interpolation** in **template literals**
 - Understand **destructuring** and the **spread operator**
 
+
+
+
+
 ## Recap - Intro to ES6
 
 * [Versions of JavaScript](https://medium.com/@muthuks/ecmascript-complete-from-2015-to-2017-9a5074af92e6#4bd4)
@@ -47,232 +51,275 @@ After this lesson you will:
 
 
 
-- ES7
-  - `.includes`   -  string or array
-  - `**` exponantion operator - same as in Python and Ruby
-- ES8 a.k.a. 2017
-  - Async functions (abstraction on Promises) - no example just on this lesson
+
+
+### ES7
+
+- `.includes`   -  string or array
+- `**` exponantion operator - same as in Python and Ruby
 
 
 
-* Scope - `let`, `var`, `const`
+### ES8 a.k.a. 2017
 
-  * What is scope:
+- Async functions (abstraction on Promises) - no example in this lesson
 
-    Scope determines the accessibility (visibility) of variables from different parts of the code.
 
-    JavaScript has function scope by default - meaning that every function creates a new scope.
 
-  * Global variable (the variable created in the global scope and variable without the keyword (automatically global - avoid!)) - all scripts and functions on page can access it.
 
-  * strict mode - automatically global variables are not created in strict mode:
+
+
+
+### Scope - `let`, `var`, `const`
+
+
+
+#### What is scope:
+
+Scope determines the accessibility (visibility) of variables from different parts of the code.
+
+JavaScript has function scope by default - meaning that every function creates a new scope.
+
+
+
+* #### Global variable 
+
+  (the variable created in the global scope and variable without the keyword (automatically global - avoid!)) - all scripts and functions on page can access it.
+
+
+
+* Global variables belong to to the global scope and can be accessed in the whole window (`window` object available in the browser) :
+
+  ```js
+  console.log('WINDOW OBJECT -> ', window);
+  console.log('Automatically Global variable', window.imposter);
+  ```
+
+  
+
+* scope of `var` - 
+
+  `var` declared variables can have **global** of **function** (also called local) **scope**
+
+  Example
+
+  
+
+* Hoisting
+
+  JS executes code line by line, however there is a functionality called Hoisting.
+
+  * functions - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
+
+  ```js
+  atTheEnd();
+  
+  function atTheEnd() {
+  	console.log('Hello');
+  }
+  ```
+
+  - var - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
 
     ```js
-    // 'use strict'
+    // console.log(name);  // uncomment
+    
     var name = 'John';
-    function findTheImposter () {
-    	imposter = 'I am an imposter!';
+    ```
+
+    
+
+* scope of `let` and `const`
+
+  - Block - block is any code between open and closed curly braces `{}`
+
+  - `let` and `const` are block scoped
+
+  - `let` and `const` hoist (invisibly)  but you cannot access them before the actual declaration is evaluated at runtime (line by line).
+
+    ```js
+    //  BLOCK SCOPE OF THE let 
+    let name = "Ironhacker";
+    
+    if (true) {
+      let name = "John";
+      console.log(`Name inside if block statement: ${name}`);
     }
-    // console.log(noKeyword); - not defined before we run the function
     
-    findTheImposter();
-    console.log(imposter);	// variable exists in the global scope
+    console.log(`Name outside if block statement: ${name}`);
+    
+    // Name inside if block statement: Ted
+    // Name outside if block statement: Ironhacker
     ```
 
-  * Global variables belong to to the global scope and can be accessed in the whole window (`window` object available in the browser) :
+    
+
+  - let` can't be redeclared but can be updated
 
     ```js
-    console.log('WINDOW OBJECT -> ', window);
-    console.log('Automatically Global variable', window.imposter);
+    // THIS IS OK
+    let message = "This is the first message.";
+    message = "This is the second message.";
+    
+    // BUT THIS WILL THROW AN ERROR
+    let message = "This is the first message.";
+    let message = "This is the second message."; // <== Duplicate declaration "message" 
     ```
-
-  * scope of `var` - 
-
-    `var` declared variables can have **global** of **function** (also called local) **scope**
-
-    Example
 
     
 
-  * Hoisting
-
-    JS executes code line by line, however there is a functionality called Hoisting.
-
-    * functions - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
+  - `const` variables have to be initialized in the moment of declaration.
 
     ```js
-    atTheEnd();
+    const name1 = "John"; // <== CORRECT
     
-    function atTheEnd() {
-    	console.log('Hello');
-    }
+    const name2;
+    name2 = "John"; // WRONG! - This will throw an Error
     ```
 
-    - var - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
-
-      ```js
-      // console.log(name);  // uncomment
-      
-      var name = 'John';
-      ```
-
-      
-
-  * scope of `let` and `const`
-
-    - Block - block is any code between open and closed curly braces `{}`
-
-    - `let` and `const` are block scoped
-
-    - `let` and `const` hoist (invisibly)  but you cannot access them before the actual declaration is evaluated at runtime (line by line).
-
-      ```js
-      //  BLOCK SCOPE OF THE let 
-      let name = "Ironhacker";
-      
-      if (true) {
-        let name = "John";
-        console.log(`Name inside if block statement: ${name}`);
-      }
-      
-      console.log(`Name outside if block statement: ${name}`);
-      
-      // Name inside if block statement: Ted
-      // Name outside if block statement: Ironhacker
-      ```
-
-      
-
-    - let` can't be redeclared but can be updated
-
-      ```js
-      // THIS IS OK
-      let message = "This is the first message.";
-      message = "This is the second message.";
-      
-      // BUT THIS WILL THROW AN ERROR
-      let message = "This is the first message.";
-      let message = "This is the second message."; // <== Duplicate declaration "message" 
-      ```
-
-      
-
-    - `const` variables have to be initialized in the moment of declaration.
-
-      ```js
-      const name1 = "John"; // <== CORRECT
-      
-      const name2;
-      name2 = "John"; // WRONG! - This will throw an Error
-      ```
-
-      
-
-      
-
-    - `const` variables can't be redeclared or assigned new value
-
-      ```js
-      // THIS WILL THROW AN ERROR
-      const message = "This is the first message.";
-      message = "This is the second message."; // <== "message" is read-only
-      
-      // AND THIS WILL THROW AN ERROR
-      const message = "This is the first message.";
-      const message = "This is the second message."; // <== Duplicate declaration "message" 
-      ```
+    
 
     
 
-    - `const` variables containing Objects and arrays can be mutated (not reassigned). WE WILL SEE WHY IN THE NEXT LESSON ON MUTABILITY.
-
-      ```js
-      // This is ok ✅
-      const obj = {};
-      obj.name = "Ironhacker";
-      
-      // This is not 🚨
-      obj = { name: "Ironhacker" };
-      // SyntaxError: Assignment to constant variable
-      ```
-
-    
-
-  * variable types cheatsheet 
-
-
-    🤔 *Potential interview questions*:
-
-    |       | hoisted/initialized |            scope            | updated | redeclared |
-    | :---: | :-----------------: | :-------------------------: | :-----: | :--------: |
-    |  var  |         ✅/          | global or functional(local) |    ✅    |     ✅      |
-    |  let  |         ✅/❌         |            block            |    ✅    |     ❌      |
-    | const |         ✅/❌         |            block            |    ❌    |     ❌      |
-
-    ⭐️ `var` and `let` can be declared and later on initialized.
-    ⭐️ `const` have to be initialized when declared.
-
-    
-
-  * ES6 template strings (using backticks)
-
-    Template literals are string literals that allow embedded expressions
-
-    - embed expressions
+  - `const` variables can't be redeclared or assigned new value
 
     ```js
-    // OLD WAY
-    const name = 'John';
-    let greeting = 'Hello ' + name;
+    // THIS WILL THROW AN ERROR
+    const message = "This is the first message.";
+    message = "This is the second message."; // <== "message" is read-only
     
-    // TEMPLATE STRINGS
-    const newGreeting = `Hello ${name}`;
-    
-    const num = 25;
-    const str = `The result is: ${ num / 5 + 5 }`
+    // AND THIS WILL THROW AN ERROR
+    const message = "This is the first message.";
+    const message = "This is the second message."; // <== Duplicate declaration "message" 
     ```
 
-    
+  
 
-    - multi-line interpolation
-
-      ```js
-      // OLD WAY - doesn't create new line  
-      let greeting = "Yo, Joey! \
-      How are you doing?";
-      
-      // TEMPLATE STRINGS - creates new line
-      let newGreeting = `string text line 1
-      string text line 2
-      `
-      ```
-
-      
-
-    
-
-  * new string methods
-
-    #### `startsWith()` , `endsWith()`, `includes()`
+  - `const` variables containing Objects and arrays can be mutated (not reassigned). WE WILL SEE WHY IN THE NEXT LESSON ON MUTABILITY.
 
     ```js
-    const str = "To be, or not to be, that is the question.";
+    // This is ok ✅
+    const obj = {};
+    obj.name = "Ironhacker";
     
-    console.log(str.startsWith("To be")); // true
-    console.log(str.startsWith("not to be")); // false
-    console.log(str.startsWith("not to be", 10)); // true
-    
-    console.log(str.endsWith("question.")); // true
-    console.log(str.endsWith("to be")); // false
-    console.log(str.endsWith("to be", 19)); // true
-    
-    console.log(str.includes("to be")); // true
-    console.log(str.includes("question")); // true
-    console.log(str.includes("nonexistent")); // false
-    console.log(str.includes("To be", 1)); // false
+    // This is not 🚨
+    obj = { name: "Ironhacker" };
+    // SyntaxError: Assignment to constant variable
     ```
 
-    
+  
+
+​    
+
+
+
+### ES6 template strings (using backticks)
+
+Template literals are string literals that allow embedded expressions
+
+
+
+#### embed expressions
+
+```js
+// OLD WAY
+const name = 'John';
+let greeting = 'Hello ' + name;
+
+// TEMPLATE STRINGS
+const newGreeting = `Hello ${name}`;
+
+const num = 25;
+const str = `The result is: ${ num / 5 + 5 }`
+```
+
+
+
+#### multi-line interpolation
+
+```js
+// OLD WAY - doesn't create new line  
+let greeting = "Yo, Joey! \
+How are you doing?";
+
+// TEMPLATE STRINGS - creates new line
+let newGreeting = `string text line 1
+string text line 2
+`
+```
+
+
+
+
+
+### New string methods
+
+
+
+#### `startsWith()` , `endsWith()`, `includes()`
+
+```js
+const str = "To be, or not to be, that is the question.";
+
+console.log(str.startsWith("To be")); // true
+console.log(str.startsWith("not to be")); // false
+console.log(str.startsWith("not to be", 10)); // true
+
+console.log(str.endsWith("question.")); // true
+console.log(str.endsWith("to be")); // false
+console.log(str.endsWith("to be", 19)); // true
+
+console.log(str.includes("to be")); // true
+console.log(str.includes("question")); // true
+console.log(str.includes("nonexistent")); // false
+console.log(str.includes("To be", 1)); // false
+```
+
+
+
+
+
+
+
+### Arrow function 
+
+```js
+// Arrow function ES6
+
+var greeting = (name) => {
+	return 'Hello ' + name;
+}
+
+console.log(greeting() );
+```
+
+
+
+
+
+### Concise Arrow function 
+
+```js
+// Concise arrow function ES6
+/*
+	Concise arrow function is used for code that can fit in one line and it doesn't have "{}" and "return". 
+Function still returns value same like the "return" keyword is present.
+*/
+
+var greeting = (name) =>  'Hello ' + name;
+
+console.log(greeting() );
+```
+
+
+
+
+
+
+
+
+
+
 
   * Object and Array Destructuring
 
