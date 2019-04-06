@@ -281,7 +281,7 @@ console.log(result2);
 
 ## Scope
 
-##### A scope is context in which a function or a variable is visible from different parts of code.
+##### A scope is context/area in which variable or a function  is visible from different parts of code.
 
 
 

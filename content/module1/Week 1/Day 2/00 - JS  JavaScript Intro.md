@@ -366,9 +366,7 @@ console.log(favoriteFood);
 
 
 
-```js
 
-```
 
 
 

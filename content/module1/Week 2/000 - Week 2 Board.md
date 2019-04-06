@@ -75,3 +75,6 @@
 
 
 - Local Storage
+- RegExp
+- Animations and Transitions
+- 

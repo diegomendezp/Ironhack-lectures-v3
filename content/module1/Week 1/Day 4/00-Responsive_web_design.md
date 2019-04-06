@@ -2,6 +2,26 @@
 
 
 
+
+
+## Box Model recap
+
+<https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Box_model>
+
+
+
+**Overflow**
+
+<https://codepen.io/Denzelzeldi/pen/jJdwbz?editors=1100>
+
+
+
+
+
+
+
+
+
 ## Introduction to Responsive Web Design
 
 
@@ -331,9 +351,9 @@ ul> tags will have 8px size.
 
 #### Video - CSS Units / Box Dimensions
 
-<https://www.youtube.com/watch?v=ynk_ymY-tFs>
 
 
+<https://www.youtube.com/watch?v=2B_uJhpSIC4>
 
 
 

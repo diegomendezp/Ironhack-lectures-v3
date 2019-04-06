@@ -161,8 +161,6 @@ myObject.myMethodRegular();
 ```js
 // Create a function `whatIsThis` that console logs the value of `this.
 
-// Create
-
 
 // Create object `house` with properties `street`, `city` and `color`, and a method `thisIsObject` that console logs  `this`.
 
@@ -305,7 +303,7 @@ In order to create multiple of same structure we need object constructors. These
 
 
 
-### Methaphore of blueprint/prototype/class  for a car and the actual car as a product/object
+### Methaphore of blueprint (prototype/class)  for a car and the actual car as a product/object
 
 ![img](https://qph.fs.quoracdn.net/main-qimg-1eb4338a347e9001090228055d017f0c.webp)
 
@@ -321,7 +319,7 @@ In order to create multiple of same structure we need object constructors. These
 
 Most simple way is to use Factory function.
 
-Factory function is simply a function that returns an object.
+Factory function is a function that returns an object.
 
 **Factory function doesn't allow prototype inheritance** - you cannot inherit the methods from the factory function.
 
@@ -432,9 +430,39 @@ var lexus = new Car ("Lexus", "diesel");
 bmw.start();
 console.log( bmw.__proto__ === Car.prototype );
 console.log( lexus.__proto__ === Car.prototype );
+
 ```
 
 
+
+```js
+// Extending the prototype
+
+function HybridCar (brand, engineType, color) {
+	// this = {};
+	// this.__proto__ = Car.prototype;
+  this.color = color;
+  
+// Calls Car and creates properties `brand` and `engineType `on the new instance
+// ****
+  Car.call(this, brand, engineType);
+// ****
+  
+	// return this;
+}
+
+// This extends the methods from the Car prototype onto HybridCar
+// ****
+HybridCar.prototype = Object.create(Car.prototype);
+HybridCar.prototype.constructor = HybridCar;
+// ****
+
+
+// keyword `new` makes the function a constructor, and point `this` to a new object
+var hybridBmw = new HybridCar ("BMW", "electric", "red");
+
+console.log(hybridBmw); 
+```
 
 
 

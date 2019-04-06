@@ -83,7 +83,7 @@ var jake = students[1];
 // COMPLETE THE REST :
 var mike = students[];
 var joan = students[];
-var mike = students[];
+var pedro = students[];
 ```
 
 
@@ -106,6 +106,8 @@ students[students.length] = 'Marco'; //  On which index is the string 'Marco' sa
 ## Array methods
 
 ### Removing last element - `arr.pop()`
+
+
 
 
 
@@ -361,4 +363,4 @@ console.log('Result', result);
 
 
 
-## Ironhack Learning Platform
+## Ironhack Learning Platform 

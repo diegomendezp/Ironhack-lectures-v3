@@ -7,6 +7,12 @@ body {
   font-weight: 200;
 }
 
+h3 {
+  display: block;
+  border: 2px solid white;
+  height: 400px;
+}
+
 
 
 /* MEDIA QUERIES */
@@ -18,12 +24,19 @@ body {
   body {
     background-color: blue;
   }
+  h3 {
+    display: block;
+  }
+  
 }
 
 /* From 768px and up */
 @media (min-width: 768px) {
  body {
     background-color: green;
+  }
+  h3 {
+    visibility: hidden;
   }
 }
 
@@ -32,6 +45,10 @@ body {
  body {
     background-color: yellow;
   }
+  h3 {
+    visibility: visible;
+  }
+  
 }
 
 /* From 1224px and up */
@@ -39,6 +56,11 @@ body {
  body {
     background-color: orange;
   }
+  h3 {
+    visibility: visible;
+    display: block;
+  }
+  
 }
 
 /* From 1824px and up */
@@ -46,6 +68,11 @@ body {
   body {
     background-color: aqua;
   }
+  h3 {
+    visibility: visible;
+    display: block;
+  }
+  
 }
 
 
@@ -56,5 +83,10 @@ body {
   body {
     background-color: red;
   }
+  h3 {
+    visibility: visible;
+    display: block;
+  }
+  
 }
  

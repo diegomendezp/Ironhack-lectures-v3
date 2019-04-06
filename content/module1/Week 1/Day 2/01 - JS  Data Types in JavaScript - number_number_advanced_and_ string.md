@@ -288,7 +288,7 @@ When we write 0.2 + 0.1 - we are using a decimal numeral system (0.1 and 0.2 are
 
 
 
-Certain fractions in the binary numeral system are endless, therefore computers can't accurately represent a number like 0.1 or 0.3.
+Certain fractions in the binary numeral system are endless, **therefore computers can't accurately represent a number like 0.1 or 0.3.**
 
 
 
@@ -368,6 +368,29 @@ Important to remember is that you can use `toFixed` and in the future when you w
 
 
 
+### `isNaN()`
+
+##### The isNaN() function determines whether a value is an illegal number (Not-a-Number).
+
+##### This function returns true if the value equates to NaN. Otherwise it returns false.
+
+
+
+```js
+isNaN(123) //false
+isNaN(-1.23) //false
+isNaN(5-2) //false
+isNaN(0) //false
+isNaN('123') //false
+isNaN('Hello') //true
+isNaN('2005/12/12') //true
+isNaN('') //false - **********
+isNaN(true) //false
+isNaN('NaN') //true
+isNaN(NaN) //true
+isNaN(0 / 0) //true
+```
+
 
 
 
@@ -394,7 +417,7 @@ A `character` can be a letter, number, punctuation, or even things such as new l
 
 - `""` (*double quotes*),
 - `''` (single quotes) or
-- \```` (backticks).
+- \`\` (backticks).
 
 
 
@@ -479,6 +502,8 @@ console.log(name.length); // <== 3
 
 
 
+
+
 # STRING METHODS
 
 ### Methods for string manipulation
@@ -494,6 +519,12 @@ JavaScript includes a **String library of methods** to simplify some of the most
 `concatenate` strings using  `+` or `+=` operators.
 
 <iframe height="265" src="http://codepen.io/ironhack/embed/EgaqRZ/?height=265&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" allowfullscreen="true" style="-webkit-text-stroke-width: 0.1px; -webkit-text-stroke-color: initial !important; box-sizing: border-box; color: rgb(249, 240, 225); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.35px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(28, 28, 29); text-decoration-style: initial; text-decoration-color: initial; width: 728px;"></iframe>
+
+
+
+
+
+
 
 
 
@@ -516,6 +547,10 @@ console.log(greeting.charAt(1)) // <== a
 console.log(greeting.charAt(10)); // <== !
 console.log(greeting.charAt(6)); // <== r
 ```
+
+
+
+
 
 #### square bracket index number
 
@@ -580,7 +615,22 @@ console.log(message.lastIndexOf("be"));
 
 #### 📝Practice
 
-Write code that finds the index of the letter “j” in `My favorite dessert is jello`.
+Write code that console.logs the index of the letter “j” in `My favorite dessert is jello`.
+
+
+
+
+
+
+
+- **QUICK PRACTICE EXERCISE 2min ACCESSING A STRING INDEX**
+
+```js
+var myString = 'ABCDEFGHIJ';
+
+```
+
+
 
 
 
@@ -593,6 +643,10 @@ console.log("$".repeat(3)); //	$$$
 
 console.log("la".repeat(10));	//	lalalalalalalalalala
 ```
+
+
+
+
 
 
 
@@ -664,35 +718,7 @@ console.log(sliceMinus);	//	happy
 
 
 
-#### Sorting the strings - .toLocaleCompare()
 
-According to [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare), the **.localeCompare()** method returns a number indicating whether a string comes before or after or is the same as some other string in sort order.
-
-How this method works?
-
-
-
-Browser takes the Unicode value of the string and according to the value of each string checks which string is lexicographically greater or smaller.
-
-Use case would be sorting a list of names.
-
-```
-'str1'.localeCompare('str2');
-```
-
-
-
-```js
-let a1 = 'Aoo';
-let a2 = 'Boo';
-let a3 = 'Coo';
-
-'Aoo'.toLocaleCompare('Aoo');	// 0 -> equal
-
-'Aoo'.toLocaleCompare('Boo');	// 1 -> Aoo comes before Boo
-
-'Boo'.toLocaleCompare('Aoo');	// -1 -> Boo comes after Aoo
-```
 
 
 
@@ -804,10 +830,6 @@ let a3 = 'Coo';
 
     - **.indexOf(substr)** - return index where string is found or -1
     - **.lastIndexOf(substr)** - same as `indexOf` but <u>starts search from end</u>
-
-  
-
-  - QUICK PRACTICE EXERCISE 2min ACCESSING A STRING INDEX
 
   
 

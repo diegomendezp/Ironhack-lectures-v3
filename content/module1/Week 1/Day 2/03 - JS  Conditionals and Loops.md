@@ -99,17 +99,17 @@ if (condition) {
 
 Let’s play around with two numbers to see how nested `if` works:
 
-```
-var number1 = parseInt (prompt ("First number:"));
-var number2 = parseInt (prompt ("Second number:"));
+```js
+var number1 = 10;
+var number2 = 15;
 
 if (number1 === number2) {
   console.log ("The numbers are equal");
 } else {
   if (number1 > number2) {
-    console.log("Number 1 is bigger than number 2");
+    console.log("number1 is bigger than number 2");
   } else {
-    console.log("Number 1 is smaller than number 2");
+    console.log("number1 is smaller than number 2");
   }
 }
 ```

@@ -31,6 +31,10 @@ console.log(10 < 1)   // false
 
 
 
+
+
+
+
 ## Logic operators
 
 We use logical operators to combine multiple conditions and to get as a result a **true** or a **false**.
@@ -166,11 +170,25 @@ let name = null;
 console.log(name); // <== null
 ```
 
+
+
 ### 	`typeof null` is "object"
 
+```js
+console.log(typeof null);
+```
 
 
-## Immutability   -  (This can be extra, ask the students - not necesarry)
+
+
+
+
+
+
+
+
+
+## Immutability   -  (This can be extra, ask the students - not neccesarry)
 
 All primitive data types are **immutable**. 
 
@@ -214,6 +232,8 @@ You can reassign the variable with a new value but you can’t alter the existin
 
 **When we practiced the string methods, each of them returned a new string and the original string stayed untouched.**
 
+
+
 ```js
 const message = "Don't be sad, be happy!";
 console.log(message.slice(0,3)); // <== Don
@@ -221,6 +241,8 @@ console.log(message); // <== Don't be sad, be happy!
 ```
 
 Numbers are immutable as well - but that is more a common sense, right? Obviously, if number “5” is of value “5”, it will stay forever the same value - you can’t change it.
+
+
 
 
 

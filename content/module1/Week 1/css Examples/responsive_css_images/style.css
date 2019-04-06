@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 h1 {
   text-align: center;
   color: navy;
@@ -15,14 +20,14 @@ img {
   height: auto;
 }
 
+
 /* SETTING THE DIV BACKGROUND */
 .image-div {
   margin: 0 auto;
-  width: 100%;
   height: 500px;
   border: 2px solid navy;
   background-image: url("./river_canyon.jpg"); /* Link to the background image */
   background-repeat: no-repeat;  /* don't repeat the image if there is remaining space */
   background-size: cover; /* Resize the background image to cover the entire container */
-  background-position: center; /* Center the image */
+  background-position: cecnter; /* Center the image */
 }
