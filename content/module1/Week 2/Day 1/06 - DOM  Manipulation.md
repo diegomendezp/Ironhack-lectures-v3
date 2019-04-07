@@ -492,7 +492,27 @@ Now create a for loop that prints the `innerHTML` of each  title element
 
 ```js
 for (let i=0; i < titles.length;i++){
-  console.log(titles[i].innerHTML)
+  console.log(titles[i].innerHTML);
+}
+```
+
+
+
+
+
+**TASK 3:**
+
+Now create a for loop that prints the `href` link values of each  title element
+
+
+
+
+
+**ANSWER**
+
+```js
+for (let i=0; i < titles.length;i++){
+  console.log(titles[i].getAttribute('href'));
 }
 ```
 

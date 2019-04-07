@@ -23,7 +23,6 @@
 - DOM manipulation and events
 - DOM intro & selectors
 - **Practice** JS Chrono part 2 ( with DOM included )
-- Jasmine and Testing
 - **DE**  - **LAB ** | All time Movies
 
 
@@ -34,9 +33,11 @@
 
 - Review All time movies
 - Advanced JS - apply, call, bind, context
+- Closure ???
 - **Practice - LAB** | Advanced JS Algorithms
 - **Code Along** DOM manipulation (For the project) - (**Uros**)
 - Practice JS DOM - Marvel Flip Cards (**Note**: only if there is time after code along)
+- Jasmine and Testing
 - Research canvas
 
 
