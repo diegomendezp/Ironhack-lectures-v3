@@ -8,37 +8,41 @@
 
 - *(If needed because not finished) OOP part 2*
 
-- Debugging, error handling, JS Hint
-
-- JS Arrays - map, reduce, filter
-
 - Async + Callbacks
 
 - **Practice** JS Chrono ( only part with Async)
 
   ---------------
 
-
+* Debugging, error handling,  JS Hint
 
 - DOM manipulation and events
 - DOM intro & selectors
 - **Practice** JS Chrono part 2 ( with DOM included )
+- **JS Arrays** - map, reduce, filter, sort, reverse
 - **DE**  - **LAB ** | All time Movies
-
-
 
 
 
 ### Day 2
 
 - Review All time movies
-- Advanced JS - apply, call, bind, context
-- Closure ???
-- **Practice - LAB** | Advanced JS Algorithms
+
 - **Code Along** DOM manipulation (For the project) - (**Uros**)
-- Practice JS DOM - Marvel Flip Cards (**Note**: only if there is time after code along)
-- Jasmine and Testing
+
+- **Advanced JS** - apply, call, bind, context
+
+  ---------------
+
+  
+
+- Closure  ???
+
+- **Practice - LAB** | IronHack Cart
+
 - Research canvas
+
+- **DE** - Marvel heroes memory game
 
 
 
@@ -56,9 +60,8 @@
 
 ## Day 4
 
-- Bootstrap Intro
-- Bootstrap Components
-- **Practice - LAB** | Bootstrap Cloning Revera
+- **Grid** Lecture
+- Grid -  **Code Along** (Gabriel)
 - Project Kick Off - **Axel**
 - Planning How to
 - Idea Validation 
@@ -78,4 +81,7 @@
 - Local Storage
 - RegExp
 - Animations and Transitions
-- 
+- Bootstrap
+- Jasmine
+- Closures
+- ###### Sass

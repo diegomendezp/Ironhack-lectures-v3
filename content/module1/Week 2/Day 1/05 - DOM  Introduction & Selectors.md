@@ -8,12 +8,6 @@ It provides a **structured representation of the document (web page) and defines
 
 ##### In DOM HTML document is represented as a group of nodes (objects) that have properties and methods.
 
-
-
-
-
-
-
 ### DOM Tree
 
 The DOM represents a document as a tree. 
@@ -264,7 +258,7 @@ divsArray.forEach( function (element) {
 
 
 
-### Accessing First Found Selector
+### Accessing First Found Selector - `querySelector()`
 
 
 
@@ -287,7 +281,7 @@ console.log(firstDiv);
 
 
 
-### Accessing an Array of Selectors
+### Accessing an Array of Selectors - `.querySelectorAll()`
 
 #####  method `.querySelectorAll()` returns a list of the elements within the document that match the specified group of selectors.
 

@@ -19,7 +19,7 @@ During the execution of our application, the users will interact with the page, 
 
 
 
-**Code Along**
+### **Code Along**
 
 ```bash
 mkdir dom-manipulation
@@ -306,6 +306,94 @@ button.onclick = function(){
 
 
 
+
+
+### `addEventListener` - Adding custom event listeners
+
+```js
+button.addEventListener('mouseover', backgroundRed);
+button.addEventListener('mouseout', backgroundWhite);
+button.addEventListener('click', removeMouseOver);
+
+function backgroundRed () {
+  this.style.backgroundColor = 'red';
+  this.style.font.size = "40px";
+}
+
+function backgroundWhite () {
+  this.style.backgroundColor = 'white';
+  this.style.font.size = "20px";
+}
+
+function removeMouseOver () {
+	this.style.backgroundColor = 'aquamarine';
+  button.removeEventListener('mouseover', backgroundRed);
+  button.removeEventListener('click', removeMouseOver);
+}
+```
+
+
+
+
+
+### `classList` - `.add` `.remove` `.toggle`
+
+```html
+<div id='test-div'> TEST DIV </div>
+<button id="hide-div">Hide</button>
+```
+
+
+
+```css
+.aqua-div {
+  height: 200px;
+  width = 200px;
+  background: aquamarine;
+  border: 2px solid black;
+  transition: all 1s;
+}
+
+.hide-me {
+  height: 0px;
+  border: 0px solid black;
+  color: transparent;
+}
+```
+
+
+
+```js
+let testDiv = document.getElementById('test-div');
+let testDivButton = document.getElementById('hide-div');
+
+
+testDiv.classList.add('aqua-div');
+testDiv.classList.remove('test');
+
+testDivButton.addEventListener('click', function () {
+  testDiv.classList.toggle('hide-me');
+  if (testDivButton.innerHTML === 'Hide') {
+    testDivButton.innerHTML = 'Show';
+  } else {
+    testDivButton.innerHTML = 'Hide';
+  }
+});
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 **index.js**
 
 
@@ -468,7 +556,7 @@ for (let i=0; i < pTags.length; i++){
 
 ****
 
-**TASK 1**
+**https://github.com/ironhackbcn/lab-javascript-chronometerTASK 1**
 
 In a new tab navigate to the [Hacker News](https://news.ycombinator.com/) webpage, and open the Chrome console. We know that here we can write JavaScript. Copy and paste the following code.
 

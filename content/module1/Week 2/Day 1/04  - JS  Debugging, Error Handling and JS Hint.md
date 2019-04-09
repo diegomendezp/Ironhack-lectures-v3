@@ -39,32 +39,6 @@ canYouSpotTheProblem();
 
 
 
-```
-    console.log("Happy happy");
-```
-
-```
-  }
-```
-
-```
-}
-```
-
-```
-
-```
-
-```
-canYouSpotTheProblem()
-```
-
-```
-// → ReferenceError: counter is not defined
-```
-
-
-
 
 
 ### Using the console
@@ -72,6 +46,8 @@ canYouSpotTheProblem()
 The console could be used as [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop): We can write and execute code immediately .
 
 We can write some code in the console and press the *Enter* (`return`) key. The code will be interpreted and the output will be shown.
+
+
 
 
 
@@ -139,6 +115,8 @@ When there’s an error while our script is executing, the console will show us 
 
 
 
+
+
 #### 3.  click on the location to display the file in the Sources bar
 
 
@@ -183,11 +161,19 @@ To do this we **set the Breakpoints** in the code (**Sources** Tab)
 
 #### 6. Excercise - 
 
-- `init()` function needs to be debugged as it returns `NaN` and is expected to return a number.
 
-- Set breakpoint in **Sources** Tab for the file `init.js` at the function call `init ();` on line 43
-- Add variables `sum` , `subs`, `mult`, `div` and `result` to the  **Watch** list 
-- Debug the code using **Step** to go line by line and find the bug.  Make the  `init()` function work properly and return a number.
+
+```js
+// init()` function needs to be debugged as it returns `NaN` and is expected to return a number.
+
+// Set breakpoint in **Sources** Tab for the file `init.js` at the function call `init ();` on line 43.
+
+// Add variables `sum` , `subs`, `mult`, `div` and `result` to the  "Watch" list.
+
+// Debug the code using "Step(F9)" to go line by line and find the bug.  Make the  `init()` function work properly and return a number.
+```
+
+
 
 
 

@@ -219,7 +219,7 @@ function flipCard() {
   //
   //
   
-  /* CONTINUE HERE  */
+  /* CONTINUE HERE  */back
   
   // first card
   if (hasFlippedCard === false) { /* same as  if(!hasFlippedCard ) */

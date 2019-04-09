@@ -70,7 +70,7 @@ result = arr.forEach( function (element) {
 **syntax**
 
 ```js
-let new_array = arrayFrom.map( function callback( currentValue[, index [, array]])) {
+let new_array = arrayFrom.map( function ( currentValue[, index [, array]])) {
 	// Return element for new_array
 }
 ```
