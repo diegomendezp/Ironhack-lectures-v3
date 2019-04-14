@@ -433,12 +433,23 @@ ctx.stroke();
 
 ```js
 var img = new Image();
+// let img = document.createElement('img');
 img.src = 'https://img.stockfresh.com/files/r/robuart/x/29/8049774_52896881.jpg';
 img.onload = function() {
   var pattern = ctx.createPattern(img, 'repeat');
   ctx.fillStyle = pattern;
   ctx.fillRect(0, 0, 300, 300);
 };
+
+
+/*
+img.addEventListener('load', function () {
+  let pattern = ctx.createPattern( img, 'repeat');
+
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, 500, 500);
+});
+*/
 ```
 
 

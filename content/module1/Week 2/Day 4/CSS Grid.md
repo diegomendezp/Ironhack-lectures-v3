@@ -254,8 +254,6 @@ body {
 
 #### Position each element takes is counted "from line to line"
 
-![](/home/ross-u/Desktop/IronHack_Lectures_done/content/module1/Week 1/Day 5/grid line positioning example.png)
-
 
 
 ```html
@@ -294,4 +292,28 @@ body {
 ###  `grid-column-start` and `grid-column-stop`
 
 ### OR shorthand `grid-column`
+
+
+
+**syntax example**
+
+```css
+/* grid-column: startLine / endLine; */
+grid-column: 1 / 3;
+```
+
+
+
+### Positioning elements in the grid by column -
+
+### `grid-row-start` and `grid-row-stop`
+
+### OR shorthand `grid-row`
+
+
+
+```css
+/* grid-row: startLine / endLine; */
+grid-row: 1 / 3;
+```
 

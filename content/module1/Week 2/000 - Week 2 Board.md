@@ -83,5 +83,4 @@
 - Animations and Transitions
 - Bootstrap
 - Jasmine
-- Closures
 - ###### Sass
