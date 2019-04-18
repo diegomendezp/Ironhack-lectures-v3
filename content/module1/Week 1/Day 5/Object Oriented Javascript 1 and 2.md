@@ -1,14 +1,6 @@
 # JS | Object Oriented Intro - Part 1 - objects, methods and `this` keyword
 
-## Learning Goals
 
-After this lesson you will be able to:
-
-- Explain what Object Oriented Programming is
-- Comprehend the importance of thinking about objects
-- Create objects with the literal pattern
-- Access properties of an object
-- Use the `this` keyword
 
 
 
@@ -40,7 +32,7 @@ let car1 = {
   averageSpeed: 90,
   year: 2018,
   mileage: 0
-}
+};
 
 let car2 = {
   brand: 'Toyota',
@@ -49,7 +41,7 @@ let car2 = {
   averageSpeed: 60,
   year: 2014,
   mileage: 0
-}
+};
 
 let car3 = {
   brand: 'Tesla',
@@ -58,7 +50,7 @@ let car3 = {
   averageSpeed: 75,
   year: 2012,
   mileage: 0
-}
+};
 
 const drive = (hours, averageSpeed) =>  hours * averageSpeed;
 
@@ -88,7 +80,7 @@ The keyword  `this` can be found in every function.
 
 #### `this` in functions
 
-`this` keyword in the function holds the value of Window object.
+`this` keyword in the function holds the value of the `Window` object.
 
 ```js
 function whatIsThis () {
@@ -97,6 +89,8 @@ function whatIsThis () {
 
 whatIsThis();
 ```
+
+
 
 
 
@@ -118,12 +112,14 @@ const person = {
   myMethod: function () {
     console.log(this);
   }
-}
+};
 
 // What is this in the `person.myMethod` ?
 
 person.myMethod();
 ```
+
+
 
 
 
@@ -147,7 +143,6 @@ myObject.whatsThis;
 myObject.myMethodArrow();
 console.log('##########');
 myObject.myMethodRegular();
-
 ```
 
 
@@ -156,16 +151,16 @@ myObject.myMethodRegular();
 
 
 
-**Excrcise** - use repl.it
+**Exercise** -
 
 ```js
-// Create a function `whatIsThis` that console logs the value of `this.
+// Create a function `whatIsThis` that console logs the value of `this`.
 
 
 // Create object `house` with properties `street`, `city` and `color`, and a method `thisIsObject` that console logs  `this`.
 
 
-// Using dot notation create method `leftOfTheDot` and assign it function `whatIsThis`.
+// Using dot notation create method `leftOfTheDot` and assign it the previously created function `whatIsThis`.
 ```
 
 
@@ -174,11 +169,11 @@ myObject.myMethodRegular();
 
 ## Conclusion !!!
 
-#####  Calling a function without a leading parent object will  get you the value of `this` as the *global* object which in most browsers means the `window` object.
+#####  Calling a function without a leading parent object will get you the value of `this` as the *global* object which in most browsers means the `window` object.
 
 
 
-##### In funcion which is a method, `this` points to whatever is -> On the left of the dot at the time of invocation. Except for arrow functions, which take `this` from the surrounding scope.
+##### In function which is a method, `this` points to whatever is -> <u>On the left of the dot at the time of invocation (calling the function)</u>. Except for arrow functions, which take `this` from the surrounding scope.
 
 
 
@@ -230,7 +225,7 @@ let car1 = {
 
 
 
-**EXCERCISE** - 15 minutes - use repl.it
+**EXERCISE** 
 
 ```js
 // TODO: write the methods .getAge(), .addJoke() and .getRandomJoke()
@@ -275,17 +270,9 @@ console.log('getRandomJoke', chuck.getRandomJoke());
 console.log('getRandomJoke', chuck.getRandomJoke());
 
 chuck.displayInfo();
-
 ```
 
 
-
-
-
-## Extra resources
-
-- [Learn OOP (video)](https://www.youtube.com/watch?v=O8wwnhdkPE4)
-- [Object - fundamentals (video)](https://www.youtube.com/watch?v=PMfcsYzj-9M)
 
 
 
@@ -385,7 +372,7 @@ Object.assign(destinationObject, sourceObject);
 
 
 
-# ES5 Prototype Constructor - Have Prototype
+# ES5 Prototype Constructor - Has Prototype
 
 
 
@@ -406,7 +393,7 @@ This means that prototype serves as a blueprint for every object and it can also
 **ES5 Prototype Constructor - Example **
 
 ```js
-// Constructors names start with capital letter
+// Constructor names start with capital letter
 
 function Car (brand, engineType) {
 	// this = {};
@@ -470,10 +457,10 @@ console.log(hybridBmw);
 
 
 
-- Are a syntactic sugar, that gives us a cleaner syntax for creating objects with
+- Is a syntactic sugar, that gives us a cleaner syntax for creating objects with
   prototypes.
 
-- ES6 classes are ‘Special functions’ used to create object instances.
+- ES6 classes are ‘Special functions’ used to create objects ( aka instances).
 
 - ES6 classes are not hoisted. Ensure to defined the constructor before calling it.
 
@@ -489,14 +476,17 @@ console.log(hybridBmw);
 class Car {
 	constructor (brand, engineType) { // in the constructor we specifiy parameters that will be passed
 		this.brand = brand; // create property on the new instance
-	};
+	}
   
-	start () { // create method on the Prototype
-		console.log(“Engine start”);
-	};
+  start () { // create method on the Prototype
+    console.log("Engine start");
+	}
 }
+
 const bmw = new Car ("BMW");
-// Car {brand: "BMW", start: ƒ }
+// Car {brand: "BMW"}
+
+bmw.start();
 ```
 
 
@@ -513,17 +503,20 @@ class HybridCar extends Car {
 		this.color = color; // create property on the new instance
 	}
   
-  // creates a method on all HybridCar instances 
+  // creates a method on the HybridCar prototype 
 	description () {
-			console.log(`${brand} - ${color} color`);
+			console.log(`${this.brand} - ${this.color} color`);
 	}
 
   // creates a static method that can be called only from class HybridCar 
   static className () { return "HybridCar" }
 }
 
-var bmwHybrid = new HybridCar (“BMW”, “black”);
-// HybridCar {brand: "BMW", start: ƒ, description: ƒ }
+var bmwHybrid = new HybridCar ("BMW", "black");
+// HybridCar {brand: "BMW"}
+
+bmwHybrid.description(); 	//  from the HybridCar.prototype -> bmwHybrid.__proto__
+bmw.start();	//	from the car.prototype -> bmwHybrid.__proto__.__proto__
 ```
 
 

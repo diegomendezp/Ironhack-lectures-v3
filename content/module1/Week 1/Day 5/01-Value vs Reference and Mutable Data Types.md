@@ -2,21 +2,6 @@
 
 # JS | Value vs Reference and Mutable Data Types
 
-## Learning Goals
-
-After this lesson, you will be able to:
-
-- Understand how primitives are passed and compared
-- Understand how non-primitives (objects and arrays) are passed and compared
-- Understand what does mutation mean and what are ways to avoid it
-- Know how to use mutating vs non-mutating methods when adding and removing elements from arrays
-- Use spread operator
-- Use object destructuring
-
-
-
--------
-
 
 
 ### Primitives - passed (copied) by value

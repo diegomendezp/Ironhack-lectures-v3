@@ -28,7 +28,13 @@ Execution context is the environment / scope where the current code is being eva
 
 #### KEY: When a function gets declared, it contains a function definition and a closure. 
 
+
+
 #### The closure is a collection of all the variables in scope at the time of creation of the function.
+
+
+
+#### We can think of a closure as a bag that every function has, where it stores variables that were surrounding it when it was declared. 
 
 
 
@@ -41,7 +47,7 @@ function outter () {
 
   return function () {
     return secret;
-    // return [secret, enclosedVar] 
+    // [secret, enclosedVar] are in closure
   }  
 }
 
@@ -113,7 +119,7 @@ let myPassword = storeMyPassword('bananarama', 'I sleep with my socks on!')
 
 
 
-# Extra - ( 45 minutes, advanced - only interested students)
+# Extra - 
 
 )
 

@@ -152,6 +152,10 @@ describe("Hello Ironhack function", function () {
   it("Greets an Ironhacker", function() {
     expect(helloIronhack()).toEqual("Hello Ironhacker!");
   });
+  
+    it("Returns a string", function() {
+    expect(typeof helloIronhack()).toEqual("string");
+  });
 });
 ```
 
