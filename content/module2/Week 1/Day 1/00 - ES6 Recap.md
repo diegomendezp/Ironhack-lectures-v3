@@ -141,48 +141,16 @@ JavaScript has function scope by default - meaning that every function creates a
     // SyntaxError: Assignment to constant variable
     ```
 
-  
 
 
 
-## Enhanced object literals
-
-```js
-const name = 'Sarah';
-const bootcamp = 'Ironhack';
-      
-const student = {
-  name,
-  bootcamp
-};
-
-console.log('student', student);
-
-/* same as  `
-const x = {
-	name: name,
-	bootcamp: bootcamp
-}` */
-```
-
-​	
-
-
-
-### `for...of` loop - as an iterator
-
-```javascript
-const namesArray = ['John', 'Sarah', 'Alice'];
-for (const name of namesArray) {
-  console.log(name);
-}
-```
+### [`var`, `let` and `const` CODEPEN](<https://codepen.io/Denzelzeldi/pen/wZXMKN>)
 
 
 
 
 
-​    
+
 
 
 
@@ -227,39 +195,46 @@ string text line 2
 
 
 
-### Arrow function 
+
+
+## Property value shorthand
 
 ```js
-// Arrow function ES6
+const name = 'Sarah';
+const bootcamp = 'Ironhack';
+      
+const student = {
+  name,
+  bootcamp
+};
 
-var greeting = (name) => {
-	return 'Hello ' + name;
+console.log('student', student);
+
+/* same as  `
+const x = {
+	name: name,
+	bootcamp: bootcamp
+}` */
+```
+
+​	
+
+
+
+### `for...of` loop - as an iterator
+
+```javascript
+const namesArray = ['John', 'Sarah', 'Alice'];
+for (const name of namesArray) {
+  console.log(name);
 }
-
-console.log(greeting() );
 ```
 
 
 
 
 
-### Concise Arrow function 
-
-```js
-// Concise arrow function ES6
-/*
-	Concise arrow function is used for code that can fit in one line and it doesn't have "{}" and "return". 
-Function still returns value same like the "return" keyword is present.
-*/
-
-var greeting = (name) =>  'Hello ' + name;
-
-console.log(greeting() );
-```
-
-
-
-
+[EXERCISE - CODEPEN `for...of`](<https://codepen.io/Denzelzeldi/pen/vMrLrQ?editors=0010>)
 
 
 
@@ -322,6 +297,58 @@ console.log('e -> ', e);  // No value is availalbe, JS assigns undefined
 
 
 
+### Arrow function 
+
+#### Doesn't have `this` variable inside of it but takes it from the scope around it.
+
+##### Doesn't have `arguments` object like normal function
+
+```js
+/*  Arrow function
+Doesn't have `this` variable inside of it but takes it from the scope around it.
+Doesn't have `arguments` object like normal function
+*/
+
+let greeting = (name) => {
+	return 'Hello ' + name;
+}
+console.log(greeting() );
+
+let printArguments =() =>{
+  console.log(arguments); // ReferenceError: arguments is not defined
+}
+
+printArguments();
+```
+
+
+
+
+
+### Concise Arrow function 
+
+```js
+// Concise arrow function ES6
+/*
+	Concise arrow function is used for code that can fit in one line and it doesn't have "{}" and "return". 
+Function still returns value same like the "return" keyword is present.
+*/
+
+let greeting = (name) =>  'Hello ' + name;
+
+console.log(greeting() );
+```
+
+
+
+#### [Concise Arrow - Exercise](<https://codepen.io/Denzelzeldi/pen/BEVzzm?editors=0011>)
+
+
+
+
+
+
+
 * ES6 Default Arguments in the functions
 
   ```js
@@ -350,9 +377,13 @@ console.log(newArray); // [1, 2, 3, 5, 6, 7]
 
 
 
+
+
 ### REST PARAMETERS - 
 
-#### allow us to get the remaining arguments passed in a function - replaces the function's default `arguments` (array like object)
+#### allow us to get the remaining arguments passed in a function - replaces the function's default `arguments` (array like object), helps with arrow function which doesn't have `arguments` object 
+
+
 
 ```js
 function myFunction(arg1) {
@@ -369,6 +400,24 @@ function myNewFunction(arg1, ...args) {
 
 myNewFunction("One", "Two", "Three", "Four");
 ```
+
+
+
+
+
+#### Arrow function doesn't have `arguments` object, we need to use rest parameters.
+
+```js
+let myFunc = (arg1, ...everythingElse ) => {
+	console.log(arguments);	// Error - comment this line to continue
+	console.log(arg1);
+	console.log(everythingElse);
+}
+```
+
+
+
+
 
 
 
@@ -475,17 +524,18 @@ Product.prototype.nameAndPrice = function() {
   );
 };
 
-let Electronic = function(name, price, brand) {
+let Toy = function(name, price, brand) {
   Product.call(this, name, price);
   this.brand = brand;
 };
 
-Electronic.prototype = Object.create(Product.prototype);
-Electronic.prototype.constructor = Electronic;
+// The Object.create() method creates a new object, using an existing object as the prototype of the newly created object.
+Toy.prototype = Object.create(Product.prototype);
+Toy.prototype.constructor = Toy;
 
 // creating a new electronic product
-const speaker = new Electronic('speaker', 100, "Sony");
-speaker.nameAndPrice();
+const winnie = new Toy('teddy bear', 12, "Disney");
+winnie.nameAndPrice();
 
 // The product's name is: speaker and the product's price is: 100
 ```
@@ -534,7 +584,7 @@ mac.nameAndPrice();
 
 
 
-## Arrow Functions
+## Arrow Function - accessing `this`
 
 
 
@@ -587,26 +637,6 @@ counterObject2.countUp();
 
 
 
-### Arrow function  vs Concise Arrow function 
-
-```js
-// Arrow function ES6
-var greeting = (name) => {
-	return 'Hello ' + name;
-}
-
-console.log(greeting() );
-
-// Concise arrow function ES6
-var greeting = (name) =>  'Hello ' + name;
-
-console.log(greeting() );
-```
-
-
-
-
-
 
 
 
@@ -650,31 +680,9 @@ console.log(inc(2, 23)); // 25
 
 
 
-## Exercise
-
-```js
-// Create a class `Animal` using ES6 syntax, passing it the parameter `type` and has a method (using ES6 syntax) on the prototype called `animalName` which prints the `name`;
-
-class Animal {
-  // ... your code here
-}
-
-let dog = new Animal('dog');
-mammal.animalName();
+## Exercise [ES6 classes](<https://codepen.io/Denzelzeldi/pen/eoKdGB?editors=0012>)
 
 
-// Create a class 'Cat' using ES6 syntax, which extends class `Animal`, and takes parameters `type` (which has a default value "cat"), `name`, `color` and has a method (using ES6 syntax) on the prototype `says` prints   `${type}: ${name} ${color}`
-
-class Cat extends Animal {
-  // ... your code here
-}
-
-let marbles = new Cat('marbles', 'white, black and yellow');
-let sparky = new Cat('sparky', 'grey');
-
-marbles.says();
-sparky.says();
-```
 
 
 
@@ -690,3 +698,6 @@ sparky.says();
 - [MDN `let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
 - [Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 - [ES6 Features](http://es6-features.org/)
+
+- [`var` `let` `const`](<https://codeburst.io/learn-let-var-and-const-in-easiest-way-with-guarantee-e6ecf551018a>)
+- [How to get the index in a for-of loop](<https://flaviocopes.com/how-to-get-index-in-for-of-loop/>)

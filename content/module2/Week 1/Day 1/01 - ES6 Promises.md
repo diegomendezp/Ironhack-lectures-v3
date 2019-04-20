@@ -33,7 +33,7 @@ or
 #### Syntax
 
 ```js
-const myRequest = new Promise(function(resolve, reject) {
+const myRequest = new Promise( (resolve, reject) => {
 	let requestResult = someAsyncronousRequest();
   
 	if (/* condition */) {
@@ -67,34 +67,27 @@ myRequest
 
 
 
-**Example 1**
+**Example 1**  -   [CODEPEN LINK]()
 
 ```js
-function networkRequest () {
-	let result = !!Math.floor( Math.random() * 4) % 2;
-	if (!result) return false;
-	else return { name: 'dress', type: 'women clothes', color: 'red', price: "35.00$" }
-}
+  // CREATING PROMISE
+  var promise1 = new Promise( (resolve, reject) => {
+    let requestSuccess = networkRequest(); // asynchronous operation - truthy or falsy value
 
+      setTimeout(function() {
+      if (requestSuccess) {
+        resolve(requestSuccess);
+      } 
+      else {
+        reject(new Error('Network Request Error'));
+      }      
+    }, 1000);
+  });
 
-// CREATING PROMISE
-var promise1 = new Promise( function(resolve, reject) {
-	let requestSuccess = networkRequest(); // asynchronous operation - truthy or falsy value
-
-   	setTimeout(function() {
-		if (requestSuccess) {
-			resolve(requestSuccess);
-		} 
-		else {
-			reject(new Error('Network Request Error'));
-    }      
-  }, 1000);
-});
-
-// CONSUME PROMISE - do something depending if Promise was successful or rejected
-promise1
-	.then( (value) => console.log(value))
-	.catch( (err) => console.log(err))
+  // CONSUME PROMISE - do something depending if Promise was successful or rejected
+  promise1
+    .then( (value) => console.log(value))
+    .catch( (err) => console.log(err))
 ```
 
 
@@ -103,13 +96,27 @@ promise1
 
 
 
+## Promise All
+
+
+
+If we want to do something only after multiple promises are resolved - only after multiple asynchronous functions are finished and resolved successfuly, we can use `Promise.all`
+
+js
+
+The **Promise.all()** method  takes an array of promises and returns a single `Promise` that **resolves when all of the promises in the array have resolved** or when the iterable argument contains no promises. 
+
+It **rejects with the reason of the first promise that rejects.** (This method can be useful for aggregating the results of multiple promises.)
+
+
+
 ```js
 const p1 = new Promise((resolve, reject) => {
-  setTimeout(()=> resolve('p1 - resolve'), 1000);
+  setTimeout( () => resolve('p1 - resolve'), 3000);
 });
 
 const p2 = new Promise((resolve, reject) => {
-  setTimeout(()=> resolve('p2 - resolve'), 1000);
+  setTimeout( () => resolve('p2 - resolve'), 1000);
 }); 
 
 
@@ -119,20 +126,3 @@ Promise.all([p1, p2])
 				});
 ```
 
-
-
-
-
-
-
-## Promises All
-
-
-
-If we want to do something only after multiple promises are resolved - only after multiple asynchronous functions are finished and resolved successfuly, we can use `Promise.all`
-
-
-
-The **Promise.all()** method  takes an array of promises and returns a single `Promise` that **resolves when all of the promises in the array have resolved** or when the iterable argument contains no promises. 
-
-It **rejects with the reason of the first promise that rejects.** (This method can be useful for aggregating the results of multiple promises.)

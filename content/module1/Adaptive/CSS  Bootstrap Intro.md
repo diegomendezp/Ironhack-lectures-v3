@@ -2,17 +2,37 @@
 
 
 
-## **Getting Started**
+
+
+## Resetting the browser styles
+
+Before starting we will have to reset the browser styles.
+
+##### To do this we will use CSS file from the internet,  we will use [Eric Meyer’s version](http://meyerweb.com/eric/tools/css/reset/reset.css).
 
 
 
-### **We can either download Bootstrap files** or use CDN -
+#### Copy and save the code in a `reset.css` file
+
+#### Link the file in the HTML `head`, before the bootstrap CDN links and script
+
+```html
+<link href="css/reset.css" type="text/css" rel="stylesheet">
+```
+
+
+
+
+
+### **Getting Bootstrap files** -
 
 
 
 [Bootstrap - Getting Started - Download](<https://getbootstrap.com/docs/3.4/getting-started/>)
 
-**or use online CDN to load the resource without the need to download it to our file system**
+**Use online CDN to load the resource without the need to download it to our file system**.
+
+##### Place the following links and script before your css stylesheet in the html `head`.
 
 
 
@@ -29,33 +49,6 @@
 
 
 
-## Resetting the browser styles
-
-Before starting we will have to reset the browser styles.
-
-To do this we will use CSS file from the internet,  we will use [Eric Meyer’s version](http://meyerweb.com/eric/tools/css/reset/reset.css).
-
-
-
-#### Copy and save the code in a `resset.css` file
-
-#### Link the file in the HTML `head, before the bootstrap CDN links and script
-
-```html
-<link href="css/reset.css" type="text/css" rel="stylesheet">
-```
-
-
-
-
-
-#### Insert bootstrap styles in the HTML file
-
-```html
-<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
-<link href="css/main.css" type="text/css" rel="stylesheet">
-```
-
 
 
 
@@ -63,8 +56,6 @@ To do this we will use CSS file from the internet,  we will use [Eric Meyer’s 
 ## Link your css file the last
 
 When linking CSS files, **always link your app’s custom CSS last**. That way you can override CSS provided by libraries like Bootstrap.
-
-
 
 
 
@@ -82,18 +73,16 @@ When linking CSS files, **always link your app’s custom CSS last**. That way y
 
 
 
-
-
 ### **Container**
 
-In order to use the grid we have to start with a parent element which is given a class `container` or `container fluid`
+In order to use the grid we have to start with a parent element which is given a class `container` or `container-fluid`
 
 
 
 ```html
 <section class="container"></section>
    
- ...
+<!-- OR -->
 
 <section class="container-fluid"></section>
 
@@ -103,19 +92,23 @@ In order to use the grid we have to start with a parent element which is given a
 
 
 
-## `.container` class has fixed width (less than 100%) 
+#### `.container` class has fixed width (less than 100%) .
 
-##  `.container-fluid` will have `width: 100%`
+####  `.container-fluid` will have `width: 100%` .
+
+
 
 
 
 ## `row`
 
-### class `row` is used as a holder for columns
+#### class `row` is used as a holder for columns
 
 
 
-**Example**
+### **Example**
+
+**index.html**
 
 ```html
 <div class="row">
@@ -147,6 +140,10 @@ In order to use the grid we have to start with a parent element which is given a
 </div>
 ```
 
+
+
+**style.css**
+
 ```css
 body {
   box-sizing: initial;
@@ -170,6 +167,10 @@ div {
 
 
 
+
+
+
+
 ### `columns`
 
 ### There are four column sizes in Bootstrap, one for each responsive breakpoint:
@@ -181,7 +182,13 @@ div {
 
 
 
-#### For details refer to documentation - [Responsive Breakpoints](<https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints>)
+
+
+
+
+
+
+#### For details refer to - [Responsive Breakpoints](<https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints>)
 
 
 
@@ -257,19 +264,14 @@ div {
 ### Buttons
 
 ```html
-<form>
-  ...
-    ...
-     ...
-        <button type="button" class="btn btn-info">Submit</button>
-        <button type="button" class="btn btn-success">Submit</button>
-        <button type="button" class="btn btn-warning">Submit</button>
-        <button type="button" class="btn btn-danger">Submit</button>
+<button type="button" class="btn btn-info">Submit</button>
+<button type="button" class="btn btn-success">Submit</button>
+<button type="button" class="btn btn-warning">Submit</button>
+<button type="button" class="btn btn-danger">Submit</button>
 
-        <button type="button" class="btn btn-default btn-sm">.btn-sm</button>
-        <button type="button" class="btn btn-default btn-md">.btn-md</button>
-        <button type="button" class="btn btn-default btn-lg disabled">.btn-lg</button>
-</form>
+<button type="button" class="btn btn-default btn-sm">.btn-sm</button>
+<button type="button" class="btn btn-default btn-md">.btn-md</button>
+<button type="button" class="btn btn-default btn-lg disabled">.btn-lg</button>
 ```
 
 
@@ -334,10 +336,4 @@ div {
 ```
 
 
-
-
-
-### Additional resources
-
-<https://www.sitepoint.com/responsive-web-design-tips-bootstrap-css/>
 
