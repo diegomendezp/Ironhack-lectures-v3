@@ -126,3 +126,14 @@ Promise.all([p1, p2])
 				});
 ```
 
+
+
+
+
+
+
+[Video 1](<https://www.youtube.com/watch?time_continue=4&v=9nwPenviboM>)
+
+[Video2](<https://www.youtube.com/watch?v=DHvZLI7Db8E>)
+
+[Video3](<https://www.youtube.com/watch?v=s6SH72uAn3Q>)

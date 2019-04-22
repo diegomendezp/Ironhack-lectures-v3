@@ -68,8 +68,6 @@ Node.js is a server technology and JavaScript runtime environemnt, it is not a f
 
 
 
-
-
 ### Runing simple JS file with node
 
 
@@ -93,6 +91,8 @@ node test.js
 
 
 
+
+# NPM - node package manager and modules
 
 ### What is a package manager.
 
