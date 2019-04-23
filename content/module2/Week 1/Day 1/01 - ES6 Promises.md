@@ -2,6 +2,14 @@
 
 
 
+
+
+### [Success /error callback - Intro Example](<https://codepen.io/Denzelzeldi/pen/zXLELa?editors=0012>)
+
+
+
+
+
 ## Promises
 
 A `Promise` is a special object representing the eventual **completion or failure** of an **asynchronous operation**.
@@ -63,11 +71,13 @@ myRequest
 
 
 
+### [PROMISES - CODEPEN EXAMPLES COLLECTION](<https://codepen.io/collection/DRgOor/>)
 
 
 
 
-**Example 1**  -   [CODEPEN LINK]()
+
+**Example 1**  -  
 
 ```js
   // CREATING PROMISE
