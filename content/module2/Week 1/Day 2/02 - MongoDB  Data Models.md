@@ -45,6 +45,16 @@ Designing data models for MongoDB applications revolves around the structure of 
 
 
 
+
+
+
+
+
+
+
+
+
+
 ![img](https://i.imgur.com/GmBjx9W.png)
 
 
@@ -99,7 +109,7 @@ Another way of relating documents is by **embedding them**, saving the related d
 
 ![img](https://i.imgur.com/yrliwPP.png)
 
-
+https://i.imgur.com/GmBjx9W.png
 
 The same example of using embedded documents:
 

@@ -22,6 +22,10 @@ Machine language is a language that your computer processor speaks and it is ver
 
 
 
+![](<https://vaibhavguptame.files.wordpress.com/2018/01/browser1.png>)
+
+
+
 #### Google's V8 engine is a JavaScript Engine written in C++, and
 
 #### it converts JavaScript into machine language and gives it to the processor.
@@ -68,6 +72,8 @@ Node.js is a server technology and JavaScript runtime environemnt, it is not a f
 
 
 
+
+
 ### Runing simple JS file with node
 
 
@@ -92,17 +98,19 @@ node test.js
 
 
 
+
+
 # NPM - node package manager and modules
 
 ### What is a package manager.
 
 
 
-npm is a Node Package manager that enables us to download and isntall different javascript files called 'packages' or 'modules' into our project.
+#### npm is a Node Package manager that enables us to download and isntall different javascript files called 'packages' or 'modules' into our project.
 
 
 
-It has a CLI that we use to get the packages and it is also a server for all the packages.
+#### It has a CLI that we use to get the packages and it is also a server for all the packages.
 
 
 
@@ -110,11 +118,11 @@ It has a CLI that we use to get the packages and it is also a server for all the
 
 
 
-One package can be build of several other packages. We call them dependencies, when one pacakge depend on others to be installed as well.
+#### One package can be build of several other packages. We call them dependencies, when one pacakge depend on others to be installed as well.
 
 
 
-Once the owner updates the package he placed on npm, we will get the update that our package needs update. In this way maintaining the code is more maintainable.
+#### Once the owner updates the package he placed on npm, we will get the update that our package needs update. In this way maintaining the code is more maintainable.
 
 
 
@@ -131,6 +139,14 @@ To check if your npm was installed with node, in your terminal run :
 ```bash
 npm --version
 ```
+
+
+
+
+
+### [npm intro video](<https://docs.npmjs.com/about-npm/>)
+
+
 
 
 
@@ -158,9 +174,13 @@ $ npm init
 
 
 
-
-
 ### After answering all of the questions during `npm init` let's install our first module aka package
+
+
+
+
+
+
 
 
 
@@ -200,7 +220,9 @@ npm install --save-dev nodemon
 
 
 
-**Never commit node_modules to git**. It will make your repository a lot larger!!
+
+
+#### **Never commit node_modules to git**. It will make your repository a lot larger!!
 
 If you commit only `package.json`, any user will be able to recreate your `node_modules` by simply running `npm install`.
 

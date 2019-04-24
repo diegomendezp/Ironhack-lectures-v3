@@ -82,7 +82,7 @@ Resources have to be **requested** from the server.
 
 1. Connection establishes
 2. Client sends a **request** (aka HTTP message)
-3. Server gets the request and disconnects from the client
+3. **Server** gets the request and **disconnects** from the client
 4. Server processes the request and prepares the response
 5. Server establishes the connection again and sends back the **response** (HTTP message)
 6. Then the connection disconnects
@@ -97,7 +97,7 @@ Consists of :
 2. **Headers**
 3. **Body**
 
-#### They all contain plain text information, except that body can also contain binary data.
+#### They all contain plain text information, except that <u>body can</u> also <u>contain binary data</u>.
 
 ![img](http://sasi-kala.com/assets/posts_img/9_HTTP_Message_Format.jpg)
 
@@ -107,7 +107,7 @@ Consists of :
 
 ## What is cURL?[#](https://www.keycdn.com/support/popular-curl-examples#what-is-curl)
 
-[cURL](https://curl.haxx.se/), short for “Client for URLs”, is a command line tool for transferring data using various protocols.
+[cURL](https://curl.haxx.se/), short for “Client for URLs”, is a **command line tool** **for transferring data** using various protocols.
 
 There are a vast amount of use-cases for cURL such as:
 
@@ -115,7 +115,8 @@ There are a vast amount of use-cases for cURL such as:
 - Proxy support,
 - SSL connections,
 - HTTP post, etc…
-- 
+
+  
 
 
 
@@ -134,7 +135,7 @@ curl -i -H "Accept: text/html" https://www.google.com/
 Creating a request - VERBOSE with step by step information
 
 ```bash
-curl -i -H "Accept: text/html" https://www.google.com/
+curl -v -H "Accept: text/html" https://www.google.com/
 ```
 
 
