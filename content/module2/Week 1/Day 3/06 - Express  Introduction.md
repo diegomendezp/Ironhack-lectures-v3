@@ -18,7 +18,7 @@ Sidenote : (This kind of Website **doesn’t need Express or back end**. It woul
 
 ### Express Web Framework
 
-(fast, unopinionated, minimalist web framework for node)
+#### (fast, unopinionated, minimalist web framework for node)
 
 [ExpressJS](http://expressjs.com/) is the most commonly used framework in the Node.js ecosystem. Every Node.js player has heard of it and is using it with or without noticing.
 
@@ -28,9 +28,9 @@ We can also enhance it's feautres through additional plugins.
 
 
 
-**What does 'unopinionated' mean?**
+## **What does 'unopinionated' mean?**
 
-It means there is no one right way to do things that Express will force you into. By contrast an opinionated framework guides/forces you into a specific way to do something. The best example of such is Ruby on Rails ("the Rails Way").
+### It means there is no one right way to do things that Express will force you into. By contrast an opinionated framework guides/forces you into a specific way to do something. The best example of such is Ruby on Rails ("the Rails Way").
 
 
 
@@ -63,6 +63,14 @@ Creates a new Resource.
 Each POST request should create a new resource with new unique id.
 
 Are never cached
+
+
+
+
+
+### POST doesn't expose information via the URL, it exposes just as much information as a GET in the actual network communication between the client and server.
+
+
 
 
 
@@ -137,13 +145,17 @@ app.get('/', (request, response, next) => {
 
 
 
+
+
+
+
 ### Start the Server!
 
 Tell our server to *continuously listen for requests* on port 3000. You can optionally provide a callback to do something once the listening is set up.
 
 ```js
-// Server Started
-app.listen(3000, () => {
+//  Start the Server
+app.listen( 3000, () => {
   console.log('My first app listening on port 3000!')
 });
 ```
@@ -183,3 +195,181 @@ node app.js
 ```
 
 And visit [localhost:3000](http://localhost:3000/)!
+
+
+
+
+
+
+
+
+
+### Let's spice it up
+
+
+
+### Create additional `GET` route on our server
+
+```js
+// About page route
+app.get('/about', (request, response, next) => {
+  response.send(`
+  <h1>About me - Page</h1>
+	`);
+});
+
+```
+
+
+
+
+
+
+
+
+
+## Add the HTML as the string to the `reponse.send(HTML STRING HERE)`
+
+```js
+// Home page route
+app.get('/', (request, response, next) => {
+  response.send(`
+  <!DOCTYPE html>
+	<html lang="en">
+		...
+	</html>
+  `);
+});
+
+// About page route
+app.get('/about', (request, response, next) => {
+  response.send(`
+  <!DOCTYPE html>
+	<html lang="en">
+		...
+	</html>
+  `);
+});
+```
+
+
+
+
+
+
+
+
+
+
+
+## Serving static files
+
+
+
+### Add the `static` middleware to help serving the static resources, from the `public` folder
+
+```bash
+mkdir public
+cd public
+mkdir views css
+cd css
+touch main.css about.css
+cd ../../
+```
+
+
+
+
+
+```js
+const express = require('express');
+
+const app = express();
+
+app.use(express.static('public'));
+
+```
+
+
+
+
+
+### Move the `css` from `HTML string` to  `public/css/main.css` and `public/css/about.css`
+
+and
+
+### Move the html strings into the separate file `public/views/index.html` and  `public/views/about.html`
+
+
+
+
+
+```js
+// middleware for static files
+app.use(express.static('public'));
+
+//Home
+app.get('/', (request, response, next) => {
+  response.sendFile(__dirname + '/public/views/index.html');
+});
+
+//About
+app.get('/about', (request, response, next) => {
+  response.sendFile(__dirname + '/public/views/about.html');
+});
+```
+
+
+
+
+
+### Update the HTML strings (remove `<style>`) and include the link to the static file:
+
+```html
+<link rel="stylesheet" href="../css/main.css">
+
+<!-- AND -->
+
+<link rel="stylesheet" href="../css/about.css">
+```
+
+
+
+
+
+### Try accessing the files in the `public/` folder via:
+
+`localhost:3000/image1.jpg`
+
+`localhost:3000/image2.jpg` 
+
+`localhost:3000/cat.jpg`
+
+`localhost:3000/`
+
+`localhost:3000/about`
+
+
+
+
+
+## Create the repo as the reference
+
+```js
+touch .gitignore
+```
+
+
+
+**.gitignore**
+
+```js
+node_modules
+```
+
+
+
+```bash
+git init
+```
+

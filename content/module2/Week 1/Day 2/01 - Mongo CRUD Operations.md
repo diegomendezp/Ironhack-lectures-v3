@@ -6,6 +6,8 @@
 
 
 
+
+
 CRUD is an acronym for **Create**, **Read**, **Update**, **Delete** which are the four basic operations for persistent storage aka Database
 
 
@@ -69,7 +71,7 @@ db.users.find({
 $and:[
 		{ $or: [{age: 30}, {age: 40}] },
 		{ $or: [{name: "Anna"}, {name: "Marco"}] },  
-	]
+	],
 })
 ```
 
@@ -364,7 +366,10 @@ db.users.find().pretty()
 var phone = { "personal" : "", "work" : "", "ext" : 0 }
 
 # update many updates all documents matching the specified condition
-db.users.updateMany({} , { $set: { phone: phone } } )
+db.users.updateMany(
+{},
+{ $set: { phone: phone } }
+)
 
 
 # updating many to add a new property to a nested object

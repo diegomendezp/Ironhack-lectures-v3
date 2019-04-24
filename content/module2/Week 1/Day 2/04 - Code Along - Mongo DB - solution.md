@@ -225,7 +225,7 @@ db.movies.find({ rate: { $ne: "9.0"} }).limit(10)
  **<u>Your query</u>**:
 
 ```js
-  db.movies.deleteOne({ _id: ObjectId("5cbc6943c95c41149fd2f3bc") })
+  db.movies.deleteOne({ _id: ObjectId("") })
 ```
 
  
@@ -246,12 +246,6 @@ db.movies.find({ rate: { $ne: "9.0"} }).limit(10)
 **<u>Your query</u>**:
 
 ```js
-var ratingObj = {
-  rating: "TV-G",
-  "violence": false,
-  "drug_use": false,
-  "strong_language": false
-}
 
  db.movies.updateMany({ year: 2017 }, {$set: {rating: ratingObj}})
 ```
