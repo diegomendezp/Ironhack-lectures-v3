@@ -18,6 +18,12 @@ But, sometimes layering all these parts takes to much time, and doing everything
 
 
 
+## [Code Along - Library Project - Done Repo](<https://github.com/ross-u/Express-and-Mongoose---Library-Code-Along-done->)
+
+
+
+
+
 ## Generators
 
 A generator is a **program that helps to create other application programs which can run on a particular platform**

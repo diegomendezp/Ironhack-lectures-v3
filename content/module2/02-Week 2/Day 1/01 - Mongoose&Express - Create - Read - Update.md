@@ -437,6 +437,10 @@ router.get('/details/:bookId', (req, res, next) => {
 
 
 
+
+
+### Add style to the review list
+
 **public/stylesheet.style.css**
 
 ```css
@@ -1123,7 +1127,7 @@ router.use('/reviews', reviewsRouter);
 
 
 
-## Try it out  !   :)
+# Try it out  !   :)
 
 
 
