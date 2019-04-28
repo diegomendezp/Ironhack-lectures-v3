@@ -226,30 +226,6 @@ Now check in mongo shell
 
 
 
-## Mongoose connection events
-
-
-
-```js
-// MONGOOSE CONNECTION EVENTS
-// When successfully connected
-mongoose.connection.on('connected', () => console.log('Mongoose connected'));
-
-// When the connection is disconnected
-mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected'));
-
-// If the connection throws an error
-mongoose.connection.on('error', (err) => console.log('Mongoose connection error: ' + err));
-
-// If the Node process ends, close the Mongoose connection 
-process.on('SIGINT', () => {  
-  mongoose.connection.close(() => { 
-    console.log('Mongoose connection disconnected through app termination'); 
-    process.exit(0); 
-  }); 
-});
-```
-
 
 
 
@@ -339,6 +315,37 @@ Promise.all( [promise1, promise2] )
 ```
 
 
+
+
+
+
+
+
+
+## Mongoose connection events
+
+
+
+```js
+// MONGOOSE CONNECTION EVENTS
+
+// When successfully connected
+mongoose.connection.on('connected', () => console.log('Mongoose connected'));
+
+// When the connection is disconnected
+mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected'));
+
+// If the connection throws an error
+mongoose.connection.on('error', (err) => console.log('Mongoose connection error: ' + err));
+
+// If the Node process ends, close the Mongoose connection 
+process.on('SIGINT', () => {  
+  mongoose.connection.close(() => { 
+    console.log('Mongoose connection disconnected through app termination'); 
+    process.exit(0); 
+  }); 
+});
+```
 
 
 

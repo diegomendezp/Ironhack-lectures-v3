@@ -17,7 +17,7 @@ After this lesson you will be able to:
 npm init
 npm i express --save
 
-touch app.js
+touch app.js index.html
 
 mkdir css
 cd css
@@ -85,10 +85,6 @@ app.get('/sendhtml', (req, res, next) => {
 
 ### These files are called <u>Views</u>. We can use  `res.sendFile` to send a file to the browser.
 
-```basg
-touch index.html
-```
-
 
 
 ```js
@@ -106,6 +102,10 @@ app.get('/sendview', (req, res, next) => {
   res.sendFile(__dirname + '/index.html');
 });
 ```
+
+
+
+
 
 
 
@@ -298,6 +298,8 @@ bootcamp: "<span>IronHack WebDev</span>"
 
 
 ### Handlebars Helpers Features
+
+
 
 ### The `if` block helper
 
