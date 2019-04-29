@@ -144,16 +144,46 @@ Node.JS [bcrypt package](https://www.npmjs.com/package/bcrypt) allows us to encr
 
 
 
-## Code along 
 
 
 
-### Generate the folder using express generator
+
+
+
+# Sign up workflow
+
+
+
+![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_7776ce6ec2afe91c8b15fec37ba1e24a.png)
+
+
+
+
+
+
+
+# Code along 
+
+
+
+
+
+
+
+### Create the project using express generator
 
 ```bash
 express --hbs basic-auth
 cd basic-auth
+```
 
+
+
+
+
+### Install dependencies and create additional folders and files
+
+```bash
 # Install all the dependencies listed in package.json by express generator
 npm install
 
@@ -173,7 +203,15 @@ rm routes/users.js
 
 
 
-### Our tree structure
+
+
+
+
+
+
+
+
+## Our tree structure
 
 ```js
 📦basic-auth
@@ -200,6 +238,8 @@ rm routes/users.js
  ┣ 📜app.js
  ┗ 📜package.json
 ```
+
+
 
 
 
@@ -624,3 +664,11 @@ We recommend you add the [re-captcha](https://www.npmjs.com/package/express-reca
 
 
 ### [rexpress-recaptcha  npm](<https://www.npmjs.com/package/express-recaptcha>)
+
+
+
+
+
+
+
+# [Code Along - done](<https://github.com/ross-u/Node---Basic-Authorization---Code-Along-Done>)
