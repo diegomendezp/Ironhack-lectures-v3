@@ -41,6 +41,12 @@ In the Node.js ecosystem, we can use the [`express-session`](https://www.npmjs.c
 
 
 
+##### When using the `express-session`  session data is by default stored in the memory if other 3rd party db is not specified otherwise. 
+
+##### The best choice is a memory cache like Redis, for which you need to setup its own infrastructure.
+
+
+
 ## Cookies
 
 Cookies are small files which are stored on a user’s computer. They are designed to hold a small amount of specific data from a website and can be accessed either by the web server or the client computer.
@@ -255,7 +261,7 @@ router.post("/", (req, res, next) => {
   const thePassword = req.body.password;
 
   if (theUsername === "" || thePassword === "") {
-    res.render("auth/login", {errorMessage: 'Enter username and password to log in.''});
+    res.render("auth/login", {errorMessage: 'Indicate username and password.'});
     return;
   }
 
@@ -520,6 +526,10 @@ sessions are stored in server DB, and are cleared out when the server restarts.
 [express   cookie-session](<https://expressjs.com/en/resources/middleware/cookie-session.html>)
 
 
+
+## Important
+
+Cookies are sent by the browser in every request as long as the URL requested is within the same domain and path defined in the cookie (and all of the other restrictions -- secure, httponly, not expired, etc) hold, then the cookie will be sent for every request.
 
 
 

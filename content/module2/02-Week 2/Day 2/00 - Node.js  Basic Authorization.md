@@ -585,17 +585,17 @@ router.post("/", (req, res, next) => {
   // Check if `username` and `password` are empty and display error message
   if (username === '' || password === '') {
     res.render('auth/signup', 
-               { errorMessage: 'Indicate a username and a password to sign up'}
+               { errorMessage: 'Indicate a username and a password.'}
               );
     return;
   }
   
   
-  // Query the users collection and to check username and password 
+  	// Query the users collection and to check username and password 
     User.findOne({ username })
     .then((user) => {
       
-				// > if `username` already exists in the DB and display error message
+			// > if `username` already exists in the DB display error message
       if ( user !== null ) {
         res.render('auth/signup',{ errorMessage:'The username already exists'});
         return;
@@ -609,10 +609,10 @@ router.post("/", (req, res, next) => {
   		// > After hashing the password, create new user in DB and redirect to home 
       User.create( { username, password: hashedPassword})
       	.then(() => res.redirect('/'))
-        .catch((err) => console.log(err));
+        .catch((err) => res.render('auth/signup',{ errorMessage:'Error while creating new user'}));
       
-     // catch errors from User.findOne
-      }).catch((err) => next(err));
+     })
+     .catch((err) => next(err));	// catch errors from User.findOne
   
 });
 ```

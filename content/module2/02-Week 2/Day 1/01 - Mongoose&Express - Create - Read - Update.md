@@ -261,6 +261,39 @@ router.get('/', (req, res, next) => {
   text-decoration: none;
   color: black;
 }
+var express = require('express');
+var router = express.Router();
+const Book = require('./../models/book');
+
+
+// GET '/books/add'
+router.get('/add', function(req, res, next) {
+  res.render('book-add');
+});
+
+
+// POST '/books/add'
+router.post('/add', function(req, res, next) {
+  console.log('req.body', req.body);
+  const {title, author, description, rating} = req.body;
+
+  const newBook = new Book({title, author, description, rating});
+
+  newBook.save()
+    .then( (book) => res.redirect('/books'))
+    .catch( (err) => console.log(err));
+  
+});
+
+// GET '/books'
+router.get('/', (req, res, next) => {
+  Book.find({})
+    .then( (allTheBooksFromDB) => res.render('books', {allTheBooksFromDB} ))
+    .catch( (err) => console.log(err));
+});
+
+module.exports = router;
+
 ```
 
 
@@ -1122,6 +1155,25 @@ router.use('/reviews', reviewsRouter);
 
 
 
+
+### Add additional styles to the `style.css`
+
+```css
+.review-item {
+  border-bottom: 1px solid grey;
+  margin: 10px 0;
+  padding-bottom: 10px;
+}
+
+.review-item p {
+  margin-bottom: 0;
+}
+
+.review-item span {
+  font-size: 10px;
+  color: grey;
+}
+```
 
 
 
