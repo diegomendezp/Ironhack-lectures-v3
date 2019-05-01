@@ -293,7 +293,7 @@ There are 300+ strategies available through Passport. In this case, we will use 
 
 
 ```bash
-npm install --save  passport  passport-local  express-session  connect-ensure-login  connect-flash
+npm install --save  passport  passport-local  express-session connect-flash
 ```
 
 
