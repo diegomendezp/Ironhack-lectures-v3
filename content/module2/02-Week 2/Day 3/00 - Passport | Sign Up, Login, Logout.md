@@ -8,6 +8,12 @@ Why should we use Passport? Passport also gives us a set of support strategies t
 
 
 
+## [DONE - repo](<https://github.com/ross-u/Passport-Local-Strategy---done>)
+
+
+
+
+
 ### Create a project using express generator
 
 ```bash
@@ -297,14 +303,22 @@ npm install --save  passport  passport-local  express-session  connect-ensure-lo
 #### Require all the modules in the `app.js`
 
 ```js
-const User = require('./models/user');
+const mongoose = require('mongoose');
 
 // Session and Passport modules
-const bcrypt = require("bcrypt");
-const passport = require("./passport-setup");	// `passport` module is required and setup in here
 const session = require("express-session");
-const LocalStrategy = require("passport-local").Strategy;
-const flash = require("connect-flash");in here and
+const flash = require("connect-flash");
+const passport = require("./passport-config");  // passport module setup and initial load
+const passportStrategySetup = require('./passport-local-strategy'); // passport.authenticate configuration
+
+const router = require('./routes/index');
+
+mongoose.connect('mongodb://localhost/passport-local', { useNewUrlParser: true })
+  .then(() => console.log('Connected to Mongo!'))
+  .catch(err => console.error('Error connecting to mongo', err));
+
+
+const app = express();
 ```
 
 
@@ -313,57 +327,47 @@ const flash = require("connect-flash");in here and
 
 
 
-### Configure our session saving on the server and initialize `passport`
+
+
+### Configure the passport strategy - how passport.authenticate works when we call it to log in and authenticate the user 
 
 
 
-**app.js**
+#### aka LOGIN PART
+
+
+
+**passport-local-strategy.js**
 
 ```js
-// app.js
+//	passport-local-strategy.js
+const bcrypt = require("bcrypt");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require('./models/user');
 
-app.use(session({
-  secret: 'secret-key-here',
-  resave: true,
-  saveUninitialized: true
-}));
+// Setup for `passport.authenticate` and it's use during the authentication of the user (commonly during the login)
+// done is always passed as the last parameter 
+const localStrategy = new LocalStrategy(
+  { passReqToCallback: true },
+  (req, username, password, done) => {
 
-// PASSPORT LINES MUST BE BELOW `session` IN THIS ORDER
+    //  done() supplies the next in line passport middleware with error message or user object
+    //  parameters ->  done(error, user, info)
+    // `info` is an optional argument containing additional user information.
 
-// Create a (Passport) local strategy:
-// Sets how is the user being authenticated by Passport during login
-passport.use(new LocalStrategy(
-  ( username, password, done) => {
-
-    //  done() supplies the next in line passport middleware with "error message" or "user object"
-    //  done() parameters ->  done(errorMessage, userObject, Additionalinfo)
-    	// `Additionalinfo` is an optional argument 
-
-    User.findOne({ username }, (err, user) => {
+    User.findOne({ username }, (err, userObj) => {
       if (err) return done(err);
-      if (!user) return done(null, false, { message: "Incorrect username" });
+      if (!userObj) return done(null, false, { message: "Incorrect username" });
 
-      const passwordCorrect = bcrypt.compareSync(password, user.password);
+      const passwordCorrect = bcrypt.compareSync(password, userObj.password);
       if (!passwordCorrect) return done(null, false, { message: "Incorrect password" });
-      return done(null, user);
+
+      return done(null, userObj);
     });
-  }));
+  })
 
-
-// Creates Passport's methods and properties on `req` for use in out routes
-app.use(passport.initialize());
-
-// Sets Passport to manage user session
-app.use(passport.session());
-
-// allow our routes to use FLASH feedback messages before redirects
-app.use(flash());
-
-// Router
-app.use('/', router);
+  module.exports = localStrategy;
 ```
-
-
 
 
 
@@ -393,7 +397,7 @@ passport.serializeUser((userDoc, done) => {
   done(null, userDoc._id);
 });
 
-// deserializeUser: defines how to retrieve the user information from the DB
+// deserializeUser: defines how to retrieve the user information from the session storage
 // (happens automatically on EVERY request once you are LOGGED-IN)
 passport.deserializeUser((userId, done) => {
   // userId is the result of serializeUser
@@ -452,6 +456,54 @@ module.exports = passport;
 
 
 
+
+
+
+
+
+
+### Configure our session saving on the server and initialize `passport`
+
+
+
+**app.js**
+
+```js
+// app.js
+
+app.use(session({
+  secret: 'secret-key-here',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// PASSPORT LINES MUST BE BELOW SESSION
+
+//	Auth Setup - how is the user being authenticated during login
+passport.use(passportStrategySetup);
+
+// Creates Passport's methods and properties on `req` for use in out routes
+app.use(passport.initialize());
+
+// Sets Passport to manage user session
+app.use(passport.session());
+
+// allow our routes to use FLASH MESSAGES – feedback messages before redirects
+// (flash messages need sessions to work)
+app.use(flash());
+
+// Router
+app.use('/', router);
+```
+
+
+
+
+
+
+
+
+
 ### Require `passport` in `auth-routes` and create route that handles authentication
 
 
@@ -459,16 +511,19 @@ module.exports = passport;
 **/routes/auth-routes.js**
 
 ```js
-...
-const passport = require("passport");
+// routes/auth-routes.js
+const express = require("express");
+const router = express.Router();
+const passport = require('passport');
+const ensureLogin = require("connect-ensure-login");
+
 
 
 // GET  '/login'		-->  renders login page
 router.get("/login", (req, res, next) => {
-  res.render(
-    "auth/login", 
-    {"message": req.flash('error') }	// set flash() to send 'error' message 
-  );
+  res.render("auth/login");
+  
+  // res.render("auth/login", {"message": req.flash('error') }	// set flash() to send 'error' message 
 });
 
 
@@ -487,7 +542,7 @@ router.post("/login", passport.authenticate("local", {
 
 
 
-### Code above handles the authentication upon login - 5 lines of code   :)
+### Code above handles the authentication  / login - 5 lines of code   :)
 
 
 
@@ -532,21 +587,44 @@ router.post("/login", passport.authenticate("local", {
 
 
 
-#### Checking if the user is authenticated for a protected route can be done with `connect-ensure-login` module
+#### Checking if the user is authenticated for a protected route can be done with `a custom middleware function
+
+
+
+
 
 
 
 **/routes/auth-routes.js**
 
 ```js
-...
+// Custom middleware to check if user is logged in
+const checkIfAuthenticated = (req, res, next) => {
+  if(!req.user) res.redirect('/login'); // if not logged in / authenticated
+  else next();  // if logged in / authenticated
+};
 
+// GET  '/private-page'
+router.get("/private-page", checkIfAuthenticated , (req, res, next) => {
+  res.render("private", { user: req.user });
+});
+```
+
+
+
+
+
+
+
+
+
+FALLBACK IF CUSTOM MIDDLEWARE ISSUE !!
+
+**/routes/auth-routes.js**
+
+```js
 // /routes/auth-routes.js
 const ensureLogin = require("connect-ensure-login");
-
-...
-...
-
 
 // GET  '/private-page'
 router.get('/private-page', ensureLogin.ensureLoggedIn() , (req, res, next) => {
@@ -554,7 +632,7 @@ router.get('/private-page', ensureLogin.ensureLoggedIn() , (req, res, next) => {
 });
 ```
 
-
+FALLBACK SOLUTION 
 
 
 
@@ -569,8 +647,18 @@ router.get('/private-page', ensureLogin.ensureLoggedIn() , (req, res, next) => {
 **/views/private-page.hbs**
 
 ```html
-<!--	/views/private-page.hbs	-->
 <h1>Private page</h1>
+
+<h4>Shhhhhhhhh!</h4>
+<img src="https://media.giphy.com/media/yow6i0Zmp7G24/giphy.gif" alt="shhhhh">
+<br>
+
+<div>
+  {{#if user}}
+  <h3>user.req :</h3>
+    <p>{{user}}</p>
+  {{/if}}
+</div>
 
 <a href="/">
   <button>Home</button>
@@ -607,7 +695,7 @@ router.get('/private-page', ensureLogin.ensureLoggedIn() , (req, res, next) => {
 
 
 
-#### Error controll and displaying of the messages is done by the connect-flash module. 
+#### Error control and displaying of the messages is done by the `connect-flash` module. 
 
 #### If this module is not present, entering wrong login data would throw error and stop the server.
 
@@ -793,5 +881,32 @@ app.use(passport.initialize());
 
 // Sets Passport to manage user session
 app.use(passport.session());
+```
+
+
+
+
+
+
+
+
+
+### Edit `views/layout.hbs`
+
+```html
+  <nav id="layout-nav">
+    <ul>
+      <li>
+        <button><a href="/">Home</a></button>
+      </li>
+      <li>
+        <button><a href="/logout">Logout</a></button>
+      </li>
+      <li>
+        <button><a href="/profile">Profile</a></button>
+      </li>
+    </ul>
+
+  </nav>
 ```
 

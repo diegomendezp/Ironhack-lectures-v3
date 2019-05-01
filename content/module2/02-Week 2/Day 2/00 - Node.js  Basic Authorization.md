@@ -20,11 +20,13 @@ After this lesson, you will be able to:
 
 ### What is the authorization?
 
-Authorization is the method we use to protect access to some content in our app from certain users. Let’s look at [Dropbox](https://www.dropbox.com/) as an example.
+#### Authorization is the method we use to protect access to some content in our app from certain users. 
 
-In Dropbox you are authorized to access all the folders you create in your account but no one else’s, protecting user files, photos, and videos.
+#### We want to give access to th user only to routes that he is authorized for.
 
-We will cover authentication in another learning unit. In this learning unit we will just cover the concept of **authorizing** the user, and the different ways we can do that.
+
+
+#### We will cover authentication in another learning unit. In this learning unit we will just cover the concept of **authorizing** the user, and the different ways we can do that.
 
 
 
@@ -60,7 +62,7 @@ With the rise of the social networks, a new way to authorize users appears: it�
 
 
 
-A common factor in any of the types is a password. How to secure secure our user's passwords.
+### A common factor in any of the types is a password. How to secure secure our user's passwords.
 
 
 
@@ -94,7 +96,7 @@ In both cases, we receive the values somehow and in both cases we can't send the
 
 #### Hash functions
 
-A [hash function](https://en.wikipedia.org/wiki/Hash_function) is a function that, given any string as a parameter, generates a unique string of data.
+#### A [hash function](https://en.wikipedia.org/wiki/Hash_function) is a function that, given any string as a parameter, generates a unique string of data.
 
 Hash functions are used in cryptography to ensure the integrity of the text. The same string will have always have the same hash.
 
@@ -107,6 +109,8 @@ Decrypting a hash value **is just extremely impractical**.
 Because of the math involved and due to computationally intense operations,
 
  even if the user steals our encrypted passwords, It could take from months to years for it to be decrypted.
+
+
 
 There are a lot of algorithms used to encrypt data with hash functions. The most common are MD5, SHA, SHA-1, BLAKE… and bcrypt. We are going to use the last one to hash our passwords.
 
@@ -192,7 +196,7 @@ npm install --save mongoose
 npm install --save bcrypt
 
 # Create additional folders and files
-mkdir views/auth models
+mkdir views/auth models;
 touch views/auth/signup.hbs models/user.js routes/auth.js
 
 # Remove routes/users
