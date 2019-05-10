@@ -262,3 +262,92 @@ This means that you can use JSX inside of `if` statements and `for` loops, assig
 
 
 If we delete the `user.avatatUrl` we will default to the ironhack logo 
+
+## `class` and `className` keyword 
+
+
+
+As `class` is a JS keyword, when specifying a class in the HTML element in React we use `className`
+
+
+
+
+
+
+
+### Element attribute values
+
+When specifying attributes value in HTML elements, quotes are used to specify string literals,
+
+and curly brackets are used to specify JavaScript expressions or reference variables.
+
+
+
+```js
+const element1 = <img src={user.avatarUrl} />;
+const element2 = <img src="https://www.images.com/myimage.jpg" />;
+```
+
+
+
+
+
+#### JSX Prevents Injection Attacks
+
+
+
+By default, `ReactDOM` escapes (sanitazes) any values embedded in `JSX` before rendering them.
+
+ **This helps prevent XSS (cross-site-scripting) attacks, and 3rd parties embedding malicious JS code through input or data sent**
+
+
+
+XSS - Cross site scripting is vulnerability that allows attacker to run his own client side scripts int o the web pages viewed by other users.
+
+
+
+
+
+
+
+#### JSX Represents Objects - <span style='color: red'>This last part may be unnecessary ↧</span> 
+
+
+
+HTML elements created in JSX are objects, and therefore can be stored and passed around when using JSX syntax.
+
+
+
+```js
+// Transpile in Babel to ES5
+const element = (<h1 className="greeting"> Hello, world! </h1>);
+// This element is an JSX object and can be passed around.
+//
+
+// JSX elements are objects (simplified example)
+let jsxElement = {
+  type: 'h1',
+  props: {
+    className: 'greeting',
+    children: 'Hello, world!'
+  }
+}
+```
+
+
+
+
+
+
+
+If we past the following in the Chrome console, we will see that JSX element is just an object:
+
+```js
+// Paste the result of Babel transpilation to Chrome Dev Tools console ob babeljs.io page:
+var element = React.createElement("h1", {
+  className: "greeting"
+}, "Hello, world!"); 
+
+console.dir(element);
+```
+
