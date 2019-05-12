@@ -283,14 +283,20 @@ class DynamicMovieList extends Component {
           Toggle Movies
         </button>
         
-        {/* WE RENDER THE LIST OF MOVIE CARDS OR null */}
+        <ul>
         {
-        	this.state.showMovies ? 
-        	<ul> {/* Mapping ImprovedCard code*/} </ul>
-        	:
-        	null
+            
+          this.state.showMovies ? 
+          this.state.movies.map( (oneMovie, index) => {
+            return <ImprovedCard ..... />
+          })
+          :
+          null
+            
         }
+        </ul>
       </div>
+      
     )
   }
 }
