@@ -8,10 +8,18 @@
 
 **Never use inheritance when working with React components.**
 
+
+
+
+
 React was created by Facebook. Quoting them:
 
 > “At Facebook, we use React in thousands of components, and we haven’t found any use cases where we would recommend creating component inheritance hierarchies.
 > Props and composition give you all the flexibility you need to customize a component’s look and behavior in an explicit and safe way. 
+
+
+
+
 
 
 
@@ -88,4 +96,15 @@ import FancyBorder from './FancyBorder.js'
 
 
 
-Props and composition give you all the flexibility you need to customize a component’s look and behavior in an explicit and safe way. Remember that components may accept arbitrary props, including primitive values, React elements, or functions.
+Props and composition give you all the flexibility you need to customize a component’s look and behavior in an explicit and safe way.
+
+Remember that components may accept arbitrary props, including primitive values, React elements, or functions.
+
+
+
+
+
+
+
+### [CODE Repo (Props, components, Composition)- Done](<https://github.com/ross-u/Git-Components-and-props>)
+

@@ -17,6 +17,10 @@ After this lesson, you will be able to:
 
 If you need to display **an array of data** in a React component, how would you do it? 
 
+
+
+
+
 What you do is you **transform your array** of data to an **array of elements**.
 
 

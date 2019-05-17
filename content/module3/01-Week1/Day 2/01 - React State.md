@@ -2,7 +2,7 @@
 
 
 
-### State
+### 	State
 
 
 
@@ -104,7 +104,7 @@ class App extends Component {
 export default App;
 ```
 
-
+s
 
 
 
@@ -113,6 +113,8 @@ export default App;
 This may feel like Handlebars `views`, but `.hbs` is stored on the backend, populated on backend and then sent to the frontend as `html`. 
 
 React `components`, `props` and `state` exist on the front end , on the browser.
+
+
 
 
 
@@ -301,6 +303,12 @@ Another important thing is : only the component itself can change it's state. It
 
 
 
+
+
+## [LECTURE CODE EXAMPLE REPO](https://github.com/ross-u/React-State-example-)
+
+
+
 ### EXERCISE AND QUESTIONS
 
 #### [EXERCISE & QUESTIONS](<https://gist.github.com/ross-u/2d24d750327f368760895d5b94e0d426>)
@@ -308,6 +316,10 @@ Another important thing is : only the component itself can change it's state. It
 
 
 #### [EXERCISE & QUESTIONS - SOLUTION](<https://gist.github.com/ross-u/2ab3a3d1fb327c7c20c1473f1898d8e5>)
+
+
+
+
 
 
 

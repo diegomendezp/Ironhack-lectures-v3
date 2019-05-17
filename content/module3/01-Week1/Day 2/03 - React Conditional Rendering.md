@@ -295,7 +295,7 @@ class DynamicMovieList extends Component {
             
         }
         </ul>
-      </div>
+      </div><button onClick={this.toggleMovies} >TOGGLE MOVIES</button>
       
     )
   }

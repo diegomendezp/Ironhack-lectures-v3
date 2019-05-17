@@ -188,7 +188,7 @@ import AddMovie from './AddMovie';
 
 #### We will see error: 
 
-You provided a `value` prop to a form field without an `onChange` handler. *set either onChange or readOnly.*
+You provided a `value` prop to a form fieltrued without an `onChange` handler. *set either onChange or readOnly.*
 
 
 

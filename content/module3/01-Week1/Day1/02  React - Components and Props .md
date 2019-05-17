@@ -11,13 +11,25 @@
 
 
 
+
+
+
+
+
+
+
+
 ## Introduction - Know how the Component tree works
 
 
 
 **Components are the core building block of React apps.** 
 
+
+
 A typical React app is composed of multiple components. 
+
+
 
 React app structure can be represented as a **component tree** - having one root component (usually named “App” component) and then multiple nested child & descendant components.
 
@@ -29,9 +41,11 @@ React lets us define components as **classes** or **functions**.
 
 
 
+
+
 ## Class Components
 
-Class components provide more features than functional components. They have state, render method, life-cycle methods (used to do something depending if the component has loaded, or is about to unload).
+Class components provide more features than functional components. They have **state**, **render method**, **life-cycle methods** (used to do something depending if the component has loaded, or is about to unload).
 
 
 

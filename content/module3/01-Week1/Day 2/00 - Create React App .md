@@ -12,16 +12,6 @@ It require Node.js version 10 or later.
 
 
 
-Let’s install it globally on our computers:
-
-
-
-```bash
-npm install -g create-react-app
-```
-
-
-
 
 
 ### Create React App is divided into two packages:
@@ -100,6 +90,8 @@ This will start serving  and open the **development version** app in the browser
 
 By default, the project setup supports `ES6 modules` thanks to `Babel`, which transpiles ES6 JS that not all browsers and environments support into a JS that is written only in ES5 syntax so that it can be run everywhere.
 
+
+
 While you can still use `require()` and `module.exports`, React developers encourage us to use [`import` and `export`](http://exploringjs.com/es6/ch_modules.html#sec_importing-exporting-details)instead.
 
 
@@ -158,7 +150,7 @@ Let's create a new component that will be our <header> .
 **src/components/Header.js**
 
 ```js
-// components/Header.js
+  // components/Header.js
 
 import React from 'react';
 import logo from '../logo.svg'; // importing logo from src folder

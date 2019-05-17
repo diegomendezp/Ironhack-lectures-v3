@@ -6,7 +6,7 @@
 
 In react we use JSX for creating components. We create `.js `files and write  JSX inside of the file.
 
-SImply put,  JSX is the JavaScript with HTML, together in one `js` file. 
+Simply put,  JSX is the JavaScript with HTML, together in one `js` file. 
 
 JSX stands for JS and XML (eXtensible Markup Language).
 
@@ -18,6 +18,14 @@ You can think of the JSX as the Handlebars view file, difference is that  JSX co
 
 
 
+
+
+
+
+
+
+
+
 #### Why JSX
 
 Instead of creating 2 different files, one containing JS and other HTML, JSX enables for both to be saved in one file.
@@ -26,11 +34,21 @@ This helps create one file which represents one component, so that in one file w
 
 
 
+
+
+
+
+
+
 #### React without JSX ?
 
-React [doesn’t require](https://reactjs.org/docs/react-without-jsx.html) using JSX,  but JSX makes it easy to write React, and with JSX React shows  more detailed error and warning messages.
+​	React [doesn’t require](https://reactjs.org/docs/react-without-jsx.html) using JSX,  but JSX makes it easy to write React, and with JSX React shows  more detailed error and warning messages.
 
-We write React apps in JSX and then the app is compiled to one JavaScript file by Babel. But during development we write in JSX. This makes development process much easier and faster.
+
+
+We write React apps in JSX and then the app is compiled to one JavaScript file by Babel. 
+
+But during development we write in JSX. This makes development process much easier and faster.
 
 
 
@@ -193,27 +211,26 @@ Let's create our `App.js` root component again and use it to embed some more exp
 import React, { Component } from "react";
 import "./App.css";
 
+const user = {
+  firstName: 'Harper',
+  lastName: 'Perez',
+  avatarUrl: 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-128.png'
+};
+    
+const element = <h2>Hello, {formatName(user)} </h2>;
+
+const formatName = (userObj) => {
+  return `${userObj.firstName} ${userObj.lastName}`;
+}
+ 
+
 class App extends Component {
 
   render() {
-
-    const formatName = (user) => {
-      return `${user.firstName} ${user.lastName}`;
-    }
-   
-    const user = {
-      firstName: 'Harper',
-      lastName: 'Perez',
-      avatarUrl: 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-128.png'
-    };
-    
-    const element = (
-      <h2>Hello, {formatName(user)} </h2>
-    );
- 
     return (
       <div className="App">
-        <h1> Hello Ironhackers! </h1>
+        <h1> Hello { formatName(user) }</h1>
+        
         {element}
       </div>
     );
