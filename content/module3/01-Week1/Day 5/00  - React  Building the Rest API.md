@@ -30,6 +30,20 @@ Most REST APIs implement [CRUD](https://en.wikipedia.org/wiki/Create,_read,_upda
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 | URL                 | HTTP verb | Request body | Action                     | Success Status Code |
 | ------------------- | --------- | ------------ | -------------------------- | ------------------- |
 | `/api/projects`     | `GET`     | (empty)      | Returns all projects       | 200 OK              |
@@ -46,9 +60,19 @@ HTTP methods are what defines operations in well-formed REST APIs, not the URLs*
 
 
 
-So when we want to retrieve, modify, or delete a record, we operate on its URL using the correct HTTP method
+So when we want to retrieve, modify, or delete a record, we operate on its URL using the correct HTTP method.
+
+
 
 Well-designed REST APIs must provide response status code that makes it clear there is a problem.
+
+
+
+
+
+
+
+
 
 
 
@@ -312,6 +336,8 @@ router.put('/projects/:id', (req, res, next)=>{
     })
 })
 ```
+
+
 
 #### Test the route with Postman
 
@@ -590,20 +616,6 @@ app.use(cors({
 
 
 
+### Update the `.env` file  to: `PORT=5000`
 
-
-**Students alone:**
-
-### Create routes in Postman for `task routes`
-
-
-
-
-
-
-
-### Update the `.env` file and the existing to:
-
-### `PORT=5000`
-
-#### as our client side will be running on port 3000
+Our client side will be running on port 3000
