@@ -26,6 +26,14 @@ npm i
 
 
 
+
+
+
+
+
+
+
+
 #### Rename `.env.sample` file to `.env`
 
 
