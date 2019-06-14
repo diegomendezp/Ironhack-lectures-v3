@@ -130,9 +130,9 @@ We are going to use [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) because it pr
 
 
 
-Think of a hashing as a one way scrambler, which scrambles our password into a long string of characters that is practically impossible to decode via a mathematical method (but rather brute force which is very impractical).
+Think of a hashing as a one way scrambler, which scrambles our password into a long string of characters that is practically impossible to decode via a mathematical method (but only with brute force which is very impractical and long).
 
-There are 2^128 or approximately 10^38 possible hashes per password depending on a salt. There is a different has for each salt used. 
+
 
 
 
