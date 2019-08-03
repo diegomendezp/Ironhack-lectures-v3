@@ -413,6 +413,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addAllProjects: (allProjects) => { dispatch( {type: 'ADD_ALL_PROJECTS', data: allProjects} ) },
+  // OR by importing action method from the actions file:
+  // addAllProjects: (allProjects) => dispatch(addAllProjects(allProjects))  
   }
 }
 

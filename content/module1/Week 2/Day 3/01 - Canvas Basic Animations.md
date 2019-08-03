@@ -1,3 +1,28 @@
+## Setting the canvas dimensions properly
+
+
+
+To ensure canvas dimensions are rendered properly they have to be set in pixels. Best way to do this is to grab the dimensions of the browser window and set them to canvas.
+
+
+
+```js
+// When page loads, canvas and context are created, and
+// dimensions of the canvas are set 
+window.addEventListener('load', () => {
+  const canvas = document.getElementById('main-canvas');
+  const context = canvas.getContext('2d');
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+});
+
+```
+
+
+
+
+
 # Canvas | Basic Animations
 
 
@@ -16,9 +41,13 @@ When doing **animations** on `canvas`, we need to create a set of frames that th
 
 
 
+### 4 Steps:
+
+
+
 When making canvas animations there are 4 steps we can take
 
-1. **Save canvas state**
+1. **Save canvas state** - *snapshot state of what was shown*
    Save the current state of the drawing (colors, styles , etc) each time a frame is drawn (current frame).
 2. **Clear the canvas**
    We need to clear any shapes that have been drawn previously using the `clearRect()` method.
@@ -26,7 +55,7 @@ When making canvas animations there are 4 steps we can take
    If you’ve saved the state, restore it before drawing a new frame.
 
 4. **Draw animated shapes**
-   The step where you do the actual frame rendering.
+   The step where you do the actual frame rendering/drawing.
 
 
 
@@ -50,6 +79,17 @@ When the `restore()`method is called, the last saved state is popped off the sta
 
 
 
+- `save()` is equivalent to `push`.
+- `restore()` is equivalent to `pop`.
+
+![img](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwFvYbQtzlJCfE7Pq79TcBIF5m1ysEXc_qzlhLbGEbyPSvcFY5)
+
+
+
+
+
+
+
 ### [Save and restore Example CODEPEN](<https://codepen.io/Denzelzeldi/pen/KYarNY?editors=0010>)
 
 
@@ -58,13 +98,15 @@ When the `restore()`method is called, the last saved state is popped off the sta
 
 ## Scheduling updates - frame timing
 
-### We can use
+### zWe can use
 
 **setInterval(method, delay)**
 // Starts repeatedly executing the function specified by method every delay milliseconds.
 
 **setTimeout(method, delay)**
 // Executes the function specified by function in delay milliseconds.
+
+
 
 
 
@@ -267,6 +309,16 @@ updateCanvas();
 
 
 
+### Your turn
+
+We may want to restart everything, putting the **ghost** on it initial position. Let´s do it using the `spacebar` key.
+
+Go ahead and add the functionality in the codePen. When somebody clicks on the `spacebar` our ghost should return to the position `(50,50)`.
+
+
+
+
+
 
 
 
@@ -277,3 +329,22 @@ updateCanvas();
 
 ### When rendering a 2d game, we usually need a background image that moves while our character or element is moving through the `canvas`.
 
+
+
+### Another way to do this is to provide a background image on the container `div` that is holding the canvas and add the css animation to loop the background.
+
+
+
+## [Codepen - Canvas horizontal looping image](https://codepen.io/ironhack/pen/ZvmmGP)
+
+## [Codepen - Canvas vertical looping image](https://codepen.io/Denzelzeldi/pen/YmNBap)
+
+`
+
+
+
+Extra Resources
+
+### [Introduction to HTML Canvas](https://www.youtube.com/watch?v=3GqUM4mEYKA)
+
+### [Canvas Game Components](https://www.w3schools.com/graphics/game_components.asp)

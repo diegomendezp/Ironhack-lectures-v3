@@ -145,12 +145,18 @@ ctx.strokeRect(150, 50, 50, 50);
 **syntax**
 
 ```js
-// beginPath()    // Creates a new path. Once created, future drawing commands are directed into the path and used to build the path up.
-// closePath()    // Closes the path so that future drawing commands are once again directed to the context.
-// stroke()       // Draws the shape by stroking its outline.
-// fill()         // Draws a solid shape by filling the path's content area.
-// moveTo(x, y)  // Moves the pen to the coordinates specified by x and y
-// lineTo(x, y)    // Draws a line from the current drawing position to the position specified by x and y.
+context.beginPath()    // Creates a new path. 
+// Once created, future drawing commands are directed into the path and used to build the path up.
+
+context.closePath()    // Closes the path so that future drawing commands are once again directed to the context.
+
+context.stroke()       // Draws the shape by stroking its outline.
+
+context.fill()         // Draws a solid shape by filling the path's content area.
+
+context.moveTo(x, y)  // Moves the pen to the coordinates specified by x and y
+
+context.lineTo(x, y)    // Draws a line from the current drawing position to the position specified by x and y.
 ```
 
 
@@ -263,7 +269,7 @@ connected to the previous point by a straight line.
 
 - #### `startAngle` and `endAngle`  start and end points of the arc in radians. Measured from the x-axis.
 
-- #### `anticlockwise` parameter is a `Boolean` value which, when true, draws the arc anticlockwise; otherwise, the arc is drawn clockwise.
+- #### `anticlockwise` parameter is a `Boolean` value which, when true, draws the arc counterclockwise; otherwise, the arc is drawn clockwise.
 
 
 
