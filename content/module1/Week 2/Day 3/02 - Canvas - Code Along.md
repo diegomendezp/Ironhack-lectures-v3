@@ -2,8 +2,19 @@
 
 
 
-<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">1</h2>
+### What we will be building: 
 
+### [Code Along Notes and Finished Game Example](https://github.com/ross-u/canvas-code-along)
+
+
+
+
+
+
+
+
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">1</h2>
 ### Create the project and the file structure
 
 
@@ -22,7 +33,6 @@ touch index.html src/main.js src/game.js src/player.js src/enemy.js css/style.cs
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">2</h2>
-
 ### Create basic HTML skeleton
 
 ##### `index.html`
@@ -49,10 +59,94 @@ touch index.html src/main.js src/game.js src/player.js src/enemy.js css/style.cs
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">3</h2>
-
 ### Add the following CSS styles
 
+##### `style.css`
+
 ```css
+
+/* ---- reset ---- */
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ---- typography ---- */
+
+body {
+  color: #111;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 147%;
+}
+
+p {
+  margin: 0;
+}
+
+
+
+/* ---- layout ---- */
+
+html, body {
+  height: 100%;
+}
+
+.container {
+  margin: 0 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 728px;
+    margin: 0 auto;
+  }
+}
+
+
+/* ---- components ---- */
+
+.game {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.game header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.game .lives {
+  flex: 1;
+}
+
+.game .score {
+  flex: 1;
+}
+
+.game .label {
+  font-weight: bold;
+}
+
+.game .value {
+  font-style: italic;
+}
+
+.game .canvas-container {
+  flex: 1;
+}
 
 ```
 
@@ -63,7 +157,6 @@ touch index.html src/main.js src/game.js src/player.js src/enemy.js css/style.cs
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">4</h2>
-
 ### Create the functions for building and appending DOM elements 
 
 
@@ -124,7 +217,6 @@ window.addEventListener('load', main);
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">5</h2>
-
 Notice that we called the `createSplashScreen` at the end of `main`, therefore lets create that function.
 
 
@@ -134,7 +226,6 @@ Notice that we called the `createSplashScreen` at the end of `main`, therefore l
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">6</h2>
-
 ### Create functions:
 
 ###  `buildDom` 
@@ -201,7 +292,6 @@ function buildDom(htmlString) {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">7</h2>
-
 ### Create `main.js` functions:
 
 ### `createGameScreen`
@@ -276,7 +366,6 @@ function buildDom(htmlString) {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">8</h2>
-
 ### Now we can update `startButton` to  call `startGame` when it is clicked.
 
 
@@ -308,7 +397,6 @@ function buildDom(htmlString) {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">9</h2>
-
 ### Create a Game constructor 
 
 ##### Game constructor is used to create objects that will represent each game played.
@@ -354,7 +442,6 @@ Game.prototype.removeGameScreen = function() {};
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">10</h2>
-
 ### Create instance of the `Game` in the `startGame()`
 
 
@@ -386,7 +473,6 @@ function startGame() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">11</h2>
-
 ### Create the `Game.prototype.start` method
 
 
@@ -438,7 +524,6 @@ Game.prototype.start = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">12</h2>
-
 ### Add `game.start()` method
 
 ###  to the `main.js`  `startGame()`
@@ -473,7 +558,6 @@ function startGame() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">13</h2>
-
 ### Create the `Player` constructor
 
 
@@ -514,7 +598,6 @@ Player.prototype.draw = function() {};
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">14</h2>
-
 ### Create methods for player:
 
 ###  `setDirection`  
@@ -592,7 +675,6 @@ Player.prototype.draw = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">15</h2>
-
 ### Update method in `game.js` - `Game.prototype.start()`
 
 
@@ -663,7 +745,6 @@ Game.prototype.start = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">16</h2>
-
 ### If we try starting the game, we can press UP and DOWN keys, 
 
 ### but we will not see the player ? 
@@ -691,7 +772,6 @@ Game.prototype.start = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">17</h2>
-
 ### Before we create the loop, let's create the last constructor we will need - for the enemy
 
 
@@ -732,7 +812,6 @@ Enemy.prototype.isInsideScreen = function() {};
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">18</h2>
-
 ### Create the `Enemy` methods :
 
 ### `draw`
@@ -794,7 +873,6 @@ Enemy.prototype.isInsideScreen = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">19</h2>
-
 ### Let's create the game loop
 
 
@@ -832,7 +910,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">20</h2>
-
 ### We can now test the loop by checking the `console` in the browser.
 
 
@@ -846,7 +923,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">21</h2>
-
 ### Let's line out by using comments `//`, step by step what operations will be happening in the loop.
 
 
@@ -854,7 +930,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">22</h2>
-
 ## `TEAM ACTIVITY`
 
 #### Separate group in teams and give 10 minutes to come up when will each function be called, to ensure old things are cleared from canvas and new updated player and enemies are rendered on each loop call.
@@ -874,7 +949,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">23</h2>
-
 ### Lets now write these comments in our `loop` function
 
 
@@ -932,7 +1006,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">24</h2>
-
 ### Let's now write the code for each comment
 
 ##### `game.js`
@@ -1004,7 +1077,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">25</h2>
-
 #### If we run the game now, we will see that all works fine, except for the collisions (which we didn't implement yet).
 
 
@@ -1018,7 +1090,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">26</h2>
-
 ### Implement the `player` and `enemies` collision checking
 
 
@@ -1061,7 +1132,6 @@ Game.prototype.checkCollisions = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">27</h2>
-
 ### Implement the `didColide()` method in `player.js` checking the player sides for collision.
 
 
@@ -1103,7 +1173,6 @@ Player.prototype.didCollide = function(enemy) {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">28</h2>
-
 ### Implement the `gameOver()` method 
 
 
@@ -1129,7 +1198,6 @@ Game.prototype.gameOver = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">29</h2>
-
 ### In order to get access to the function from the `main.js` we will pass it as a callback to our `game` object when new game is created.
 
 
@@ -1175,7 +1243,6 @@ function startGame() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">30</h2>
-
 ### Create the `removeGameScreen()` method in `game.js`, which removes the entire game DOM element
 
 
@@ -1199,7 +1266,6 @@ Game.prototype.removeGameScreen = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">31</h2>
-
 ### Create a `createGameOverScreen` method and add event listener for restarting and creating a new game
 
 
@@ -1235,7 +1301,6 @@ function createGameOverScreen(score) {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">32</h2>
-
 ### If we try to restart the game we will see that Game Over screen is not being removed.
 
 ###  We need to implement the `removeGameOverScreen()` method in `main.js`.
@@ -1281,7 +1346,6 @@ function startGame() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">33</h2>
-
 ### For the end implement the game statuses - `lives` remaining and the `score`.
 
 
@@ -1347,7 +1411,6 @@ Game.prototype.startLoop = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">34</h2>
-
 ### Implement the proper score rendering on the Game Over screen
 
 
@@ -1391,7 +1454,6 @@ function gameOver(score) {
 
 
 <h2 style="background-color: green; color: white; display: inline; padding: 10px; border-radius: 10;">THE END</h2>
-
 ### MISSION ACCOMPLISHED! :heavy_check_mark: :thumbsup:
 
 ### WELL DONE !  :rocket: :confetti_ball: :rocket: :confetti_ball:
