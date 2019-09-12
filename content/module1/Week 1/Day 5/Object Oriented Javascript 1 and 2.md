@@ -4,7 +4,7 @@
 
 
 
-Official definition of [**object-oriented programming (OOP)**](https://en.wikipedia.org/wiki/Object-oriented_programming) is that it is a programming paradigm based on the concept of “objects”, which can contain data, in the form of *attributes* / properties ), and code, in the form of procedures (often known as *methods*).
+ [**Object-oriented programming (OOP)**](https://en.wikipedia.org/wiki/Object-oriented_programming) is a programming paradigm (model/standard) based on the concept of “objects”, which can contain data, in the form of *attributes* / properties ), and code in the form of functions/procedures ( known as *methods*).
 
 
 
@@ -22,7 +22,11 @@ Lets say that we want to make many similar objects.
 
 for example if we are creating a game, we may create many players.
 
-This can bring a lot of typing and work. Example
+This can bring a lot of typing and work. 
+
+
+
+##### Example
 
 ```js
 let car1 = {
@@ -52,7 +56,10 @@ let car3 = {
   mileage: 0
 };
 
-const drive = (hours, averageSpeed) =>  hours * averageSpeed;
+
+const drive = (hours, averageSpeed) => { 
+	return hours * averageSpeed;
+};
 
 
 console.log(car1);
@@ -72,13 +79,27 @@ console.log(car3);
 
 
 
-##  Special keyword `this` (pointer)
-
-The keyword  `this` can be found in every function.
 
 
+##  Special function's keyword `this` (pointer)
 
-#### `this` in functions
+
+
+The function's keyword  `this` can be found in every function.
+
+
+
+#### These are the 5 rules that describe how the value of `this` is used in JavaScript:
+
+
+
+
+
+#### 1. `this` refers to the global object in a function `(declaration` or ` expression`)
+
+
+
+if a code is being executed as part of a simple function call then `this` refers to the `global` / `Window` object.
 
 `this` keyword in the function holds the value of the `Window` object.
 
@@ -98,9 +119,11 @@ whatIsThis();
 
 
 
-### `this` in methods - *on the left of the dot at the time of invocation*
+### 2. `this` in methods - *on the left of the dot at the time of invocation*
 
-`this` keyword in the method holds the value of whatever is on the left of the dot at the time of invocation.
+
+
+`this` keyword in the method holds the value of whatever is on the left of the dot at the time of invocation (the object that is invoking the method).
 
 **Question**
 
@@ -123,24 +146,27 @@ person.myMethod();
 
 
 
-#### Exception - `this` in arrow functions
+#### 3. Exception - `this` in arrow functions
 
-Arrow function's`this` doesn't point to what invoked it, instead, it points to the `this`  from the parent scope.
+If the function/method is an ES2015 arrow function, it rec
+
+eives `this` value of its surrounding scope at the time it is created.
 
 ```js
 const myObject = {
   whatsThis: this, // value of this in the object itself.
   myMethodArrow: () => {
-    console.log('myMethodArrow: () => { this } ',this);
+    console.log('myMethodArrow() -> this ',this);
   },
   myMethodRegular: function () {
-		console.log('myMethodRegular: function () { this }',this);
+		console.log('myMethodRegular() -> this ',this);
 	}
 };
 
 myObject.whatsThis;
 
 myObject.myMethodArrow();
+
 console.log('##########');
 myObject.myMethodRegular();
 ```
@@ -151,29 +177,122 @@ myObject.myMethodRegular();
 
 
 
-**Exercise** -
+#### 4. Exception - Using keyword `new` when calling the function (function Constructors)
+
+
+
+If the new 	keyword is used when calling the function, this inside the function is a brand new object.
 
 ```js
-// Create a function `whatIsThis` that console logs the value of `this`.
+function Cars (name, color) {
+	this.name = name;
+	this.color = 'MY COLOR' + ': ' + color;
+	console.log('this in the function', this);
+}
 
 
-// Create object `house` with properties `street`, `city` and `color`, and a method `thisIsObject` that console logs  `this`.
+// NO keyword `new`
+let golf = Cars('golf', 'blue');
+
+console.log(golf); // undefined
+window.name;	// "golf"
+window.color	// "blue"
 
 
-// Using dot notation create method `leftOfTheDot` and assign it the previously created function `whatIsThis`.
+// WITH keyword `new`
+let tesla = new Cars('tesla', 'red') 
+tesla.name;	//	tesla 
+tesla.color;	//	"red"
+
 ```
 
 
 
 
 
-## Conclusion !!!
-
-#####  Calling a function without a leading parent object will get you the value of `this` as the *global* object which in most browsers means the `window` object.
 
 
+#### 5. If `apply`, `call`  or `bind` are used to call/create a regular function, `this` inside the function is the variable that is passed in as the first argument . 
 
-##### In function which is a method, `this` points to whatever is -> <u>On the left of the dot at the time of invocation (calling the function)</u>. Except for arrow functions, which take `this` from the surrounding scope.
+
+
+**Arrow function** (lexically) binds the `this` value, which means that we **cannot** **bind**  `this`  value to it using `call`, `apply`, `bind`.
+
+
+
+```js
+const myObj = {
+    name: 'My object',
+    printThis: function () {
+		console.log(this);
+	}
+}
+
+const randomObj = {
+	price: 555,
+    name: 'Random Object'
+}
+
+
+myObj.printThis();
+
+myObj.printThis.call(randomObj);
+```
+
+
+
+#### **Exercise** -
+
+```js
+// 1. Create object `house` with properties `street`, `city` and `color`. 
+
+// 2. Create a simple function `whatIsThis` that console logs the value of `this`.
+
+// 3. To the object `house` add a method `thisInHouse` that console logs  `this`.
+
+// 4. Using the dot notation, create method `leftOfTheDot`on the object `house` and assign to it the previously created function `whatIsThis`.
+
+
+// 5. Call the created methods by uncomenting the code below:
+
+/*
+	console.log(house);
+	house.whatIsThis();
+	house.leftOfTheDot();
+*/
+```
+
+
+
+
+
+
+
+
+
+## Conclusion and Summary !
+
+#####  Calling a function without a leading parent object will get you the value of `this` as the `global`/`window`
+
+
+
+##### In a method function which is a method, `this` points to whatever is -> <u>On the left of the dot at the time of invocation (calling the function)</u>. 
+
+
+
+**When using keyword `new` with a constructor, `this` represents a newly created object.** 
+
+
+
+##### Except for arrow functions, which take `this` from the surrounding scope.
+
+
+
+**We can `call` , `apply` or `bind` regular functions/method to change the context/`this` value.**
+
+
+
+
 
 
 
@@ -184,39 +303,38 @@ myObject.myMethodRegular();
 
 
 ```js
-let car1 = {
-  brand: 'BMW',
-  color: this.name + 'red',
-  model: '530 M3',
-  averageSpeed: 90,
-  year: 2018,
-  mileage: 0,
+let house1 = {
+  address: '123 Washington Ave',
+  price: 300000,
+  currency: 'USD',
   logThis: function () { console.log(this) },
-  carDetials: function () {
-		return `${this.brand} ${this.model} - year: ${this.year}`;
+  houseDetails: function () {
+		return `Address: ${this.address} - price: ${this.price} ${this.currency}`;
   }
 };
 
-car1.logThis();
+house1.logThis();
+house1.houseDetails();
 ```
 
 
 
 ```js
-let car1 = {
-  brand: 'BMW',
-  color: 'red',
-  model: '530 M3',
-  averageSpeed: 90,
-  year: 2018,
-  mileage: 0,
-  carDetials: function () {
-		return `${this.brand} ${this.model} - year: ${this.year}`;
+let house2 = {
+  address: '1020 Lake Buena Vista',
+  price: 694000,
+  currency: 'USD',
+  logThis: function () { console.log(this) },
+  houseDetails: function () {
+		return `Address: ${this.address} - price: ${this.price} ${this.currency}`;
   },
-  changeColor: function (newColor) {
-    this.color = newColor;
+  updatePrice: function (newPrice) {
+      this.price = newPrice;    
   }
 };
+
+house2.logThis();
+house2.houseDetails();
 ```
 
 
@@ -225,7 +343,21 @@ let car1 = {
 
 
 
-**EXERCISE** 
+
+
+
+
+
+
+
+
+
+
+
+
+### [EXERCISE - gist](https://gist.github.com/ross-u/8323650c8d737fdf906a008b8c041a87) - 15min
+
+
 
 ```js
 // TODO: write the methods .getAge(), .addJoke() and .getRandomJoke()
@@ -304,9 +436,11 @@ In order to create multiple of same structure we need object constructors. These
 
 ### Factory function and Object.assign
 
-Most simple way is to use Factory function.
 
-Factory function is a function that returns an object.
+
+Most simple way is to create multiple objects is to use a function.
+
+ A function that returns an uniform object is called a Factory function .
 
 **Factory function doesn't allow prototype inheritance** - you cannot inherit the methods from the factory function.
 
@@ -322,9 +456,10 @@ var carMethods = {
   },
 }
 
+
 // Functional object constructor - aka factory function
 function carFactory (brand, model, year, color) {
-  let obj = {};
+  let carObj = {};
   obj.brand = brand;
   obj.model = model;
   obj.year = year;
@@ -332,11 +467,16 @@ function carFactory (brand, model, year, color) {
   obj.carDetials = function () {
 		return `${this.brand} ${this.model} - year: ${this.year}`;
   };
-  
-  obj = Object.assign(obj, carMethods);
-  return obj;
+    
+  // Copy the methods from the `carMethods` object to the `carObj` 
+  carObj = Object.assign(carObj, carMethods);
+  return objInstance;
 };
 
+
+
+// Create new objects using the above function
+// we don't use keyword `new`!
 const bmw = carFactory('BMW', '530 M3', 2019, 'silver');
 const toyota = carFactory('Toyota', 'Yaris', 2010, 'blue');
 const seat = carFactory('Seat', 'Ibiza', 2019, 'black');
@@ -372,6 +512,14 @@ Object.assign(destinationObject, sourceObject);
 
 
 
+
+
+
+
+
+
+
+
 # ES5 Prototype Constructor - Has Prototype
 
 
@@ -400,7 +548,7 @@ function Car (brand, engineType) {
 	// this.__proto__ = Car.prototype;
   
 	this.brand = brand;	 // create property on the new instance
-  this.engineType = engineType;
+  	this.engineType = engineType;
 	// return this;
 }
 

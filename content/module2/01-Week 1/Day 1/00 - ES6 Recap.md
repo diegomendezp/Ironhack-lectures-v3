@@ -1,6 +1,6 @@
 ![img](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
 
-# ES6 | Recap
+# ES6 | Recap & Scope
 
 
 
@@ -16,32 +16,64 @@ JavaScript has function scope by default - meaning that every function creates a
 
 
 
-- #### Global variable 
-
-  (the variable created in the global scope and variable without the keyword (automatically global) - accessible by all functions and everywhere in the script..
 
 
+- #### Global variables 
 
-- Global variables belong to the global scope and can be accessed in the whole window (`window` object available in the browser) :
+  "The variables created in the global scope are called **global variables**.
+  
+  
+  
+  Global variables belong to the global scope and can be accessed in the whole window (`window` object available in the browser) :
 
-  ```js
-  console.log('WINDOW OBJECT -> ', window);
-  console.log('Automatically Global variable', window.imposter);
-  ```
+
+
+- #### Automatically global variables
+
+ Variables created without the variable keyword (anywhere in the script) become automatically global -
+
+Both types of variables created are accessible by all functions and everywhere in the script..
+
+
+
+```js
+var globalVariable = "I am a global variable."; // GLOBAL SCOPE
+
+function createVariables () {
+	imposter = 'I am an imposter';	// AUTOMATICALY GLOBAL
+	var functionVariable = 'I am a properly declared variable'; // FUNCTION SCOPE
+}
+
+createVariables();
+
+
+console.log('WINDOW OBJECT -> ', window);
+
+console.log('GLOBAL VARIABLE -> ', globalVariable);
+console.log('GLOBAL VARIABLE ON WINDOW OBJECT -> ', window.globalVariable);
+
+console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
+```
+
+
+
+
+
+### Main concepts to remember
+
+
+
+- ##### 1. scope of `var` - 
+
+  `var` declared variables can have **global** or **function** (also called local) **scope**.
 
   
 
-- scope of `var` - 
-
-  `var` declared variables can have **global** of **function** (also called local) **scope**
-
-  Example
-
   
 
-- Hoisting
+- ##### 2. Hoisting
 
-  JS executes code line by line, however there is a functionality called Hoisting.
+  In JS there is a thing that happens called Hoisting. This is a made up name to describe something that JavaScript does during the first pass - compilation.(1st - compilation, 2nd = runtime)
 
   - functions - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
 
@@ -53,100 +85,112 @@ JavaScript has function scope by default - meaning that every function creates a
   }
   ```
 
-  - var - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
+  
 
-    ```js
-    // console.log(name);  // uncomment
-    
-    var name = 'John';
-    ```
+  * var - <https://codepen.io/Denzelzeldi/pen/yLBjJWK?editors=0010>
 
-    
+  ```js
+  console.log(name);  // undefined  -  declared but without value
+  
+  var name = 'John';
+  ```
 
-- scope of `let` and `const`
 
-  - Block - block is any code between open and closed curly braces `{}`
 
-  - `let` and `const` are block scoped
 
-  - `let` and `const` hoist (invisibly)  but you cannot access them before the actual declaration is evaluated at runtime (line by line).
 
-    ```js
-    //  BLOCK SCOPE OF THE let 
-    let name = "Ironhacker";
-    
-    if (true) {
-      let name = "John";
-      console.log(`Name inside if block statement: ${name}`);
-    }
-    
-    console.log(`Name outside if block statement: ${name}`);
-    
-    // Name inside if block statement: Ted
-    // Name outside if block statement: Ironhacker
-    ```
 
-    
+- ##### 3. scope of `let` and `const` :
 
-  - let` can't be redeclared but can be updated
+  a. Block - block is any code between open and closed curly braces `{}`
 
-    ```js
-    // THIS IS OK
-    let message = "This is the first message.";
-    message = "This is the second message.";
-    
-    // BUT THIS WILL THROW AN ERROR
-    let message = "This is the first message.";
-    let message = "This is the second message."; // <== Duplicate declaration "message" 
-    ```
+  b. `let` and `const` are block scoped
 
-    
+  c. `let` and `const` hoist (invisibly)  but are not initialized with `undefined`. Because of this you cannot access them before the actual declaration is evaluated at runtime (line by line).
 
-  - `const` variables have to be initialized in the moment of declaration.
-
-    ```js
-    const name1 = "John"; // <== CORRECT
-    
-    const name2;
-    name2 = "John"; // WRONG! - This will throw an Error
-    ```
-
-    
-
-    
-
-  - `const` variables can't be redeclared or assigned new value
-
-    ```js
-    // THIS WILL THROW AN ERROR
-    const message = "This is the first message.";
-    message = "This is the second message."; // <== "message" is read-only
-    
-    // AND THIS WILL THROW AN ERROR
-    const message = "This is the first message.";
-    const message = "This is the second message."; // <== Duplicate declaration "message" 
-    ```
+  
+  
+  ```js
+  //  BLOCK SCOPE OF THE let 
+  let name = "Ironhacker";
+  
+  if (true) {
+    let name = "John";
+    console.log(`Name INSIDE if block statement: ${name}`);
+  }
+  
+  console.log(`Name OUTSIDE if block statement: ${name}`);
+  
+  // Name inside if block statement: John
+// Name outside if block statement: Ironhacker
+  ```
 
   
 
-  - `const` variables containing Objects and arrays can be mutated (not reassigned). WE WILL SEE WHY IN THE NEXT LESSON ON MUTABILITY.
+  d. `let` cannot be redeclared, but it can be reassigned new value (updated)
+  
+  ```js
+  // THIS IS OK
+  let message = "This is the first message.";
+  message = "This is the second message.";
+  
+  // BUT THIS WILL THROW AN ERROR
+  let message = "This is the first message.";
+let message = "This is the second message."; // <== Duplicate declaration "message" 
+  ```
 
-    ```js
-    // This is ok ✅
-    const obj = {};
-    obj.name = "Ironhacker";
-    
-    // This is not 🚨
-    obj = { name: "Ironhacker" };
-    // SyntaxError: Assignment to constant variable
-    ```
+  
+
+  e. const` variables have to be initialized in the moment of declaration.
+  
+  ```js
+  const name1 = "John"; // <== CORRECT
+  
+  const name2;
+name2 = "John"; // WRONG! - This will throw an Error
+  ```
+
+  
+
+  
+
+  f.  `const` variables can't be redeclared or assigned new value
+  
+  ```js
+  // THIS WILL THROW AN ERROR
+  const message = "This is the first message.";
+  message = "This is the second message."; // <== "message" is read-only
+  
+  // AND THIS WILL THROW AN ERROR
+  const message = "This is the first message.";
+const message = "This is the second message."; // <== Duplicate declaration "message" 
+  ```
+
+  
+
+  g.  `const` variables containing Objects and arrays can be mutated (not reassigned). WE WILL SEE WHY IN THE NEXT LESSON ON MUTABILITY.
+  
+  ```js
+  // This is ok ✅
+  const obj = {};
+  obj.name = "Ironhacker";
+  
+  // This is not 🚨
+  obj = { name: "Ironhacker" };
+  // SyntaxError: Assignment to constant variable
+  ```
 
 
 
 
-### [`var`, `let` and `const` CODEPEN](<https://codepen.io/Denzelzeldi/pen/wZXMKN>)
 
 
+
+[var example - CODEPEN](https://codepen.io/Denzelzeldi/pen/RwbyoBY?editors=0011)
+
+[let example - CODEPEN](https://codepen.io/Denzelzeldi/pen/JjPvbwM?editors=0012)
+
+[const example - CODEPEN](https://codepen.io/Denzelzeldi/pen/LYPmbKm?editors=0010)
 
 
 
@@ -225,6 +269,7 @@ const x = {
 
 ```javascript
 const namesArray = ['John', 'Sarah', 'Alice'];
+
 for (const name of namesArray) {
   console.log(name);
 }
@@ -234,9 +279,11 @@ for (const name of namesArray) {
 
 
 
-[EXERCISE - CODEPEN `for...of`](<https://codepen.io/Denzelzeldi/pen/vMrLrQ?editors=0010>)
+### [EXERCISE - CODEPEN `for...of`](https://codepen.io/Denzelzeldi/pen/vMrLrQ?editors=0012)
 
 
+
+### [SOLUTION - `for...of`](https://codepen.io/Denzelzeldi/pen/OJLZWzy?editors=0012)
 
 
 
@@ -299,7 +346,7 @@ console.log('e -> ', e);  // No value is availalbe, JS assigns undefined
 
 ### Arrow function 
 
-#### Doesn't have `this` variable inside of it but takes it from the scope around it.
+#### Doesn't have `this` variable inside of it's scope, but it takes `this` from the scope around it.
 
 ##### Doesn't have `arguments` object like normal function
 
@@ -327,12 +374,12 @@ printArguments();
 
 ### Concise Arrow function 
 
+Concise arrow function is used for code that can fit in one line and it doesn't have "{}" and "return". 
+
+Function still returns value same like the "return" keyword is present
+
 ```js
 // Concise arrow function ES6
-/*
-	Concise arrow function is used for code that can fit in one line and it doesn't have "{}" and "return". 
-Function still returns value same like the "return" keyword is present.
-*/
 
 let greeting = (name) =>  'Hello ' + name;
 
@@ -393,6 +440,8 @@ function myFunction(arg1) {
 
 myFunction("first argument", "second argument");
 
+
+
 function myNewFunction(arg1, ...args) {
 	console.log(arg1);
     console.log(args);
@@ -405,7 +454,7 @@ myNewFunction("One", "Two", "Three", "Four");
 
 
 
-#### Arrow function doesn't have `arguments` object, we need to use rest parameters.
+#### Arrow function doesn't have `arguments` object, therefore we have to use rest parameters for the same functionality.
 
 ```js
 let myFunc = (arg1, ...everythingElse ) => {

@@ -1,4 +1,4 @@
-# 02- Semantic HTML and A11y (accessibility)
+# 02- Semantic HTML
 
 
 
@@ -11,8 +11,6 @@ Semantic HTML or semantic markup is HTML that introduces meaning to the web page
 For example, a <p> tag meaning is that the enclosed text is a paragraph.
 
 
-
-###### Semantics is the study of the meanings of words and phrases in a language.
 
 ###### Semantic elements = elements with a meaning.
 
@@ -48,7 +46,7 @@ Tag `<b>` only makes the text bold, while `<strong>` gives it the meaning that i
 <!-- COMMON HTML5 SEMANTIC ELEMENTS -->
 
 <section>  <!-- defines a section in a document (content). A thematic grouping of content, typically with a heading. -->
-<article>  <!-- independent, self-contained content (forum post, blog post, article). -->
+    
 <nav> 	   <!-- nav is used as a major block of navigation links, like navigation bar -->
 <header>   <!-- header for a document or section. Should be used as a container for introductory content. -->
 <main>     <!-- Specifies the main content of a document -->
@@ -57,7 +55,13 @@ Tag `<b>` only makes the text bold, while `<strong>` gives it the meaning that i
 <mark>  <!-- Defines marked/highlighted text -->
 <time>  <!-- defines a human-readable date/time. Can have a machine-readable attribute datetime  -->
     
-<!-- These elements are not self closing  :) -->
+    
+<!-- Save the most special for the end -->
+<!-- There is often a dilemma of which one to use, <section> or <article>  :) -->
+
+<article>  <!-- independent, self-contained content (forum post, blog post, article). -->
+    
+<!-- All these elements are not self closing  :) -->
 ```
 
 

@@ -36,6 +36,43 @@ This way we don't need to pass the props through multiple components (prop drill
 
 
 
+
+
+### Should I use Redux or Context, which is better?
+
+
+
+
+
+You should use React Context only for low frequency state and when you plan to store only few things. Context makes our app more complicated.
+
+
+
+
+
+As per the React development team :
+
+> Context is primarily used when some data needs to be accessible by *many* components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
+>
+> **If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.**
+
+
+
+**This video can serve as a reference and the answer:**
+
+The explanation starts at 28m 40s
+https://youtu.be/OvM4hIxrqAw?t=1720
+
+
+
+
+
+
+
+
+
+
+
 ![img](https://hackernoon.com/hn-images/1*87dJ5EB3ydD7_AbhKb4UOQ.png)
 
 

@@ -226,27 +226,9 @@ This element is used to express information in a two-dimensional data table.
 
 ### Divisions - Divs
 
+
+
 The <div> tag defines a division or a section in an HTML document.
-
-
-
-
-
-### Preformated text `<pre></pre>`
-
- displayed in a non-proportional (“monospace”) font 
-
-**Example**
-
-```
-<pre>
-Text in a pre element
-is displayed in a fixed-width
-font, and it preserves
-both      spaces and
-line breaks
-</pre>
-```
 
 
 
@@ -264,10 +246,6 @@ line breaks
 #### Common tags with attributes
 
 ```html
-<!-- The language of the document can be declared in the <html> tag.
-The language is declared with the lang attribute. -->
-<html lang="en-US">
-
 <!-- The link address is specified in the href attribute -->
 <a href="https://www.google.com">This is a link</a>
 
@@ -314,7 +292,7 @@ Most common self closing tags in HTML are:
    <img /> - <!-- image tag -->
    <input /> - <!-- form input tag - nested as the child of form -->
    <link /> -  <!-- link between a document and an external resource -->
-   <meta /> - <!-- provides metadata about the HTML document -->
+   <meta /> - <!-- provides metadata about the HTML document <head> -->
    ```
 
 

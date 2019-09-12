@@ -368,7 +368,7 @@ Immutable are ones that perform an action but don't change the original object o
 | .pop()          | .slice() and ES6 spread operator | removing     |
 | .shift()        | .filter()                        | removing     |
 
-#### 
+
 
 
 

@@ -16,13 +16,23 @@ pre: "<b>1. </b>"
 
 [Module 1 Kick-off](https://docs.google.com/presentation/d/1gRTQr_Pbap2nV2wWvqkyaTjFOt-FcmaULiHLcpX3Ufc/edit#slide=id.g3fa547b098_2_0)
 
+
+
 [Module 1 Project Kick-off](https://docs.google.com/presentation/d/1ARU1BANZ-aQPLFEVqNh7Ln73ueqzryk_8j3Uz6INtcs/edit#slide=id.g3fa6174f79_0_125)
+
+
 
 [Module 2 Kick-off](https://docs.google.com/presentation/d/14m-IAsY1OikAJEpXgEPRc8OBmLLVahJd_VPXEUhYaCs/edit#slide=id.g3fa547b098_2_0)
 
-[Module 2 Project Kick-off](https://docs.google.com/presentation/d/1HsTeq-R1gTc3i1RQU7Iamj6B2OgwkbL60L8742rqfV0/edit#slide=id.g3fa6174f79_0_125)
+[
+
+Module 2 Project Kick-off](https://docs.google.com/presentation/d/1HsTeq-R1gTc3i1RQU7Iamj6B2OgwkbL60L8742rqfV0/edit#slide=id.g3fa6174f79_0_12
+
+
 
 [Module 3 Kick-off](https://docs.google.com/presentation/d/182X5jsYlRB5Gz7w8CoLJmq19tcDXLjz2sPg2bgHpo-g/edit#slide=id.g3fa547b098_2_0)
+
+
 
 [Module 3 Project Kick-off](https://docs.google.com/presentation/d/14owocAfaL8TXqKMbQLDlfk44ssFbyidpUPLLtjxq_ts/edit#slide=id.g3fa6174f79_0_125)
 
