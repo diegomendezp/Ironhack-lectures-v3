@@ -339,7 +339,7 @@ console.log('obj2: ', Object.keys(obj2));
 
 
 
-### **Quick Excercise**
+### **Quick Exercise**
 
 Iterate over the following object:
 

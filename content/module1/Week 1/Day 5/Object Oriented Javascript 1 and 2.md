@@ -2,6 +2,8 @@
 
 
 
+[OOP JS Constructors - slides](https://docs.google.com/presentation/d/1olgg5szyfuMFHPgddNmymUc9vAD36KGq_nk_JQsCxCE/edit?usp=sharing)
+
 
 
  [**Object-oriented programming (OOP)**](https://en.wikipedia.org/wiki/Object-oriented_programming) is a programming paradigm (model/standard) based on the concept of “objects”, which can contain data, in the form of *attributes* / properties ), and code in the form of functions/procedures ( known as *methods*).
@@ -57,7 +59,7 @@ let car3 = {
 };
 
 
-const drive = (hours, averageSpeed) => { 
+function drive (hours, averageSpeed) { 
 	return hours * averageSpeed;
 };
 
@@ -85,7 +87,7 @@ console.log(car3);
 
 
 
-The function's keyword  `this` can be found in every function.
+The function's keyword  `this` can be found in every function (except arrow functions which borrow it).
 
 
 
@@ -95,7 +97,7 @@ The function's keyword  `this` can be found in every function.
 
 
 
-#### 1. `this` refers to the global object in a function `(declaration` or ` expression`)
+#### 1. In a function `(declaration` or ` expression`),   `this` refers to the global object
 
 
 
@@ -148,9 +150,7 @@ person.myMethod();
 
 #### 3. Exception - `this` in arrow functions
 
-If the function/method is an ES2015 arrow function, it rec
-
-eives `this` value of its surrounding scope at the time it is created.
+If the function/method is an ES2015 arrow function, it receives `this` value of its surrounding scope at the time it is created.
 
 ```js
 const myObject = {
@@ -177,7 +177,38 @@ myObject.myMethodRegular();
 
 
 
-#### 4. Exception - Using keyword `new` when calling the function (function Constructors)
+
+
+#### 4. If `apply`, `call`  or `bind` are used to call/create a regular function, `this` inside the function is the variable that is passed in as the first argument . 
+
+
+
+**Arrow function** (lexically) binds the `this` value, which means that we **cannot** **bind**  `this`  value to it using `call`, `apply`, `bind`.
+
+
+
+```js
+const myObj = {
+    name: 'My object',
+    printThis: function () {
+		console.log(this);
+	}
+}
+
+const randomObj = {
+	price: 555,
+    name: 'Random Object'
+}
+
+
+myObj.printThis();
+
+myObj.printThis.call(randomObj);
+```
+
+
+
+#### 5. Exception - Using keyword `new` when calling the function (function Constructors)
 
 
 
@@ -212,55 +243,9 @@ tesla.color;	//	"red"
 
 
 
-#### 5. If `apply`, `call`  or `bind` are used to call/create a regular function, `this` inside the function is the variable that is passed in as the first argument . 
+### [**Exercise** GIST ()](https://gist.github.com/ross-u/4d9429d70ef93b08922f4abc783c03c0) - 15 min
 
 
-
-**Arrow function** (lexically) binds the `this` value, which means that we **cannot** **bind**  `this`  value to it using `call`, `apply`, `bind`.
-
-
-
-```js
-const myObj = {
-    name: 'My object',
-    printThis: function () {
-		console.log(this);
-	}
-}
-
-const randomObj = {
-	price: 555,
-    name: 'Random Object'
-}
-
-
-myObj.printThis();
-
-myObj.printThis.call(randomObj);
-```
-
-
-
-#### **Exercise** -
-
-```js
-// 1. Create object `house` with properties `street`, `city` and `color`. 
-
-// 2. Create a simple function `whatIsThis` that console logs the value of `this`.
-
-// 3. To the object `house` add a method `thisInHouse` that console logs  `this`.
-
-// 4. Using the dot notation, create method `leftOfTheDot`on the object `house` and assign to it the previously created function `whatIsThis`.
-
-
-// 5. Call the created methods by uncomenting the code below:
-
-/*
-	console.log(house);
-	house.whatIsThis();
-	house.leftOfTheDot();
-*/
-```
 
 
 
@@ -284,7 +269,7 @@ myObj.printThis.call(randomObj);
 
 
 
-##### Except for arrow functions, which take `this` from the surrounding scope.
+##### Arrow functions do not bind it's own `this`, but they take `this` from the surrounding scope where they were created.
 
 
 
@@ -297,45 +282,6 @@ myObj.printThis.call(randomObj);
 
 
 
-
-## Object methods and `this`
-
-
-
-```js
-let house1 = {
-  address: '123 Washington Ave',
-  price: 300000,
-  currency: 'USD',
-  logThis: function () { console.log(this) },
-  houseDetails: function () {
-		return `Address: ${this.address} - price: ${this.price} ${this.currency}`;
-  }
-};
-
-house1.logThis();
-house1.houseDetails();
-```
-
-
-
-```js
-let house2 = {
-  address: '1020 Lake Buena Vista',
-  price: 694000,
-  currency: 'USD',
-  logThis: function () { console.log(this) },
-  houseDetails: function () {
-		return `Address: ${this.address} - price: ${this.price} ${this.currency}`;
-  },
-  updatePrice: function (newPrice) {
-      this.price = newPrice;    
-  }
-};
-
-house2.logThis();
-house2.houseDetails();
-```
 
 
 
@@ -422,7 +368,7 @@ In order to create multiple of same structure we need object constructors. These
 
 
 
-### Methaphore of blueprint (prototype/class)  for a car and the actual car as a product/object
+### Metaphor of blueprint (prototype/class)  for a car and the actual car as a product/object
 
 ![img](https://qph.fs.quoracdn.net/main-qimg-1eb4338a347e9001090228055d017f0c.webp)
 
@@ -434,7 +380,7 @@ In order to create multiple of same structure we need object constructors. These
 
 
 
-### Factory function and Object.assign
+### Factory function and Object.assign (consider skipping)
 
 
 
@@ -444,32 +390,64 @@ Most simple way is to create multiple objects is to use a function.
 
 **Factory function doesn't allow prototype inheritance** - you cannot inherit the methods from the factory function.
 
+```js
+function carFactory (brand, model) {
+  
+  let carObj = {};
+  
+  carObj.brand = brand;
+  carObj.model = model;
+ 
+  carObj.carDetails = function () {
+    console.log( `${this.brand} ${this.model}` );
+  };
+  
+  carObj.start = function () {
+    console.log(`${this.brand} start engine`);
+  }
+
+  carObj.drive = function (miles) {
+    console.log(`Driving ${this.brand} ${miles} miles`);
+  }
+
+  return carObj;
+}
+```
+
+
+
+
+
+
+
+#### Using `Object.assign` to copy the data from one object to another.
+
 
 
 ```js
-var carMethods = {
+const carMethods = {
   start: function () {
-    console.log(`${this.brand} - start engine.`);
+    console.log(`${this.brand} start engine.`);
   },
   drive: function (miles) {
-    console.log(`Driving ${this.brand} - ${miles} miles`)
+    console.log(`Driving ${this.brand} ${miles} miles`)
   },
 }
 
 
 // Functional object constructor - aka factory function
-function carFactory (brand, model, year, color) {
+function carFactory (brand, model) {
   let carObj = {};
-  obj.brand = brand;
-  obj.model = model;
-  obj.year = year;
-  obj.color = color;
-  obj.carDetials = function () {
-		return `${this.brand} ${this.model} - year: ${this.year}`;
+    
+  carObj.brand = brand;
+  carObj.model = model;
+  carObj.carDetials = function () {
+		return `${this.brand} ${this.model}`;
   };
     
   // Copy the methods from the `carMethods` object to the `carObj` 
   carObj = Object.assign(carObj, carMethods);
+    
   return objInstance;
 };
 
@@ -477,14 +455,13 @@ function carFactory (brand, model, year, color) {
 
 // Create new objects using the above function
 // we don't use keyword `new`!
-const bmw = carFactory('BMW', '530 M3', 2019, 'silver');
-const toyota = carFactory('Toyota', 'Yaris', 2010, 'blue');
-const seat = carFactory('Seat', 'Ibiza', 2019, 'black');
-const honda = carFactory('Honda', 'Civic', 2015, 'red');
+const bmw = carFactory('BMW', '530 M3');
+const toyota = carFactory('Toyota', 'Yaris');
+const seat = carFactory('Seat', 'Ibiza');
+const honda = carFactory('Honda', 'Civic');
 
 
-console.log('bmw -> ', bmw);
-
+bmw.carDetails();
 bmw.start();
 bmw.drive(50);
 ```
@@ -543,45 +520,89 @@ This means that prototype serves as a blueprint for every object and it can also
 ```js
 // Constructor names start with capital letter
 
-function Car (brand, engineType) {
+function Car (brand, model) {
+  this.brand = brand;
+  this.model = model;
+}
+
+var bmw = new Car ("BMW", "X5");
+var lexus = new Car ("Lexus", "L300");
+
+console.log(bmw);  // Car {brand: "BMW", model: "X5"}
+
+```
+
+
+
+##### Under the hood
+
+```js
+// Constructor names start with capital letter
+
+function Car (brand, model) {
 	// this = {};
 	// this.__proto__ = Car.prototype;
   
 	this.brand = brand;	 // create property on the new instance
-  	this.engineType = engineType;
+  	this.model = model;
+	// return this;
+}
+
+// keyword `new` makes the function a constructor, and points `this` to the new object
+var bmw = new Car ("BMW", "X5");
+var lexus = new Car ("Lexus", "L300");
+
+console.log(bmw);
+// Car {brand: "BMW", model: "X5", start: ƒ }
+
+```
+
+
+
+#### prototype Methods
+
+```js
+function Car (brand, model) {
+	// this = {};
+	// this.__proto__ = Car.prototype;
+  
+	this.brand = brand;	 // create property on the new instance
+  	this.model = model;
 	// return this;
 }
 
 Car.prototype.start = function () {
-  console.log(this.brand + " Engine start");
+  console.log(this.brand + " start engine.");
 };
 
 // keyword `new` makes the function a constructor, and point `this` to a new object
-var bmw = new Car ("BMW", "petrol");
-var lexus = new Car ("Lexus", "diesel");
+var bmw = new Car ("BMW", "X5");
+var lexus = new Car ("Lexus", "L300");
 
-// Car {brand: "BMW", engineType: "petrol", start: ƒ }
+// Car {brand: "BMW", model: "X5" }
 
 bmw.start();
 console.log( bmw.__proto__ === Car.prototype );
 console.log( lexus.__proto__ === Car.prototype );
-
 ```
+
+
 
 
 
 ```js
 // Extending the prototype
 
-function HybridCar (brand, engineType, color) {
+function HybridCar (brand, model, engine) {
 	// this = {};
 	// this.__proto__ = Car.prototype;
-  this.color = color;
   
-// Calls Car and creates properties `brand` and `engineType `on the new instance
-// ****
-  Car.call(this, brand, engineType);
-// ****
+	// Calls Car and creates properties `brand` and `engineType `on the new instance
+	// ****
+  	Car.call(this, brand, model);
+	// ****
+    
+    this.engine = engine;
   
 	// return this;
 }
@@ -594,10 +615,38 @@ HybridCar.prototype.constructor = HybridCar;
 
 
 // keyword `new` makes the function a constructor, and point `this` to a new object
-var hybridBmw = new HybridCar ("BMW", "electric", "red");
+var hybridBmw = new HybridCar ("BMW", "i3", "hybrid");
 
 console.log(hybridBmw); 
 ```
+
+
+
+
+
+
+
+
+
+### Sidenotes for the teacher
+
+
+
+##### `__proto__`
+
+When object is created in JavaScript  the engine adds the `__proto__` (aka *dunder proto*) property to the new object. This `__proto__` property points to the `prototype` object of the it's constructor.
+
+
+
+
+
+#### `constructor` property 
+
+When a function is created in JavaScript the JS engine adds a `prototype` object **to the function**. 
+
+This `prototype` object has a `constructor` property which points back to the function.
+
+
 
 
 
@@ -636,6 +685,8 @@ const bmw = new Car ("BMW");
 
 bmw.start();
 ```
+
+
 
 
 

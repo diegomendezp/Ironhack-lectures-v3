@@ -4,14 +4,42 @@
 
 
 
+https://www.ecma-international.org/ecma-262/10.0/index.html#sec-ecmascript-language-types
+
+
+
+There are 7 basic *data types* in *JavaScript*.  Primitive data types are string, number, boolean, null, undefined, symbol. Everything else is an **Object** type.
+
+
+
+
+
+![img](https://dotnettricks.blob.core.windows.net/img/javascript/js-datatype.png)
+
+
+
+
+
+[OPEN IMAGE](https://dotnettricks.blob.core.windows.net/img/javascript/js-datatype.png)
+
+
+
+
+
+
+
 ### Primitives - passed (copied) by value
 
-- Primitives: string, number, boolean, null, undefined, symbol
+- Primitives: **string, number, boolean, null, undefined, symbol.** Everything else is an Object type.
 
-- Variables that hold primitive values hold the value that we assigned to it.
+- Variables with **primitives** (data types) **hold the value** that we assigned to it.
 
-- By using assignment operator `=`, primitive values are copied to the new variable.
+- **By using assignment operator** `=`, **primitive data types are copied** to the variable.
 
+  
+  
+  
+  
   ```js
   let a = 10;
   let b = 'abc';
@@ -29,22 +57,39 @@
   console.log('aCopy -> ',aCopy);	// 10
   
   /*
-  Changing one does not change the other.
+Changing one does not change the other.
   Think of the variables as having no relationship to each other, as primitive value was copied, not referenced.
   */
   ```
-
+  
   
 
 ### Non-primitives - passed (copied) by `reference`
 
-- Non-primitives: Objects, Arrays and functions.
+- Non-primitives: **Objects** ( Objects, Arrays, Functions ... (OOS: Date and Symbol) ).
 
-Variables holding a non-primitive value (object, array and function), are given a reference to that value. That reference points to the object's location in memory. These variables don't actually contain the value.
+Variables holding a non-primitive value (object, array and function), are given a reference to that value. 
 
-- When we assign an object or array to a variable, what are we copying?
+The object reference points to the object's location in memory.
 
-  Answer: We are copying tVariables that hold objects or arrays hold the “address in memory” which is the reference to that object or array, not the values.he reference in the memory.
+
+
+### QUESTION:
+
+**When we assign an object or array to a variable, what are we copying?**
+
+```js
+var myArrr = [];
+
+```
+
+
+
+- **Answer**: We are copying Variables that hold objects or arrays hold the “address in memory” which is the reference to that object or array, not the values.he reference in the memory.
+
+  
+
+  
 
   
 
@@ -61,9 +106,7 @@ Variables holding a non-primitive value (object, array and function), are given 
 
   
 
-  ![](/home/ross-u/Desktop/IH_cheatsheets_ross/content/module1/Week 1/Day 3/copy by reference.jpg)
-
-  (EXPLAIN USING THE STUDENTS HOLDING TABLES OR PIECES OF PAPER)
+  
 
   
 
@@ -71,10 +114,14 @@ Variables holding a non-primitive value (object, array and function), are given 
 
   When the equality operators, `==` and `===`, are used on reference-type variables, they check the reference. 
 
-  If the variables contain a reference to the same item in memory, it returns `true`.
+  
+
+  If the variables contain a reference to the same item in the memory, it returns `true`.
+
+  
 
   **IMPORTANT** -  2 objects or arrays look completely the same, but they don't reference the same object/array in the memory, they are not the same (when compared == / ===) .
-
+  
   ```js
   let arr1 = [1,2];
   let arr2 = [1,2];
@@ -95,13 +142,17 @@ Variables holding a non-primitive value (object, array and function), are given 
   console.log(arr3 === arr1);
   
   let obj3 = obj1;
-  console.log( obj3 === obj1);
+console.log( obj3 === obj1);
   ```
 
   
 
+  
+  
+  
+  
   **Interview Question 1** 
-
+  
   ```js
   let person1 = {name: 'John', age: 50}
   let person2 = person1;
@@ -112,17 +163,17 @@ Variables holding a non-primitive value (object, array and function), are given 
   
   // Question 2
   person1.age = 21;
-  console.log(person2); // ->	  What is the result?
+console.log(person2); // ->	  What is the result?
   
-  // Answer
+// Answer
   //	{name: "Mark", age: 50}
-  //	{name: "Mark", age: 21}
+//	{name: "Mark", age: 21}
   ```
-
   
-
+  
+  
   **Interview Question 2**
-
+  
   ```js
   function changeAgeAndReference(student) {
       student.age = 21;
@@ -143,11 +194,13 @@ Variables holding a non-primitive value (object, array and function), are given 
   
   // Why did this happen ?
   
-  // Explanation:
+// Explanation:
+  // the catch here is that function creates it's own variable `student`, so when we //asssign it the new object, we assign the reference to another object.
+
   // On line 2 student points to the object passed as an argument, and we change it's age property to 21
-  // On the line 3 (//), JS reassigns a new object to the argument variable `student`, and it now points to the object in memory { name: 'John', age: 50 }
+// On the line 3 (//), JS reassigns a new object to the argument variable `student`, and it now points to the object in memory { name: 'John', age: 50 }
   
-  
+
   ```
 
   
@@ -159,29 +212,29 @@ Variables holding a non-primitive value (object, array and function), are given 
   ### Object.assign() - 
 
   Object assign is used to copy or overwrite properties from one object to another.
-
+  
   It copies properties from `sourceObject` into `destinationObject`
-
+  
   #### `variable = Object.assign(destinationObject, sourceObject)`
-
+  
   #### copying via Object.assign (using empty object as destination)
-
+  
   ```js
-  let brand = { brand: 'Toyota'. color: 'blue'}
+let brand = { brand: 'Toyota'. color: 'blue'}
   let car1 = Object.assign({} , brand);
-  
+
   let car2 = Object.assign({} , car1);
-  
+
   // car2 is a exact copy of car1, but they are 2 different objects in the memory
-  
+
   ```
-
   
-
+  
+  
   ### But, Object.assign()  creates only a shallow copy
-
+  
   *Object.assign()* creates so called **shallow copy** since all **nested properties still be copied by reference**.
-
+  
   ```js
   const book1 = {
     author: "Charlotte Bronte",
@@ -202,13 +255,13 @@ Variables holding a non-primitive value (object, array and function), are given 
   console.log(book3); 
   
   
-  // console:
+// console:
   //  { author: 'Charlotte Bronte', // <== THIS DIDN'T CHANGE
-  //    publishers: [ 
+//    publishers: [ 
   //        { companyName: 'Cool Company' }, // <== THIS IS CHANGED SINCE IT'S COPIED BY REFERENCE
-  //        { companyName: 'CD' } 
+//        { companyName: 'CD' } 
   //    ] 
-  //  }
+//  }
   ```
 
   
@@ -220,13 +273,13 @@ Variables holding a non-primitive value (object, array and function), are given 
   - Custom function - Using `for...in` loop to loop through and copy all of the properties of the object and return the new copied object as a result
 
   -  `JSON.parse(JSON.stringify())` - Also called a poor man's object copy
-
+  
   - using Underscore.js `_.clone` or lodash `_.cloneDeep` methods 
-
+  
     
-
+  
     #### Custom function - Let's see what happens line by line
-
+  
     ```js
     function cloneObject(object) {
         let clone = {};
@@ -250,38 +303,38 @@ Variables holding a non-primitive value (object, array and function), are given 
     }
     
     let clonedObject = cloneObject(original);
-    
+  
     console.log(original === clonedObject);		// false
-    console.log(original.family === clonedObject.family);	// false
+  console.log(original.family === clonedObject.family);	// false
     console.log(original.family[0] === clonedObject.family[0]); // false
-    
+  
     clonedObject.family[0] = { name: 'Danny', age: 40 };
     console.log(original.family[0]); // { name: 'Mark', age: 29 } // previous line didn't affect original object as it was copied and not referenced.
-    ```
-
+  ```
+  
     
-
+  
   #### JSON.parse(JSON.stringify())
-
+  
   - [The JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method converts a JavaScript object or value to a JSON string.
   - [The JSON.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method parses a JSON string, and constructs the JavaScript value or object described by the string.
-
+  
   ```js
   let obj = { name:'Tom', job: 'Web Developer'}
   let stringified = JSON.stringify(obj);
-  
+
   console.log(stringified);
-  console.log(typeof stringified);
+console.log(typeof stringified);
   
-  let backToObject = JSON.parse(stringified);
+let backToObject = JSON.parse(stringified);
   console.log(backToObject);
   console.log(typeof backToObject)
   ```
-
   
-
+  
+  
   #### **Important !** you don't need to understand what JSON.stringify internally does.
-
+  
   ```js
   let original = {
   	name: 'Sarah',
@@ -292,23 +345,23 @@ Variables holding a non-primitive value (object, array and function), are given 
   	] 
   }
   
-  let clonedObject = JSON.parse(JSON.stringify(original));
+let clonedObject = JSON.parse(JSON.stringify(original));
   console.log(original);
-  console.log(clonedObject);
+console.log(clonedObject);
   
-  clonedObject.family[0] = { name: 'Danny', age: 40 };
+clonedObject.family[0] = { name: 'Danny', age: 40 };
   console.log(original.family[0]);
-  console.log(clonedObject.family[0]);
+console.log(clonedObject.family[0]);
   ```
 
   
-
   
-
+  
+  
   ## How to copy an Array
-
+  
   ### Shallow copy
-
+  
   ```js
   //  Shallow copy means that nay nested objects or arrays are only copied by reference
   const arr = [1,2,3,'Hello','Ironhackers']
