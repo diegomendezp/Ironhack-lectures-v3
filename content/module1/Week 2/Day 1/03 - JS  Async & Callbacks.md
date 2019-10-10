@@ -4,11 +4,11 @@
 
 
 
-**JavaScript is not asynchronous language, but synchronous one with some asynchronous behaviors**.”
 
 
+**Javascript is single-threaded**. To clarify better, this means that one single thread handles the event loop.
 
-**Javascript is single-threaded**. To clarify better, this means that one single thread handles the event loop. For older browsers, the whole browser shared one single thread between all the tabs. Modern browsers improved upon this by using either [process-per-site-instance](https://www.chromium.org/developers/design-documents/process-models) or different threads per tab.
+For older browsers, the whole browser shared one single thread between all the tabs. Modern browsers improved upon this by using either [process-per-site-instance](https://www.chromium.org/developers/design-documents/process-models) or different threads per tab.
 
 
 
@@ -24,8 +24,8 @@
 **JavaScript, at its core, is a single-threaded and synchronous language**, and this means next:
 
 - [**single-threaded**](https://en.wikipedia.org/wiki/Thread_(computing)#Single_threading) - **only one block of code is executed at the time**
-
-- **synchronous** - **the code gets executed line by line, from top to bottom, in the order in which they are put in** - line 2 can’t get executed before line 1, line 3 can’t get executed before line 2, and so on
+- **synchronous** - **the code gets executed line by line, from top to bottom, in the order in which they are put in** - line 2 can’t get executed before line 1, line 3 can’t get executed before line 2, and so on.
+- **asynchronous** behavior is provided through the browser's APIs (such as setTimeout, setInterval, fetch API, Promise API).
 
 
 
@@ -37,7 +37,9 @@
 
 ## Async & Callbacks
 
-**In asynchronous programs it is possible to have code on line 1 scheduled to be run at some point in the future so in the meantime, code on lines 2,3, and so on can run**.
+
+
+In asynchronous programs it is possible to have code on line 1 scheduled to be run at some point in the future so in the meantime, code on lines 2,3, and so on can run.
 
 
 
@@ -53,34 +55,20 @@ The **callback function** contains the code that will be executed when the async
 
 
 
-## `setTimeout()`
+## `setTimeout(cb, delay)`
 
-Sets a timer which executes a callback function once the timer expires.
-
-
-
-**syntax**
+Sets a timer which executes a **callback** function once the timer **delay** expires.
 
 
 
-```js
-const timeoutId = setTimeout (callbackFunction [, 'delay]);
-```
-
-Parameters:
+**Parameters:**
 
 - `callbackFunction`: the function that will be executed once the timer expires
 - `delay` (optional): the time (in milliseconds) the timer should wait before the given callback function is executed
 
-The method returns a numeric `timeoutId`, which identifies the timer created by the call to `setTimeout()`.
+- The method returns a numeric `timeoutId`, which identifies the timer created by the call to `setTimeout()`.
 
-We can cancel the timeout by passing this `id` to the `clearTimeout()` method.
-
-
-
-```js
-clearTimeout(timeoutId);
-```
+- We can cancel the timeout by passing this `id` to the **`clearTimeout()`** method.
 
 
 
@@ -119,26 +107,48 @@ const timeoutId = setTimeout(() => {
 
 
 
+### Synchronous vs Asynchronous actions
 
 
-**Exercise** 1
+
+**QUESTION:** What will the console print, First, Second, Third ??
 
 ```js
-// Task 1 - Create a counter that will print a number in a sequence each second.
+setTimeout(() => {
+  console.log('First')
+}, 0);
+
+console.log('Second');
+console.log('Third');
+```
+
+
+
+
+
+
+
+
+
+### [Exercise - Asynchronous Warm Up](https://gist.github.com/ross-u/251de9af8e6bd1ad1ec74d644036e253) (5 - 7 min)
+
+```js
+// Task 1 -
+// Create a counter that will print a number in a sequence each second.
 
 let counter = 1;
 const callbackFunction = function () {
-	// your code here  
+  setTimeout(/* Your code here ... */);
 }
 
 let timeoutId = setTimeout(callbackFunction, 1000);
 
 
 
-/* As there is no way to clear the setTimeout and function keeps calling itself 
-over and over again, we need to create a variable inside the function that will keep the timeout id and then use `if` statment to call clearTimeout(timeoutId) */
+// Task 2 -
 
-// Task 2 - Edit the function to clear the timeout using clearTimeout(timeoutId) when the counter is 10.
+// As there is no way to clear the setTimeout, setTimeout keeps calling the provided callback function over and over again.
+// Edit the callbackFunction to clear the timeout using clearTimeout(timeoutId) when the counter is 10.
 ```
 
 
@@ -186,13 +196,16 @@ let timeoutId = setTimeout(callbackFunction, 1000);
 
 
 
-## `setInterval()`
+
+
+## `setInterval(cb, delay)`
 
 Calls a function repeatedly with a fixed delayed time between each call.
 
 
 
-The method returns a numeric `intervalId`, which identifies the timer created by the call to `setInterval()`.
+- The method returns `intervalId`, which identifies the timer created by the call to `setInterval()`.
+- We can cancel the **interval** by passing this `id` to the **`clearInterval(intervalId)`** method.
 
 
 
@@ -223,52 +236,19 @@ const intervalId = setInterval(function () {
 
 
 
-##### `setTimeout()` executes the function just once, 
-
-##### `setInterval()` executes the given function repeteadly until the `clearInterval()` function is called.
+### Difference between `setInterval` and `setTimeout`
 
 
 
+- **`setTimeout()`** executes the function just once, 
 
-
-A bit later in the course, we will cover other ways to deal with asynchronicity of JavaScript such are *promises* and *async/await*. 🎯
+- **`setInterval()`** executes the given function repeteadly until the `clearInterval()` function is called.
 
 
 
 
 
-**Exercise**
-
-```js
-// Task 1 - Complete the function printTime so that console logs the current time on the console
-
-function printTime() {
-  
-  const currentTime = new Date(); 
-  console.log(currentTime);
-}
-
-printTime();
-
-
-// Task 2 - call setInterval() giving it a printTime function and a interval of 1000 miliseconds.
-
-
-// setInterval()
-
-
-
-// Task 3 - Refactor your setTimeout -  instead of giving the delay miliseconds value as a number 1000, create a variable `miliseconds` in the global scope and pass that to setTimeout instead of the number.
-
-
-
-
-
-// Task 4 - Use `clearInterval()` inside of the `printTime` function after the time was printed to the console 10 times, to stop the setInterval() from calling the function.
-
-
-
-```
+A bit later in the course, we will cover other ways to deal with asynchronicity of JavaScript such are ***promises*** and ***async/await***. 🎯
 
 
 
@@ -276,7 +256,9 @@ printTime();
 
 
 
-**Clock example **
+
+
+**Clock example  - Use [Repl.it](https://repl.it/~) **
 
 ```js
 const second = 1000;
@@ -291,6 +273,7 @@ function updateClock() {
   const seconds = dateObj.getSeconds();
   const minutes = dateObj.getMinutes();
   const hours = dateObj.getHours();
+  // const miliseconds = dateObj.getMilliseconds();
   
   const timeNow = concatZero(hours) + ':' + concatZero(minutes) + ':' + concatZero(seconds);
 
@@ -310,9 +293,11 @@ const clockInterval = setInterval(updateClock, second);
 
 
 
+### Additional Resources
 
 
-**EXTRA TASK & VIDEO RELATED** - (Only for ones interested! :smiley: )
+
+**REPEATED QUESTION (from beginning of the lecture) & VIDEO RELATED** - (Only for the ones interested! :smiley: )
 
 ```js
 function first () {
@@ -336,11 +321,7 @@ third();
 
 
 
+**VIDEO:**
 
-
-#### **Additional resources** 
-
-
-
-<https://www.youtube.com/watch?v=8aGhZQkoFbQ>
+### [ Philip Robers  - What the heck is the event loop anyway](https://www.youtube.com/watch?v=8aGhZQkoFbQ) (25 min watch)
 

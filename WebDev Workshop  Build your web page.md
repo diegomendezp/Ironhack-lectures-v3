@@ -97,12 +97,14 @@ Lets write few tags.
 ```html
  <body>
     
-    <h1>Uros C</h1>
-
-    <div>
+    <nav>
+      <h1>Uros C</h1>
+    </nav>
+   
+    <header>
       <h3>Welcome</h3>
       <p> Hi! Welcome to my portfolio website!</p>
-    </div>
+    </header>
     
 
     <div>
@@ -482,7 +484,7 @@ input {
 
 
 
-d
+
 
 Let's style our form button
 
@@ -530,10 +532,10 @@ Let's style our form button
 
 
 
-Create the header tag
+Create the nav tag
 
 ```html
-<header>
+<nav>
     <h1>Uros C</h1>
 
     <ul>
@@ -548,15 +550,15 @@ Create the header tag
         </li>
     </ul>
 
-</header>
+</nav>
 ```
 
 
 
-Add styling to the header elements
+Add styling to the nav elements
 
 ```css
-header {
+nav {
     background: cornflowerblue;
     color: white;
     height: 45px;
@@ -564,16 +566,16 @@ header {
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
 }
 
-header h1 {
+nav h1 {
   margin-top: -10px;
   display: inline-block;
 }
 
-header ul {
+nav ul {
   display: inline-block;
 }
 
-header ul li {
+nav ul li {
   display: inline;
   margin-left: 30px;
 }

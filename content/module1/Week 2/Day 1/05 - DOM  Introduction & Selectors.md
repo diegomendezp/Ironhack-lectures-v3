@@ -1,12 +1,20 @@
 # DOM | Introduction & Selectors
 
+
+
 The Document Object Model (DOM) is an [API (Application Programming Interface)](https://en.wikipedia.org/wiki/Application_programming_interface) for HTML documents. 
+
+
 
 It provides a **structured representation of the document (web page) and defines a way that the structure can be accessed from JavaScript**.
 
 
 
-##### In DOM HTML document is represented as a group of nodes (objects) that have properties and methods.
+##### In DOM HTML document is represented as a group of nodes (objects).
+
+##### Each node(object) has properties and methods.
+
+
 
 ### DOM Tree
 
@@ -16,9 +24,17 @@ The tree is made up of parent-child relationships.
 
 One parent can have one or many children nodes.
 
+
+
+### [OPEN IMAGE](https://i.imgur.com/m08deQC.png)
+
+
+
 ![img](https://i.imgur.com/m08deQC.png)
 
-### 
+
+
+ 
 
 **Code Along**
 
@@ -64,7 +80,7 @@ code .
 
 ```js
 'use strict'
-console.log('JS connected')
+console.log('JS connected');
 ```
 
 
@@ -103,13 +119,15 @@ let theParrotDiv = document.getElementById("parrot");
 
 console.log(theCatDiv);
 console.log(theParrotDiv);
+
+console.log(theCatDiv instanceof HTMLElement);
 ```
 
 **index.js**
 
 ```js
 
-// TO ADD TEXT TO DOM USE "innerHTML"
+// TO ADD TEXT TO A DOM ELEMENT USE "innerHTML"
 theCatDiv.innerHTML = "I'm a cat";
 theParrotDiv.innerHTML = "I'm a parrot";
 ```
@@ -117,11 +135,27 @@ theParrotDiv.innerHTML = "I'm a parrot";
 **index.js**
 
 ```js
-// set the HTML content of "theParrotDiv" to "I'm a cat"
+// set the content of the "theParrotDiv" element to "I'm a cat"
 theParrotDiv.innerHTML = theCatDiv.innerHTML;
 ```
 
 
+
+
+
+### Each element is a `HTMLElement` Object
+
+Each element is an `HTMLElement` Object which gives it methods and properties that we can use to manipulate it.
+
+Instead of hard coding style and behavior in `html` or `css`, these methods enable us to work with the element from JavaScript file.
+
+
+
+### [List of HTML Object properties - W3S](https://www.w3schools.com/jsref/dom_obj_all.asp)
+
+
+
+### [List of HTML Object Properties - MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
 
 
 
@@ -131,9 +165,17 @@ theParrotDiv.innerHTML = theCatDiv.innerHTML;
 
 
 
-Once we have fetched an element using one of the above methods, we can also modify them. 
+- We can modify the element by using the methods that each `HTMLElement` has. 
 
- [element.style](https://developer.mozilla.org/en/docs/Web/API/HTMLElement/style), which allows us to change the styles from JavaScript.
+- [element.style](https://developer.mozilla.org/en/docs/Web/API/HTMLElement/style),  allows us to change the styles from JavaScript.
+
+
+
+
+
+### [CSS Properties Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference)
+
+
 
 **index.js**
 
@@ -157,7 +199,9 @@ theCatDiv.style.paddingBottom   = "30px";
 
 
 
-[.getElementsByClassName()](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName) **returns an HTML collection (array like object) of all elements** which have the given class names.
+#### [.getElementsByClassName()](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName)
+
+ **returns an `HTML collection` (array like object) of all elements** which have the given class names.
 
 
 
@@ -166,31 +210,35 @@ theCatDiv.style.paddingBottom   = "30px";
 ```js
 // GET ELEMENTS BY CLASS NAME USE "getElementsByClassName"
 // returns an HTML Collection (array-like object) of all elements which have the given class name
-let mice = document.getElementsByClassName('mouse');
-console.log(mice);
+let miceHTMLCollection = document.getElementsByClassName('mouse');
+console.log(miceHTMLCollection);
 ```
 
 
 
 
 
-### HTML Collections
+## HTML Collections
 
-The HTML Collection represents a generic collection (**array-like object**) of elements
+- The `HTML Collection` represents an **array-like object** of elements. 
+- This array-like object  cannot be iterated with array methods `map`, `forEach`, `push`, etc.
+- `HTML Collection` needs to be copied into an array order to use regular array methods. This can be done with `...` spread operator. 
 
+- **Methods that return `HTML Collection`s are:**  
 
+  - #### [`getElementsByClassName()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByClassName)
 
-
-
-#### Iterate over an HTML Collection - methods not available
-
-##### The HTML Collection is an array-like object but is not an array. 
-
-##### So we can’t use the array methods like `forEach`, `map`, `push`, etc.
+  - #### [`getElementsByTagName()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName)
 
 
 
-**To turn our HTML collection into an array**, using **spread operator [...]** or any other approach to copy the array (we learned 4-5 of them, remember.
+
+
+### Turning  `HTML Collection` into an array
+
+Use **spread operator [...]** or any other approach to copy the array (we learned 4-5 of them, remember. 
+
+e.g. `const divsArray = Array.from(divsHTMLCollection)`
 
 
 
@@ -199,7 +247,7 @@ The HTML Collection represents a generic collection (**array-like object**) of e
 ```js
 // The HTML Collection is an array-like object but is not an array (usuall array methods are unavailable). 
 // Turn HTML Collection into an array, using spread operator [...] 
-let miceArray = [...mice];
+let miceArray = [...miceHTMLCollection];
 
 
 console.log(miceArray); // <== [div.mouse, div.mouse, div.mouse]
@@ -213,19 +261,27 @@ console.log(miceArray); // <== [div.mouse, div.mouse, div.mouse]
 
 ### Accessing by Tag Name
 
+[`getElementsByTagName()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName) returns a HTML Collection, that must be spread in order to use array methods.
+
+
+
 **index.js**
 
 ```js
 // GET ELEMENTS BY TAG NAME USE "getElementsByTagName"
-let divs = document.getElementsByTagName('div');
+let divsHTMLCollection = document.getElementsByTagName('div');
 console.log(divs); // <== [div#cat, div.mouse, div.mouse, div.mouse]
 
-let divsArray = [...divs];
+let divsArray = [...divsHTMLCollection];
 ```
 
 
 
-**EXERCISE**
+
+
+
+
+**QUICK EXERCISE:**
 
 ```js
 // Loop over the `divsArray` using `.forEach()` array method and for every element set the following style:
@@ -258,7 +314,9 @@ divsArray.forEach( function (element) {
 
 
 
-### Accessing First Found Selector - `querySelector()`
+### Accessing First Found Selector -
+
+###  [`querySelector()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
 
 
 
@@ -279,15 +337,27 @@ console.log(firstDiv);
 
 
 
+## NodeLists
+
+**NodeList** objects are collections of [nodes](https://developer.mozilla.org/en-US/docs/Glossary/Node/DOM).
+
+Property and Method that return `NodeList` are:
+
+-  [`document.querySelectorAll()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll).
 
 
-### Accessing an Array of Selectors - `.querySelectorAll()`
 
-#####  method `.querySelectorAll()` returns a list of the elements within the document that match the specified group of selectors.
 
-##### It returns a [NodeList](https://developer.mozilla.org/en/docs/Web/API/NodeList). object.
 
-##### It is possible to loop over the items in a `NodeList` using a [for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loop or a [for...of](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of>) statement :
+### Accessing all Matching Selectors - 
+
+### [`.querySelectorAll()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)
+
+
+
+- method `.querySelectorAll()` returns a [NodeList](https://developer.mozilla.org/en/docs/Web/API/NodeList). object of all the matching elements.
+
+- It is possible to loop over the items in a `NodeList` using a [for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loop or a [for...of](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of>) statement :
 
 
 
@@ -305,7 +375,11 @@ console.log(allDivs);
 
 
 
+
+
 ### Getting and Setting the Class Name
+
+### [`.className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className)
 
 
 
@@ -326,6 +400,12 @@ console.log(mouse1.className); // <== mouse mickey
 
 
 ### Getting and Setting the ID
+
+### [`.id`](https://developer.mozilla.org/en-US/docs/Web/API/Element/id)
+
+
+
+**index.js**
 
 ```js
 // TO GET OR SET THE ID OF THE ELEMENT USE `.id` property

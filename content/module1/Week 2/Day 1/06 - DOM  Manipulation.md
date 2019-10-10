@@ -37,7 +37,6 @@ touch index.html index.js
   <title>DOM Manipulation</title>
 </head>
 <body>
-  <p id="paragraph">What is your name?</p>
   <a href="#" id="google-link" class="link">Google</a>
 
   <div id="content">
@@ -63,24 +62,15 @@ touch index.html index.js
 console.log('JS connected');
 ```
 
-**index.js**
-
-```js
-// Get element with id="paragraph"
-let paragraph = document.getElementById('paragraph');
-
-console.log(paragraph); // <== <p id="paragraph">What is your name?</p>
-```
-
 
 
 **index.js**
 
 ```js
 // Get all elements with class="link"
-let links = document.getElementsByClassName('link');
+let linksHTMLCollection = document.getElementsByClassName('link');
 
-console.log(links);
+console.log(linksHTMLCollection);
 ```
 
 
@@ -89,9 +79,10 @@ console.log(links);
 
 ```js
 // Get all "<div></div>" elements
-let divs = document.getElementsByTagName('div');
+let divsHTMLCollection = document.getElementsByTagName('div');
 
-console.log(divs);
+console.log(divsHTMLCollection);
+
 ```
 
 
@@ -113,10 +104,17 @@ let googleLink = document.getElementById('google-link');
 
 
 // Get the attribute value from an element
-let h1Id = h1.getAttribute('id');
-let h1Class = h1.getAttribute('class');
+let headlineId = h1.getAttribute('id');
+let headlineClass = h1.getAttribute('class');
 let googleLinkUrl = googleLink.getAttribute('href');
+
+
+console.log(headlineId);
+console.log(headlineClass);
+console.log(googleLinkUrl);
 ```
+
+
 
 
 
@@ -157,7 +155,7 @@ console.log(listItem)
 
 ```js
 // Set the attribute class="item-list" to the `listItem`
-listItem.setAttribute('class', 'item-list')
+listItem.setAttribute('class', 'items-list')
 ```
 
 
@@ -166,14 +164,14 @@ listItem.setAttribute('class', 'item-list')
 
 
 
-## Create a DOM elements
+## Create DOM elements
 
 **index.js**
 
 ```js
 // TO CREATE NEW DOM ELEMENT USE `document.createElement(tagName)`
 let h2Tag = document.createElement('h2');
-console.log(h2Tag)''
+console.log(h2Tag);
 ```
 
 
@@ -185,8 +183,8 @@ console.log(h2Tag)''
 **index.js**
 
 ```js
-// Add content to the element
-h2Tag.innerHTML = "Elephant";
+// TO ADD TEXT CONTENT TO THE ELEMENT USE  innerHTML
+h2Tag.innerHTML = "Sub Title";
 
 
 // TO APPEND THE NEW ELEMENT TO THE PARENT USE `appendChild(elementVariable)`
@@ -206,36 +204,57 @@ The text inside an textual element, can be added with `innerHTML` or with `.crea
 
 ```js
 // WE CAN ALSO ADD TEXT USING ALTERNATIVE METHOD `.createTextNode()`
-let myH = document.createElement('h3');
-let myP = document.createElement('p');
+let articleBrief = document.createElement('h3');
+let articleContent = document.createElement('p');
 
-let textContent1 = createTextNode('Lalalalalala');
-let textContent2 = createTextNode('Bananarama');
+let textContent1 = document.createTextNode('Text node 1');
+let textContent2 = document.createTextNode('Lorem Ipsum '.repeat(100));
 
-myH.appendChild(textContent1);
-myP.appendChild(textContent2);
+articleBrief.appendChild(textContent1);
+articleContent.appendChild(textContent2);
 
-
-// Append myH and myP to `body`
+// Append new elements to the `body`
+body.appendChild(articleBrief);
+body.appendChild(articleContent);
 ```
 
 
 
 
 
-**Practice**
+**EXERCISE - Practice**
 
 **index.js**
 
 ```js
-// Create 2 nodes in your JavaScript file:
-//	p element
-//	text node with text  “Hi there! I am using JavaScript!”
+// 1. Create an image nodes in your JavaScript file:
 
-// Add the text into the p tag and finally add it to the DOM
+
+// 2. Add the src attribute with the link to an image
+
+
+// 3. Add style.width and style.height to the image node
+
+
+// 4. Append the image before the `articleBrief`
 ```
 
 
+
+**EXERCISE - Possible solution**
+
+```js
+let articleImage = document.createElement('img');
+articleImage.setAttribute(
+  'src',
+  'https://techcrunch.com/wp-content/uploads/2019/07/internet-heartbeat.gif',
+);
+articleImage.style.width = '80%';
+articleImage.style.display = 'block'; // Image is an inline-element
+articleImage.style.margin = '0 auto'; // display: block is needed for this to work
+
+body.appendChild(articleImage);
+```
 
 
 
@@ -245,13 +264,13 @@ myP.appendChild(textContent2);
 
 ```js
 // TO INSERT ELEMENT BEFORE ANOTHER ELEMENT USE `insertBefore(newElement, elementToMove)`
-let body = document.getElementsByTagName('body')[0]; // you don't have to do this again
 
-let newH1Tag = document.createElement('h1');
-newH1Tag.innerHTML = "Heading 1 - comes before Elephant Heading h2";
 
-body.insertBefore(newH1Tag, h2Tag);
+// parentNode.insertBefore(newNode, referenceNode)
+body.insertBefore(articleImage, articleBrief);
 ```
+
+
 
 
 
@@ -269,23 +288,6 @@ contentDiv.innerHTML = ""; // clears the whole element
 
 
 
-
-📝 **Time to practice**
-
-Add the following code to your `html` and afterward remove it from the DOM.
-
-```html
-<ul class="super-list">
-  <li> First:
-      <ol>
-          <li> Sub-first 1 </li>
-          <li> Sub-first 2 </li>
-      </ol>
-  </li>
-  <li>Second</li>
-  <li>Third</li>
-</ul>
-```
 
 
 
@@ -308,9 +310,11 @@ button.onclick = function(){
 
 
 
-### `addEventListener` - Adding custom event listeners
+### `addEventListener` - Adding multiple event listeners
 
 ```js
+// ADDING MULTIPKE EVENT LISTENERS
+
 button.addEventListener('mouseover', backgroundRed);
 button.addEventListener('mouseout', backgroundWhite);
 button.addEventListener('click', removeMouseOver);
@@ -339,22 +343,21 @@ function removeMouseOver () {
 ### `classList` - `.add` `.remove` `.toggle`
 
 ```html
-<div id='test-div'> TEST DIV </div>
+<div id='dropdown-section'> Additional Content</div>
 <button id="hide-div">Hide</button>
 ```
 
 
 
 ```css
-.aqua-div {
+.open {
   height: 200px;
-  width = 200px;
-  background: aquamarine;
+  width: 100%;
   border: 2px solid black;
   transition: all 1s;
 }
 
-.hide-me {
+.close {
   height: 0px;
   border: 0px solid black;
   color: transparent;
@@ -364,22 +367,21 @@ function removeMouseOver () {
 
 
 ```js
-let testDiv = document.getElementById('test-div');
-let testDivButton = document.getElementById('hide-div');
+// TOGGLE A CLASS TO CREATE A DROPDOWN
+let dropdownSection = document.getElementById('dropdown-section');
+let toggleButton = document.getElementById('hide-div');
 
+dropdownSection.classList.add('open');
+dropdownSection.classList.remove('test');
 
-testDiv.classList.add('aqua-div');
-testDiv.classList.remove('test');
-
-testDivButton.addEventListener('click', function () {
-  testDiv.classList.toggle('hide-me');
-  if (testDivButton.innerHTML === 'Hide') {
-    testDivButton.innerHTML = 'Show';
+toggleButton.addEventListener('click', function() {
+  dropdownSection.classList.toggle('close');
+  if (toggleButton.innerHTML === 'Hide') {
+    toggleButton.innerHTML = 'Show';
   } else {
-    testDivButton.innerHTML = 'Hide';
+    toggleButton.innerHTML = 'Hide';
   }
 });
-
 ```
 
 
@@ -391,60 +393,17 @@ testDivButton.addEventListener('click', function () {
 
 
 
+
+**PRACTICE**
 
 
 
 **index.js**
 
-
-
-**PRACTICE - TASK 1**  - 
-
-add `onClick` event listener to the button with `id="color-button"`  which will change the `backgroundColor` of the `body` by calling the function `generateRandomColor` 
-
-```js
-// This function generates random the CSS HEX color code
-function generateRandomColor() {
-  return '#' + Math.floor(Math.random()*16777215).toString(16);
-}
-
-// your code here
-```
-
-
-
-
-
-**ANSWER**
-
-```js
-// This function generates random the CSS HEX color code
-function generateRandomColor() {
-  return '#' + Math.floor(Math.random()*16777215).toString(16);
-}
-
-let colorButton = document.getElementById("color-button");
-
-
-colorButton.onclick = function () {
-	body.style.backgroundColor = generateRandomColor();
-}
-```
-
-
-
-
-
-
-
-
-
-**PRACTICE - TASK 2**
-
 ```html
 <!--  Create a click event for the button#add-item-button. This event will add a li element with "Item number " + item number. Your DOM suppose to look something like this  -->
 
-  <ul id="items-list">
+  <ul class="items-list">
     <li>Item number 1</li> <!-- Element created dynamically -->
     <li>Item number 2</li> <!-- Element created dynamically -->
     <li>Item number 3</li> <!-- Element created dynamically -->
@@ -453,6 +412,25 @@ colorButton.onclick = function () {
   </ul>
   <button id="add-item-button">Add item</button>
 ```
+
+
+
+**Possible Solution**
+
+```js
+let addItemButton = document.getElementById('add-item-button');
+let itemsList = document.querySelector('.items-list');
+
+// move the input inside the function (this step is optional):
+addItemButton.onclick = function() {
+  let newListItem = document.createElement('li');
+  newListItem.innerHTML = `Item Number ${itemsList.children.length + 1}`;
+  itemsList.appendChild(newListItem);
+};
+
+```
+
+
 
 
 
@@ -465,9 +443,13 @@ colorButton.onclick = function () {
 **index.html** - Add the following lines
 
 ```html
+<form>
   <label for="username">Name</label>
   <input name="username" type="text">
   <button id="send-btn">Send</button>
+</form>
+
+<ul id="new-list"></ul>
 ```
 
 
@@ -489,12 +471,21 @@ console.log(input.value); //=> ""
 **index.js**
 
 ```js
+// ADD EVENT CALLBACK TO THE SEND BUTTON
 let sendButton = document.getElementById('send-btn');
-// move the input inside the function (this step is optional):
-sendButton.onclick = function(){
+let newList = document.getElementById('new-list');
+
+sendButton.onclick = function(event) {
+  // event object is always provided to the callback
+  // it is an object representing the  event that just happen
+  console.log(event);
+  event.preventDefault();
+
   let input = document.getElementsByTagName('input')[0]; // or leave it as it is, outside
   console.log(input.value);
-}
+
+  input.value = '';
+};
 ```
 
 
@@ -503,26 +494,23 @@ sendButton.onclick = function(){
 
 #### dynamically adding list items
 
-**index.html**
-
-```html
-<ul id="new-list"></ul>
-```
-
 
 
 **index.js**
 
 ```js
-let newList = document.getElementById('new-list')
-sendButton.onclick = function(){
-  let input = document.getElementsByTagName('input')[0]; // or leave it as it is, outside
-  let newItem = document.createElement('li');
-  newItem.innerHTML = input.value;
+sendButton.onclick = function(event) {
+  // event object is always provided to the callback, it represents the  event that just happen
+  event.preventDefault();
+
+  // ADD NEW ITEM LIST CONTAINING THE INPUT VALUE
+  let listItem = document.createElement('li');
+  listItem.innerHTML = input.value;
+  newList.appendChild(listItem);
   
-  
+  console.log(input.value);
   input.value = '';
-}
+};
 ```
 
 
@@ -533,15 +521,28 @@ sendButton.onclick = function(){
 
 ### Getting the current node object
 
-```js
-// WE CAN GIVE A `e` AS AN EVENT AND ACCESS `currentTarget` WHERE THE EVENT HAPPENED
-let pTags = document.getElementsByTagName('p');
+**index.js**
 
-for (let i=0; i < pTags.length; i++){
-  pTags[i].onclick = function(e){
+```html
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+  <p>Paragraph 3</p>
+  <p>Paragraph 4</p>
+```
+
+
+
+```js
+// EVENT CALLBACKS ALWAYS HAVE `event`
+// WE CAN USE IT TO ACCESS `currentTarget` WHERE THE EVENT HAPPENED
+let pTagsHTMLCollection = document.getElementsByTagName('p');
+let pTags = [...pTagsHTMLCollection];
+
+pTags.forEach(paragraphNode => {
+  paragraphNode.onclick = function(e) {
     console.log(e.currentTarget.innerHTML);
-  }
-}
+  };
+});
 ```
 
 
@@ -550,17 +551,21 @@ for (let i=0; i < pTags.length; i++){
 
 
 
-## Scrapping a Website
+# JS | DOM
 
-## EXERCISE
-
-****
-
-**https://github.com/ironhackbcn/lab-javascript-chronometerTASK 1**
-
-In a new tab navigate to the [Hacker News](https://news.ycombinator.com/) webpage, and open the Chrome console. We know that here we can write JavaScript. Copy and paste the following code.
+## [Get The Titles - Exercise](https://gist.github.com/ross-u/bc5f6940cad9d98c2c908476412e56dd) (10min)
 
 
+
+
+
+**Task 1**
+
+In a new tab navigate to the [Hacker News](https://news.ycombinator.com/) webpage, and open the Chrome Dev console (Command + Option + J).
+
+We will write our JavaScript code in the console.
+
+The anchor links which include the topic names have the class `storylink`. We can use this to target and select only those elements. We can use the following code:
 
 ```js
 let titles = document.getElementsByClassName("storylink");
@@ -568,13 +573,9 @@ let titles = document.getElementsByClassName("storylink");
 
 
 
-**TASK 2:**
+**Task 2:**
 
-Now create a for loop that prints the `innerHTML` of each  title element
-
-
-
-
+Now create a for loop that prints the `innerHTML` of each  title element.
 
 **ANSWER**
 
@@ -590,11 +591,7 @@ for (let i=0; i < titles.length;i++){
 
 **TASK 3:**
 
-Now create a for loop that prints the `href` link values of each  title element
-
-
-
-
+Now create a for loop that iterates over the same items and prints the `href` link values of each  title element. To get the `href` value of an element you have to use the `getAttribute` method.
 
 **ANSWER**
 
