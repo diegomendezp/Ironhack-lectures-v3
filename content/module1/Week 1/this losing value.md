@@ -1,3 +1,7 @@
+###  Losing `this` value with window event's
+
+
+
 ```js
 // regular function inside the setTimeout has a value of this
 // set to `window` as window (browser) is the one calling the function
