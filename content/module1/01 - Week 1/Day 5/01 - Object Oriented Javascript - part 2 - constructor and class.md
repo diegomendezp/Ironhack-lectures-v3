@@ -268,6 +268,10 @@ bmw.start();	//	from the car.prototype -> bmwHybrid.__proto__.__proto__
 
 
 
+
+
+
+
 **Exercise - 30 min** - 
 
 ```js
@@ -282,8 +286,9 @@ const superman = heroFactory('Superman', 'flight, superhuman strength, x-ray vis
 console.log(superman);
 superman.heroDescription();
 
-// 2. Refactor the `heroFactory` "functional object constructor" and make it a Prototype constructor called "heroPrototype" which creates same hero objects as "heroFactory". Create the same "heroDescription" method on the prototype and a new method called "heroLocation" which console.logs(`${name} is hidding in ${location}`). Remember that Prototype Constructor must use keyword `new`.
 
+
+// 2. Refactor the `heroFactory` "functional object constructor" and make it a Prototype constructor called "heroPrototype" which creates same hero objects as "heroFactory". Create the same "heroDescription" method on the prototype and a new method called "heroLocation" which console.logs(`${name} is hidding in ${location}`). Remember that Prototype Constructor must use keyword `new`.
 
 function HeroPrototype (name, superpowers, costumeColor, location) {
 	// Your code here ..
@@ -296,7 +301,8 @@ spiderman.heroDescription();
 spiderman.heroLocation();
 
 // Refactor the `heroPrototype`  and make it a ES6 class called "heroClass" which creates same hero objects as "heroPrototoype". Create the same "heroDescription" and "heroLocation" methods. 
-// Add a `static` method "className" which console.logs("HERO CLASS"). Remember that Class constructor must use keyword `new`.
+// Add a `static` method "className" which console.logs("HERO CLASS"). 
+// Remember that Class constructor must use keyword `new`.
 
 
 class HeroClass {
@@ -325,4 +331,26 @@ class SuperHeroClass extends HeroClass {
   }
 }
 ```
+
+
+
+<br>
+
+
+
+## Summary
+
+
+
+### [Summary - ES5 vs ES6 constructor syntax](https://gist.github.com/ross-u/3fcddfaf3ba7196e2158c097c74c8a6b)
+
+
+
+
+
+
+
+
+
+
 

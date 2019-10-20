@@ -1,20 +1,9 @@
----
-title: "Project Readme"
-date: 2018-12-28T16:48:45+01:00
-draft: false
-weight: 23
-pre: "<b></b>"
-week: 5
-day: 4
----
-
-```markdown
 # Project Name
 
 ## Description
 
 Describe your project in one/two lines.
- 
+
 ## User Stories
 
 - **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
@@ -92,23 +81,25 @@ Homepage
 
 ## Models
 
-User model
- 
-` ```
+**User model**
+
+ ```
     username: String
     password: String
-` ```
+ ```
 
-Event model
 
-` ```
+
+**Event model**
+
+ ```
     owner: ObjectId<User>
     name: String
     description: String
     date: Date
     location: String
     attendees: [ObjectId<User>]
-` ```
+ ```
 
 ## Links
 
@@ -129,5 +120,3 @@ The url to your repository and to your deployed project
 The url to your presentation slides
 
 [Slides Link](http://slides.com)
-
-```

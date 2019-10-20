@@ -14,7 +14,7 @@ Execution context is the environment / scope where the current code is being eva
 
 
 
-
+## **Closure**
 
 
 
@@ -68,18 +68,14 @@ console.log(newFunc());
 ```js
 function createMultiplier(multiplyBy) {
   return function (number) {
-    return number * multiplyBy;
+    return number * multiplyBy; // multiplyBy is kept in a closure
   }
 }
 
 let timesTwo = createMultiplier(2);
-let timesTen = createMultiplier(10);
 
 console.log(timesTwo(5));
 console.log(timesTwo(10));
-
-console.log(timesTen(5));
-console.log(timesTen(10));
 ```
 
 
@@ -88,7 +84,7 @@ console.log(timesTen(10));
 
 
 
-### **Closure**
+##### Example 3
 
 ```js
 function storeMyPassword (passwordString, mySecret) {
@@ -121,7 +117,7 @@ let myPassword = storeMyPassword('bananarama', 'I sleep with my socks on!')
 
 # Extra - 
 
-)
+
 
 ### IIFE - immediately invoked function expression
 
@@ -132,6 +128,28 @@ let myPassword = storeMyPassword('bananarama', 'I sleep with my socks on!')
 
 
 ```
+
+
+
+### IIFE - with a passed argument
+
+```js
+var ten = 10;
+
+(function (passedArg1) {
+    console.log("Hello, I'm IIFE.", passedArg1)
+})(ten);
+
+
+```
+
+
+
+
+
+
+
+
 
 
 

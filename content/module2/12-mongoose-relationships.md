@@ -47,6 +47,10 @@ const Home = mongoose.model('Home', homeSchema);
 module.exports = Home;
 ```
 
+
+
+
+
 #### 1:N or N:M
 
 __user__
@@ -63,6 +67,8 @@ const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 ```
+
+
 
 __event__
 
@@ -84,6 +90,8 @@ const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
 ```
+
+
 
 #### subschema
 
@@ -122,6 +130,10 @@ const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;
 ```
+
+
+
+
 
 #### with-location
 

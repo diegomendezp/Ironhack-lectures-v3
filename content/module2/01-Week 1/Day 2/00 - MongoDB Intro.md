@@ -8,11 +8,12 @@
 
 
 
-#### [Databases](https://en.wikipedia.org/wiki/Database) are **programs that allow us to save and retrieve data** to our applications. Until now, every program that we wrote will reset/refresh every time we run it (variables will be delete as soon we reload or exit).
+- [Databases](https://en.wikipedia.org/wiki/Database) are **programs that allow us to save and retrieve data** of our applications. 
+- Until now, every program that we wrote used to reset/refresh every time we run it (variables will be delete as soon we reload or exit).
 
 
 
-#### Databases are typically [persisted](https://en.wikipedia.org/wiki/Persistence_(computer_science)), which means that even if our program stops/restarts, we can still access the data.
+- **Databases are typically** [persisted](https://en.wikipedia.org/wiki/Persistence_(computer_science)), which means that even if our program stops for some reason, data still persists and we can access the data later.
 
 
 
@@ -39,8 +40,6 @@
 
 
 #### Mongo document example
-
-
 
 ```json
 {
@@ -70,9 +69,21 @@
 
 
 
+### [MongoDB Getting Started - Documents](https://docs.mongodb.com/manual/core/document/#documents)
 
 
-### [MongoDB Installation](http://materials.ironhack.com/s/H1XmRnG6VV7#mongodb-installation)
+
+
+
+
+
+### [MongoDB - Lecture](http://materials.ironhack.com/s/H1XmRnG6VV7#mongodb-installation)
+
+
+
+### [MongoDB Installation](https://docs.mongodb.com/manual/installation/)
+
+Go to >>> **Install MongoDB Community Edition**
 
 
 
@@ -82,7 +93,9 @@
 
 ### Data types in MongoDB
 
-The documents we store in MongoDB database can have different type of values. 
+
+
+The documents we store in MongoDB database can be different value types. 
 
 
 
@@ -176,7 +189,7 @@ db
 
 
 
-### Lets make our first databse
+### Lets make our first database
 
 ```bash
 show dbs
@@ -216,4 +229,5 @@ show dbs
 
 
 
-* <https://docs.mongodb.com/manual/reference/limits/>)
+### [MongoDB Docs - Thresholds and Limits ](https://docs.mongodb.com/manual/reference/limits/)
+

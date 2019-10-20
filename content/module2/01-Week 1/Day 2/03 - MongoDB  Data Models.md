@@ -4,17 +4,35 @@
 
 
 
-#### [Lesson and Examples](<http://materials.ironhack.com/s/rJOXAnz6NVm#referencing-documents-relations>)
+### [LMS - Lesson and Examples](<http://materials.ironhack.com/s/rJOXAnz6NVm#referencing-documents-relations>)
 
 
 
-### [Great Examples](<http://learnmongodbthehardway.com/schema/schemabasics/>)
+
+
+## Relationship types
+
+#### One-To-One (1:1)
+
+#### One-To-Many (1:N)
+
+#### Many-To-Many (N:M)
+
+
+
+### [Schema Basics - Relationship Types](<http://learnmongodbthehardway.com/schema/schemabasics/>)
+
+
+
+
 
 
 
 ## Document Structure
 
-Designing data models for MongoDB applications revolves around the structure of documents and how it represents relationships between data. We can do this in Two ways:
+Designing data models for MongoDB applications focuses on the structure of documents and how it represents relationships between data. 
+
+We can create relationships between collections in Two ways:
 
 
 
@@ -33,15 +51,15 @@ Designing data models for MongoDB applications revolves around the structure of 
 
 
 
-### References store the relationships between data by including links or ids from one document to another. 
+- **Reference** stores the relationships between data by including ids from one document to another. 
 
-### These are  called normalized data models.
+- Structures of collections that use references to store and organize documents are  called **normalized** data models.
 
-#### Normalization is a logical data base design method. 
+- [Normalization - CS Wiki](https://computersciencewiki.org/index.php/Normalization)
 
-#### Normalization is a process of systematically breaking a complex table / collection into simpler, smaller collections/ tables.
+- Normalization is a database design method and a process of systematically breaking a complex table / collection into simpler, smaller, easier to manage collections/ tables.
 
-###  Purpose of Normalization is to produce a clearer and readable data model.
+- Purpose of Normalization is to produce a clearer, more readable and more scalable data model.
 
 
 
@@ -67,7 +85,7 @@ first we’ll get the `_id` of the user from `user` collection, and then we’ll
 
 
 
-Example 2
+**Example 2**
 
 
 
@@ -84,6 +102,8 @@ Example 2
 }
 ```
 
+
+
 **Address** Collection
 
 ```js
@@ -97,9 +117,19 @@ Example 2
 }
 ```
 
-## 
 
 
+**to get the user's address:**
+
+```js
+db.address.find(
+  { user_id: ObjectId("593e7a1a4299c306d656200f") }
+)
+```
+
+
+
+<br>
 
 
 
@@ -109,9 +139,17 @@ Another way of relating documents is by **embedding them**, saving the related d
 
 ![img](https://i.imgur.com/yrliwPP.png)
 
-https://i.imgur.com/GmBjx9W.png
+[OPEN IMAGE](https://i.imgur.com/GmBjx9W.png)
 
-The same example of using embedded documents:
+
+
+
+
+Previous example, but this time with embedded documents:
+
+
+
+**User** Collection (with embedded **Address**)
 
 ```js
 {
@@ -134,9 +172,19 @@ The same example of using embedded documents:
 
 
 
+**to get the users address:**
+
+```js
+db.user.find(
+  { _id: ObjectId("593e7a1a4299c306d656200f") }
+)
+```
+
+
+
 ### Multiple Sub-documents
 
-When we have multiple documents (subdocuments) that can embed in the same component, in this case, `addresses` will be an array of objects.
+When we have multiple documents (sub-documents) that can embed in the same component, in this case, `addresses` will be an array of objects.
 
 ```js
 {
@@ -169,7 +217,7 @@ When we have multiple documents (subdocuments) that can embed in the same compon
 
 ## Defining Your Document Schema
 
-#### You should start the schema design process by considering the application use, query requirements, and how each document or collection will be linked to each other.
+You should start the schema design process by considering the application use, query requirements, and how each document or collection will be linked to each other.
 
 
 
@@ -238,15 +286,9 @@ When we have multiple documents (subdocuments) that can embed in the same compon
 
 
 
+
+
 ### [Many To Many Example](<http://learnmongodbthehardway.com/schema/schemabasics#two-way-embedding>)
-
-
-
-
-
-
-
-
 
 
 
@@ -261,8 +303,6 @@ When we have multiple documents (subdocuments) that can embed in the same compon
 
 
 ###  Additional Resources
-
-<https://gerardnico.com/data/modeling/normalization>
 
 <https://dbdiagram.io/>
 

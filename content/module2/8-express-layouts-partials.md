@@ -17,8 +17,7 @@ day: 3
 
 ### setting up layouts
 
-*
-*app.js**
+**app.js**
 
 ```javascript
 const expressLayouts = require('express-ejs-layouts');

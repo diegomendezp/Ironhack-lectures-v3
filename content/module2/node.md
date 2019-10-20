@@ -28,8 +28,9 @@ weight: 2
     - const express = require('express')
 
 - Why Node.js
-  - Installing Node.js
-
+  
+- Installing Node.js
+  
 - NPM
   - Installing Packages
   - the console `node` command
@@ -77,6 +78,7 @@ weight: 2
 - made the cohort clone the repo of the person to the right for them to find out that it won't work
   - introduce npm install
 
+```js
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -180,5 +182,8 @@ var quoteSource=[
 	    	quote:"Hapiness is not something ready made. It comes from your own actions.",
 	    	name:"Dalai Lama"
 	    }
+```
+
+
 
 	]; -->

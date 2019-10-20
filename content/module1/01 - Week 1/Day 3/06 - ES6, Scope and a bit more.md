@@ -75,7 +75,7 @@ function atTheEnd() {
 
 
 
-#### var hoisting 
+#### `var` hoisting 
 
 
 
@@ -158,7 +158,7 @@ JavaScript has function scope by default - meaning that every function creates a
 
     
 
-  - `let` and `const`  **cannot be accessed** **before** they are **declared**  ~~(they hoist but are not initialized with `undefined`).~~ 
+  - `let` and `const`  **cannot be accessed** **before** they are **declared** (temporal dead zone)
 
     
 
@@ -360,7 +360,7 @@ console.log(greeting() );
 
 
 
-**Destructuring** Is a way to create variables with data from *arrays* and *objects*.
+- **Destructuring** Is a way to create variables with data from *arrays* and *objects*.
 
 
 
@@ -440,7 +440,9 @@ getNum(); // 99
 
 
 
-### Spread operator - allows us to spread the array and collect the parameters
+## Spread operator
+
+- Spread operator `...` allows us to spread the array or object properties.
 
 
 
@@ -454,6 +456,27 @@ console.log(...numbers); // 1 2 3
 const newArray = [...numbers, 5, 6, 7];
 console.log(newArray); // [1, 2, 3, 5, 6, 7]
 ```
+
+
+
+### Spread operator - objects
+
+This can be used to copy properties from one object to the new object
+
+
+
+```js
+// SPREAD THE OBJECT
+const obj1 = { firstName: 'Foo', age: 22 };
+const obj2 = { lastName: 'Bar', gender: 'M' };
+
+const newObj = { ...obj1, ...obj2, planet: 'Earth' };
+console.log(newObj)
+```
+
+
+
+<br>
 
 
 
@@ -489,19 +512,7 @@ myNewFunction("One", "Two", "Three", "Four", "Five");
 
 
 
-### Spreading an object
 
-This can be used to copy properties from one object to the new object
-
-
-
-```js
-const obj1 = { firstName: 'Foo', age: 22 };
-const obj2 = { lastName: 'Bar', gender: 'M' };
-
-const newObj = { ...obj1, ...obj2, planet: 'Earth' };
-console.log(newObj)
-```
 
 
 

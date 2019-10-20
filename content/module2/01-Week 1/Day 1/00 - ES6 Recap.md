@@ -8,11 +8,11 @@
 
 
 
-#### What is scope:
+#### What is scope in JS:
 
-Scope determines the accessibility (visibility) of variables from different parts of the code.
+- Scope determines the accessibility / visibility of variables from different parts of the code.
 
-JavaScript has function scope by default - meaning that every function creates a new scope.
+- JavaScript has function scope by default - every function creates a new scope.
 
 
 
@@ -20,28 +20,30 @@ JavaScript has function scope by default - meaning that every function creates a
 
 - #### Global variables 
 
-  "The variables created in the global scope are called **global variables**.
-  
-  
-  
-  Global variables belong to the global scope and can be accessed in the whole window (`window` object available in the browser) :
+- The variables created in the global scope are called **global variables**.
+
+- Global variables belong to the global scope and can be accessed from the entire program.
+
+- Global `var` variables are created as properties on the `window` object.
+
+- `let` and `const` variables created in Global scope are not created as properties of the `window` object.
 
 
 
 - #### Automatically global variables
 
- Variables created without the variable keyword (anywhere in the script) become automatically global -
+- Variables created without the variable keyword (anywhere in the script) become automatically global. 
 
-Both types of variables created are accessible by all functions and everywhere in the script..
+- This is a bad practice, and creates error prone code.
 
-
+  
 
 ```js
-var globalVariable = "I am a global variable."; // GLOBAL SCOPE
+let globalVariable = "I am a global variable."; // GLOBAL SCOPE
 
 function createVariables () {
 	imposter = 'I am an imposter';	// AUTOMATICALY GLOBAL
-	var functionVariable = 'I am a properly declared variable'; // FUNCTION SCOPE
+	let functionVariable = 'I am a properly declared variable'; // FUNCTION SCOPE
 }
 
 createVariables();
@@ -50,7 +52,7 @@ createVariables();
 console.log('WINDOW OBJECT -> ', window);
 
 console.log('GLOBAL VARIABLE -> ', globalVariable);
-console.log('GLOBAL VARIABLE ON WINDOW OBJECT -> ', window.globalVariable);
+console.log('GLOBAL `var` VARIABLE ON WINDOW OBJECT -> ', window.globalVariable);
 
 console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
 ```
@@ -75,24 +77,34 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
 
   In JS there is a thing that happens called Hoisting. This is a made up name to describe something that JavaScript does during the first pass - compilation.(1st - compilation, 2nd = runtime)
 
-  - functions - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
+  
 
+  - functions - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
+  
   ```js
   atTheEnd();
   
   function atTheEnd() {
   	console.log('Hello');
-  }
+}
   ```
 
   
 
-  * var - <https://codepen.io/Denzelzeldi/pen/yLBjJWK?editors=0010>
-
+  - variable not defined (doesn't exist)
+  
   ```js
-  console.log(name);  // undefined  -  declared but without value
+  console.log(myName);  //  ReferenceError: myName is not defined
+  ```
   
-  var name = 'John';
+  
+  
+  * var - <https://codepen.io/Denzelzeldi/pen/yLBjJWK?editors=0010>
+  
+  ```js
+  console.log(myName);  // undefined  -  declared but without value
+  
+  var name = 'myName';
   ```
 
 
@@ -100,13 +112,13 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
 
 
 
-- ##### 3. scope of `let` and `const` :
+- ##### 3. Scope of `let` and `const` :
 
   a. Block - block is any code between open and closed curly braces `{}`
 
   b. `let` and `const` are block scoped
 
-  c. `let` and `const` hoist (invisibly)  but are not initialized with `undefined`. Because of this you cannot access them before the actual declaration is evaluated at runtime (line by line).
+  c. `let` and `const`  **cannot be accessed** **before** they are **declared** (temporal dead zone)
 
   
   
@@ -127,6 +139,8 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
 
   
 
+  
+  
   d. `let` cannot be redeclared, but it can be reassigned new value (updated)
   
   ```js
@@ -134,20 +148,24 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   let message = "This is the first message.";
   message = "This is the second message.";
   
-  // BUT THIS WILL THROW AN ERROR
+  ```
+
+// BUT THIS WILL THROW AN ERROR
   let message = "This is the first message.";
 let message = "This is the second message."; // <== Duplicate declaration "message" 
   ```
 
   
-
-  e. const` variables have to be initialized in the moment of declaration.
   
-  ```js
+  
+  
+  e. `const` variables have to be initialized in the moment of declaration.
+  
+​```js
   const name1 = "John"; // <== CORRECT
-  
+
   const name2;
-name2 = "John"; // WRONG! - This will throw an Error
+name2 = "Sarah"; // WRONG! - This will throw an Error
   ```
 
   
@@ -155,21 +173,23 @@ name2 = "John"; // WRONG! - This will throw an Error
   
 
   f.  `const` variables can't be redeclared or assigned new value
-  
+
   ```js
   // THIS WILL THROW AN ERROR
   const message = "This is the first message.";
-  message = "This is the second message."; // <== "message" is read-only
+message = "This is the second message."; // <== "message" is read-only
   
-  // AND THIS WILL THROW AN ERROR
+// AND THIS WILL THROW AN ERROR
   const message = "This is the first message.";
 const message = "This is the second message."; // <== Duplicate declaration "message" 
   ```
 
   
 
-  g.  `const` variables containing Objects and arrays can be mutated (not reassigned). WE WILL SEE WHY IN THE NEXT LESSON ON MUTABILITY.
   
+
+  g.  `const` variables containing Objects and arrays can be mutated (not reassigned).
+
   ```js
   // This is ok ✅
   const obj = {};
@@ -287,11 +307,15 @@ for (const name of namesArray) {
 
 
 
+<br>
+
 
 
 ### Object and Array Destructuring
 
-Is an easy way to extract data from arrays and objects
+
+
+- **Destructuring** Is a way to create variables with data from *arrays* and *objects*.
 
 #### Objects
 
@@ -315,6 +339,10 @@ Is an easy way to extract data from arrays and objects
   // DESTRUCTURING 
   const { name, age, favoriteMusic } = person;
   ```
+
+
+
+<br>
 
 
 
@@ -388,7 +416,17 @@ console.log(greeting() );
 
 
 
-#### [Concise Arrow - Exercise](<https://codepen.io/Denzelzeldi/pen/BEVzzm?editors=0011>)
+<br>
+
+
+
+### [Refactor to Arrow Function - Exercise](<https://codepen.io/Denzelzeldi/pen/BEVzzm?editors=0011>) (5 min)
+
+
+
+
+
+<br>
 
 
 
@@ -396,22 +434,13 @@ console.log(greeting() );
 
 
 
-* ES6 Default Arguments in the functions
+## Spread operator
 
-  ```js
-  function getNum(num = 99) {
-  	console.log(num);
-  }
-  
-  getNum(10); // 10
-  getNum(); // 99
-  ```
+- Spread operator `...` allows us to spread the array or object properties.
 
 
 
-### Spread opearator - allows us to spread the array and collect the parameters
-
-- Spread operator
+### Spread operator - arrays
 
 ```js
 // SPREAD THE ARRAY
@@ -424,45 +453,81 @@ console.log(newArray); // [1, 2, 3, 5, 6, 7]
 
 
 
+### Spread operator - objects
 
-
-### REST PARAMETERS - 
-
-#### allow us to get the remaining arguments passed in a function - replaces the function's default `arguments` (array like object), helps with arrow function which doesn't have `arguments` object 
+This can be used to copy properties from one object to the new object
 
 
 
 ```js
+// SPREAD THE OBJECT
+const obj1 = { firstName: 'Foo', age: 22 };
+const obj2 = { lastName: 'Bar', gender: 'M' };
+
+const newObj = { ...obj1, ...obj2, planet: 'Earth' };
+console.log(newObj)
+```
+
+
+
+<br>
+
+
+
+
+
+### REST OPERATOR
+
+Rest operator is same `...` dots but used when creating a function in the parentheses.
+
+
+
+It allow us to get the remaining arguments passed in a function - replaces the function's default `arguments` (array like object)
+
+```js
+// REST OPERATOR  ...
+
 function myFunction(arg1) {
   console.log(arg1);
   console.log(arguments);
 }
 
-myFunction("first argument", "second argument");
+// Before ES6 there wsa no simple way to capture remaining arguments
+myFunction("first argument", "second argument", "third argument", "fourth");
 
 
-
-function myNewFunction(arg1, ...args) {
+// Using the Rest operator
+function myNewFunction(arg1, ...args, lastArg) {
 	console.log(arg1);
-    console.log(args);
+  console.log(args);
+  console.log(lastArg);
 }
 
-myNewFunction("One", "Two", "Three", "Four");
+myNewFunction("One", "Two", "Three", "Four", "Five");
 ```
 
 
 
 
 
-#### Arrow function doesn't have `arguments` object, therefore we have to use rest parameters for the same functionality.
+
+
+#### REST OPERATOR in arrow functions
+
+- REST operator is **commonly used in** the **arrow functions** as they don't have `arguments` object )
+- Arrow function don't have `arguments` object, therefore we have to use rest parameters for the same functionality.
 
 ```js
-let myFunc = (arg1, ...everythingElse ) => {
+let myArrowFunciton = (arg1, ...everythingElse ) => {
 	console.log(arguments);	// Error - comment this line to continue
 	console.log(arg1);
 	console.log(everythingElse);
 }
+
+myArrowFunciton('1', '2', '3', '4');
 ```
+
+
 
 
 
@@ -474,7 +539,9 @@ let myFunc = (arg1, ...everythingElse ) => {
 
 ## `class` syntax
 
-#### ES5
+
+
+#### ES5 syntax - constructor function
 
 ```js
 let BankAccount = function(clientName, currency) {
@@ -508,7 +575,11 @@ account1.showBalance()
 
 
 
-#### ES6
+<br>
+
+
+
+#### ES6 - class syntax
 
 ```js
 class BankAccount {
@@ -573,20 +644,19 @@ Product.prototype.nameAndPrice = function() {
   );
 };
 
-let Toy = function(name, price, brand) {
+let Furniture = function(name, price, brand) {
   Product.call(this, name, price);
   this.brand = brand;
 };
 
 // The Object.create() method creates a new object, using an existing object as the prototype of the newly created object.
-Toy.prototype = Object.create(Product.prototype);
-Toy.prototype.constructor = Toy;
+Furniture.prototype = Object.create(Product.prototype);
+Furniture.prototype.constructor = Furniture;
 
 // creating a new electronic product
-const winnie = new Toy('teddy bear', 12, "Disney");
-winnie.nameAndPrice();
+const ikeaChair = new Furniture('Chair A5 IKEA', 12, "IKEA");
+ikeaChair.nameAndPrice();
 
-// The product's name is: speaker and the product's price is: 100
 ```
 
 
@@ -633,11 +703,13 @@ mac.nameAndPrice();
 
 
 
-## Arrow Function - accessing `this`
+## Arrow Functions - accessing `this`
 
 
 
 #### Old Function Syntax
+
+- Issue with accessing `this` with `window` methods like `setInterval`:
 
 ```js
 class Counter {
@@ -649,13 +721,15 @@ class Counter {
     setInterval(function() {
 			console.log(this);	// Window {}
       console.log(this.count++); // <-- Trouble!
-    }, 1000);
+    }.bind(this), 1000);
   }
 }
 
+
+console.log(window.setInterval ); // setInterval is a method of `window`
+
 let counterObject1 = new Counter();
 counterObject1.countUp();
-
 ```
 
 
@@ -729,13 +803,29 @@ console.log(inc(2, 23)); // 25
 
 
 
-## Exercise [ES6 classes](<https://codepen.io/Denzelzeldi/pen/eoKdGB?editors=0012>)
+## [Classes and Species - Exercise](https://gist.github.com/ross-u/00ec284364c10cae0c099c3cfd3530a7) (15 min)
+
+
+
+## Exercise Solution [ES6 classes](<https://codepen.io/Denzelzeldi/pen/eoKdGB?editors=0012>)
 
 
 
 
 
+<br>
 
+
+
+- ## Summary
+
+
+
+### [Summary - Notes for the Students](https://gist.github.com/ross-u/cd6523b92e6ac272f37a5428235fdb24)
+
+
+
+### [Summary - ES5 vs ES6 constructor syntax](https://gist.github.com/ross-u/3fcddfaf3ba7196e2158c097c74c8a6b)
 
 
 

@@ -18,7 +18,7 @@ db.companies.find({number_of_employees: {$gt: 5000}}).limit(20).sort({number_of_
 
 
 
-### 3. All the companies founded between 2000 and 2005, both years included. Retrieve only the `name` and `founded_year` fileds.
+### 3. All the companies founded between 2000 and 2005, both years included. Retrieve only the `name` and `founded_year` fields.
 
 ```js
 db.companies.find({$and: [ {founded_year: {$gte: 2000}}, {founded_year: {$lte: 2005}}]}, {name: true, founded_year: true, _id: false})
@@ -50,7 +50,7 @@ db.companies.find({partners: {$size: 0}})
 
 
 
-### 7. All the companies that have a null type of value on the `category_code` field.
+### 7. All the companies that have a `null` type of value on the `category_code` field.
 
 ```js
 db.companies.find({category_code: null})
@@ -66,7 +66,7 @@ db.companies.find({$and: [ {number_of_employees: {$gte: 100}}, {number_of_employ
 
 
 
-### 9. Order all the companies by their IPO price descendently.
+### 9. Order all the companies by their IPO price descending.
 
 ```js
 db.companies.find().sort({"ipo.valuation_amount": -1})
@@ -90,7 +90,7 @@ db.companies.find({founded_month: {$gt: 6}})
 
 
 
-### 12. All the companies that have been 'deadpooled' after the third year.
+### 12. All the companies that have been `deadpooled` after the third year.
 
 ```js
 db.companies.find({$where: function() { return this.deadpooled_year - this.founded_year >= 3 }}).limit(1)
@@ -127,7 +127,9 @@ db.companies.find({},{name: true, founded_year: true}).sort({founded_year: 1})
 
 
 
-### 16. All the companies that have been founded on the first seven days of the month, including the seventh. Sort them by their `aquisition price` descendently. Limit the search to 10 documents.
+### 16. All the companies that have been founded on the first seven days of the month, including the seventh. Sort them by their `aquisition price` descending. 
+
+### Limit the search to 10 documents.
 
 ```js
 db.companies.find({founded_day: {$lte: 7}}).sort({"acquisition.price_amount": -1}).limit(10)
@@ -153,7 +155,9 @@ db.companies.find({$and: [{"acquisition.price_currency_code": "EUR"},{"acquisiti
 
 ### 19. All the companies that have been acquired on the first trimester of the year. Limit the search to 10 companies, and retrieve only their `name` and `acquisition` fields.
 
+```js
 db.companies.find({"acquisition.acquired_month": {$lte: 3}},{name: true, acquisition: true}).limit(10)
+```
 
 
 

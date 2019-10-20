@@ -10,19 +10,28 @@
 
 
 
-## Promises
+# Promises
 
-A `Promise` is a special object representing the eventual **completion or failure** of an **asynchronous operation**.
+- A `Promise` is a special object representing the eventual **completion or failure** of an **asynchronous operation**.
 
 
 
-Promise wraps an asynchronous function,  calls that function,  waits for the result return from that asynchronous function,  and at the end depending on returned result it forwards either: 
+### What does a Promise do ?
 
-- Success value `resolve(successValue)` 
+Step by step Promise does the following:
 
-or 
+- Promise wraps an asynchronous function invocation/call,
 
-- rejection value  `reject(rejectionValue)`.
+- Waits for the end of that asynchronous function call, 
+
+- Checks the result that asynchronous function call returned, either error or data,
+
+- At the end depending on the returned result it forwards that result in the following way: 
+  - Success value `resolve(successValue)` 
+
+    or
+
+  - Error  `reject(Error)`.
 
 
 
@@ -36,6 +45,15 @@ or
 
 - **Rejected**. If the second handler (typically `reject`) is called, the Promise is considered rejected with the value passed to that handler.
 
+
+
+
+
+
+##### Promise API - asynchronous handling outside of the script
+
+* Created `Promise` is handled asynchronously in the browser. The code in the `Promise` is executed outside of the script and when done it's `resolve` or `reject` is queued for execution in the *Event loop*.
+
   
 
 #### Syntax
@@ -43,6 +61,8 @@ or
 ```js
 const myRequest = new Promise( (resolve, reject) => {
 	let requestResult = someAsyncronousRequest();
+  
+  // If asyhchronous operation throws an error, reject() is automatically triggered
   
 	if (/* condition */) {
   	resolve(/* resolved value */);	// success, forward value in parentheses to `.then()`
@@ -106,7 +126,7 @@ myRequest
 
 
 
-## Promise All
+## `Promise.all()`
 
 
 
@@ -122,28 +142,49 @@ It **rejects with the reason of the first promise that rejects.** (This method c
 
 ```js
 const p1 = new Promise((resolve, reject) => {
-  setTimeout( () => resolve('p1 - resolve'), 3000);
+  setTimeout( () => resolve('p1 - resolved !'), 4000);
 });
 
 const p2 = new Promise((resolve, reject) => {
-  setTimeout( () => resolve('p2 - resolve'), 1000);
+  setTimeout( () => resolve('p2 - resolved !!'), 1000);
 }); 
+
+// const p3 = new Promise((resolve, reject) => {
+//   setTimeout( () => { throw new Error("p3 went wrong") }, 3000);
+// }); 
+
 
 
 Promise.all([p1, p2])
-				.then( (values) => { 
-  					console.log(values); 
-				});
+  .then( (values) => { 
+    console.log(values); 
+  });
+
+
+// Promise.all([p1, p2, p3])
+//  .then( (values) => { 
+//    console.log(values); 
+//  });
 ```
 
 
 
 
 
+### [Additional Methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#Methods):
+
+`Promise.allSettled([Promises])` - Wait until all promises have settled (each may resolve, or reject).
+
+`Promise.race([Promises])` - Wait until (first) any of the promises is resolved or rejected.
 
 
-[Video 1](<https://www.youtube.com/watch?time_continue=4&v=9nwPenviboM>)
 
-[Video2](<https://www.youtube.com/watch?v=DHvZLI7Db8E>)
 
-[Video3](<https://www.youtube.com/watch?v=s6SH72uAn3Q>)
+
+### Self Guided
+
+### [Video 1](<https://www.youtube.com/watch?time_continue=4&v=9nwPenviboM>)
+
+### [Video2](<https://www.youtube.com/watch?v=DHvZLI7Db8E>)
+
+### [Video3](<https://www.youtube.com/watch?v=s6SH72uAn3Q>)

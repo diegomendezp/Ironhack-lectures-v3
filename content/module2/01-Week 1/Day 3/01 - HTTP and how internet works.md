@@ -46,31 +46,35 @@ Resources have to be **requested** from the server.
 
 # HTTP
 
-### **H**yper**t**ext **T**ransfer **P**rotocol
-
-### It is a **TCP/IP** based protocol
+- **H**yper**T**ext **T**ransfer **P**rotocol - is a **TCP/IP** based protocol
 
  (**TCP** - transmission control protocol, **IP** - internet protocol)
 
 
 
-#### 1. HTTP is a connectionless protocol. 
+1. **HTTP is a connectionless protocol.** 
 
-#### After making the request the client disconnects from the server.
+  After making the request the client disconnects from the server.
 
-####  When the response is ready the server re-establishes the connection again and sends the response.
-
-
-
-#### 2. HTTP can be used to deliver any data as long as two computers are able to read it.
+  When the response is ready the server re-establishes the connection again and sends the response.
 
 
+
+2. **HTTP can be used to deliver any data as long as two computers are able to read it.**
+
+   
+
+3. In HTTP protocol data is being send via HTTP messages in a response/request cycle.
 
 
 
 
 
 ## The Request / Response cycle
+
+
+
+#### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1bb24dbaf887dc70fc219c20988d7c39.png)
 
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1bb24dbaf887dc70fc219c20988d7c39.png)
 
@@ -99,13 +103,17 @@ Consists of :
 
 #### They all contain plain text information, except that <u>body can</u> also <u>contain binary data</u>.
 
+
+
+#### [OPEN IMAGE](http://sasi-kala.com/assets/posts_img/9_HTTP_Message_Format.jpg)
+
 ![img](http://sasi-kala.com/assets/posts_img/9_HTTP_Message_Format.jpg)
 
 
 
 
 
-## What is cURL?[#](https://www.keycdn.com/support/popular-curl-examples#what-is-curl)
+## What is [cURL ?](https://www.keycdn.com/support/popular-curl-examples#what-is-curl)
 
 [cURL](https://curl.haxx.se/), short for “Client for URLs”, is a **command line tool** **for transferring data** using various protocols.
 
@@ -209,7 +217,7 @@ The **Domain Name System**, or **DNS** for short,allows us to use domain names.
 2. your browser will ask your **local resolving name server** (typically your ISP (Internet Service Provider))  if they have the DNS records for that domain cached.
 
 3. If it has the IP for that domain cached it will give browser the IP address.
-4. Otherwise the **resolving name server** queries root name servers, which points you to the Top Level Domain serveresssssssssssss, which will point you to the provider authoritative for hosting the records.
+4. Otherwise the **resolving name server** queries root name servers, which points you to the Top Level Domain servers, which will point you to the provider authoritative for hosting the records.
 
 
 
