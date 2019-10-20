@@ -62,6 +62,12 @@ Git and GitHub are two different things :
 
 
 
+
+
+
+
+
+
 3
 
 ### Getting started with git
@@ -69,6 +75,8 @@ Git and GitHub are two different things :
 
 
 If not installed, first install Git following [this link](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+
 
 
 
