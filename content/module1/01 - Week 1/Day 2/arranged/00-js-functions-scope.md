@@ -81,6 +81,7 @@ var sayGoodbye = function (name) {
     console.log('Say Hello' + name);
 }
 
+// Invoking a function and passing it an argument
 sayGoodbye('Jack');
 ```
 
@@ -187,7 +188,7 @@ doFoo(1);
 doFoo(1, 2, 3);
 ```
 
-
+var res
 
 ### Arrow function 
 
@@ -718,11 +719,7 @@ function concatFullName(firstName, lastName) {
 
 
 
-
-
-
-
-### The call stack
+### The call stack and the control flow:
 
 
 The way how JavaScript read the script/program step by step is called **control flow**.
@@ -731,9 +728,81 @@ JavaScript uses **call stack** in order to know where it is at the moment:
 
 
 
+### 
+
+
+
+**Example without specified steps (Run the code):**
+
+```js
+function printFoo () {
+  console.log('foo');  
+}
+
+var baz = 'baz';
+var bar = 'bar';
+
+printFoo();
+
+console.log(baz);
+console.log(bar);
+```
+
+
+
+**`debugger` - Walk through example of execution flow: **
+
+```js
+function printFoo () {  // 3
+  console.log('foo');  
+}
+
+debugger;
+// 1
+var baz = 'baz';
+var bar = 'bar';
+
+// 2
+printFoo();
+
+// 4
+console.log(baz);
+
+// 5
+console.log(bar);
+```
+
+
+
+
+
+
+
+**Example 1 - Ask students to role play**
+
 ```js
 function greet(who) {
   console.log("Hello " + who);
+}
+
+greet("Harry");
+console.log("Bye");
+```
+
+
+
+**Example 2 - Ask students to role play**
+
+```js
+function beKind () {
+  console.log('Nice to meet you!');
+}
+
+function greet(who) {
+  console.log("Hello " + who);
+  
+  // ADDITIONAL FUNCTION CALL
+  beKind();
 }
 
 greet("Harry");

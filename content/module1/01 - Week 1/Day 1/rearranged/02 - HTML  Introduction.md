@@ -63,7 +63,6 @@ HTML is not a programming language; it is a *markup language* that defines the s
 
 
 <h3 style='color: green'>VSCode demo</h3>
-
 ### Create a folder structure
 
 ```bash
@@ -163,6 +162,7 @@ In the HTML DOM, everything is a node. The document is a document node.
   - `<meta>`
   Used to define metadata. This includes information about styles, scripts and data to help browsers use and render the page. 
     
+  
   One of the most commons elements is the `<meta charset="UTF-8">` in our example. This specifies the character encoding for the HTML document as [UTF-8](https://en.wikipedia.org/wiki/UTF-8).
   
   
@@ -694,3 +694,4 @@ In this unit, we learned that HTML is a language for creating web pages and appl
 - [Inline elements](<https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements#Elements>)
 - [Block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements)
 - [HTML MDN Tutorial](https://developer.mozilla.org/en-US/docs/Learn/HTML)
+

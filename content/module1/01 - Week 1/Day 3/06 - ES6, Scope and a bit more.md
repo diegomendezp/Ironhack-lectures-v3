@@ -4,7 +4,7 @@
 
 ## Learning Goals
 
-
+###### 
 
 - Strengthen understanding of **hoisting** and **scope**
 
@@ -501,13 +501,20 @@ myFunction("first argument", "second argument", "third argument", "fourth");
 
 
 // Using the Rest operator
-function myNewFunction(arg1, ...args, lastArg) {
+function myNewFunction(arg1, ...args) {
 	console.log(arg1);
   console.log(args);
-  console.log(lastArg);
 }
 
 myNewFunction("One", "Two", "Three", "Four", "Five");
+
+
+// WRONG !!!
+// Throws `SyntaxError: Rest parameter must be last formal parameter`
+function myNewFunction(arg1, ...args, lastArg) {
+  console.log(args);
+  console.log(lastArg);
+}
 ```
 
 
