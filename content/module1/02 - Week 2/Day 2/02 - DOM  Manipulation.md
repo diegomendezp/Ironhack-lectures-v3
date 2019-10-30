@@ -227,7 +227,7 @@ body.appendChild(articleContent);
 **index.js**
 
 ```js
-// 1. Create an image nodes in your JavaScript file:
+// 1. Create an image node in your JavaScript file:
 
 
 // 2. Add the src attribute with the link to an image

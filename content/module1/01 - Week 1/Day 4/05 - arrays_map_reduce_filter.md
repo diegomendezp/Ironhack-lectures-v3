@@ -2,7 +2,7 @@
 
 
 
-## 
+
 
 After this lesson you will be able to:
 
@@ -32,7 +32,7 @@ The `forEach()` method executes a provided function once for each array element.
 ```js
 let arr = ['a', 'b', 'c'];
 
-arr.forEach(function(element, index, originalArr) {
+arr.forEach( function(element, index, originalArr) {
   console.log(element, index, originalArr);
 });
 
@@ -396,7 +396,7 @@ const evenNumbers2 = numbers.filter(function (number) {
 
 
 
-###  [Exercise - Filter the listings - `filter()`](https://gist.github.com/ross-u/8cbb5d9c901e81ed517f041c5ce19782) (15 min)
+###  [Example - Filter the listings - `filter()`](https://gist.github.com/ross-u/8cbb5d9c901e81ed517f041c5ce19782) ( use as an explanation for the students)
 
 
 

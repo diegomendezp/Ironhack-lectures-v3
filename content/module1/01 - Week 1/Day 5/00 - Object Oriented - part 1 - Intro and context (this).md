@@ -204,33 +204,37 @@ myObj.printThis.call(randomObj);
 
 
 
-#### 5. Exception - Using keyword `new` when calling the function (function Constructors)
+#### 5. Exception - Using keyword `new` when calling the function ( function Constructors)
 
 
 
 If the new 	keyword is used when calling the function, this inside the function is a brand new object.
 
+
+
 ```js
-function Cars (name, color) {
-	this.name = name;
-	this.color = 'MY COLOR' + ': ' + color;
-	console.log('this in the function', this);
+function Car () {
+	console.log(this)
 }
 
 
-// NO keyword `new`
-let golf = Cars('golf', 'blue');
+Car();	//	Window
 
-console.log(golf); // undefined
-window.name;	// "golf"
-window.color	// "blue"
+new Car();  //	{}
+```
 
 
-// WITH keyword `new`
-let tesla = new Cars('tesla', 'red') 
-tesla.name;	//	tesla 
-tesla.color;	//	"red"
 
+What happens behind the scene is, that function with keyword `new` returns a new object:
+
+```js
+function Car () {
+	// this = {}
+  
+  // return this
+}
+
+var carObj = new Car();
 ```
 
 
@@ -275,82 +279,11 @@ tesla.color;	//	"red"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br>
 
 
 
 ### [Chuckify it! - Exercise ](https://gist.github.com/ross-u/8323650c8d737fdf906a008b8c041a87) - (15 min)
-
-
-
-```js
-// TODO: write the methods .getAge(), .addJoke() and .getRandomJoke()
-
-let chuck = {
-  firstName: 'Chuck',
-  lastName: 'Norris',
-  birthDate: new Date('1940-03-10'),
-  jokes:[
-    'Chuck Norris counted to infinity... Twice.',
-    'Chuck Norris is the only man to ever defeat a brick wall in a game of tennis',
-  ],
-  displayInfo: function() {
-    console.log('My name is ' + this.firstName + ' ' + this.lastName + ' and I have ' + this.jokes.length + ' jokes!')
-  },
-  getAge: function() {
-    // TODO
-    // Hint: to get the current time, you can do: new Date()
-    // Hint: check what does the getTime() method return
-    // Hint: to get the birthDate, you can do: this.birthDate
-    // Hint: you can subtract 2 dates and you get the number of milliseconds
-  },
-  addJoke: function(){
-    // TODO 
-    // Hint (don't return anything)
-  },
-  getRandomJoke: function() {
-    // TODO - Return random joke from the jokes array
-  },
-}
-
-chuck.displayInfo();
-
-console.log('getAge', chuck.getAge()) ; // Should return 79 if you are in 2019
-
-chuck.addJoke('Chuck Norris can divide by zero.');
-chuck.addJoke('Chuck Norris kills flies with his gun.');
-chuck.addJoke('Chuck Norris was once in a knife fight, and the knife lost.');
-chuck.addJoke('Chuck Norris doesn\'t Google, he Chuckles');
-
-console.log('getRandomJoke', chuck.getRandomJoke());
-console.log('getRandomJoke', chuck.getRandomJoke());
-console.log('getRandomJoke', chuck.getRandomJoke());
-
-chuck.displayInfo();
-```
-
-
-
-
-
 
 
 
