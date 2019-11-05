@@ -33,6 +33,8 @@
 
 
 
+### [Vikings - OOP - ES5](https://gist.github.com/ross-u/f422947d0a7257367611ff3815b41ecd)
+
 
 
 <br>
@@ -42,15 +44,17 @@
 <h2 style="color: green">Week 2</h2>
 ### Week 2 - Day 1:
 
-
+​	
 
 
 
 ### Week 2 - Day 2:
 
-### [IronHack Cart](https://gist.github.com/ross-u/e1a3505d17533d402c9602af83e33524)
+### [IronHack Cart (old lab - before update)](https://gist.github.com/ross-u/e1a3505d17533d402c9602af83e33524)
 
-### [Chronometer](https://gist.github.com/ross-u/3bf0726ba574303e5cf583767c854861)
+
+
+### [Chronometer - (old version)](https://gist.github.com/ross-u/3bf0726ba574303e5cf583767c854861)
 
 
 

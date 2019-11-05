@@ -68,7 +68,7 @@ It starts at  **0 , 0** in the top left corner.
 
 
 
-## [THE GRID Graphic - Codepen](https://codepen.io/Denzelzeldi/pen/KYaBLp)
+## [THE GRID Graphic - Codepen](https://codepen.io/Denzelzeldi/full/KYaBLp)
 
 
 
@@ -97,7 +97,7 @@ It starts at  **0 , 0** in the top left corner.
 ```js
 // fillRect(x, y, width, height)    //Draws a filled rectangle.
 // strokeRect(x, y, width, height)  //Draws a rectangular outline.
-// clearRect(x, y, width, height)  //Clears the specified rectangular area, making it fully transparent.
+// clearRect(x, y, width, height)  //Clears the specified rect. area, making it fully transparent.
 ```
 
 
@@ -105,15 +105,19 @@ It starts at  **0 , 0** in the top left corner.
 **index.js**  - Step by step
 
 ```js
+// PURPLE RECTANGLE
 // set the fill style for the fillRect
-ctx.fillStyle="purple";
+ctx.fillStyle = 'purple';
+
 // draw the rectangle
 ctx.fillRect(25, 25, 100, 100);
 
+// CLEAR RECTANGLE
 // draw clear rectangle on top of the purple one
 ctx.clearRect(45, 45, 60, 60);
 
 
+// BLUE STROKE RECTANGLE
 // set the color and line width for the stroke rectangle
 ctx.strokeStyle = 'blue';
 ctx.lineWidth = 3;
@@ -141,17 +145,38 @@ ctx.strokeRect(150, 50, 50, 50);
 #### STEPS TO DRAW A PATH:
 
 - Begin the path
+
 - Use drawing commands to draw the path.
+
 - Close the path
-- Use stroke or fill to render it
+
+- Use `.stroke()` or `fill()` to render it
+
+  
+
+  ```js
+  // PATHS
+  /* Steps to draw a Canvas path:
+    - Begin path
+    - Use drawing commands to draw the path
+    - Close the path
+    - Use `.stroke()` or `.fill()` to render the path
+  
+  */
+  ```
+
+  
 
 
 
 ### **syntax**
 
 ```js
+/*
+*/
 ctx.beginPath()    // Creates a new path. 
-// Once created, future drawing commands are directed into the path and used to build the path up.
+
+// Once created, future drawing commands are directed into the path and used to draw the path.
 
 ctx.closePath()    // Closes the path so that future drawing commands are once again directed to the context.
 
@@ -185,7 +210,7 @@ ctx.lineTo(x, y)    // Draws a line from the current drawing position to the pos
 **index.js**
 
 ```js
-// PATH
+// PATH - Drawing straight lines
 // start the path
 ctx.beginPath();
 
@@ -211,8 +236,8 @@ ctx.closePath();
 **index.js**
 
 ```js
-// TRIANGLE
 
+// TRIANGLE
 // start the path
 ctx.beginPath();
 
@@ -250,17 +275,24 @@ ctx.closePath();
 **SYNTAX**
 
 ```js
-// arc()   and   arcTo()
+// DRAWING ARCS OR CIRCLES - arc()   and   arcTo()
 
 /*
 	arc(x, y, radius, startAngle, endAngle, anticlockwise)
 
-  Draws an arc which is centered at (x, y) position with radius starting at startAngle and ending at endAngle going  in the given direction indicated by anticlockwise (default is clockwise).
+
+  - Draws an arc which is centered at (x, y) position with radius starting 
+  at startAngle and ending at endAngle going  in the given direction indicated 
+  by anticlockwise (default is clockwise).
+
+
+  ---------------------------------------------------------------------
+
 
 	arcTo(x1, y1, x2, y2, radius)
 
-  Draws an arc with the given control points and radius,
-connected to the previous point by a straight line.
+   - Draws an arc with the given control points and radius,
+   connected to the previous point by a straight line.
 */
 ```
 
@@ -283,7 +315,9 @@ connected to the previous point by a straight line.
 
 
 ```js
-/* 
+/*
+CONVERTING DEGREES TO RADIANS:
+
 Angles in the arc function are measured in radians, not degrees.
 To convert degrees to radians use the following JavaScript expression:
 
@@ -301,13 +335,15 @@ radians = (Math.PI / 180) * degrees.
 
 ctx.beginPath();
 
+
+ctx.lineWidth = 20;
+ctx.strokeStyle = "green";
+
 // ctx.arc(x, y, radius, startAngle, endAngle)
 ctx.arc(300, 300, 75, 0, Math.PI * 2); //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
 
 // ctx.arc(300, 300, 75, 0, (Math.PI / 180) * degrees); // Converting radians to degrees
 
-ctx.lineWidth = 20;
-ctx.strokeStyle = "green";
 ctx.stroke();
 ctx.closePath();
 
@@ -315,18 +351,27 @@ ctx.closePath();
 // CIRCLE - fill
 
 ctx.beginPath();
-ctx.arc(300, 300, 35, 0, Math.PI * 2); //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
+
 ctx.fillStyle = "red";
+
+ctx.arc(300, 300, 35, 0, Math.PI * 2); //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
+
 ctx.fill();
+
 ctx.closePath()
+
 
 
 // CIRCLE - fill
 
 ctx.beginPath();
+
+ctx.fillStyle = "yellow";
+
 ctx.arc(300, 300, 15, 0, Math.PI * 2); //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
-ctx.fillStyle = "white";
+
 ctx.fill();
+
 ctx.closePath()
 ```
 
@@ -337,15 +382,18 @@ ctx.closePath()
 Using `arcTo()` is more complex than `arc()`, therefore we will do only a simple example.
 
 ```js
-// ARC
+// ARC - arcTo()
 ctx.strokeStyle = 'red';
 ctx.lineWidth = 4;
 
 ctx.beginPath();
+
 ctx.moveTo(20, 20); // Create a starting point
 ctx.lineTo(80, 20); // Create a horizontal line
+
 ctx.arcTo(140, 20, 140, 70, 50); // Create an arc
 ctx.lineTo(140, 120); // Continue with vertical line
+
 ctx.stroke(); // Draw it
 ```
 
