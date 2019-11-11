@@ -1,21 +1,29 @@
-# Promises & Async / await - code along
+# `Promise` & `async...await` - code along
 
 
 
 
 
-### POKEDEX LIST - using Promises
+#### [Code Along Starter code and example -  GIST](https://gist.github.com/ross-u/16466b5b3e884fdb58bf47fae590133a)
+
+
+
+<br>
+
+
+
+### Pokedex List - using Promises
 
 
 
 #### Create file structure
 
 ```bash
-mkdir promises-async-await
+mkdir promises-and-async-await
 
-cd promises-async-await
+cd promises-and-async-await
 
-touch index.html style.css promisesExample.js asyncAwaitExample.js wrongAsyncAwaitExample.js
+touch index.html style.css promiseExample.js asyncAwaitExample.js wrongAsyncAwaitExample.js
 
 code .
 ```
@@ -24,7 +32,9 @@ code .
 
 
 
-#### Paste the starter code (`index.html` & `css`) from the GIST  :  [Starter code](https://gist.github.com/ross-u/16466b5b3e884fdb58bf47fae590133a)
+#### Paste the starter code (`index.html` & `css`) from the GIST  :
+
+####   [Code Along Starter code and example -  GIST](https://gist.github.com/ross-u/16466b5b3e884fdb58bf47fae590133a)
 
 
 
@@ -36,12 +46,15 @@ code .
 
 
 
-`promisesExample.js`
+##### `promisesExample.js`
 
 ```js
 // SAVE REFERENCE TO THE DOM ELEMENTS WE WILL USE
 const body = document.querySelector('body');
 const pokemonsList = document.getElementById('pokemon-list');
+
+
+console.log('PROMISE EXAMPLE');
 
 // API DOCS - https://pokeapi.co/
 const loadPokemons = async () => {
@@ -111,15 +124,23 @@ Async/Await is a syntactic sugar on top of the promises, making the Promises loo
 
 - `async` function always return a `Promise`. The best approach is not to `return` anything from `async` function, but only to `await` completion of operations within the async function, and then invoke a callback.
 
-  
 
-Refactor the previous code to use Async/Await.
+
+<br>
+
+
+
+Let's refactor the previous code to use Async/Await.
+
+##### `asyncAwaitExample.js`
 
 ```js
 const body = document.querySelector('body');
 const pokemonsList = document.getElementById('pokemon-list');
 
-// API DOCS - https://pokeapi.co/
+
+console.log('ASYNC AWAIT EXAMPLE');
+
 
 const loadPokemons = async () => {
   try {
@@ -152,7 +173,7 @@ const selectPokemon = listItem => {
 
   nameOfSelected.innerHTML = listItem.innerHTML.toUpperCase();
   nameOfSelected.style.visibility = 'visible';
-  nameOfSelected.style.displ = 'visible';
+  nameOfSelected.style.display = 'visible';
   imageOfSelected.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIndex}.png`;
 };
 
@@ -162,7 +183,7 @@ loadPokemons();
 
 
 
-
+<br>
 
 
 
@@ -170,21 +191,43 @@ loadPokemons();
 
 Waiting for return within `async` function doesn't work as expected, because `async` function immediately returns a `<pending>` `Promise` by default, without any waiting for the promise to finish.
 
+​	
 
+##### `wrongAsyncAwaitExample.js`
 
 ```js
 const loadPokemons = async () => { 
   let data;
+  
   try {
-  ... 
-     ...
-        ...
+    let response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=100');
+    data = await response.json();
+    
   } catch(error) { ... }
+  
   return data;
 }
                       
 
 let pokemons = loadPokemons();
 console.log('POKEMONS ???', pokemons);  //  Promise {<pending>}
+    
+
+  
+/* 
+   TRYING TO ITERATE OVER THE PENDING PROMISE
+   WILL RESULT IN AN ERROR.
+*/
+pokemons.results.forEach((pokemon, index) => {
+  const listItem = document.createElement('li');
+  const name = document.createTextNode(`${index + 1} - ${pokemon.name}`);
+
+  listItem.appendChild(name);
+  pokemonsList.appendChild(listItem);
+
+  listItem.addEventListener('click', event => {
+    selectPokemon(event.target);
+   });
+});
 ```
 

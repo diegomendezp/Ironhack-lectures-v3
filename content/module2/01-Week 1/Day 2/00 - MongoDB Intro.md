@@ -1,4 +1,4 @@
-#  MongoDB | Introduction
+#  **MongoDB** | Introduction
 
 
 
@@ -13,7 +13,7 @@
 
 
 
-- **Databases are typically** [persisted](https://en.wikipedia.org/wiki/Persistence_(computer_science)), which means that even if our program stops for some reason, data still persists and we can access the data later.
+- **Databases are typically** [persisted](https://en.wikipedia.org/wiki/Persistence_(computer_science)), which means that even if our program stops for some reason, data will still persists and we can access the stored data later.
 
 
 
@@ -21,11 +21,11 @@
 
 ## MongoDB Introduction
 
-#### [MongoDB](https://www.mongodb.com/) Is a **free and open-source cross-platform database program**.
+- [MongoDB](https://www.mongodb.com/) Is a **free and open-source cross-platform database program**.
 
-#### MongoDB stores JSON like documents, called (binary JSON, BSON), which can contain mixed data types.
+- MongoDB stores JSON like documents, called (binary JSON, BSON), which can contain mixed data types.
 
-#### Difference from the relational databases is that documents stored in MongoDb can be different and don't need to confine to the same schema.
+- Difference from the relational databases is that documents stored in MongoDB can be different and doesn't need to confine to the same schema.
 
 
 
@@ -39,55 +39,40 @@
 
 
 
-#### Mongo document example
+#### [MongoDB Document example & Getting Started](https://docs.mongodb.com/manual/core/document/#documents)
 
 ```json
-{
-   _id: ObjectId(7df78ad8902c)
-   title: 'MongoDB Overview', 
-   description: 'MongoDB is no sql database',
-   tags: ['mongodb', 'database', 'NoSQL'],
-   likes: 100, 
-   comments: [	
-      {
-         user:'user1',
-         message: 'My first comment',
-         dateCreated: new Date(2011,1,20,2,15),
-         like: 0 
-      },
-      {
-         user:'user2',
-         message: 'My second comments',
-         dateCreated: new Date(2011,1,25,7,45),
-         like: 5
-      }
-   ]
-}
+var mydoc = {
+               _id: ObjectId("5099803df3f4948bd2f98391"),
+               name: { first: "Alan", last: "Turing" },
+               birth: new Date('Jun 23, 1912'),
+               death: new Date('Jun 07, 1954'),
+               contribs: [ "Turing machine", "Turing test", "Turingery" ],
+               views : NumberLong(1250000)
+            }
 ```
 
 
 
 
 
-### [MongoDB Getting Started - Documents](https://docs.mongodb.com/manual/core/document/#documents)
 
 
 
 
-
-
-
-### [MongoDB - Lecture](http://materials.ironhack.com/s/H1XmRnG6VV7#mongodb-installation)
+##### [MongoDB - IH Learning Unit](http://materials.ironhack.com/s/H1XmRnG6VV7#mongodb-installation)
 
 
 
 ### [MongoDB Installation](https://docs.mongodb.com/manual/installation/)
 
-Go to >>> **Install MongoDB Community Edition**
+**Go to**	 >>> 	**Install MongoDB Community Edition**
 
 
 
 
+
+<br>
 
 
 
@@ -95,35 +80,39 @@ Go to >>> **Install MongoDB Community Edition**
 
 
 
-The documents we store in MongoDB database can be different value types. 
+- The documents we store in MongoDB database can be different value types. 
+
+- These are some of the most useful data types used in mongo documents:
+
+### [TABLE EXAMPLE](https://gist.github.com/ross-u/460610d2e938810de9fe28fd89ce611e)
+
+| **type**      | Example                                 |
+| :------------ | :-------------------------------------- |
+| **Double**    | `3.141625`                              |
+| **String**    | `"IronHack Coding Bootcamp"`            |
+| **Date**      | `Sun Dec 08 07:15:44 UTC 2013`          |
+| **Boolean**   | `true`  `false`                         |
+| **Object**    | `{ foo: "bar" }`                        |
+| **Array**     | `["apple", "oranges", "kiwis"]`         |
+| **Object ID** | `ObjectId ("52cdef7c4bab8bd675297d8a")` |
+| **Null**      | `null`                                  |
+| **Integer**   | `123456`                                |
 
 
 
-These are some of the most useful data types used in mongo documents:
-
-| type     | Examples                             |
-| :------- | :----------------------------------- |
-| Double   | 3.141625                             |
-| String   | “IronHack Coding Bootcamp”           |
-| Date     | “Sun Dec 08 07:15:44 UTC 2013”       |
-| Boolean  | true                                 |
-| Object   | { foo: ‘bar’, }                      |
-| Array    | [“apple”, “oranges”, “kiwis”]        |
-| ObjectID | ObjectId(“52cdef7c4bab8bd675297d8a”) |
-| Null     | null                                 |
-| Integer  | 123456                               |
+<br>
 
 
 
+### `Object ID` type
 
+- `ObjectID` is a MongoDB type used to identify documents in a collection uniquely. 
 
-### ObjectID type
+- MongoDB will create them automatically for us. 
 
-`ObjectID` is a **MongoDB type** used to identify documents in a collection uniquely. MongoDB will create them automatically for us. 
+- When we create a document in MongoDB it automatically creates a key `_id` for the document.
 
-When we create a document in MongoDB it automatically creates a key `_id` for the document.
-
-This is a unique `_id` key under which the document is stored.
+- This is a unique `_id` key under which the document is stored.
 
 
 
@@ -135,11 +124,13 @@ This is a unique `_id` key under which the document is stored.
 
 
 
-Mongo shell is a CLI that we use to work directly with the database from the terminal. Mongo shell uses JS, therefore the syntax is same as working  with JS and working with the objects.
+Mongo shell is a CLI that we use to work directly with the database from the terminal.
+
+Mongo shell uses JavaScript, therefore the syntax is the same as working  with JS and working with the objects.
 
 
 
-#### Start MongoDB  and Mongo shell - Linux
+#### **Start MongoDB  and Mongo shell - Linux**
 
 ```bash
 # Start the Mongo server - Linux
@@ -156,7 +147,7 @@ mongo
 
 
 
-### Start MongoDB  and Mongo shell - MacOS
+### **Start MongoDB  and Mongo shell - MacOS**
 
 ```bash
 # Start the Mongo server - MacOS
@@ -170,7 +161,17 @@ mongo
 
 
 
-### `show dbs` ,  `use DATABASE_NAME` , `db` commands
+<br>
+
+
+
+### Commands:
+
+###  `show dbs` ,
+
+###  `use DATABASE_NAME` ,
+
+###  `db` 
 
 ```bash
 #List All Databases
@@ -187,9 +188,17 @@ db
 
 
 
+<br>
 
 
-### Lets make our first database
+
+### Lets make our first database - 
+
+### `db.createCollection()`
+
+### `db.collectionName.insertOne()`
+
+### ``db.collectionName.find()`
 
 ```bash
 show dbs
@@ -213,21 +222,32 @@ db.users.insertOne({ name: "Marco", age: 30})
 db.users.insertOne({ name: "Marco", age: 60})
 
 
-# We can see the collctions we have in the database
+# We can see the collections we have in the database
 show collections
 
 
 # Now the database is created and visible on the list
 show dbs
+
+# Show the documents in the collection
+db.users.find()
 ```
 
 
 
 
 
+<br>
 
 
 
+### **[MongoDB Docs - Thresholds and Limits ](https://docs.mongodb.com/manual/reference/limits/)**
 
-### [MongoDB Docs - Thresholds and Limits ](https://docs.mongodb.com/manual/reference/limits/)
+- The maximum BSON document size is 16 megabytes (MB).
+
+- The maximum document size helps ensure that a single document cannot use excessive amount of RAM or, during transmission, excessive amount of bandwidth.
+
+- MongoDB supports no more than 100 levels of nesting for [BSON documents](https://docs.mongodb.com/manual/reference/glossary/#term-document).
+
+  
 

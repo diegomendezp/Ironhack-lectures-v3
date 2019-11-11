@@ -120,7 +120,7 @@ db.users.find({ $nor: [{ age: 40}, {name: "Anna"}] })
 
 
 
-## [Create collection and query the database - Exercise](https://gist.github.com/ross-u/74bc350d4eb8ac4b1ca1034f0a12e2e8) (10-15 min)
+## [Create the `employees` collection and query the database - Exercise](https://gist.github.com/ross-u/74bc350d4eb8ac4b1ca1034f0a12e2e8) (15 - 20 min)
 
 
 
@@ -128,7 +128,7 @@ db.users.find({ $nor: [{ age: 40}, {name: "Anna"}] })
 
 
 
-
+<br>
 
 
 
@@ -164,6 +164,8 @@ db.users.find({ $nor: [{ age: 40}, {name: "Anna"}] })
 
 
 
+<br>
+
 
 
 #### Query Projection example
@@ -182,6 +184,8 @@ db.users.find({ name: "Anna"}, {age: 0, _id: 1})
 
 
 
+
+<br>
 
 
 
@@ -246,6 +250,8 @@ db.employees.replaceOne(
 
 
 
+<br>
+
 
 
 ## Delete commands - `deleteOne`, `deleteMany`, `deleteMany({})`
@@ -267,6 +273,8 @@ db.users.deleteMany({})
 
 
 
+<br>
+
 
 
 
@@ -282,7 +290,7 @@ db.dropDatabase()
 
 
 
-
+<br>
 
 
 
@@ -294,18 +302,10 @@ db.dropDatabase()
 
 
 
+<br>
 
 
 
 
 
-
-## Extra Resources
-
-- [MongoDB Official documentation](https://docs.mongodb.com/manual/introduction/)
-- [CAP Theorem](http://robertgreiner.com/2014/08/cap-theorem-revisited/)
-- [Beginners Guide to Compass](https://www.mongodb.com/presentations/the-beginners-guide-to-compass-the-gui-for-mongodb?p=59f0d681a323cf200b4c1030)
-
-- Mongo hacker package: <https://github.com/tylerbrock/mongo-hacker/>
-
-  
+## [MongoDB - Lecture Notes For The Students](https://gist.github.com/ross-u/cf1f144c7706610e9f70c2700f8b391d)
