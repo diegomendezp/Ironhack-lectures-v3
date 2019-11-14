@@ -1,4 +1,10 @@
-### Client-Server Architecture
+# HTTP and How Internet Works
+
+
+
+
+
+### Client and Server
 
 All the devices connected to the Internet are either **servers** or **clients**.
 
@@ -17,6 +23,8 @@ All the devices connected to the Internet are either **servers** or **clients**.
 
 
 To be a server your computer would need to be **turned on**, **awake** and have **Internet literally all the time**. Not very practical for our personal computers.
+
+
 
 **Servers**, however, are exactly that: computers that are always turned on, awake and connected to the Internet so that users can connect to them.
 
@@ -39,6 +47,10 @@ Resources have to be **requested** from the server.
 
 
 
+
+
+
+### [OPEN IMAGE](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
 
 ![img](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
 
@@ -205,6 +217,8 @@ curl -v --request POST https://www.keycdn.com/
 ```
 
 
+
+Returns a response with status **405 - Method Not Allowed**
 
 
 

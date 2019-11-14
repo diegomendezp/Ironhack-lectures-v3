@@ -14,7 +14,7 @@
 
 ## Getting Started
 
-<br>
+show<br>
 
 
 
@@ -322,7 +322,10 @@ db.movies.find({ rate: { $ne: "9.0"} }).limit(10)
 **<u>Your query</u>**:
 
 ```js
-  db.movies.find({ year: {$in: [2000, 2005, 2010] } } , {title: 1, year: 1}).sort({year: 1})
+  db.movies.find({
+    year: {$in: [2000, 2005, 2010] }
+  }, 
+  {title: 1, year: 1}).sort({year: 1})
 ```
 
  
@@ -332,7 +335,13 @@ db.movies.find({ rate: { $ne: "9.0"} }).limit(10)
 ### 18. Retrieve all documents from the `movies` collection created in the years 1999 and 2010 and exluding the movie with `title` "Inception"
 
 ```js
-  db.movies.find({ $and: [{ year: {$in: [1999, 2010] }}, { title: { $ne: "Inception" } }] }, {title: 1, year: 1})
+db.movies.find({ 
+	$and: [
+    { year: {$in: [1999, 2010] }}, 
+    { title: { $ne: "Inception" } }
+  ] 
+ }, 
+ {title: 1, year: 1})
 ```
 
 

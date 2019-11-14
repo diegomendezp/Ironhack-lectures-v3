@@ -30,7 +30,9 @@ To send more information, or to prevent the information from showing in the brow
 
 
 
-**app.js**
+
+
+##### `app.js`
 
 ```js
 const express = require('express');
@@ -62,7 +64,9 @@ app.listen(PORT, () => console.log(`Server listening on port ${PORT} !`));
 
 #### **Create a form**
 
-**`user-info-form.hbs`**
+
+
+##### `views/user-info-form.hbs`
 
 ```html
 <form action="/display-user-info">
@@ -88,13 +92,15 @@ All input types can be found [here](https://developer.mozilla.org/en-US/docs/Web
 
 
 
+<br>
+
 
 
 #### Navigate to `localhost:3000/get-user-info`
 
 
 
-Fill the form and submit it
+Fill the form and submit it.
 
 
 

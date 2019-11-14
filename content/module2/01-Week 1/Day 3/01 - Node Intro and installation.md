@@ -12,11 +12,13 @@
 
   - used in Browser with Web APIs, 
 
-  - converts JS to machine language)
+  - converts JS to machine language.
 
     
 
 - NodeJS environment:  V8 engine with added C++ functionality ,so that it can run on the server.
+
+  
 
 - What can NodeJS do: 
 
@@ -358,7 +360,7 @@ npm install --save-dev nodemon
 
 
 
-### [OPEN IMAGE](https://i.imgur.com/JbO1G2D.png)
+#### [OPEN IMAGE](https://i.imgur.com/JbO1G2D.png)
 
 ![](https://i.imgur.com/JbO1G2D.png)
 

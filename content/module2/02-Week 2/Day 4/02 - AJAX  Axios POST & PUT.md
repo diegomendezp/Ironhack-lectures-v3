@@ -198,4 +198,4 @@ Implement the delete button calling the DELETE method on route https://ih-crud-a
 
 
 
-Use **Postman** and GET method to check on the API and if you successfuly deleted the document.  
+Use **Postman** and GET method to check on the API and if you successfuly deleted the document. 

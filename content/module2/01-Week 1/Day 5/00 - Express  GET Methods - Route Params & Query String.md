@@ -49,6 +49,30 @@ Create files
 ehbs + Tab
 ```
 
+**or**
+
+```js
+const express = require('express');
+const hbs = require('hbs');
+const app = express();
+const PORT = 3000;
+
+
+// SET THE TEMPLATE ENGINE
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
+
+// SET THE STATIC FOLDER FOR PUBLIC FILES
+app.use(express.static(__dirname + '/public'));
+
+// REGISTER THE PARTIAL 
+hbs.registerPartials(__dirname + '/views/partials');
+
+
+// START THE SERVER
+app.listen(PORT, () => console.log(`Server listening on port ${ PORT } !`));
+```
+
  
 
 
@@ -67,15 +91,19 @@ app.get('/users/:username', (req, res, next) => {
 
 
 
-#### Navigate to:	`http://localhost:3000/users/ironhack`
+#### Navigate to:	[`http://localhost:3000/users/ironhack`](http://localhost:3000/users/ironhack)
 
 
 
 
+
+<br>
 
 
 
 #### 2. Update route
+
+Include additional parameters `/users/:username/books/:bookId`.
 
 ```js
 app.get('/users/:username/books/:bookId', (req, res, next) => {
@@ -85,15 +113,15 @@ app.get('/users/:username/books/:bookId', (req, res, next) => {
 
 
 
-#### Navigate to:	`http://localhost:3000/users/ironhack`
+#### Navigate to:	[`http://localhost:3000/users/ironhack/book/abcd123`](http://localhost:3000/users/ironhack/book/abcd123)
 
 
 
+<br>
 
 
 
-
-#### 3. Create Route
+#### 3. Create a new Route
 
 ```js
 app.get('/books/:bookId', (req, res, next) => {
@@ -103,9 +131,11 @@ app.get('/books/:bookId', (req, res, next) => {
 
 
 
-#### Navigate to:	`http://localhost:3000/books/1234asdf4567`
+#### Navigate to:	[`http://localhost:3000/books/1234asdf4567`](http://localhost:3000/books/1234asdf4567)
 
 
+
+<br>
 
 
 
@@ -113,13 +143,15 @@ app.get('/books/:bookId', (req, res, next) => {
 
 Navigate to [Ironhack Labs Github Account](https://github.com/ironhack-labs) and check the URL.
 
+
+
 **How you think is Github server getting the info on which profile they should display? **
 
-**Do they one route for each repository? Or maybe something like this?**
+**Do they use one route for each repository? Or maybe something like this ?**
 
 ```js
 app.get('/:repository', (req, res, next) => {
-  //............
+  res.send(req.params);
 })
 ```
 
@@ -127,7 +159,7 @@ app.get('/:repository', (req, res, next) => {
 
 
 
-
+<br>
 
 
 
@@ -135,9 +167,11 @@ app.get('/:repository', (req, res, next) => {
 
 
 
-#### 4.  Create Route
+#### 4.  Create a new Route
 
 ```js
+// req.query
+
 app.get('/search', (req, res, next) => {
   res.send(req.query)
 })
@@ -147,13 +181,15 @@ app.get('/search', (req, res, next) => {
 
 
 
-#### Navigate to `http://localhost:3000/search?city=Barcelona`
+#### Navigate to
+
+####  [`http://localhost:3000/search?city=Barcelona&class=WebDev`](http://localhost:3000/search?city=Barcelona&class=WebDev)
 
 
 
 
 
-
+<br>
 
 
 
@@ -167,32 +203,15 @@ app.get('/search', (req, res, next) => {
 appgetrender + Tab
 ```
 
+or
 
-
-#### Update `index.hbs`- Emmet abbr `formget`
-
-```js
-formget + Tab
-```
-
-
-
-
-
-## Additional examples for request object
-
-
-
-#### 6. Update `/books/:bookId`
+##### `app.js`
 
 ```js
-app.get('/books/:bookId', function (req, res) {
-  res.send(req.params);
-  console.log('req.path ->', req.path);  
-  console.log('req.query ->', req.query);
-  console.log('req.params ->', req.params);
-  console.log('req.method ->', req.method);
-  console.log('req.headers ->', req.headers);
+app.get('/', (req, res) => {
+  res
+    .status(200)
+    .render('index')
 })
 ```
 
@@ -202,119 +221,182 @@ app.get('/books/:bookId', function (req, res) {
 
 
 
+#### Navigate to 
+
+####  [`http://localhost:3000/`](http://localhost:3000/)
 
 
-### Exercise - pairs
 
-
-
-1. a. Create a directory and run `npm init` .
-
-   b. Install **express** and **handlebars** `npm i --save express`, and `npm i --save hbs`
-
-   c. Add folder `views` and a file `index.hbs`. After creating it your folder structure should look like this:
-
-   ```
-   .
-   ├── app.js
-   ├── package.json
-   |
-   └── views/
-   		|
-       └── index.hbs
-   ```
+<br>
 
 
 
 
 
-2. In a file `app.js` create a basic  Express.js server and create a route  `/search/:name/:city.` using `app.get`
+#### Create a new route `/email`
 
-   
-
-3. in the `app.get` create a `console.log` for `req.params`  and  `req.query`
-
-   
-
-4. Run the server . 
-
-   
-
-5. In your browser navigate to:
-
-    `localhost:3000/search/anna/barcelona`, and then check the `req.params` you got in the console.
-
-   
-
-6. In your browser navigate to:
-
-    `localhost:3000/search/anna/barcelona?phone=1234567&street=pamplona_96&bootcamp=ironhack`
-
-    , and check the `req.params` and `req.query` printed  you got in the console.
-
-   
-
-   
-
-7. Create a new route  `/` which will render the `index.hbs` and a route `/formdata` which console logs the `req.query`:
-
-   
-
-   ```js
-   app.get('/', (req, res) => {
-     res
-       .status(200)
-       .render('index')
-   });
-   
-   app.get('/formdata', (req, res, next) => {
-     console.log('/formdata --> ', req.query);
-     
-     res.send();
-   });
-   ```
-
-
-
-
-
-8. In the `app.js` Set the view engine to `hbs` and the folder for the files to `views`:
-
-   ```js
-   app.set('view engine', 'hbs');
-   app.set('views', __dirname + '/views');
-   ```
-
-   
-
-
-
-9. Paste the below code to `index.hbs` to create a form which sends data via GET request to the route `formdata`:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Express GET</title>
-</head>
-<body>
-  
-  <form action='/formdata' method='GET'>
-    <label for=''>Email</label>
-    <input type='text' name='email'>
-  
-    <label for=''>Password</label>
-    <input type='text' name='password'>
-  
-    <button type='submit'>Submit</button>
-  </form>
-</body>
-</html>
+```js
+app.get('/email', (req, res, next) => {
+  console.log('req.path ->', req.path);
+  console.log('req.query ->', req.query);
+  console.log('req.params ->', req.params);
+  console.log('req.method ->', req.method);
+  console.log('req.headers ->', req.headers);
+  res.send(req.query);
+});
 ```
 
 
 
-9. Enter data in the form and submit it. Check that the result is being printed in the console.
+
+
+#### Update `index.hbs`- Emmet abbr `formget`
+
+```js
+formget + Tab
+```
+
+or
+
+##### `views/index.hbs`
+
+```html
+<form action='/email' method='GET'>
+
+  <label for=''>Email</label>
+  <input type='text' name='Email'>
+
+  <label for=''>Password</label>
+  <input type='text' name='Password'>
+
+  <button type='submit'>Submit</button>
+</form>
+```
+
+
+
+
+
+
+
+### [`MDN - <form> methods `](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data)
+
+#### `GET` request / `method`  - 
+
+In this case, the browser sends an empty body (`GET` has headers only). 
+
+Because the body is empty, when a form is sent using `GET` method the data sent to the server is appended to the URL, in the form of query string.
+
+
+
+#### `POST` request / `method`  - 
+
+If a form is sent using `POST` method, the data is appended to the body of the HTTP request.
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+### Setting middleware for handling incoming `json` and form data
+
+
+
+When working with `POST` form we need to take into consideration that data is send through the body of the `POST` request.
+
+
+
+in order to properly parse the body of the incoming requests we need to install the `body-parser` middleware. 
+
+Otherwise, we won't be able to use the data from the body.
+
+
+
+```bash
+npm i --save body-parser
+```
+
+
+
+### [GitHub - `body-parser` ](https://github.com/expressjs/body-parser#examples)
+
+
+
+##### `app.js`
+
+```js
+const bodyParser = require('body-parser');
+
+// ...
+//		...
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+```
+
+
+
+
+
+<br>
+
+
+
+##### `app.js`
+
+Update the `/email` route that handles the incoming form data:
+
+
+
+```js
+// UPDATE METHOD:
+
+// .post
+app.post('/email', (req, res, next) => {
+  console.log('BODY', req.body);
+  res.send(req.query);
+});
+```
+
+
+
+<br>
+
+
+
+##### `views/index.hbs`
+
+```html
+<!-- Update method	  				POST	-->
+
+<form action='/email' method='POST'>
+
+  <label for=''>Email</label>
+  <input type='text' name='Email'>
+
+  <label for=''>Password</label>
+  <input type='text' name='Password'>
+
+  <button type='submit'>Submit</button>
+</form>
+```
+
+
+
+
+
+<br>
+
+
+
+### [Pair Exercise - Send Form Data](https://gist.github.com/ross-u/23e07425a9eb9fe6b74a4f755d36689a) (30 min)

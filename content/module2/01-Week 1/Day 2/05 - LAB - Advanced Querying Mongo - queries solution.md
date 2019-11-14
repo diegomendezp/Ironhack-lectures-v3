@@ -1,12 +1,20 @@
-![Ironhack Logo](https://i.imgur.com/1QgrNNw.png)
+# LAB Solution  | Advanced Querying Mongo
 
-# Answers
+
+
+<br>
+
+
 
 ### 1. All the companies that it's name match 'Babelgum'. Retrieve only their `name` field.
 
 ```js
 db.companies.find({name: 'Babelgum'}, {name: 1, _id: 0})
 ```
+
+
+
+<br>
 
 
 
@@ -20,11 +28,19 @@ db.companies.find({ number_of_employees: {$gt: 5000} } )
 
 
 
+<br>
+
+
+
 ### 3. All the companies founded between 2000 and 2005, both years included. Retrieve only the `name` and `founded_year` fields.
 
 ```js
 db.companies.find({$and: [ {founded_year: {$gte: 2000}}, {founded_year: {$lte: 2005}}]}, {name: 1, founded_year: 1, _id: 0})
 ```
+
+
+
+<br>
 
 
 
@@ -36,11 +52,19 @@ db.companies.find({$and: [ {"ipo.valuation_amount": {$gt: 100000000}}, {founded_
 
 
 
+<br>
+
+
+
 ### 5. All the companies that have less than 1000 employees and have been founded before 2005. Order them by the number of employees and limit the search to 10 companies.
 
 ```js
 db.companies.find({$and: [ {number_of_employees: {$lt: 1000}}, {founded_year: {$lt: 2005}}]} ).sort({number_of_employees: -1}).limit(10)
 ```
+
+
+
+<br>
 
 
 
@@ -52,11 +76,19 @@ db.companies.find({partners: {$size: 0}})
 
 
 
+<br>
+
+
+
 ### 7. All the companies that have a `null` type of value on the `category_code` field.
 
 ```js
 db.companies.find({category_code: null})
 ```
+
+
+
+<br>
 
 
 
@@ -68,11 +100,19 @@ db.companies.find({$and: [ {number_of_employees: {$gte: 100}}, {number_of_employ
 
 
 
+<br>
+
+
+
 ### 9. Order all the companies by their IPO price in a descending order.
 
 ```js
 db.companies.find().sort({"ipo.valuation_amount": -1})
 ```
+
+
+
+<br>
 
 
 
@@ -84,6 +124,10 @@ db.companies.find().sort({number_of_employees: -1}).limit(10)
 
 
 
+<br>
+
+
+
 ### 11. All the companies founded on the second semester of the year. Limit your search to 1000 companies.
 
 ```js
@@ -91,6 +135,8 @@ db.companies.find({founded_month: {$gt: 6}})
 ```
 
 
+
+<br>
 
 
 
@@ -102,16 +148,25 @@ db.companies.find({$and: [ {founded_year: {$lte: 2000}}, {"acquisition.price_amo
 
 
 
+<br>
+
+
+
 ### 13. All the companies that have been acquired after 2010, order by the acquisition amount, and retrieve only their `name` and `acquisiton` field.
 
 
 
-#### No companies were acquired after 2105
+<br>
+
+
 
 ```js
 db.companies.find({"acquisition.acquired_year": {$gt: 2010}},{name: 1, acquisition: 1}).sort({"acquisition.price_amount": 1})
-
 ```
+
+
+
+<br>
 
 
 
@@ -120,6 +175,10 @@ db.companies.find({"acquisition.acquired_year": {$gt: 2010}},{name: 1, acquisiti
 ```js
 db.companies.find({},{name: 1, founded_year: 1}).sort({founded_year: 1})
 ```
+
+
+
+<br>
 
 
 
@@ -133,11 +192,19 @@ db.companies.find({founded_day: {$lte: 7}}).sort({"acquisition.price_amount": -1
 
 
 
+<br>
+
+
+
 ### 16. All the companies on the 'web' `category` that have more than 4000 employees. Sort them by the amount of employees in ascendant order.
 
 ```js
 db.companies.find({$and: [{category_code: "web"}, {number_of1
 ```
+
+
+
+<br>
 
 
 
@@ -149,6 +216,10 @@ db.companies.find({$and: [{"acquisition.price_currency_code": "EUR"},{"acquisiti
 
 
 
+<br>
+
+
+
 ### 18. All the companies that have been acquired on the first trimester of the year. Limit the search to 10 companies, and retrieve only their `name` and `acquisition` fields.
 
 ```js
@@ -157,9 +228,17 @@ db.companies.find({"acquisition.acquired_month": {$lte: 3}},{name: 1, acquisitio
 
 
 
+<br>
+
+
+
 ### 19. All the companies that have been founded between 2000 and 2010, but have not been acquired before 2011.
 
 ```js
 db.companies.find({$and: [{founded_year: {$gt: 2000}},{founded_year: {$lt: 2010}},{"acquisition.acquired_year": {$gte: 2011}}]}, {name: 1, "acquisition.acquired_year": 1})
 ```
+
+
+
+<br>
 

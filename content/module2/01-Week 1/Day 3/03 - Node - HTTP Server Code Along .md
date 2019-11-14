@@ -179,7 +179,7 @@ Standard ports:  **:80** ( **HTTP** ) and **:443** ( **HTTPS** ) .
 
 #### Fork and clone the repository
 
-<https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along->
+### [Repo with static files](https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-)
 
 
 
@@ -210,6 +210,7 @@ const server = http.createServer((request, response) => {
 
     if (request.url === '/index.html') {
       
+      code .
     }
     
     else if (request.url === '/about.html') {
