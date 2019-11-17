@@ -492,7 +492,7 @@ console.log(chalk.yellow.bgRed.bold('Hello ironhackers'));
 
 
 
-#### Exporting a module `module.exports` 
+#### Exporting a module `module.exports` con
 
 Let's create a file that will contain greeting messages that we want to use.
 

@@ -7,7 +7,7 @@ After this lesson you will be able to:
 - Create `views` in Express.
 - Understand what `dynamic templates` are and why we use them.
 - Understand and use `HandlebarsJS` for creating dynamic templates.
-- Use `if`, `with` and `each` block helpers.
+- Use `if`, `with` and `each` block helpers.cd 
 
 
 
@@ -624,6 +624,8 @@ app.get('/', (req, res, next) => {
 ##### `student.hbs`
 
 ```html
+<hr>
+
 <h3>#each #else - fallback option</h3>
 
 <ul>

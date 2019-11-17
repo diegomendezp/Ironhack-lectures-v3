@@ -96,7 +96,7 @@
 
 ### Clone the structure Repo
 
-### [Repo - empty - file structure only](<https://github.com/ross-u/Mongoose-advanced-schemas-models>)
+### [Starter Repo - file structure & data only](<https://github.com/ross-u/Mongoose-advanced-schemas-models>)
 
 
 

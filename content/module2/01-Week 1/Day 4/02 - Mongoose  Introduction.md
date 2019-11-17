@@ -2,31 +2,15 @@
 
 
 
+<br>
+
+
+
 ## Application Design Patterns
 
 
 
-
-
-### The MVC Pattern
-
-- Every time a request is made on the server, a *Controller* handles it.
-- This *Controller* will communicate with *Models*.
-- *Models* - are overlay on top of the database- Models will read and write data directly to a database.
-- When the *Controller* has all information, it can call one *View* with some data.
-- The *View* generates a *Response* that is a HTML page.
-
-
-
-
-
-### [OPEN IMAGE](https://i.imgur.com/LUhoPkS.png)
-
-![](https://i.imgur.com/LUhoPkS.png)
-
-
-
-
+<br>
 
 
 
@@ -58,7 +42,7 @@ This abstraction is called an **ODM**.
 
 -  **ODM helps us to structure our data. **
 
-- **We create blueprints (called schemas ( *скиимас* ) )  to enforce the structure of our documents (what data type and names).**
+- **We create blueprints (called schemas )  to enforce the structure of our documents (what data type and names).**
 
 - **These schema instructions are written as  JavaScript objects.**
 
@@ -99,11 +83,14 @@ Let’s start a new project and install it.
 
 
 ```bash
-$ mkdir mongoose-example
-$ cd mongoose-example
-$ npm init
-$ npm install --save mongoose
-$ touch example.js
+# Create Directory
+mkdir mongoose-example
+cd mongoose-example
+
+# Initialize npm and install mongoose
+npm init
+npm install --save mongoose
+touch example.js
 ```
 
 
@@ -256,6 +243,8 @@ Now check in mongo shell
 ```
 
 
+
+<br>
 
 
 
@@ -444,7 +433,11 @@ process.on('SIGINT', () => {
 
 
 
+
+
 ### [REPO WITH THE FILE `example.js` : ](<https://github.com/ross-u/Mongoose-introduction-demo/blob/master/example.js>)
+
+
 
 
 

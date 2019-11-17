@@ -44,13 +44,13 @@ npm i -g express-generator
 
 
 ```bash
-express --hbs library
+express --view=hbs library
 cd library
 ```
 
 
 
-**package.json**
+##### `package.json`
 
 ```json
 // add
@@ -228,9 +228,23 @@ const router = express.Router();
 
 // GET /books
 router.get('/', (req, res, next) => {
-  console.log('IN /books GET');
+  console.log('IN GET /books');
+  
+  res.render('books');
 });
 
 module.exports = router;
+```
+
+
+
+<br>
+
+
+
+##### `views/books.hbs`
+
+```js
+<h1>BOOKS</h1>
 ```
 

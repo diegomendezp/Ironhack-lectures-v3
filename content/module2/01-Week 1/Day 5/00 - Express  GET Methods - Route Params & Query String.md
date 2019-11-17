@@ -385,7 +385,8 @@ app.post('/email', (req, res, next) => {
   <input type='text' name='Email'>
 
   <label for=''>Password</label>
-  <input type='text' name='Password'>
+  <input type='text' name='Password'>// SET THE STATIC FOLDER FOR PUBLIC FILES
+app.use(express.static(__dirname + '/public'));
 
   <button type='submit'>Submit</button>
 </form>

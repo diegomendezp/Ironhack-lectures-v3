@@ -12,7 +12,7 @@
 
 
 
-## Code Along
+
 
 
 
@@ -68,6 +68,14 @@
 
 
 
+# Code Along
+
+
+
+<br>
+
+
+
 ### Create the file structure
 
 ```bash
@@ -77,6 +85,14 @@ touch app.js .gitignore moviesData.js public/stylesheets/styles.css views/index.
 ```
 
 
+
+
+
+<br>
+
+
+
+### Copy `data.js` content from the [Repo](https://github.com/ross-u/express-handlebars-layout-and-partials).
 
 
 
@@ -328,7 +344,6 @@ footer {
   </footer>
   
 </body>
-</html>
 </html>
 ```
 
