@@ -874,33 +874,43 @@ const mongoose = require('mongoose');
 const Book = require('./../models/Book');
 const Author = require('./../models/Author');
 
-const dbtitle = 'library';
-mongoose.connect(`mongodb://localhost:27017/${dbtitle}`);
+mongoose
+  .connect('mongodb://localhost:27017/library', {
+    useNewUrlParser: true,
+  })
+  .then(() => insertFirst())
+  .catch(err => console.log(err));
 
+// STEP 0 - insert documents to ensure that collection exists
+function insertFirst() {
+  const pr1 = Book.create({ title: 'Drop', description: 'Drop', rating: 5 });
+  const pr2 = Author.create({
+    name: 'Drop',
+    lastName: 'Drop',
+    nationality: 'Drop',
+    pictureUrl: 'Drop',
+  });
+
+  Promise.all([pr1, pr2])
+    .then(() => {
+      dropTheCollections();
+    })
+    .catch(err => console.log(err));
+}
 
 // STEP 1 - drop the existing collections
-(async function() {
-  try {
-    await Book.create({ title: 'Drop', description: 'Drop', rating: 5 });
-    await Author.create({
-      name: 'Drop',
-      lastName: 'Drop',
-      nationality: 'Drop',
-      pictureUrl: 'Drop',
-    });
+function dropTheCollections() {
+  const pr1 = Book.collection.drop();
+  const pr2 = Author.collection.drop();
 
-    await Book.collection.drop();
-    await Author.collection.drop();
-    console.log(`Collections dropped successfully: ${collectionNames}`);
+  Promise.all([pr1, pr2])
+    .then(() => {
+      console.log('Collections dropped successfully');
 
-    populateDatabase();
-  } 
-  catch (err) {
-    console.error('Failed to drop the collections before running the seed',err);
-  }
-})();
-
-
+      populateDatabase();
+    })
+    .catch(err => console.log(err));
+}
 
 // STEP 2 - Create a function that will populate the database
 function populateDatabase() {
@@ -1054,7 +1064,7 @@ function populateDatabase() {
     return newAuthor
       .save()
       .then(author => author.name)
-      .catch(error => console.error(`Impossible to add the author. ${error}`));
+      .catch(error => console.error(console.error()));
   });
 
   // STEP 4
@@ -1067,9 +1077,10 @@ function populateDatabase() {
         return Author.findOne({
           name: book.author.name,
           lastName: book.author.lastName,
-        }).then(author => Object.assign({}, book, { author: author._id })); 
+        }).then(author => Object.assign({}, book, { author: author._id }));
         // Overwrites the original `book.author` name string, and puts author `_id`
       });
+
       return updatedBooksArray;
     })
     .catch(error => {
@@ -1081,7 +1092,7 @@ function populateDatabase() {
   // Insert all objects from `newUpdatedBooks` into the collection `books`
   updatedBookPromises
     .then(updatedBookPromises => Promise.all(updatedBookPromises))
-    .then(updatedBooks => Book.create(updatedBooks))
+    .then(finalBooksArray => Book.create(finalBooksArray))
     .then(result =>
       result.forEach(book => console.log('Book inserted -> ', book.title)),
     )
@@ -1096,7 +1107,7 @@ function populateDatabase() {
 
 
 
-
+<br>
 
 
 
@@ -1493,7 +1504,7 @@ router.use('/reviews', reviewsRouter);		//		<--- ADD AS THE LAST ROUTER
 ### Add additional styles to the `style.css`
 
 ```css
-tre.review-item {
+.review-item {
   border-bottom: 1px solid grey;
   margin: 10px 0;
   padding-bottom: 10px;tre

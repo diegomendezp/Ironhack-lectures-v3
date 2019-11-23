@@ -101,10 +101,8 @@ npm run start-dev
  ┃  ┗ 📜layout.hbs
  ┃
  ┣ 📜app.js
- ┗ 📜package.json
+ ┗ 📜packag
 ```
-
-
 
 - **bin**
 

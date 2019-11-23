@@ -2,6 +2,8 @@
 
 
 
+
+
 Web API is a interface that returns data, of different types commonly JSON.
 
 API can be accessed through the access points that are available on the server.
@@ -11,6 +13,10 @@ API is  - the server, database, tools and endpoints all together - it is the cod
 
 
 In the domain of web development, term Web API is usually referring to a web service that returns most commonly JSON data (or other data type). 
+
+
+
+
 
 
 

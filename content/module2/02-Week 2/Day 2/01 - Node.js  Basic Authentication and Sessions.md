@@ -1,33 +1,40 @@
 # Node.js | Basic Authentication & Sessions
 
-## Learning Goals
 
-After this lesson, you will be able to:
 
-- Understand what authentication is, and how it’s related to authorization
-- Understand what sessions and cookies are
-- Understand how authentication, sessions and cookies are all related
-- Implement authentication in your web application
+
+
+<br>
 
 
 
 
 
-#### When a user logs into our web app, authentication allows us to know which user (of all users in our system) is visiting the page. 
+#### When a user logs into our web app, authentication allows us to know which user (of all users in our system) is visiting the page.
 
-#### - Authorization is related to signing up.
+####  
 
-#### -  Authentication is related to logging in.
+#### -  Authorization is related to signing up and the overall process of allowing users to access certain resources.
+
+#### -  Authentication is related to authenticating the user during the current request, via login, sessions or tokens.
 
 
+
+
+
+<br>
 
 
 
 ## Session
 
-##### Because HTTP is stateless, in order to associate a request to any other request, you need a way to store user data between HTTP requests
+##### Because HTTP is stateless, in order to associate a request to any other request, you need a way to store user data between HTTP requests.
 
-##### HTTP sessions is an industry standard feature.
+
+
+##### Sessions are an industry standard.
+
+
 
 ##### Session allows servers to store user-specific data during multiple request/response interactions between a client and server itself.
 
@@ -35,15 +42,33 @@ After this lesson, you will be able to:
 
 
 
-In the Node.js ecosystem, we can use the [`express-session`](https://www.npmjs.com/package/express-session) package to generate sessions in Express. We will use it in combination with [`connect-mongo`](https://www.npmjs.com/package/connect-mongo) to store session data inside our database.
+- We will use the [`express-session`](https://www.npmjs.com/package/express-session) package to generate sessions in Express. 
+
+- We use it in combination with [`connect-mongo`](https://www.npmjs.com/package/connect-mongo) to store session data inside our Mongo database.
 
 
 
 
 
-##### When using the `express-session`  session data is by default stored in the memory if other 3rd party db is not specified otherwise. 
+<br>
 
-##### The best choice is a memory cache like Redis, for which you need to setup its own infrastructure.
+
+
+
+
+##### - When using the `express-session`  session data is by default stored in the memory if other 3rd party db is not specified otherwise (not persistent). 
+
+
+
+##### - The best choice is a memory cache like Redis, for which you need to setup its own infrastructure.
+
+
+
+
+
+<br>
+
+
 
 
 
@@ -57,13 +82,21 @@ Cookies are a convenient way to carry information between sessions, without havi
 
 
 
- We can inspect cookies information with the [Chrome Dev Tools](https://developer.chrome.com/devtools)  in the `Application` tab:
+ **We can inspect cookies information with the [Chrome Dev Tools](https://developer.chrome.com/devtools)  in the `Application` tab:**
 
 
 
 
 
 ![](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_a395a41b136de0d919e1a2bb0109fc5b.png)
+
+
+
+
+
+
+
+<br>
 
 
 
@@ -91,6 +124,10 @@ Cookies are a convenient way to carry information between sessions, without havi
 
 
 
+<br>
+
+
+
 
 
 
@@ -109,6 +146,22 @@ Cookies are a convenient way to carry information between sessions, without havi
 
 
 
+<br>
+
+
+
+#### Install the dependencies
+
+```bash
+npm i
+```
+
+
+
+<br>
+
+
+
 In the same directory install `express-session` and `connect-mongo`
 
 ```bash
@@ -123,7 +176,7 @@ npm install --save express-session connect-mongo
 
 
 
-**app.js**
+##### `app.js`
 
 ```js
 const session    = require("express-session");
@@ -132,17 +185,24 @@ const MongoStore = require("connect-mongo")(session);
 ...
 ...
 
+
+
 // Session middleware
 app.use(session({
   secret: "basic-auth-secret",
-  cookie: { maxAge: 3600000 * 1 },	// 1 hour
+  // cookie: { maxAge: 3600000 * 1 },	// 1 hour
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
-    ttl: 24 * 60 * 60 // Time to live - 1 day
+    ttl: 60 * 60 * 24 * 7 // Time to live - 7 days (14 days - Default)
   })
 }));
+
+//		BEFORE THE ROUTES
+
+// Routes
+app.use('/', router);
 ```
 
 
@@ -153,19 +213,24 @@ app.use(session({
 
 - **store**: Sets the session store instance. In this case, we create a new instance of `connect-mongo`, so we can store the session information in our Mongo database.
 
-  - When the session cookie has an expiration date, `connect-mongo` will use it.
-
-    Otherwise, it will create a new one, using `ttl` option.
+  
 
 
 
-
+<br>
 
 
 
 ### Create a login form -  `views/auth/login.hbs`
 
+
+
+##### `views/auth/login.hbs`
+
 ```html
+<!--   views/auth/login.hbs    -->
+
+
 <form action="/login" method="POST" id="form">
   <h2>Login</h2>
 
@@ -189,35 +254,49 @@ app.use(session({
 
 
 
-
-
-### Create a login route - `routes/login.js` and connect it
+<br>
 
 
 
-**routes/login.js**
+### Create a login router - `routes/login.js` 
+
+
+
+##### `routes/login.js`
 
 ```js
 const express = require('express');
 const router = express.Router();
-const User = require('./../models/user');
+const User = require('./../models/User');
+
 const bcrypt = require('bcrypt');
+
 
 //  GET   '/login'
 router.get('/', (req, res, next) => {
   res.render("auth/login");
 });
+
+
+
+module.exports = router;
 ```
 
 
 
 
 
+<br>
+
+
+
 ### Update `routes/index.js` and include `loginRouter` 
 
-**routes/index.js**
+##### `routes/index.js`
 
 ```js
+// routes/index.js
+
 ...
 ...
 const loginRouter = require('./login');
@@ -230,15 +309,29 @@ router.use('/login', loginRouter);
 
 
 
-### Visit `localhost:3000/login` to see the form
+<br>
+
+
+
+#### Start the server
+
+```bash
+npm run start-dev
+```
+
+
+
+<br>
+
+
+
+### Visit [`localhost:3000/login`](http://127.0.0.1:3000/login) to see the form
 
 
 
 
 
-
-
-
+<br>
 
 
 
@@ -248,15 +341,18 @@ router.use('/login', loginRouter);
 
 
 
-**routes/login.js**
+##### `routes/login.js`
 
 ```js
+// routes/login.js
+
 ...
 	...
 
 
 //  POST   '/login'
 router.post("/", (req, res, next) => {
+  
   const theUsername = req.body.username;
   const thePassword = req.body.password;
 
@@ -294,13 +390,7 @@ module.exports = router;
 
 
 
-
-
-##### We will use `session.currentUser`  to check if the user is logged in to access the other routes in the app.
-
-
-
-
+<br>
 
 
 
@@ -332,11 +422,29 @@ module.exports = router;
 
 
 
+<br>
+
+
+
+## Authenticating with the session
 
 
 
 
-### Now we need to create the route that checks authentication before allowing pass to protected routes.
+
+##### We will use `session.currentUser`  to check if the user is logged in to access the other routes in the app.
+
+
+
+We check the `session.currentUser` on each incoming request to see if the user who is making it is authenticated already.
+
+
+
+
+
+
+
+### Create the route that checks authentication before allowing routing to the protected routes.
 
 
 
@@ -348,31 +456,63 @@ module.exports = router;
 
 
 
-**routes/site-routes.js**
+##### `routes/site-routes.js`
 
 ```js
+// routes/site-routes.js
+
 const express = require("express");
 const router = express.Router();
 
 router.use((req, res, next) => {
   if (req.session.currentUser) { // <== if there's user in the session (user is logged in)
     next(); // ==> go to the next route ---
-  } 																			|
+  } 																//		|
   else {                          	//    |
   	res.redirect("/login");       	//    |
   }                                 //    |
-}); // ------------------------------------                                
+});																	//		|
+// 		 ------------------------------------  
 //     | 
 //     V
 router.get("/secret", (req, res, next) => {
   res.render("secret");
 });
 
-module.exports = router;router.get("/", (req, res, next) => {
-  res.render("home");
-});
-
+module.exports = router;
 ```
+
+
+
+
+
+
+
+### OR Using the middleware helper function
+
+##### `routes/site-routes.js`
+
+```js
+// routes/site-routes.js
+
+const isLoggedIn = (req, res, next) => {
+  if (req.session.currentUser) {
+    console.log('GOOD TO GO');
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+ 
+//  ...
+//  ...
+  
+router.get('/secret', isLoggedIn, (req, res, next) => {		//    <--- UPDATE
+  res.render('secret');
+});
+```
+
+<br>
 
 
 
@@ -382,7 +522,7 @@ module.exports = router;router.get("/", (req, res, next) => {
 
 
 
-**app.js**
+##### `app.js`
 
 ```js
 ...
@@ -391,7 +531,7 @@ const siteRoutes = require('./routes/site-routes');
 
 // Routes
 app.use('/', router);
-app.use('/', siteRoutes);	// This route verifies the user session
+app.use('/', siteRoutes);	// This route verifies the user's session
 
 ```
 
@@ -401,11 +541,17 @@ app.use('/', siteRoutes);	// This route verifies the user session
 
 
 
+<br>
+
+
+
+
+
 ### Create a view for the protected route `views/secret.hbs`
 
 
 
-**views/secret.hbs**
+##### `views/secret.hbs`
 
 ```html
 <div id="container">
@@ -417,6 +563,8 @@ app.use('/', siteRoutes);	// This route verifies the user session
 
 
 
+<br>
+
 
 
 
@@ -425,13 +573,25 @@ app.use('/', siteRoutes);	// This route verifies the user session
 
 
 
-#### The logout is the process where the user “closes” the connection between them and the web app. It’s the opposite of the login.
-
-#### Sessions package has a `destroy` method which, when executed, will close the user’s session. 
+#### The logout is the process where the user “closes” the connection between them and the web app.
 
 
 
-**routes/logout.js**
+####  It’s the opposite of the login.
+
+
+
+#### Sessions package has a `destroy` method which, when executed, will remove the user’s session.
+
+
+
+#### Calling `req.session.destroy()` will cause the session to be deleted from the MongoDB session storage.
+
+
+
+
+
+##### `routes/logout.js`
 
 ```js
 const express = require('express');
@@ -439,7 +599,7 @@ const router = express.Router();
 
 
 //  GET '/logout'
-router.get("/logout", (req, res, next) => {
+router.get('/', (req, res, next) => {
   req.session.destroy((err) => {
     // can't access session here
     res.redirect("/login");
@@ -454,22 +614,33 @@ module.exports = router;
 
 
 
+<br>
+
+
+
 #### Update `routes/index.js`
 
 
 
-**routes/index.js**
+##### `routes/index.js`
 
 ```js
-...
+// routes/index.js
+
+//	...
+
 const logoutRouter = require('./logout');
 
-...
+
 // * '/logout' 
 router.use('/logout', logoutRouter);
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -479,7 +650,7 @@ router.use('/logout', logoutRouter);
 
 
 
-**views/index.hbs**
+##### `views/index.hbs`
 
 ```html
 <a href="/logout">
@@ -493,6 +664,14 @@ router.use('/logout', logoutRouter);
 
 
 
+
+
+
+
+<br>
+
+
+
 ```
 // Sessions can be stored server-side (ex: user auth) or client-side
 // (ex: shopping cart). express-session saves sessions in a store, and
@@ -500,26 +679,30 @@ router.use('/logout', logoutRouter);
 ```
 
 ```
-// The default in-memory store is not production-ready because it leaks
+// With `express-session` the default in-memory store is not production-ready because it leaks
 // memory and doesn't scale beyond once process. For production, we need
 // a session store, like Redis, which we can wire up with connect-redis.
 ```
 
-```
-sessions are stored in server DB, and are cleared out when the server restarts.
-```
 
 
 
 
 
-### Session cookie will exist until the expires or maxAge in the browser or until the server destroys the `req.session`.
-
-### Once the server is restarted, the DB holding the session id's is cleared and trying to authenticate will cause server to destroy `req.session` as it won't recognize it anymore.
 
 
 
-##### For storing the cookies beyond the duration of the session and beyond server restarting we have the alternative middleware we can use.
+
+
+### Session cookie will exist until the expires or maxAge in the browser or until the server destroys the `req.session` by doing `req.session.destroy()`.
+
+
+
+
+
+
+
+### Once the server is restarted, the DB collection holding the session still exists, as we are storing it in our MongoDB via the `connect-mongo` package.
 
 
 
@@ -539,7 +722,11 @@ Cookies are sent by the browser in every request as long as the URL requested is
 
 # Cookies - Simple Explanation by analogy
 
-Imagine you are in a bank, trying to get some money out of your account. But it's dark; the bank is pitch black: there's no light and you can't see your hand in front of your face. You are surrounded by another 20 people. They all look the same. And everybody has the same voice. And everyone is a potential bad guy. In other words, HTTP is stateless.
+Imagine you are in a bank, trying to get some money out of your account. But it's dark; the bank is pitch black: there's no light and you can't see your hand in front of your face. You are surrounded by another 20 people. They all look the same. And everybody has the same voice. And everyone is a potential bad guy. 
+
+In other words, HTTP is stateless.
+
+
 
 This bank is a funny type of bank - for the sake of argument here's how things work:
 
@@ -547,9 +734,15 @@ This bank is a funny type of bank - for the sake of argument here's how things w
 2. you have to wait briefly on the sofa, and 20 minutes later
 3. you have to go and actually collect your money from the teller.
 
+
+
 ### But how will the teller tell you apart from everyone else?
 
+
+
 The teller can't see or readily recognise you, remember, because the lights are all out. What if your teller gives your $10,000 withdrawal to someone else - the wrong person?! It's absolutely vital that the teller can recognise you as the one who made the withdrawal, so that you can get the money (or resource) that you asked for.
+
+
 
 **Solution:**
 
@@ -558,3 +751,4 @@ When you first appear to the teller, he or she tells you something in secret:
 > "When ever you are talking to me," says the teller, "you should first identify yourlself as GNASHEU329 - that way I know it's you".
 
 Nobody else knows the secret passcode.
+
