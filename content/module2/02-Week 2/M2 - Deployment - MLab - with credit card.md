@@ -122,7 +122,7 @@ git push heroku master
 #### In the Dashboard >>> *<u>Settings</u>* section, add the following Config Var:
 
 ```
-SESSION_SECRET=cookies-and-milkPORT=3000
+SESSION_SECRET=cookies-and-milk
 ```
 
 
