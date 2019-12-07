@@ -28,9 +28,13 @@ We’ve also learnt how to **change the data within the same component using sta
 
 
 
+<br>
+
+
+
 Often, several components need to reflect the same changing data.  
 
-Moving the values from one component to its parent in order for the common ancestor component being able to access that value,  is called **lifting the state up** . 
+Moving the values from one component to its parent in order for the common ancestor components to be able to access that value,  is called **lifting the state up** . 
 
 
 
@@ -100,7 +104,7 @@ In order to do that we have to lift the `state` to the closest common ancestor, 
 
 
 
-#### ??? Remove state object from the `<Task>` component
+#### Remove state object from the `<Task>` component
 
 
 
@@ -112,10 +116,10 @@ In order to do that we have to lift the `state` to the closest common ancestor, 
 
 
 
-##### `components/Task.js`
+##### `src/components/Task.js`
 
 ```js
-//		/components/Task.js
+//		src/components/Task.js
 
 	import React from 'react';
 
@@ -138,10 +142,10 @@ In order to do that we have to lift the `state` to the closest common ancestor, 
 
 
 
-##### `components/ToDoList.js`
+##### `src/components/ToDoList.js`
 
 ```js
-//		/components/ToDoList.js
+//		src/components/ToDoList.js
 
 class ToDoList extends Component {
   constructor() {
@@ -154,11 +158,15 @@ class ToDoList extends Component {
 
 
 
+<br>
+
 
 
 After lifting the state to `ToDoList` we can now create all the methods needed for functionality and pass props that we want to use in `<Task>` and `<Summary>` 
 
 
+
+<br>
 
 
 
@@ -166,10 +174,11 @@ After lifting the state to `ToDoList` we can now create all the methods needed f
 
 
 
-##### `components/TodoList.js`
+##### `src/components/TodoList.js`
 
 ```js
-//		/components/ToDoList.js
+//		src/components/ToDoList.js
+
 
 class ToDoList extends Component {
   constructor() {
@@ -199,6 +208,7 @@ class ToDoList extends Component {
       
       if (oneTask.id === id) {
         oneTask.isDone = oneTask.isDone ? false : true;
+        
         if (oneTask.isDone) tasksCompleted++;
         else if (!oneTask.isDone) tasksCompleted--;        
       }
@@ -221,10 +231,10 @@ class ToDoList extends Component {
 
 
 
-##### `components/ToDoList.js`
+##### `src/components/ToDoList.js`
 
 ```jsx
-//		/components/ToDoList.js
+//		src/components/ToDoList.js
 
 
 render() {
@@ -258,11 +268,14 @@ render() {
 
 
 
-##### `components/Task.js`
+##### `src/components/Task.js`
 
 ```jsx
-//		/components/Task.js
+//		src/components/Task.js
 
+//	...
+//	...
+//	...
 
 render() {
   return (
@@ -278,13 +291,14 @@ render() {
         }
       </div>
       
-      ...
+  //    ...
       
-      ...
+  //    ...
       
   <button className='add' 
     onClick={()=> this.props.updateTaskStatus(this.props.id) }>
 {/*				    ⤤ 		  PASS METHOD AS PROP 		⤣								*/}
+    
     {
         this.props.isDone ?			// 	 ⟻	UPDATE HERE
         <span>UNDO ❌</span>
@@ -333,7 +347,7 @@ render() {
 
 
 
-**components/Summary.js**
+##### `components/Summary.js`
 
 ```jsx
 import React from 'react'
@@ -357,11 +371,11 @@ export default summary;
 
 
 
+<br>
 
 
 
-
-#### Update `deleteTaskById` in `ToDoList.js`
+#### Update `deleteTaskById()` in `ToDoList.js`
 
 
 
@@ -377,7 +391,7 @@ deleteTaskById (id)  {
   taskListCopy.forEach((taskObj, index) => {
     if(taskObj.id === id) {
       taskListCopy.splice(index, 1);
-      if (tasksCompleted > 0) tasksCompleted--;	// 	⟻	UPDATE
+      if (taskObj.isDone && tasksCompleted > 0) tasksCompleted--;	// 	⟻	UPDATE
     }
   })
   this.setState( {tasks: taskListCopy, tasksCompleted} );

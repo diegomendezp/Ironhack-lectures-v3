@@ -266,7 +266,7 @@ export default projectDetails;
 //	components/Projects.js
 
 
-...
+//	...
 
     <h2>Projects:</h2>
     {
@@ -282,7 +282,7 @@ export default projectDetails;
             
               <h4>{project.technologies}</h4>
             </div>
-         ...
+//         ...
      ...
 ```
 

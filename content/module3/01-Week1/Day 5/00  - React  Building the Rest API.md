@@ -24,7 +24,11 @@ This architecture pattern makes the interaction between a client and a server un
 
 
 
-The name REpresentational State Transfer implies exchanging data. The server acts as a data store, and the client retrieves and stores data. The server transfers object states to the client. The client can update these states too.
+The name REpresentational State Transfer implies exchanging data. 
+
+The server acts as a data store, and the client retrieves and stores data. 
+
+The server transfers object states to the client. The client can update these states too.
 
 Most REST APIs implement [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete): Create, Retrieve, Update, and Delete.
 
@@ -56,15 +60,15 @@ Most REST APIs implement [CRUD](https://en.wikipedia.org/wiki/Create,_read,_upda
 
 
 
-HTTP methods are what defines operations in well-formed REST APIs, not the URLs**. **  URLs should not contain verbs.
+**HTTP methods are what defines operations in well-formed REST APIs, not the URLs.   URLs should not contain verbs.**
 
 
 
-So when we want to retrieve, modify, or delete a record, we operate on its URL using the correct HTTP method.
+**So when we want to retrieve, modify, or delete a record, we operate on its URL using the correct HTTP method.**
 
 
 
-Well-designed REST APIs must provide response status code that makes it clear there is a problem.
+**Well-designed REST APIs must provide response status code that makes it clear there is a problem.**
 
 
 
@@ -108,10 +112,12 @@ We will be building the backend for our **Project Management** app, and we will 
 
 
 
-### Create model in file `models/project-model.js`
+### Create model in file `models/ProjectModel.js`
+
+##### `models/ProjectModel.js`
 
 ```js
-// models/project-model.js
+// models/ProjectModel.js
 
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
@@ -132,10 +138,16 @@ module.exports = Project;
 
 
 
-### Create model in file `task-model.js`
+<br>
+
+
+
+### Create model in file `TaskModel.js`
+
+##### `models/TaskModel.js`
 
 ```js
-// models/task-model.js
+// models/TaskModel.js
 
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
@@ -155,7 +167,23 @@ module.exports = Task;
 
 
 
-#### In the `project-routes.js` file add the following code for the mentioned route:
+<br>
+
+
+
+
+
+#### In the `project-routes.js`: 
+
+#### 	- import `express`, `mongoose`, and instantiate Router 
+
+####     - import models `Project` and `Task`
+
+####  	- create the route `POST` `/project`
+
+
+
+##### `routes/project-routes.js`
 
 ```js
 // routes/project-routes.js
@@ -163,20 +191,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router  = express.Router();
 
-const Project = require('../models/project-model');
-const Task = require('../models/task-model');
+const Project = require('./../models/ProjectModel');
+const Task = require('./../models/TaskModel');
 
 
-// POST '/projects'
-router.post('./projects', (req,res) => {
+// POST '/api/projects'
+router.post('/projects', (req, res, next) => {
   const { title, description } = req.body;
 
   Project.create({ title, description, tasks: [] })
-    .then((response)=> {
+    .then((createdProject)=> {
       res
         .status(201)
-        .json(response);
-      // `res.json` is similar to ->  `res.send( JSON.stringify(response) )`
+        .json(createdProject);
+      // `res.json` is similar to ->  `res.send( JSON.stringify(createdProject) )`
     })
     .catch((err)=> {
       res
@@ -201,7 +229,7 @@ module.exports = router;
 // app.js
 ...
 
-const projectRouter = require('./routes/project-routes');
+//  const projectRouter = require('./routes/project-routes');
 //	const taskRouter = require('./routes/task-routes');
 ...
 
@@ -232,15 +260,29 @@ app.use('/api', projectRouter);
 
 
 
+<br>
+
+
+
 #### Create `GET` route for the creation of projects
+
+
+
+##### `routes/project-routes.js`
 
 ```js
 // routes/project-routes.js
-...
 
-// GET '/projects'		 => to get all the projects
+//...
+//...
+
+
+// GET '/api/projects'		 => to get all the projects
 router.get('/projects', (req, res, next) => {
-  Project.find().populate('tasks')
+  
+  Project
+    .find()
+    .populate('tasks')
     .then(allTheProjects => {
       res.json(allTheProjects);
     })
@@ -252,6 +294,10 @@ router.get('/projects', (req, res, next) => {
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -269,13 +315,22 @@ router.get('/projects', (req, res, next) => {
 
 
 
+<br>
+
 
 
 #### Create route `GET` `/projects/:id` for getting project by id
 
 
 
+##### `routes/project-routes.js`
+
 ```js
+//	routes/project-routes.js
+
+//	...
+//	...
+
 // GET '/api/projects/:id'		 => to get a specific projects
 router.get('/projects/:id', (req, res) => {
   const { id } = req.params;
@@ -287,12 +342,14 @@ router.get('/projects/:id', (req, res) => {
     return;
   }
 
-  Project.findById( id ).populate('tasks')
+  Project
+    .findById( id )
+    .populate('tasks')
     .then( (foundProject) => {
       res.status(200).json(foundProject);
     })
     .catch((err) => {
-      res.res.status(500).json(err);
+      res.status(500).json(err);
     })
   });
 
@@ -306,7 +363,7 @@ router.get('/projects/:id', (req, res) => {
 
 
 
-
+<br>
 
 
 
@@ -316,34 +373,50 @@ router.get('/projects/:id', (req, res) => {
 
 
 
+##### `routes/project-routes.js`
+
 ```js
 // routes/project-routes.js
 
+//	...
+
+//	...
+
 // PUT '/api/projects/:id' 		=> to update a specific project
 router.put('/projects/:id', (req, res, next)=>{
-
-  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  const { id } = req.params;
+  const { title, description } = req.body;
+  
+  if(!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
 
-  Project.findByIdAndUpdate(req.params.id, req.body)
+  Project.findByIdAndUpdate(id, { title, description })
     .then(() => {
-      res.json({ message: `Project with ${req.params.id} is updated successfully.` });
+      res.status(200).json({ message: `Project with ${req.params.id} is updated successfully.` });
     })
     .catch(err => {
       res.json(err);
     })
-})
+});
 ```
 
 
 
-#### Test the route with Postman
+
+
+<br>
+
+
+
+### Test the route with Postman
 
 
 
 
+
+<br>
 
 
 
@@ -351,8 +424,15 @@ router.put('/projects/:id', (req, res, next)=>{
 
 #### Create a delete route `/projects/:id`
 
+##### `routes/project-routes.js`
+
 ```js
 // routes/project-routes.js
+
+//	...
+
+//	...
+
 
 // DELETE '/api/projects/:id'   => to delete a specific project
 router.delete('/projects/:id', (req, res)=>{
@@ -365,18 +445,34 @@ router.delete('/projects/:id', (req, res)=>{
 
   Project.findByIdAndRemove(id)
     .then(() => {
-      res
+      res;
         .status(202)  //  Accepted
         .json({ message: `Project with ${id} was removed successfully.` });
     })
     .catch( err => {
       res.status(500).json(err);
     })
-})
+});
 
 ```
 
 
+
+
+
+
+
+<br>
+
+
+
+### Test the route with Postman
+
+
+
+
+
+<br>
 
 
 
@@ -399,10 +495,10 @@ router.delete('/projects/:id', (req, res)=>{
 
 const express = require('express');
 const mongoose = require('mongoose');
-const Task = require('../models/task-model');
-const Project = require('../models/project-model');
 const router  = express.Router();
 
+const Project = require('../models/ProjectModel');
+const Task = require('../models/TaskModel');
 
 
 module.exports = router;
@@ -412,26 +508,31 @@ module.exports = router;
 
 
 
+<br>
 
 
 
+### Import the router in `app.js` and set it in the middleware chain
 
-### Create `GET` `/projects/:projectId/tasks`
+##### `app.js`
 
 ```js
-// routes/task-routes.js
+// app.js
 
-// GET '/api/projects/:projectId/tasks/:taskId'   => to retrieve a specific task
-router.get('/projects/:projectId/tasks/:taskId', (req, res) => {
-  
-  Task.findById(req.params.taskId)
-  .then((foundTask) =>{
-      res.json(foundTask);
-  })
-  .catch( err =>{
-      res.status(500).json(err);
-  })
-});
+const projectRouter = require('./routes/project-routes');
+const taskRouter = require('./routes/task-routes');					// <-- UNCOMMENT
+
+
+//	...
+
+//	...
+
+//	...
+
+
+// ROUTES MIDDLEWARE:
+app.use('/api', projectRouter);
+app.use('/api', taskRouter);			// <-- UNCOMMENT & UPDATE
 
 ```
 
@@ -441,11 +542,13 @@ router.get('/projects/:projectId/tasks/:taskId', (req, res) => {
 
 
 
-
+<br>
 
 
 
 ### Create  `POST` `/api/tasks`
+
+##### `routes/task-routes.js`
 
 ```js
 // routes/task-routes.js
@@ -477,6 +580,51 @@ router.post('/tasks', (req, res)=>{
 
 
 
+<br>
+
+
+
+
+
+### Create `GET` `/projects/:projectId/tasks`
+
+Get one task by it's id
+
+
+
+##### `routes/task-routes.js`
+
+```js
+// routes/task-routes.js
+
+// GET '/api/projects/:projectId/tasks/:taskId'   => to retrieve a specific task
+router.get('/projects/:projectId/tasks/:taskId', (req, res) => {
+  
+  const { taskId } = req.params;
+  
+  Task.findById(taskId)
+    .then((foundTask) =>{
+        res.status(200).json(foundTask);
+    })
+    .catch( err =>{
+        res.status(500).json(err);
+    })
+});
+
+```
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
 
 
 
@@ -486,16 +634,22 @@ router.post('/tasks', (req, res)=>{
 ```js
 // routes/task-routes.js
 
+//	...
+
+//	...
+
+
 // PUT '/api/tasks/:id'    => to update a specific task
 router.put('/tasks/:id', (req, res) => {
   const { id } = req.params;
+  const { title, description } = req.body;
   
   if ( !mongoose.Types.ObjectId.isValid(id) ) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
 
-  Task.findByIdAndUpdate(id, req.body)
+  Task.findByIdAndUpdate(id, { title, description })
     .then(() => {
       res
         .status(201)
@@ -504,10 +658,15 @@ router.put('/tasks/:id', (req, res) => {
     .catch(err => {
       res.json(err);
     })
-})
+});
+
 ```
 
+###### 
 
+
+
+<br>
 
 
 
@@ -517,6 +676,11 @@ router.put('/tasks/:id', (req, res) => {
 
 ```js
 // routes/task-routes.js
+
+//	...
+
+//	...
+
 
 // DELETE '/api/tasks/:id'     => to delete a specific task
 router.delete('/tasks/:id', (req, res) => {
@@ -538,7 +702,7 @@ router.delete('/tasks/:id', (req, res) => {
     .catch(err => {
       res.json(err);
     })
-})
+});
 
 ```
 
@@ -546,7 +710,7 @@ router.delete('/tasks/:id', (req, res) => {
 
 
 
-
+<br>
 
 
 
@@ -578,17 +742,22 @@ npm install cors --save
 
 
 
+<br>
+
+
+
 ### Update `app.js`
 
 
 
 ```js
 // app.js
-...
+
+//	...
 
 const cors = require('cors');
 
-...
+//	...
 
 // ADD CORS SETTINGS TO ALLOW CROSS-ORIGIN INTERACTION:
 app.use(cors({
@@ -597,8 +766,8 @@ app.use(cors({
 }));
 
 
-// ROUTES MIDDLEWARE STARTS HERE:
-...
+// ROUTES MIDDLEWARE:
+// ...
 
 ```
 

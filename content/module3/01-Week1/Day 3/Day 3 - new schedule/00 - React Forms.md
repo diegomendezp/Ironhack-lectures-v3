@@ -45,9 +45,13 @@ We will set the component that renders the form to also controls what happens in
 ```bash
 git clone https://github.com/ross-u/React---Froms-Starter-repo-.git
 
+
 cd React---Froms-Starter-repo-
 
+
 npm i
+
+
 code .
 ```
 

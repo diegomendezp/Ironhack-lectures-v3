@@ -17,15 +17,22 @@ In this lesson, we will build a  `React` application to consume our REST API.
 
 
 
+<br>
 
 
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">1</h2>
 #### Let’s start with creating the React app using CLI command:
 
 ```bash
-create-react-app project-management-client
+npx create-react-app project-management-client
+
+cd project-management-client
 ```
 
 
+
+<br>
 
 
 
@@ -40,6 +47,8 @@ We already updated the port where our server side is running-we changed it from 
 
 
 
+<br>
+
 
 
 ### Install `axios` for http requests and `react-router-dom`
@@ -49,6 +58,8 @@ npm install axios react-router-dom --save
 ```
 
 
+
+<br>
 
 
 
@@ -62,12 +73,13 @@ mkdir src/components/navbar
 
 
 
+<br>
 
 
 
 
 
-
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">2</h2>
 #### Add styles to the app
 
 Before we start, let's add some basic styles to our app in  `src/App.css`.
@@ -79,7 +91,6 @@ Before we start, let's add some basic styles to our app in  `src/App.css`.
 ```css
 .App {
   text-align: center;
-  margin-top: -20px;
   padding: 0;
 }
 
@@ -137,16 +148,17 @@ li {
 
 
 
+<br>
 
 
 
-
-
-
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">3</h2>
 #### Setup the `<Router>` in `index.js`
 
+##### `src/index.js`
+
 ```jsx
-// index.js
+// src/index.js
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -157,9 +169,9 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render((
-<Router> 
-    <App />
-</Router> 
+  <Router> 
+      <App />
+  </Router> 
 ), document.getElementById('root'));
 
 // ...
@@ -170,12 +182,21 @@ registerServiceWorker();
 
 
 
+<br>
+
+
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">4</h2>
 
 
 ### Create `<AddProject />` component.
 
+
+
+##### `src/components/projects/AddProject.js`
+
 ```jsx
-// components/projects/AddProject.js
+// src/components/projects/AddProject.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -220,10 +241,28 @@ export default AddProject;
 
 
 
+<br>
+
+
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">5</h2>
+
+
 #### Let's create the methods `handleFormSubmit` and `handleChange`
 
+
+
+##### `src/components/projects/AddProject.js`
+
 ```jsx
-// components/projects/AddProject.js
+// src/components/projects/AddProject.js
+
+//	...
+
+ handleChange = (event) => {  
+   const {name, value} = event.target;
+   this.setState({[name]: value});
+ }
 
 handleFormSubmit = (event) => {
     event.preventDefault();
@@ -236,30 +275,31 @@ handleFormSubmit = (event) => {
    })
    .catch( (err) => console.log(err) )
  }
-
-
- handleChange = (event) => {  
-   const {name, value} = event.target;
-   this.setState({[name]: value});
- }
+ 
+ //	...
+ 
+ //	...
 ```
 
 
 
 
 
+<br>
 
-
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">6</h2>
 
 
 #### Update `App.js` and include `<AddProject />`
+
+##### `src/App.js`
 
 ```jsx
 //	src/App.js
 
 import React from 'react';
 import './App.css';
-import AddProject from './components/projects/AddProject'
+import AddProject from './components/projects/AddProject';
 
 class App extends React.Component {
   render() {
@@ -279,6 +319,10 @@ export default App;
 
 
 
+<br>
+
+
+
 #### Start the server  before running react app.
 
 
@@ -295,12 +339,24 @@ export default App;
 
 
 
+<br>
+
+
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">7</h2>
+
+
 
 
 ### Create a `<ProjectList />` component
 
+
+
+##### `src/components/projects/ProjectList.js`
+
 ```jsx
-// components/projects/ProjectList.js
+// src/components/projects/ProjectList.js
+
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -316,8 +372,8 @@ class ProjectList extends Component {
   getAllProjects = () => {}
 
   componentDidMount() {
-    //  fetch the data from API befor initial render
-    this.getAllProjects();  
+    //  fetch the data from API before initial render, and save it in the state
+    this.getAllProjects();
   }
 
   render() {
@@ -350,16 +406,24 @@ export default ProjectList;
 
 
 
+<br>
+
+
+
 
 
 
 
 #### Finish the method `getAllProjects()` in `<ProjectList>`
 
-```jsx
-// components/projects/ProjectList.js
 
-...
+
+##### `src/components/projects/ProjectList.js`
+
+```jsx
+// src/components/projects/ProjectList.js
+
+//	...
 
   getAllProjects = () =>{
     axios.get(`http://localhost:5000/api/projects`)
@@ -373,18 +437,72 @@ export default ProjectList;
 
 
 
+<br>
 
 
-### Uncomment the line in `AddProject.js` -  `this.props.getData()` passed from the parent component. 
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">8</h2>
+
+
+### Import `<ProjectList />`  and render it in `App.js`
+
+
+
+##### `src/App.js`
+
+```jsx
+// 	src/App.js
+
+//	...
+
+//	...
+
+import ProjectList from './components/projects/ProjectList';	//		<-- ADD
+
+function App() {
+  return (
+    <div className="App">
+      <AddProject /> 
+      
+      <ProjectList />						{/*		ADD	*/}
+    </div>
+  );
+}
+
+// ...
+```
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">9</h2>
+
+
+### Uncomment the line in `AddProject.js` -  `this.props.getData()` passed from the parent component.
+
+###  
 
 ### It gets all projects every time new project is posted to the API.
 
 
 
-`projects/AddProject`
+##### `src/components/projects/AddProject`
 
 ```jsx
-// components/projects/AddProject.js
+// src/components/projects/AddProject.js
+
+//	...
+
+//	...
 
 handleFormSubmit = (event) => {
     event.preventDefault();
@@ -398,22 +516,31 @@ handleFormSubmit = (event) => {
     })
     .catch( error => console.log(error) )
   }
+
+//	...
+
+//	...
 ```
 
 
 
 
 
+<br>
 
 
 
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">10</h2>
+
+
+#### Create a `<ProjectDetails /> `component
 
 
 
-#### Create a `<ProjectDetails />`component
+##### `src/components/projects/ProjectDetails.js`
 
 ```jsx
-// components/projects/ProjectDetails.js
+// src/components/projects/ProjectDetails.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -437,60 +564,75 @@ export default ProjectDetails;
 
 
 
+<br>
+
+
+
 #### Create `<Navbar>` component
 
+
+
+##### `src/components/navbar/Navbar.js`
+
 ```jsx
-// components/navbar/Navbar.js
+// src/components/navbar/Navbar.js
 
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const navbar = () => {
+const Navbar = () => {
   return (
     <nav className="nav-style">
       <ul>
         <li>
-          <Link to="/projects">
-            Projects
-          </Link>
+          <Link to="/projects"> Projects </Link>
         </li>
     </ul>
     </nav>
   )
 }
 
-export default navbar;
+export default Navbar;
 ```
 
 
 
 
 
+<br>
+
 
 
 ### Update `App.js`
 
+
+
+##### `src/App.js`
+
 ```jsx
 //	src/App.js
+
 import React from 'react';
 import './App.css';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';             //	ADD
 
 // import AddProject from './components/projects/AddProject'  // REMOVE
 import ProjectList from './components/projects/ProjectList';
-import Navbar from './components/navbar/Navbar';
-import ProjectDetails from './components/projects/ProjectDetails';
+import Navbar from './components/navbar/Navbar';                    //	ADD
+import ProjectDetails from './components/projects/ProjectDetails';    //	ADD
 
 function App() {
   return (
     <div className="App">
-      {/* <AddProject /> */}  {/* REMOVE */}
-      <Navbar />
+{/*   <AddProject />      */}  		{/* REMOVE */}
+{/*   <ProjectList />      */}  		{/* REMOVE */}
+      
+      <Navbar />                 {/* ADD */}
 
       <Switch>
-        <Route exact path="/projects" component={ProjectList}/>
-        <Route exact path="/projects/:id" component={ProjectDetails} />
+        <Route exact path="/projects" component={ProjectList}/>         {/* ADD */}
+        <Route exact path="/projects/:id" component={ProjectDetails} />  {/* ADD */}
       </Switch>
     </div>
   );
@@ -503,12 +645,21 @@ export default App;
 
 
 
+<br>
+
+
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">11</h2>
 
 
 #### Update `<ProjectDetails>` to add functionality
 
+
+
+##### `src/components/projects/ProjectDetails.js`
+
 ```jsx
-// components/projects/ProjectDetails.js
+// src/components/projects/ProjectDetails.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -517,18 +668,22 @@ import { Link } from 'react-router-dom';
 class ProjectDetails extends Component {
   constructor(props){
       super(props);
-      this.state = {title: '', description: '', tasks: []};
+      this.state = {
+        title: 'Loading',
+        description: 'Loading',
+        tasks: []
+      };			// <-- UPDATE
   }
 
-  componentDidMount(){
+  componentDidMount(){                                    // <-- ADD
       this.getSingleProject();
   }
 
-  getSingleProject = () => { 
+  getSingleProject = () => {                               // <-- ADD
   /* here we do a GET request and then set the state */
   }
 
-  render(){
+  render(){                                               // <-- ADD
     return(
       <div>
         <h1>{this.state.title}</h1>
@@ -546,14 +701,22 @@ export default ProjectDetails;
 
 
 
-
+<br>
 
 
 
 #### Finalize `getSingleProject()` method in `<ProjectDetails>`
 
+
+
+##### `src/components/projects/ProjectDetails.js`
+
 ```jsx
-// components/projects/ProjectDetails.js
+// src/components/projects/ProjectDetails.js
+
+//	...
+
+//	...
 
 getSingleProject = () => {
 	const { id } = this.props.match.params;
@@ -565,24 +728,31 @@ getSingleProject = () => {
 		})
 		.catch((err) => console.log(err));
 }
+
+//	...
+
+//	...
 ```
 
 
 
 
 
+<br>
 
 
 
-
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">12</h2>
 
 
 #### Create `EditProject.js` component with a form to update a specific project.
 
 
 
+##### `src/components/projects/EditProject.js`
+
 ```jsx
-// components/projects/EditProject.js
+// src/components/projects/EditProject.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -637,14 +807,22 @@ export default EditProject;
 
 
 
-
+<br>
 
 
 
 #### Finalize `handleFormSubmit` in `EditProject.js`
 
+
+
+##### `src/components/projects/EditProject.js`
+
 ```jsx
-// components/projects/EditProject.js
+// src/components/projects/EditProject.js
+
+//	...
+
+//	...
 
 handleFormSubmit = (event) => {
   event.preventDefault();
@@ -662,6 +840,10 @@ handleFormSubmit = (event) => {
   })
    .catch( (err) => console.log(err) )
 }
+
+//	...
+
+//	...
 ```
 
 
@@ -670,39 +852,47 @@ handleFormSubmit = (event) => {
 
 
 
+<br>
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">13</h2>
+
+
+#### Place component `<EditProject>`  in the `ProjectDetails.js`
 
 
 
-
-
-
-
-
-#### Place `<EditProject>` form in `ProjectDetails.js`
-
-
+##### `src/components/ProjectDetails.js`
 
 ```jsx
-// components/projects/ProjectDetails.js
+// src/components/projects/ProjectDetails.js
 
+//	...
+
+//	...
 
   renderEditForm = () => {
-    /* Check if state is not empty when`renderEditForm` is triggered before the state gets populated. 
+    /* Check if the `state` is not empty when`renderEditForm` 
+    is triggered before the state gets populated. 
      If the state is empty nothing can be passed to `EditProject` as the
     value in `theProject` prop to populate the form  */
-    if (!this.state.title  && !this.state.description) return;
+    if (!this.state.title  && !this.state.description) return null;
     else {
       return (
-        <EditProject theProject={this.state}
+        <EditProject 
+          theProject={this.state}
           getTheProject={this.getSingleProject} 
-          {...this.props} /> 
+          {...this.props} 
+         /> 
        // {...this.props}  so that we can use 'this.props.history' in EditProject    
       )      
     }
   }
   
-  ...
-  	...
+  
+  
+//  ...
+  
+//	  	...
   
     render() {
     return (
@@ -713,7 +903,7 @@ handleFormSubmit = (event) => {
           <button>Back</button>
          </Link>
 
-        <div>{this.renderEditForm()} </div>   {/* Render the form in here */}
+        <div>{this.renderEditForm()} </div>   				{/* ADD */}
       </div>
     )
   }
@@ -723,19 +913,25 @@ handleFormSubmit = (event) => {
 
 
 
+<br>
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">14</h2>
 
 
 
 
+#### Update `ProjectDetails.js` and create the additional method for making DELETE requests to the API.
 
 
 
-
-#### Update `ProjectDetails` and create additional method to make DELETE requests to the API.
+##### `src/components/projects/ProjectDetails.js`
 
 ```jsx
-// components/projects/ProjectDetails.js
+// src/components/projects/ProjectDetails.js
 
+//	...
+
+//	...
 
 // DELETE PROJECT:
 
@@ -743,13 +939,13 @@ handleFormSubmit = (event) => {
     const { id } = this.props.match.params;
     
     axios.delete(`http://localhost:5000/api/projects/${id}`)
-    	.then( () => this.props.history.push('/projects') )
+    	.then( () => this.props.history.push('/projects') )	// causes Router URL change
     	.catch( (err) => console.log(err));
   }
   
   
-  ...
-  		...
+//  ...
+//  		...
   
   	<button onClick={() => this.deleteProject()}>
     	Delete project
@@ -760,18 +956,22 @@ handleFormSubmit = (event) => {
 
 
 
+<br>
 
 
 
-
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">15</h2>
 
 
 ### Create `AddTask` component
 
 
 
+##### `src/components/tasks/AddTask.js`
+
 ```jsx
-// components/tasks/AddTask.js
+// src/components/tasks/AddTask.js
+
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -826,28 +1026,26 @@ export default AddTask;
 
 
 
+<br>
 
 
 
 
 
+#### Finalize `handleFormSubmit` method in `AddTask.js`
 
 
 
-
-
-
-
-
-
-#### Finalize `handleFormSubmit` in `AddTask.js`
-
-
+##### `src/components/tasks/AddTask.js`
 
 ```jsx
 // components/tasks/AddTask.js
 
-handleFormSubmit = () => {
+//	...
+
+//	...
+
+handleFormSubmit = (event) => {
       event.preventDefault();
     const { title, description } = this.state;
     const { projectID } = this.props; 
@@ -856,11 +1054,15 @@ handleFormSubmit = () => {
     axios.post("http://localhost:5000/api/tasks",{ title, description, projectID })
     .then( () => {
 // after form submit, GET project once more to display the updated task list  
-        this.props.getTheProject();
+        this.props.getUpdatedProject();
         this.setState({title: '', description: ''});
     })
     .catch( error => console.log(error) )
 }
+
+//	...
+
+//	...
 ```
 
 
@@ -869,21 +1071,28 @@ handleFormSubmit = () => {
 
 
 
+<br>
 
 
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">16</h2>
 
 
 #### Add component `<AddTask />` to the `ProjectDetails.js`
 
 
 
+##### `src/components/projects/ProjectDetails.js`
+
 ```jsx
-// components/projects/ProjectDetails.js  
+// src/components/projects/ProjectDetails.js  
 
-...
-	...
+//	...
+
+//	...
 
 
+// Create helper/rendering function
 renderAddTaskForm = () => {
   if(!this.state.title && !this.state.description) return;
   else {
@@ -894,35 +1103,51 @@ renderAddTaskForm = () => {
 
 
 
-...
-		...
-			// INSIDE `render()` put `renderAddTaskForm` last
+//	...
+
+//			...
+
+			// INSIDE `render()` put `renderAddTaskForm` as the last thing before closing the 
 
         <button onClick={() => this.deleteProject()}>
     	    Delete project
   	    </button>
 
-        { this.renderAddTaskForm() }		{/* Render AddTask form  */}
+        { this.renderAddTaskForm() }							{/* Render AddTask form  */}
+
+		//	...
+
+//	...
+
+
 ```
 
 
 
 
 
+<br>
 
 
 
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">17</h2>
+
+
+### Render All the tasks - Update `ProjectDetails.js`
 
 
 
-### Render All the tasks
-
-
+##### `src/components/projects/ProjectDetails.js`
 
 ```jsx
-// components/projects/ProjectDetails.js  
+// src/components/projects/ProjectDetails.js  
+
+//	...
+
+//			...
 
 
+{/*					INSIDE OF THE `render`						*/}
 
 				{ this.renderAddTaskForm() }
 
@@ -940,25 +1165,34 @@ renderAddTaskForm = () => {
                 </div>
             )
             
-        })
-      }
+        	})
+      	}
+
+//		...
+
+//	...
 ```
 
 
 
 
 
+<br>
 
 
 
 
 
-
-#### Refactor each task into a Link
+#### Refactor each task into a Link - in`ProjectDetails.js`
 
 ```jsx
-// components/projects/ProjectDetails.js  
+// src/components/projects/ProjectDetails.js  
 
+//	...
+
+//	...
+	
+//			...
 
 
 				<div>{this.renderAddTaskForm()}</div>
@@ -971,7 +1205,7 @@ renderAddTaskForm = () => {
           :
            this.state.tasks.map( (task) => {
             return(
-               <Link to={`/projects/${this.state._id}/tasks/${task._id}`}>
+               <Link to={`${this.state._id}/tasks/${task._id}`}>
                  <h2>{ task.title }</h2>
                </Link>
             )
@@ -989,20 +1223,27 @@ renderAddTaskForm = () => {
 
 
 
+<br>
 
 
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">18</h2>
 
 
 #### Update routes, and create route to render `<TaskDetails>`
 
 
 
+##### `src/App.js`
+
 ```jsx
-// App.js
+// 	src/App.js
 
-...
+//	...
 
-import TaskDetails from './components/tasks/TaskDetails'; // import <TaskDetails> 
+//	...
+
+import TaskDetails from './components/tasks/TaskDetails'; // 			<-- ADD
 
 
 class App extends Component {
@@ -1014,9 +1255,10 @@ class App extends Component {
           <Route exact path="/projects" component={ProjectList}/>
           <Route exact path="/projects/:id" component={ProjectDetails} />
           
-          {/* added to display task details page: */}
+   {/* ADD - route to display task details */}
           <Route exact path="/projects/:id/tasks/:taskId" component={TaskDetails} /> 
-          {/* !!! */}
+   {/* ADD */}
+          
         </Switch>
       </div>
     );
@@ -1030,11 +1272,18 @@ export default App;
 
 
 
+<br>
 
 
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">19</h2>
 
 
 #### Create `<TaskDetails>` component
+
+
+
+##### `src/components/tasks/TaskDetails.js`
 
 ```jsx
 // components/tasks/TaskDetails.js
@@ -1082,11 +1331,22 @@ export default TaskDetails;
 
 
 
+<br>
+
+
+
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">20</h2>
 
 
 ### NEXT STEPS:
 
 
 
-- Create `<EditTask>` component which makes a `PUT` request to the API to update the task.  Render `<EditTask>` inside of `<TaskDetails>` .
-- Create a delete button in the `<TaskDetails>` which calls a function to send  `DELETE` request via axios to the API (delete a task by id) and then does a new `GET `request to get the updated project and it's tasks (you can reuse the function from `<ProjectDetails>` `getSingleProject()`, by passing it as a prop  ).
+- Create `<EditTask>` component which makes a `PUT` request to the API to update the task.  
+
+  - Render the `<EditTask>` component inside of `<TaskDetails>` .
+
+  
+
+- Create a delete button in the `<TaskDetails>` which calls a function to send  `DELETE` request via axios to the API (deletes the task by id),  and then does a new `GET `request to get the updated project and it's tasks (you can reuse the function from `<ProjectDetails>` `getSingleProject()`, by passing it as a prop  ).
+

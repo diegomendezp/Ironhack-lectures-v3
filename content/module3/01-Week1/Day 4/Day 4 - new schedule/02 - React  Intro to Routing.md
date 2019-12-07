@@ -8,6 +8,8 @@
 
 Using React we create Single Page Apps.
 
+
+
 Routing from page to page in SPAs works different than in usual multi file web page apps.
 
 
@@ -79,10 +81,12 @@ The current location is the last item set in `history` through methods such as `
 
 ```bash
 git clone https://github.com/ross-u/React-routing-Starter-repo-.git
+
 cd React-routing-Starter-repo-
 
 npm i
-npm start
+
+code .
 ```
 
 
