@@ -2,27 +2,15 @@
 
 
 
+<br>
+
+
+
 ## Application Design Patterns
 
 
 
-
-
-### The MVC Pattern
-
-- Every time a request is made on the server, a *Controller* handles it.
-- This *Controller* will communicate with *Models*.
-- *Models* - are overlay on top of the database- Models will read and write data directly to a database.
-- When the *Controller* has all information, it can call one *View* with some data.
-- The *View* generates a *Response* that is a HTML page.
-
-
-
-![](https://i.imgur.com/LUhoPkS.png)
-
-
-
-
+<br>
 
 
 
@@ -30,30 +18,41 @@ Mongo Shell  and MongoDB Limitations:
 
  
 
-- **We repeat a lot of code**
-  To interact with the database, we have to open a connection, make a transaction, and then close the connection. This process can become tedious.
-- **It’s hard to enforce data consistency**
-  MongoDB is meant to have a flexible design that can change on the fly. This feature can be a gift and a curse, mainly when working with others. By default, we can add and remove whatever we’d like from our database collections.
-- **Documents are just data objects, and have no methods on them**
-  Let’s say we have a Person collection with the attributes `firstName` and `lastName`. If we wanted the full name, we would have to query for the person and add the first and last name together. We can’t attach methods to our data to create a `fullName`.
+- **We repeat a lot of code** (hard coding common queries).
+
+- **It’s hard to enforce data consistency** (There is no way to enforce the structure of the documents).
+
+- There are ways to enforce data document structure, but they are not esy to implement or manage in pure MongoDB.
+
+  
+
+To avoid these problems we need **an abstraction on top of our database connection**.
 
 
 
-#### To avoid all these problems we need **an abstraction on top of our database connection** so we can focus on business logic.
+This abstraction is called an **ODM**.
 
-####  This abstraction is called an **ODM**.
+
+
+<br>
 
 
 
 ## Object Document Mapper (ODM)
 
- **ODM helps us to structure our data. We create maps (called schemas) create structure how our documents need to be (what data type and names)... aka how will they have to be structured . **
+-  **ODM helps us to structure our data. **
 
-**These schema instructions are written as  JavaScript objects.**
+- **We create blueprints (called schemas )  to enforce the structure of our documents (what data type and names).**
+
+- **These schema instructions are written as  JavaScript objects.**
 
 
 
-## ODMs give us a set of reusable methods to perform CRUD actions more efficiently with our database, such as querying, creating, updating, and even adding our custom methods.
+<br>
+
+
+
+ODMs give us a set of reusable methods to perform CRUD actions in a more simple way.
 
 
 
@@ -63,26 +62,35 @@ Validations [are a bit tricky with just MongoDB](https://docs.mongodb.com/manual
 
 
 
+<br>
+
 
 
 
 
 ## Mongoose
 
-[Mongoose](http://mongoosejs.com/docs/) is an npm package, and an ODM for MongoDB / Node.js
+[Mongoose](http://mongoosejs.com/docs/)  `npm` package, is an ODM (Object Document Mapper ) for MongoDB and Node.js.
 
 
 
 ### Setup
 
-Mongoose is easy to set up! It’s just another npm package. Let’s start a new project and install it.
+Mongoose is easy to set upjust like any other `npm` package. 
+
+Let’s start a new project and install it.
+
+
 
 ```bash
-$ mkdir mongoose-example
-$ cd mongoose-example
-$ npm init
-$ npm install --save mongoose
-$ touch example.js
+# Create Directory
+mkdir mongoose-example
+cd mongoose-example
+
+# Initialize npm and install mongoose
+npm init
+npm install --save mongoose
+touch example.js
 ```
 
 
@@ -98,18 +106,34 @@ const mongoose = require('mongoose');
 const dbName = 'example-mongoose';
 
 // CREATE AN INSTANCE OF CONNECTION TO DATABASE - `example-mongoose`
-mongoose.connect(`mongodb://localhost/${dbName}`);
+mongoose.connect(
+  `mongodb://localhost:27017/${dbName}`, 
+  {
+  	useNewUrlParser: true,
+  	useUnifiedTopology: true,
+	}
+);
 ```
 
 
 
 
 
- The *same instance of Mongoose* [is shared](https://en.wikipedia.org/wiki/Singleton_pattern) across your application, meaning that once you require and connect to mongoose one time, any `require('mongoose')` in other files after that will be talking to the `exampleApp` database.
+ **The *same instance of Mongoose* [is shared](https://en.wikipedia.org/wiki/Singleton_pattern) across your application,** meaning that **once you** (require and) **connect to mongoose first time**, any `require('mongoose')` in other files after that will be talking to the `example-mongoose` database.
 
 
 
- You don’t have to create the `exampleApp` database. MongoDB will check if the database exists when it connects to the server. If it doesn’t exist, it will create the database and then connect to it.
+<br>
+
+
+
+#### Automatic database creation/connection
+
+- You don’t have to create the `example-mongoose` database. 
+
+- MongoDB will check if the database exists when it connects to the server. 
+
+  If it doesn’t exist, it will create the database and then connect to it.
 
 
 
@@ -119,13 +143,17 @@ mongoose.connect(`mongodb://localhost/${dbName}`);
 
 ### Model
 
-The **data model** (or just **model**) is what directly manages the data and querying logic. It is an overlay that takes to and queries one part of the database ( one **collection** for example).
+- The **data model** (or just **model**) is what directly manages the data and querying logic. 
 
-Each collection will have it's own model.
+- **Model** is an overlay on top of one collection, that we use to query and interact with that collection in a database.
+
+- Each collection has it's own model.
 
 
 
- [Mongoose models](http://mongoosejs.com/docs/api.html#model-js), are **JavaScript constructor functions** that create objects for storing in **a specific collection**. 
+- [Mongoose models](http://mongoosejs.com/docs/api.html#model-js), are **a link to specific a collection**.
+
+- Mongoose model  can also be used to create "**structured objects**" that will in future be stored in that  **a specific collection**. 
 
 
 
@@ -135,14 +163,24 @@ Each collection will have it's own model.
 create objects to be stored in a specific collection, 
 and are connected to that collection  */
 
-const Cat = mongoose.model('Cat', { name: String });
+const Cat = mongoose.model(
+  'Cat', 
+  { 									// SCHEMA OBJECT
+    name: String,
+  	color: String,
+  });
 ```
 
 
 
-#### The second parameter object is called - Schema (which represent how the document must look)
+- The second parameter object is called - Schema 
+- Schema represents how the document must look.
 
 
+
+
+
+<br>
 
 
 
@@ -153,8 +191,8 @@ const Cat = mongoose.model('Cat', { name: String });
 ### CREATE A DOCUMENT INSTANCE
 
 ```js
-// CALL MODEL TO CREATE A DOCUMENT INSTANCE (STRUCTURED OBJECT)
-const kitty = new Cat({ name: 'Ironhacker '});
+// CALL MODEL TO CREATE A MODEL INSTANCE (STRUCTURED OBJECT)
+const kitty = new Cat({ name: 'Iron Kitty', color: 'ironhack blue' });
 ```
 
 
@@ -166,6 +204,8 @@ const kitty = new Cat({ name: 'Ironhacker '});
 
 
 ```js
+// `save()` - equivalent to `insertOne` method in mongo shell
+
 // INSERT THE DOCUMENT INSTANCE INTO THE COLLECTION
 kitty.save( (err) => {
   if (err) console.log(err); // if instance cannot be saved for some reason
@@ -173,7 +213,7 @@ kitty.save( (err) => {
 });
 
 
-// `save()` method on the model is equivalent to `insertOne` command
+
 ```
 
 
@@ -204,6 +244,8 @@ Now check in mongo shell
 
 
 
+<br>
+
 
 
 ### Return all the documents
@@ -211,10 +253,10 @@ Now check in mongo shell
 ```js
 
 // RETRIEVE ALL THE DOCUMENTS FROM THE COLLECTION `cats`
-// Using callback:
-  Cat.find({}, (err, cats) => {
+// Using a callback:
+  Cat.find({}, (err, catsData) => {
     if (err) console.log('Cat.find error', err);
-    else cats.forEach( (cat)=> console.log(' --> cat: ', cat.name));
+    else catsData.forEach((cat) => console.log('cat ->', cat));
   });
 ```
 
@@ -224,25 +266,29 @@ Now check in mongo shell
 
 
 
+### Mongoose Thenables
+
+
+
+- Mongoose async operations return ***Thenables***, which are a mongoose own implementation of Promises.
+
+- Important to know is that we can call `.then()` and `.catch()` in the exactly same way as with Promises.
+
+- We can use set the default type of promises to be other than mongoose ***Thenables***, for example ES6 promises by doing :
+
+  ```js
+  require('mongoose').Promise = Promise;
+  ```
 
 
 
 
-
-
-
-
-### Mongoose Promises and Thenables
-
-##### Mongoose async operations  (methods), like `.save()` return Promises.  We can use Promises syntax instead of callbacks.
-
-##### Other queries on Mongoose models return 'Thenables', which is synchronous code to which you can append `.then()`.
 
 More details here: <https://mongoosejs.com/docs/promises.html>
 
 
 
-We often use Promises with the following syntax:
+We use Promises with the following syntax:
 
 ```js
 myPromise
@@ -254,13 +300,21 @@ myPromise
 
 
 
+<br>
+
+
+
 #### Let's refactor the `Cat.find`  to use promises instead of the callbacks.
+
+
 
 ```js
 // RETRIEVE ALL THE DOCUMENTS FROM THE COLLECTION `cats`
+
+// Using thenables (mongoose type of Promise)
 Cat.find({})
-  .then( (results) => console.log('The retrieved documents: ', results ))
-  .catch( (err)=> console.log('Cats.find({}) error: ', err));
+  .then( (results) => console.log('RESULTS: ', results ))
+  .catch( (err)=> console.log('Query Error: ', err));
 
 /* //Using callback instead of promises:
   Cat.find({}, (err, cats) => {
@@ -274,6 +328,8 @@ Cat.find({})
 
 
 
+<br>
+
 
 
 ### Promises All
@@ -286,7 +342,13 @@ To wait for multiple promisified operations to finish, we use `Promise.all`
 
 
 
-#### Let's create new Models in our database `mongoose-example`
+<br>
+
+
+
+#### Create new Model - Dog
+
+This will create new collection `dogs` in the database `mongoose-example`.
 
 ```js
 const Dog = mongoose.model('Dog', { name: String });
@@ -298,20 +360,36 @@ const Dog = mongoose.model('Dog', { name: String });
 
 
 
-### Create 2 promises and do `insertMany` for `Cat` and `Dog`
+<br>
+
+
+
+### Create 2 promises with `insertMany` using `Cat` and `Dog` models
 
 
 
 ```js
 // USING PROMISE ALL TO AWAIT FOR COMPLETION OF MULTIPLE QUERIES
 
-let promise1 = Cat.insertMany([ {name: 'marbles'}, {name: 'fluffy'}, {name: 'tiger'}])
-let promise2 = Dog.insertMany([ {name: 'daisy'}, {name: 'buddy'}, {name: 'bella'}])
+const arrayOfCats = [
+  { name: 'marbles', color: 'black' },
+  { name: 'fluffy', color: 'white' },
+  { name: 'tiger', color: 'orange and black' },
+];
+const arrayOfDogs = [ 
+  {name: 'daisy'},
+  {name: 'bella'},
+  {name: 'sudo'}
+];
+
+
+const promise1 = Cat.insertMany( arrayOfCats );
+const promise2 = Dog.insertMany( arrayOfDogs );
 
 
 Promise.all( [promise1, promise2] )
   .then( (result) => console.log('Promise.all result: ', result))
-  .catch(err => console.error(err));
+  .catch( (err) => console.error(err));
 ```
 
 
@@ -327,7 +405,11 @@ Promise.all( [promise1, promise2] )
 
 
 ```js
-// MONGOOSE CONNECTION EVENTS
+/* 
+  MONGOOSE CONNECTION EVENTS
+  We can provide a callback to be run on each
+  of the below database events.
+*/ 
 
 // When successfully connected
 mongoose.connection.on('connected', () => console.log('Mongoose connected'));
@@ -351,7 +433,11 @@ process.on('SIGINT', () => {
 
 
 
+
+
 ### [REPO WITH THE FILE `example.js` : ](<https://github.com/ross-u/Mongoose-introduction-demo/blob/master/example.js>)
+
+
 
 
 

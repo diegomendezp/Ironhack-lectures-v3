@@ -1,4 +1,10 @@
-### Client-Server Architecture
+# HTTP and How Internet Works
+
+
+
+
+
+### Client and Server
 
 All the devices connected to the Internet are either **servers** or **clients**.
 
@@ -6,17 +12,19 @@ All the devices connected to the Internet are either **servers** or **clients**.
 
 
 
-- A **server** is a device that has **content & functionality available and serves it .**
+- A **server** is a device that has **content (& functionality) available and serves it .**
 
   
 
-- A **client** is a device that **accesses the content & functionality** from a *server*. 
+- A **client** is a device that **accesses the content (& functionality)** from a *server*. 
 
 
 
 
 
 To be a server your computer would need to be **turned on**, **awake** and have **Internet literally all the time**. Not very practical for our personal computers.
+
+
 
 **Servers**, however, are exactly that: computers that are always turned on, awake and connected to the Internet so that users can connect to them.
 
@@ -30,15 +38,27 @@ Resources have to be **requested** from the server.
 
 
 
+### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_52990f8d31567a1abd048415fdeedc90.png)
+
+
+
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_52990f8d31567a1abd048415fdeedc90.png)
 
 
 
 
 
+
+
+### [OPEN IMAGE](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
+
 ![img](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
 
 
+
+
+
+<br>
 
 
 
@@ -70,6 +90,10 @@ Resources have to be **requested** from the server.
 
 
 
+<br>
+
+
+
 ## The Request / Response cycle
 
 
@@ -79,6 +103,18 @@ Resources have to be **requested** from the server.
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1bb24dbaf887dc70fc219c20988d7c39.png)
 
 
+
+<br>
+
+
+
+### [OPEN IMAGE](https://miro.medium.com/max/1189/1*2ButIBBk8OBypIt8eLyyvw.png)
+
+![](https://miro.medium.com/max/1189/1*2ButIBBk8OBypIt8eLyyvw.png)
+
+
+
+<br>
 
 
 
@@ -90,6 +126,14 @@ Resources have to be **requested** from the server.
 4. Server processes the request and prepares the response
 5. Server establishes the connection again and sends back the **response** (HTTP message)
 6. Then the connection disconnects
+
+
+
+
+
+<br>
+
+
 
 
 
@@ -105,17 +149,31 @@ Consists of :
 
 
 
+#### [OPEN IMAGE](https://mdn.mozillademos.org/files/13827/HTTPMsgStructure2.png)
+
+
+
+![](https://mdn.mozillademos.org/files/13827/HTTPMsgStructure2.png)
+
+
+
+<br>
+
+
+
 #### [OPEN IMAGE](http://sasi-kala.com/assets/posts_img/9_HTTP_Message_Format.jpg)
 
 ![img](http://sasi-kala.com/assets/posts_img/9_HTTP_Message_Format.jpg)
 
 
 
+<br>
+
 
 
 ## What is [cURL ?](https://www.keycdn.com/support/popular-curl-examples#what-is-curl)
 
-[cURL](https://curl.haxx.se/), short for “Client for URLs”, is a **command line tool** **for transferring data** using various protocols.
+[cURL](https://curl.haxx.se/), short for “**Client for URLs**”, is a **command line tool** **for transferring data** using various protocols.
 
 There are a vast amount of use-cases for cURL such as:
 
@@ -160,7 +218,11 @@ curl -v --request POST https://www.keycdn.com/
 
 
 
+Returns a response with status **405 - Method Not Allowed**
 
+
+
+<br>
 
 
 
@@ -184,12 +246,20 @@ HTTP Verbs specify the action which client is requesting to be performed by the 
 
 
 
-These request verbs are:
+Most common request verbs are:
+
+- **POST**: create a new resource. POST requests usually carry a payload that specifies the data for the new resource.
 
 - **GET**: fetch an existing resource. The URL contains all the necessary information the server needs to locate and return the resource.
-- **POST**: create a new resource. POST requests usually carry a payload that specifies the data for the new resource.
-- **PUT**: update an existing resource. The payload may contain the updated data for the resource.
+- **PUT**: update an existing resource.  Replaces all current representations of the target resource with the request payload.
+- **PATCH**:  is used to apply only partial modifications to a resource, without replacing it fully.
 - **DELETE**: delete an existing resource.
+
+
+
+
+
+<br>
 
 
 
@@ -207,9 +277,13 @@ The **Domain Name System**, or **DNS** for short,allows us to use domain names.
 
 
 
+<br>
 
 
-**DNS protocol** step by step:
+
+### **DNS protocol** 
+
+DNS protocol - step by step:
 
 
 
@@ -221,11 +295,13 @@ The **Domain Name System**, or **DNS** for short,allows us to use domain names.
 
 
 
+<br>
+
 
 
 ##  Chrome DevTools’ Network tab
 
-Open the  [amazon.com](<https://www.amazon.com/>)  and the Chrome Dev Tools Network Tab to see the network requests happening during the load of the page.
+Open the  [amazon.com](<https://www.amazon.com/>)  in your Chrome Browser and then open the Dev Tools `Network` Tab to see the network requests happening during the load of the page.
 
 
 
@@ -233,6 +309,12 @@ Open the  [amazon.com](<https://www.amazon.com/>)  and the Chrome Dev Tools Netw
 
 ## Additional Resources 
 
+### [Submarine Cable Map Website](https://www.submarinecablemap.com/)
+
+### [What is DNS ? - Video](https://www.cloudflare.com/learning/dns/what-is-dns/)
+
 ### [DNS Explained](<https://www.youtube.com/watch?v=72snZctFFtA>)
+
+### [An overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
 
 ### [The SSL or TLS handshake](<https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_7.1.0/com.ibm.mq.doc/sy10660_.htm>)

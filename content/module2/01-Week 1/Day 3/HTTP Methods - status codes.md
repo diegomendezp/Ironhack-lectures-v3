@@ -1,8 +1,8 @@
-HTTP Methods
+## HTTP Methods
 
 ------
 
-GET
+**GET**
 
  \- has only Headers
 
@@ -16,7 +16,11 @@ Have length restrictions (you can’t send giant files)
 
 
 
-POST
+<br>
+
+
+
+**POST**
 
  \-  has Headers and Body
 
@@ -28,7 +32,11 @@ Are never cached
 
 
 
-PUT
+<br>
+
+
+
+**PUT**
 
  \-  has Headers and Body
 
@@ -36,7 +44,11 @@ Update a specific resource (by id). Replaces all current representations of the 
 
 
 
-PATCH
+<br>
+
+
+
+**PATCH**
 
  \-  has Headers and Body
 
@@ -44,7 +56,11 @@ Update partial resources.
 
 
 
-DELETE
+<br>
+
+
+
+**DELETE**
 
  \- has Headers and Body
 
@@ -52,13 +68,11 @@ Removes specific resource by id. Removes all current representations of the targ
 
 
 
+<br>
 
 
 
-
-
-
-HEAD
+**HEAD**
 
  \-  has only Headers
 
@@ -68,7 +82,11 @@ HEAD can be used for obtaining meta-information about the entity
 
 
 
-OPTIONS
+<br>
+
+
+
+**OPTIONS**
 
  \-  has Headers and Body
 
@@ -76,19 +94,23 @@ Used to check the supported HTTP methods (communication options) of for the targ
 
 
 
+<br>
 
 
-CONNECT
 
- \- 
+**CONNECT**
 
 Establishes a tunnel to the server identified by a given URI.
 
 
 
-TRACE
+<br>
 
- \- 
+
+
+**TRACE**
+
+
 
 The TRACE method echoes the received request so that a client can see what (if any) changes or additions have been made by intermediate servers. 
 

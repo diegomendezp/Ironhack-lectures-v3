@@ -56,12 +56,12 @@ code .
 </head>
 <body>
   <h1>Dog</h1>
- 	<div id="cat"></div>
- 	<div id="parrot"></div>
- 	<div class="mouse"></div>
- 	<div class="mouse"></div>
- 	<div class="mouse"></div>
-  <div class="hello"></div>
+ 	<div id="cat">cat</div>
+ 	<div id="parrot">parrot</div>
+ 	<div class="mouse">mouse</div>
+ 	<div class="mouse">mouse</div>
+ 	<div class="mouse">mouse</div>
+  <div class="hello">hello</div>
 
     <!-- include js in the end of the body to make sure 
     the DOM is already loaded before you want to make updates in it-->

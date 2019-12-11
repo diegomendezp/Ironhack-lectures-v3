@@ -4,17 +4,23 @@
 
 #### What is JSX
 
-In react we use JSX for creating components. We create `.js `files and write  JSX inside of the file.
+- In react we use JSX for creating components. We create `.js `files and write  JSX inside of the file.
 
-Simply put,  JSX is the JavaScript with HTML, together in one `js` file. 
+- Simply put,  JSX is the JavaScript with HTML, together in one `js` file. 
 
-JSX stands for JS and XML (eXtensible Markup Language).
+- JSX stands for JS and XML (eXtensible Markup Language).
 
-JSX is a syntax extension to JavaScript.
+- JSX is a syntax extension to JavaScript.
 
 
 
-You can think of the JSX as the Handlebars view file, difference is that  JSX comes with the full power of JavaScript.
+
+
+#### Compared to Handlebars
+
+- You can think of the JSX as being similar to the Handlebars syntax. 
+
+- The difference is that  JSX comes with the full power of JavaScript.
 
 
 
@@ -28,7 +34,9 @@ You can think of the JSX as the Handlebars view file, difference is that  JSX co
 
 #### Why JSX
 
-Instead of creating 2 different files, one containing JS and other HTML, JSX enables for both to be saved in one file.
+Instead of creating 2 or 3 different files, one containing JS, other HTML, (and 3rd having data), JSX enables for these functionalities to be used in one file.
+
+
 
 This helps create one file which represents one component, so that in one file we have HTML, logic  and data for that component.
 
@@ -266,12 +274,15 @@ This means that you can use JSX inside of `if` statements and `for` loops, assig
     }
   }
 ...
+
+render() {
   return (
     <div className="App">
       <h1> Hello Ironhackers! </h1>
       {element}
       {displayAvartar(user)}
     </div>
+}
 ```
 
 
@@ -319,7 +330,7 @@ By default, `ReactDOM` escapes (sanitazes) any values embedded in `JSX` before r
 
 
 
-XSS - Cross site scripting is vulnerability that allows attacker to run his own client side scripts int o the web pages viewed by other users.
+XSS - Cross site scripting is vulnerability that allows attacker to run his own client side scripts into the web pages viewed by other users.
 
 
 

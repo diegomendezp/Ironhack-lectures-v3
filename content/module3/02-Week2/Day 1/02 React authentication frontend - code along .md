@@ -20,42 +20,9 @@ code .
 
 
 
-
-
-#### Add route to render `Login` and `Signup` components - in `App.js`
-
-#### Update `App.js`
-
-```jsx
-//	src/App.js
-
-...
-	...
-import { Switch, Route } from "react-router-dom";
-
-import Signup from './pages/Signup';		//		<--	Import 
-import Login from './pages/Login';			//		<--	Import 
-import Private from './pages/Private';	//		<--	Import 
-
-class App extends Component {
-  render() {
-    return (
-        <div className="container">
-          <Navbar />
-          <h1>Basic React Authentication</h1>
-
-          <Switch>																				{/* Add Switch and Routes */}
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
-            <Route path="/private" component={Private} />
-          </Switch>
-        </div>
-    );
-```
-
-
-
 <br>
+
+
 
 
 
@@ -63,11 +30,17 @@ class App extends Component {
 
 
 
+
+
 <br>
 
 
 
+
+
 ####	Using React Context API we will create provider and consumer
+
+
 
 
 
@@ -103,7 +76,7 @@ const withAuth = (WrappedComponent) => {};
 // Provider
 class AuthProvider extends React.Component {
   state = { isLoggedin: false, user: null, isLoading: true };
-
+	
 	componentDidMount() {
     auth.me()
     .then((user) => this.setState({ isLoggedin: true, user: user, isLoading: false }))
@@ -153,16 +126,17 @@ export default AuthProvider;			//	  <--		REMEMBER TO E X P O R T  ! ! !
 
 // Provider
 class AuthProvider extends React.Component {
-  	...
-    		...
-    				....
+//  	...
+//    		...
+//    				....
     
   signup = (user) => {
     const { username, password } = user;
     
     auth.signup({ username, password })
       .then((user) => this.setState({ isLoggedin: true, user}) )
-      .catch(({response}) => this.setState({ message: response.data.statusMessage}));
+      .catch( (err) => console.log(err));
+//TODO - Remove from notes  .catch(({response}) => this.setState({ message: response.data.statusMessage})); TODO - Remove from the notes
   };
 
 
@@ -181,8 +155,8 @@ class AuthProvider extends React.Component {
       .catch((err) => console.log(err));
   };
 
-				...
-		...
+//				...
+//		...
   
 ```
 
@@ -213,12 +187,12 @@ class AuthProvider extends React.Component {
 ```jsx
 //	src/App.js
 
-...
+//	...
 
 import AuthProvider from "./lib/AuthProvider";
 
-...
-	...
+//	...
+//			...
 
 class App extends Component {
   render() {
@@ -321,12 +295,12 @@ const withAuth = (WrappedComponent) => {
 ```jsx
 //	pages/Signup.js
 
-...
+//	...
 
 import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
 
-...
-	...
+//	...
+//			...
 
 
   handleFormSubmit = event => {
@@ -337,8 +311,8 @@ import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
     this.props.signup({ username, password });			//			<-- UPDATE HERE
   };
 
-			...
-  ...
+//			...
+//  ...
 
 
 export default withAuth(Signup);			//			<-- UPDATE HERE
@@ -363,13 +337,13 @@ export default withAuth(Signup);			//			<-- UPDATE HERE
 ```jsx
 //	pages/Login.js
 
-...
+//	...
 
 import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
 
-...
-		...
-				...
+//	...
+//			...
+//					...
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -379,8 +353,8 @@ import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
     this.props.login({ username, password });			//			<-- UPDATE HERE
   };
 
-			...
-  ...
+//			...
+//  ...
 
 
 export default withAuth(Login);				//			<-- UPDATE HERE
@@ -410,6 +384,7 @@ class Private extends Component {
   render() {
     return (
       <div>
+        <h1>Private Route</h1>
         <h1>Welcome {this.props.user.username}</h1>	  {/* 			<-- UPDATE HERE	      */}
       </div>
     );
@@ -421,6 +396,8 @@ export default withAuth(Private);				//			<-- UPDATE HERE
 ```
 
 
+
+<br>
 
 
 
@@ -438,23 +415,26 @@ import { withAuth } from "../lib/AuthProvider";					//			<-- UPDATE HERE
 class Navbar extends Component {
   render() {
 
-    const { user, logout, isLoggedin } = this.props;		//			<-- UPDATE HERE
+    const { user, logout, isLoggedIn } = this.props;		//			<-- UPDATE HERE
+    
     return (
-      <div style={{ borderRadius: '5px', padding: '20px', background: '#686de0'}}>
+      <nav className="navbar">
+        <Link to={'/'} id='home-btn'> Home </Link>
+        
         {
-          isLoggedin ? 		  		{/* 			<-- UPDATE HERE	      */}
-          (<div>
+          isLoggedIn ? 		  		{/* 			<-- UPDATE HERE	      */}
+          (<>
             <p>username: {user.username}</p>				{/* 	<-- UPDATE HERE     */}
             <button onClick={logout}>Logout</button>		{/* 	<-- UPDATE HERE     */}
-          </div>) 
+          </>) 
          : 
-          (<div>
+          (<>
             <Link to="/login"> <button>Login</button> </Link>
             <br/>
             <Link to="/signup"> <button>Signup</button> </Link>
-          </div>)
+          </>)
         }
-      </div>
+      </nav>
     );
   }
 }
@@ -474,18 +454,27 @@ export default withAuth(Navbar);				//			<-- UPDATE HERE
 
 
 
-<br>
+ <br>
 
 
 
 #### We still need to create proper routing:
 
-	- When user is logged in, we need to forward him to private page, in our case `Private` component
-	- When user is not logged in and tries to access `/private` page we need to route him to  `Login` component
+	- When user is logged in, we need to forward him to private page, the`Private` component
+
+
+​	
+	- When user is not logged in and tries to access `/private` page we need to route him 
+	  to  `Login` component
+
+
+
 
 * When user is not logged and tries to access either `Signup` or `Login` component, we need to allow him to go to either one.
 
 
+
+<br>
 
 
 
@@ -505,7 +494,7 @@ function AnonRoute({ component: Component, isLoggedin, ...rest }) {
   <Route
     {...rest}
     render={(props) => !isLoggedin ? <Component {...props} /> : <Redirect to="/private"/>}
-   />
+  />
   );
 }
 
@@ -529,15 +518,15 @@ export default withAuth(AnonRoute);
 ```jsx
 //	src/App.js
 
-...
-		...
+//	...
+//			...
 
 import AnonRoute from "./components/AnonRoute";
 
 
-...
-		...
-				...
+//	...
+//			...
+//					...
 
    	<h1>Basic React Authentication</h1>
 
@@ -597,15 +586,15 @@ export default withAuth(PrivateRoute);
 ```jsx
 //	src/App.js
 
-...
-		...
+//	...
+//			...
 
 import PrivateRoute from "./components/PrivateRoute";
 
 
-...
-		...
-				...
+//	...
+//			...
+//					...
 
    	<h1>Basic React Authentication</h1>
 

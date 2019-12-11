@@ -8,7 +8,11 @@ Axios is a modern **Promise-based** HTTP client for JS which can be used in fron
 
 
 
+
+
 Axios is relying on AJAX technology. **AJAX** stands for *Asynchronous JavaScript And XML*.
+
+
 
 
 
@@ -22,6 +26,8 @@ Axios is relying on AJAX technology. **AJAX** stands for *Asynchronous JavaScrip
 - Cancel requests
 - Automatic transforms JSON into JS objects
 - Client-side support for protecting against [XSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
+
+
 
 
 
@@ -73,13 +79,19 @@ $ npm install axios
 
 We can use any HTTP verb for the request and we can use any amount of parameters.
 
+
+
 ### Installing Postman
 
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_59d53910a8a94a1096fa00a5ed2003aa.png)
 
+
+
 Go to [the official website](https://www.getpostman.com/) and download Postman. Be careful to select the right Operating System for your computer.
 
-**We can use Postman as a Google Chrome extension too, but we will use the GUI version since is more intuitive.**
+
+
+
 
 **You can also use Insomnia which has similar features.**
 
@@ -93,11 +105,15 @@ Go to [the official website](https://www.getpostman.com/) and download Postman. 
 
 
 
-### GET request -  https://restcountries.eu/rest/v2/name/spain
+#### GET request -  https://restcountries.eu/rest/v2/name/spain
 
 Open Postman. You will see this:
 
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_af6eb57129e0e23b8d1f19d31e869e38.png)
+
+
+
+
 
 For now, we will focus on the navigation bar:
 
@@ -123,6 +139,8 @@ Now, you can try to get the data from some other API endpoint. It’s easy right
 
 
 
+<br>
+
 
 
 
@@ -130,15 +148,22 @@ Now, you can try to get the data from some other API endpoint. It’s easy right
 ### Simple axios GET request
 
 ```bash
+mkdir axios-1
+
+cd axios-1
+
 touch index.html index.js style.css
 ```
 
 
 
-**index.html**
+<br>
+
+
+
+##### `index.html`
 
 ```html
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,7 +172,9 @@ touch index.html index.js style.css
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Rest Countries API</title>
 </head>
+  
 <body>
+  
   <h1>Countries Info</h1>
 <!--  use input's id to grab the value from the input field -->
   <input id="the-input" type="text">
@@ -159,15 +186,18 @@ touch index.html index.js style.css
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="index.js"></script>
+  
 </body>
 </html>
 ```
 
 
 
+<br>
 
 
-**index.js**
+
+##### `index.js`
 
 ```js
 // index.js
@@ -178,7 +208,7 @@ const baseURL = 'https://restcountries.eu/rest/v2/name/';
 const countryList = document.querySelector('#country-list');
 const button = document.querySelector("#the-button");
 
-
+// EXAMPLE 1
 // axios.get
 function getCountryInfo1(countryNameInput) {
   axios.get(`${baseURL}${countryNameInput}`)
@@ -200,8 +230,10 @@ function getCountryInfo1(countryNameInput) {
 
 
 
-// axios.create
-const getCountryByName = axios.create({ baseURL: baseURL });
+// EXAMPLE 2 -  ALTERNATIVE WAY
+
+// axios.create([configObj])
+const getCountryByName = axios.create({ baseURL: baseURL, method: get });
 
 function getCountryInfo2 (countryNameInput) {
 
@@ -236,15 +268,11 @@ button.addEventListener('click', () => {
 
 
 
-# `axios.create`
+​	
 
 
 
-
-
-
-
-# [EXERCISE REPO](<https://github.com/ross-u/Exercise---Axios-GET-and-Chart.js>)
+# [EXERCISE - Axios GET and Chart.js](<https://github.com/ross-u/Exercise---Axios-GET-and-Chart.js>)
 
 
 

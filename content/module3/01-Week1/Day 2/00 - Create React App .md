@@ -4,13 +4,21 @@
 
 
 
-**Create React App** is a tool and a CLI to help you build React applications. It saves you from time-consuming setup and configuration.
+**Create React App** is a tool and a CLI to help you build React applications. 
 
-We refer to it as a setup toolchain that we use for React.
-
-It require Node.js version 10 or later.
+It saves you from time-consuming setup and configuration.
 
 
+
+We call it a **setup toolchain** for React applications.
+
+
+
+It requires Node.js version 10 or later.
+
+
+
+<br>
 
 
 
@@ -23,7 +31,7 @@ It require Node.js version 10 or later.
 
 
 
-When you run create-react-app, it always creates the project with the latest version of `react-scripts` automatically.
+When you run `create-react-app`, it will always create the project with the latest versions of `react` and `react-dom` packages automatically.
 
 
 
@@ -41,16 +49,28 @@ When you run create-react-app, it always creates the project with the latest ver
 
 
 
+#### SIDE NOTE:
+
+ If having issues with `npx` try first installing it globally by running `npm install -g npx`. [Info](https://www.npmjs.com/package/npx).
 
 
-it will generate the initial project structure and install the needed dependencies for runing the React in development and also for bundling it later:
+
+
+
+it will generate the initial project structure and install the needed dependencies for running the React in development and also for bundling it later:
+
+
+
+
 
 ```js
 📂my-app
+┃
 ┣ 📂public
 ┃ ┣ 📜favicon.ico
 ┃ ┣ 📜index.html
 ┃ ┗ 📜manifest.json
+┃
 ┣ 📂src
 ┃ ┣ 📜App.css
 ┃ ┣ 📜App.js
@@ -59,6 +79,7 @@ it will generate the initial project structure and install the needed dependenci
 ┃ ┣ 📜index.js
 ┃ ┣ 📜logo.svg
 ┃ ┗ 📜serviceWorker.js
+┃
 ┣ 📜.gitignore
 ┣ 📜package-lock.json
 ┗ 📜package.json
@@ -66,53 +87,69 @@ it will generate the initial project structure and install the needed dependenci
 
 
 
+<br>
+
+
+
+### Run the create-react-app development server:
+
 
 
 Inside the newly created project, you can run some built-in commands:
 
-### **`npm start`** or **`yarn start`**
+#### **`npm start`** or **`yarn start`**
 
 
 
 
 
-This will start serving  and open the **development version** app in the browser.
+
+
+#### Best Part?   -->	 Hot Reload
 
 
 
-**Best Part?** The page will automatically reload if you make changes to the code. You will see the build errors and lint warnings in the console. No `Webpack` configuration needed.
+ The page will automatically reload if you make changes to the code. 
+
+You will see the build errors and lint warnings in the console. No `Webpack` configuration needed.
 
 
+
+
+
+<br>
 
 
 
 ### Importing a Component
 
-By default, the project setup supports `ES6 modules` thanks to `Babel`, which transpiles ES6 JS that not all browsers and environments support into a JS that is written only in ES5 syntax so that it can be run everywhere.
+- By default, the project setup supports `ES6 modules` thanks to `Babel`.
+
+  
+
+- Babel transpiles **ES6** js code to the **ES5** syntax, that all browsers and environments support and can be run everywhere.
+
+  
+
+- While you can still use `require()` and `module.exports`, React developers encourage us to use [`import` and `export`](http://exploringjs.com/es6/ch_modules.html#sec_importing-exporting-details)instead.
 
 
 
-While you can still use `require()` and `module.exports`, React developers encourage us to use [`import` and `export`](http://exploringjs.com/es6/ch_modules.html#sec_importing-exporting-details)instead.
+- `export default` is used to export only one module as the default single value.
+
+  
+
+- Syntax for exporting multiple variables is:  `export { varName1, varName2, obj1, func1 }`
+
+
+
+For reference visit: [MDN - ES6 export](<https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export>)      or   [MDN - ES6 import](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Syntax>)
 
 
 
 
 
-`export default` is used to export only one module as the default single value that is being exported.
-
-
-
-We can export multiple variables by writing `export { varName1, varName2, someObj1, func1 }`
-
-
-
-For reference we can use MDN  -    [MDN - ES6 export](<https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export>)      or   [MDN - ES6 import](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Syntax>)
-
-
-
-
-
-
+<br>
 
 
 
@@ -120,9 +157,11 @@ For reference we can use MDN  -    [MDN - ES6 export](<https://developer.mozilla
 
 
 
-Lets create a `components ` folder which will hold all components that we make. 
+- Create a `components ` folder which will hold all components that we make. 
 
-`App.js` as root component and `index.js` which connect React and our HTML DOM have to stay in the `src/` folder on the entry level.
+- `App.js` is a root component.
+-  `index.js`  connects React (injects rendered components in to the DOM).
+- `index.js` and `App.js` have to stay in the `src/` folder on the root level, as webpack is configured to will load them from this location.
 
 
 
@@ -143,25 +182,35 @@ Lets create a `components ` folder which will hold all components that we make.
 
 
 
-Let's create a new component that will be our <header> .
+<br>
 
 
 
-**src/components/Header.js**
+### Create a new component `<Header />` .
+
+
+
+##### `src/components/Header.js`
 
 ```js
-  // components/Header.js
+  // src/components/Header.js
 
 import React from 'react';
-import logo from '../logo.svg'; // importing logo from src folder
 
-const header = (props) => {
+// importing logo from src folder - loaded as a file in the bundle
+import logoFileFromSRC from '../logo.svg'; 
+
+// Logo served from the public folder by the development server
+const logoPublicUrl = '/logo512.png';
+
+
+function Header (props) {
   return (
     <header className="App-header">
     
       <img src={logo} className="App-logo" />
     
-      <h1 className="App-title">Welcome to React, {props.name} Ironhacker!</h1>
+      <h1 className="App-title">Welcome to React {props.name} !</h1>
 
       <h3>You are ready to take this to the next level!</h3>
 
@@ -169,18 +218,24 @@ const header = (props) => {
   );
 }
 
-export default header;
+export default Header;
 ```
 
 
 
 
 
-Import new component **Header** in the `App.js` and remove rest of the code.
+<br>
 
 
 
-**src/App.js**
+
+
+### Import **Header** in the `App.js` and remove the default code.
+
+
+
+##### `src/App.js`
 
 ```js
 // App.js
@@ -206,27 +261,13 @@ export default App;
 
 
 
-
-
-**Exercise**  ( 5-10 min)
-
-#### [EXERCISE GIST](<https://gist.github.com/ross-u/486f628ca631825a340cd2d118436bef>)
+<br>
 
 
 
-Inside the `Header.js` file we have an `<h1>` tag.
-
- Create a new `Title` component,  import it in `Header.js`, delete `<h1>` tag and instead place new `<Title>` component.
-
- The `Title` component should render received `data` prop, so we have to create an attribute named `data` and pass string **"Welcome to React, Ironhacker!"** that we want to display.
 
 
-
-Also in the same `Header.js` file there’s `<h3>` tag. 
-
-Replace it with `Description` component  and pass the string through the prop attribute `data` (apply the same logic as for the Title component).
-
-
+### [EXERCISE - Pass the props (10 min)](<https://gist.github.com/ross-u/486f628ca631825a340cd2d118436bef>)
 
 
 
@@ -234,66 +275,37 @@ Replace it with `Description` component  and pass the string through the prop at
 
 
 
-**src/components/Title.js**
+##### `src/components/Header.js`
 
-```js
-// src/components/Title.js
-import React from 'react';
-
-const title = (props) => {
-  return (
-    <div>
-    	<h1 className="App-title">{props.data}</h1>
-    </div>
-  );
-}
-
-export default title;
-```
-
-
-
-**src/components/Description.js**
-
-```js
-// src/components/Description.js
-import React from 'react';
-
-const description = (props) => {
-  return (
-    <div>
-    	<h3>{props.data}</h3>
-    </div>
-  );
-}
-
-export default description;
-```
-
-
-
-**src/components/Header.js**
-
-```js
+```jsx
 // src/components/Header.js
 
-import React, { Component } from 'react';
-import Title from './components/Title.js';
-import Description from './components/Description.js';
-import logo from '../logo.svg';
+import React from 'react';
+import Title from './Title.js';
+import Description from './Description.js';
 
-const header = () => {
+// importing logo from src folder - loaded as a file in the bundle
+import logoFileFromSRC from './../logo.svg';
+
+// Logo served from the public folder by the development server
+const logoPublicUrl = '/logo512.png';
+
+function Header(props) {
   return (
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-    
-        <Title data="Welcome to React, Ironhacker!"></Title>
-        <Description data="You are ready to take this to the next level!"></Description>
-      </header>
+    <header className="App-header">
+      <img src={logoPublicUrl} className="App-logo" />
+
+      {/*  Pass the data via the `appTitle` prop*/}
+      <Title appTitle="Welcome to React, Ironhacker!" />
+      
+      {/*  Pass the string using composition - enclosed between the component tags*/}
+      <Description>You are ready to take this to the next level!</Description>
+    </header>
   );
 }
 
-export default header;
+export default Header;
+
 ```
 
 
@@ -301,6 +313,8 @@ export default header;
 
 
 
+
+<br>
 
 
 
@@ -318,9 +332,11 @@ import logo from '../logo.svg';
 
 
 
-With Webpack, using static assets like images and fonts can be **imported right inside a JavaScript module**.
+With Webpack, static assets like images and fonts can be **imported right inside a JavaScript module**.
 
 
+
+When creating the build webpack will include the files in the build folder.
 
 This tells Webpack to include that file in the bundle. 
 
@@ -343,3 +359,13 @@ This ensures that when the project is built, Webpack will correctly move the ima
 
 
 ### [ Docs Repo: create-react-app package](<https://github.com/facebook/create-react-app>)
+
+
+
+<hr>
+
+### Additional Resources
+
+
+
+#### [`react-scripts` package](https://stackoverflow.com/a/50722201/6375464)

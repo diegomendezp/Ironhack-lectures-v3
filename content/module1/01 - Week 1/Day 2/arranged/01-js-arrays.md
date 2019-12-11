@@ -24,15 +24,16 @@
 
 An array can be **declared empty**:
 
-```
-var arrayNames = []; // This way of creating an array is called "array literal"
+```js
+var arrayNames = []; 
+// This way of creating an array is called "array literal"
 ```
 
 
 
 Or you can **declare it with some elements:**
 
-```
+```js
 var arrayNames = ["Pedro", "Jake", "Joan", "Mike"];
 ```
 
@@ -40,7 +41,7 @@ var arrayNames = ["Pedro", "Jake", "Joan", "Mike"];
 
 The **elements** **don’t have to be of the same type**, we can **mix** strings, numbers or any other type we want:
 
-```
+```js
 var arrayNames = ["Pedro", 2, true];
 ```
 
@@ -51,8 +52,7 @@ var arrayNames = ["Pedro", 2, true];
 ```js
 /* var example = new Array(/* givenElements ... or arrayLength); */
 
-var arr1 = new Array("Apple", "Lenovo", "HP"); // creates array with the given elements
-var arr2 = new Array(3); // creates an empty array with 3 empty spots
+;
 ```
 
 
@@ -169,7 +169,7 @@ console.log(studentsString);
 
 ```js
 console.log(students.join(','));
-// expected output: "Fire,Wind,Rain"
+// expected output: "<name>,<name>,<name>"
 
 console.log(students.join(' '));
 
@@ -197,10 +197,10 @@ console.log('<p>' + students.join('</p>\n<p>') + '</p>');
 ```js
 var nameString = "Mark Susan Luca Jennifer Hanna Ross Anna";
 
-var namesArray;
-// split on every empty space ' ' character
-namesArray = nameString.split(' ');
-console.log(namesArray);
+  var namesArray;
+  // split on every empty space ' ' character
+  namesArray = nameString.split(' ');
+  console.log(namesArray);
 
 // split after each character
 console.log( nameString.split('') );
@@ -392,10 +392,14 @@ This method does not change the existing arrays, but returns a new array.
 ```js
 var arr1 = ["Marc", "Lea"];
 var arr2 = ["Emily", "John", "Yvonne"];
+var arr3 = ["I", "Me", "Moi"];
 
-var arr3 = arr1.concat(arr2);
 
-console.log(arr3);
+var newArr1 = arr1.concat(arr2);
+var newArr2 = arr1.concat(arr2, arr3);
+
+console.log(newArr1);
+console.log(newArr2);
 ```
 
 

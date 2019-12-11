@@ -44,6 +44,7 @@ We will set the component that renders the form to also controls what happens in
 
 ```bash
 git clone https://github.com/ross-u/React---Froms-Starter-repo-.git
+
 cd React---Froms-Starter-repo-
 
 npm i
@@ -62,10 +63,11 @@ code .
 
 
 
-**src/components/AddMovie.js**
+##### `src/components/AddMovie.js`
 
 ```jsx
 // src/components/AddMovie.js
+
 import React, { Component } from 'react';
 
 class AddMovie extends Component {
@@ -106,12 +108,13 @@ export default AddMovie;
 
 
 
-**src/components/AddMovie.js**
+##### `src/components/AddMovie.js`
 
 ```jsx
 // src/components/AddMovie.js
 
-...
+//	...
+
 render(){
   return (
         <div>
@@ -154,22 +157,33 @@ render(){
 
 
 
-**src/components/DynamicMovieList.js**
+##### `src/components/DynamicMovieList.js`
 
 ```jsx
 // src/components/DynamicMovieList.js
-...
+
+//	...
+
 import AddMovie from './AddMovie';
+
+// 	...
+
+//			...
 
 	render() {
     return (
       <div>
-        <AddMovie />
+        <AddMovie />    	{/*  ADD  */}
 
         <button onClick={this.toggleMovies}>
           Toggle Movies
         </button>
-   ...
+        
+        {/* 
+        ... 
+        
+        ...
+        */}
 ```
 
 
@@ -186,9 +200,11 @@ import AddMovie from './AddMovie';
 
 ### Open the app in the browser and the Chrome console
 
+
+
 #### We will see error: 
 
-You provided a `value` prop to a form fieltrued without an `onChange` handler. *set either onChange or readOnly.*
+You provided a `value` prop to a form field without an `onChange` handler. *Set either onChange or readOnly.*
 
 
 
@@ -210,11 +226,14 @@ You provided a `value` prop to a form fieltrued without an `onChange` handler. *
 
 
 
-**src/components/AddMovie.js**
+##### `src/components/AddMovie.js`
 
 ```jsx
 // src/components/AddMovie.js
-...
+
+//	...
+
+//			...
 
 render(){
     return (
@@ -249,37 +268,52 @@ render(){
 
 
 
-**src/components/AddMovie.js**
+##### `src/components/AddMovie.js`
 
 ```jsx
 // src/components/AddMovie.js
 
 class AddMovie extends Component {
 
-...
-
-	handleTitleInput = (event) => {
-    this.setState({ title: event.target.value })
-  }
-
-  handleDirectorInput = (event) => {
-    this.setState( { director: event.target.value} )
-  }
-
-  handleOscarsCheck = (event) => {
-    this.setState( { hasOscars: event.target.checked } )
-  }
-
-  handleRatingInput = (event) => {
-    this.setState( { IMDbRating: event.target.value} )
-  }
+//	...
   
-  
-    render(){
-    return (
-      <div>
-         <form onSubmit={this.handleFormSubmit}>
-   ...
+//	...
+
+	handleTitleInput = (e) => {
+    const { value, name } = e.target;
+    console.log('\n INPUT NAME', name);
+    console.log('INPUT VALUE', value);
+
+    this.setState({ title: value });
+ // this.setState({ [name]: value });
+  }
+
+  handleDirectorInput = (e) => {
+    const { value, name } = e.target;
+    console.log('\n INPUT NAME', name);
+    console.log('INPUT VALUE', value);
+
+    this.setState({ director: value });
+ // this.setState({ [name]: value });
+  }
+
+  handleOscarsCheck = (e) => {
+    const { name, checked } = e.target;
+    console.log('\n INPUT NAME', name);
+    console.log('CHECKED ', checked);
+
+    this.setState( { hasOscars: checked } )
+ // this.setState({ [name]: checked });
+  }
+
+  handleRatingInput = (e) => {
+    const { name, value } = e.target;
+    console.log('\n INPUT NAME', name);
+    console.log('INPUT VALUE', value);
+
+    this.setState({ IMDbRating: value });
+ // this.setState({ [name]: value });
+  }
 ```
 
 
@@ -314,14 +348,17 @@ class AddMovie extends Component {
 
 
 
-**src/components/AddMovie.js**
+##### `src/components/AddMovie.js`
 
 ```js
 // src/components/AddMovie.js
 
+
 class AddMovie extends Component {
 
-...
+//	...
+
+//	...
 
   handleFormSubmit = (event) => {
     event.preventDefault();
@@ -331,35 +368,30 @@ class AddMovie extends Component {
     this.setState({ title: '', director: '', hasOscars: false, IMDbRating: ''})
   }
 
-  render(){
-    ...
-  }
-
-}
-
-export default AddMovie;
 ```
 
 
 
 
 
+<br>
+
 
 
 - [ ] 
 
-#### Create the function that will update state of `DynamicMovieList`
+#### Create the function that will update state of the`DynamicMovieList`
 
 #### Pass the function as prop to `<AddMovie>` component
 
 
 
-**src/components/DynamicMovieList.js**
+##### `src/components/DynamicMovieList.js`
 
 ```jsx
 // components/DynamicMoviesList.js
 
-...
+//	...
 
 addMovieHandler = (newMovie) => {
   const moviesCopy = [...this.state.movies];
@@ -372,8 +404,10 @@ addMovieHandler = (newMovie) => {
   render() {
     return (
       <div>
+        
+        {/* UPDATE -  PASS THE METHOD AS THE PROP */}
         <AddMovie addTheMovie={this.addMovieHandler} />
-...
+
 ```
 
 
@@ -388,7 +422,7 @@ addMovieHandler = (newMovie) => {
 
 
 
-**src/components/AddMovie.js**
+##### `src/components/AddMovie.js`
 
 ```jsx
 // src/components/AddMovie.js

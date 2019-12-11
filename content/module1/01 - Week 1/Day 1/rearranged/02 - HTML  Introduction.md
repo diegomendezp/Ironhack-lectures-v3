@@ -694,3 +694,4 @@ In this unit, we learned that HTML is a language for creating web pages and appl
 - [Inline elements](<https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements#Elements>)
 - [Block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements)
 - [HTML MDN Tutorial](https://developer.mozilla.org/en-US/docs/Learn/HTML)
+

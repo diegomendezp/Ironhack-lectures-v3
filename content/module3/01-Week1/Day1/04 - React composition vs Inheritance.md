@@ -33,13 +33,15 @@ Other than passing regular props we can also pass other elements or components. 
 
 
 
-Using the special **props.children** in React we can  pass children elements directly into the component's output:
+Using the special variable of the React components `props.children`  we can  pass children elements directly into the component's output:
 
 
 
-**src/FancyBorder.js**
+##### `src/FancyBorder.js`
 
 ```js
+// src/FancyBorder.js
+
 import React from "react";
 import './FancyBorder.css';
 
@@ -76,7 +78,7 @@ export default FancyBorder;
 ```js
 import FancyBorder from './FancyBorder.js'
 
-...
+// ...
 
 
     <FancyBorder title='Fancy Box Example'>

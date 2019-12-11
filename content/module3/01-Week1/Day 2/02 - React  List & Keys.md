@@ -21,14 +21,15 @@ If you need to display **an array of data** in a React component, how would you 
 
 
 
-What you do is you **transform your array** of data to an **array of elements**.
+We can **transform an array** with data to an **array of elements**.
 
 
 
 
 
 ```bash
-npm create-react-app react-list-and-keys
+npx create-react-app react-list-and-keys
+
 cd react-list-and-keys
 
 code .
@@ -40,9 +41,10 @@ code .
 
 ```bash
 mkdir src/components
+
 cd src/components/
 
-touch ListDemo.js Navbar.js Navbar.css
+touch List.js Navbar.js Navbar.css
 
 cd ../../
 ```
@@ -55,7 +57,7 @@ Let's reuse the `<Navbar>` component from `Navbar.js`file  from our previous exa
 
 
 
-**src/components/Navbar.js**
+##### `src/components/Navbar.js`
 
 #### [EXERCISE SOLUTION - `Navbar.js`](<https://gist.github.com/ross-u/2ab3a3d1fb327c7c20c1473f1898d8e5>)
 
@@ -63,13 +65,21 @@ Let's reuse the `<Navbar>` component from `Navbar.js`file  from our previous exa
 
 
 
-**src/components/ListDemo.js**
+<br>
+
+
+
+
+
+##### `src/App.js`
 
 ```jsx
-// src/components/ListDemo.js
-import React from 'react';
+// src/App.js
 
-const numbers = [1, 2, 3, 4, 5, 6, 7];
+import React, { Component } from 'react';
+import Navbar from './components/Navbar';
+
+import List from './components/List';
 
 // array of list item HTML elements that needs to be displayed
 const listItems = [
@@ -80,28 +90,32 @@ const listItems = [
   <li>5</li>
 ];
 
-export default listItems;
-```
+const names = ['Bob', 'Sarah', 'Anna', 'Marc'];
 
+const cities = [
+  'Barcelona',
+  'Miami',
+  'Madrid',
+  'Paris',
+  'Amsterdam',
+  'Berlin',
+  'Sao Paulo',
+];
 
-
-
-
-**src/App.js**
-
-```jsx
-// src/App.js
-import React, { Component } from 'react';
-import Navbar from './components/Navbar';
-
-import listItems from './components/ListDemo';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar></Navbar>
-        <ul>{ listItems }</ul>
+        <Navbar />
+        
+        { /* EXAMPLE 1  - List from an array of elements */ }
+        
+        { /* EXAMPLE 2 - List created by mapping over an array */ }
+        
+        { /* EXAMPLE 3 - List created by mapping over an array */ }
+        
+        
       </div>
     );
   }
@@ -112,39 +126,107 @@ export default App;
 
 
 
-
-
-We created an array with JSX elements, and then we passed that array to `App.js` and placed it in the `<ul>` tag
-
+<br>
 
 
 
+#### EXAMPLE 1
 
-
-
-### Building a list of elements:
-
-You can build collections of elements and [include them in JSX](https://reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx) using curly braces `{}`.
-
-
-
-Let's comment out our hard coded list of `<li>` elements, and render the list dynamically:
-
-
-
-**src/components/LIstDemo.js**
+##### `src/App.js`
 
 ```jsx
-// components/ListDemo.js
+// src/App.js        
 
-/*
-const listItems = [....]
-*/
-
-const listItems = numbers.map( (oneNumber) => <li>{oneNumber}</li> );
-                                     
-export default listItems;
+				{ /* EXAMPLE 1  - List from an array of elements */ }
+        <h2>listItems</h2>
+        <ul>{ listItems }</ul>
 ```
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+#### EXAMPLE 2
+
+##### `src/App.js`
+
+```jsx
+// src/App.js        
+
+				{ /* EXAMPLE 2 - List created by mapping over an array */ }
+        <h2> Mapping over an array</h2>
+        {
+          names.map( (name) => <h4>{name}</h4> )
+        }
+```
+
+
+
+<br>
+
+#### EXAMPLE 3
+
+##### `src/App.js`
+
+```jsx
+// src/App.js
+
+				{ /* EXAMPLE 3 - List created by mapping over an array */ }
+        <h2> List</h2>
+        <List cities={cities} />
+```
+
+
+
+##### `src/components/List.js`
+
+```jsx
+// src/components/List.js
+
+import React from 'react';
+
+
+class List extends React.Component {
+  render() {
+
+    const { cities } = this.props;
+
+    return (
+      <ul>
+        {
+          cities.map( (cityName) => {
+            return  <h4>{cityName}</h4> 
+          })
+        }
+      </ul>
+    );
+  }
+}
+
+export default List;
+```
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
 
 
 
@@ -192,33 +274,59 @@ If the keys change or there are no keys, then the **entire DOM is destroyed and 
 
 
 
-#### Let's fix our `ListDemo` component and include `key` for each element
+#### Let's fix our `List` component and include `key` for each element
 
 
 
 
 
-**`src/components/ListDemo.js`**
+**`src/components/List.js`**
 
 ```jsx
-// components/ListDemo.js
+// src/components/List.js
 
-export const listItems = numbers.map((oneNumber, index) => 
-  <li key={index}>{oneNumber}</li>
-);
+        {
+          cities.map((cityName, index) => {								{/* UPDATE */}
+          	return <li key={index} > {cityName} </li>;			{/* UPDATE */}
+        	})
+        }
 ```
 
 
 
-We don’t recommend using indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state. 
+
+
+##### `src/App.js`
+
+```jsx
+// src/App.js
+
+        <h2> Mapping over an array</h2>
+        {
+          names.map((name, index) => {						{/* UPDATE */}
+          	return <h4 key={index}> {name} </h4>			{/* UPDATE */}
+          })
+        }
+
+```
 
 
 
-Please refer to the article of **Robert Pokorny**  [here](<https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318>)
+
+
+We don’t recommend using indexes for keys if the order of items may change. 
+
+This can negatively impact performance and may cause issues with component state. 
 
 
 
-> a *key* is the only thing React uses to identify DOM elements. What happens if you push an item to the list or remove something in the middle? If the *key* is same as before React assumes that the DOM element represents the same component as before. But that is no longer true.
+Please refer to the article of **Robert Pokorny**  [here](<https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318>).
+
+
+
+> a *key* is the only thing React uses to identify DOM elements.
+>
+>  What happens if you push an item to the list or remove something in the middle? If the *key* is same as before React assumes that the DOM element represents the same component as before. But that is no longer true.
 
 
 
@@ -236,6 +344,10 @@ What is the solution?
 
 
 
+<br>
+
+
+
 #### Let's fix the `key` prop to use a unique string created with the package `shortid`
 
 
@@ -246,25 +358,91 @@ npm install shortid --save
 
 
 
-**`src/components/ListDemo.js`**
+<br>
+
+
+
+#### Update `List.js` to use `shortid` for list keys
+
+
+
+**`src/components/List.js`**
 
 ```jsx
-// components/ListDemo.js
-...
-import shortid from 'shortid';
+// src/components/List.js
+// ...
 
-...
-const listItems = numbers.map( (oneNumber, index) => {
-    const keyId = shortid.generate();
+import shortid from 'shortid';				// <-- IMPORT shorid
 
-    return <li key={keyId}>{oneNumber}</li> ;
-//  return <li key={shortid.generate()}>{oneNumber}</li> ;
-});
+class List extends React.Component {
+  render() {
+    const { cities } = this.props;
 
-export default listItems;
+    return (
+      <ul>
+        {cities.map((cityName, index) => {
+          const keyId = shortid.generate();					// <-- UPDATE
+
+          return <li key={keyId}> {cityName} </li>;			// <-- UPDATE
+       /* return <li key={shortid.generate()}> {cityName} </li>; */
+
+        })}
+      </ul>
+    );
+  }
+}
 ```
 
 
+
+
+
+<br>
+
+
+
+#### Update `App.js` to use `shortid` for list keys
+
+
+
+##### `src/App.js`
+
+```jsx
+// src/App.js
+
+        <h2> Mapping over an array</h2>
+        {
+          names.map((name, index) => (
+          	<li key={shortid.generate()}> {name} </li>
+        ))}
+
+```
+
+
+
+
+
+<br>
+
+
+
+#### We will still have an error in the console, coming from the first array of elements `listItems` as none of the elements have the `key` attribute.
+
+
+
+<p style='color: black; background: #FF6B77; padding: 5px 10px; border-radius: 5px; font-size: 18px'>If we open the <b>Chrome console</b> there’s an error: 
+<br>
+<br>
+<span style='background: #FFABA0; padding: 2px 7px; font-family: monospace'>  
+Warning: Each child in a list should have a unique "key" prop.
+</span>
+</p>
+
+
+
+
+
+<br>
 
 
 
@@ -284,10 +462,11 @@ export default listItems;
 
 ```jsx
 // src/components/Card.js
+
 import React from 'react';
 
 // Destructuring the prop object immediately
-const card = ({ movie }) => {
+const Card = ({ movie }) => {
   return (
     <div>
       <h2>{movie.title}</h2>
@@ -296,10 +475,14 @@ const card = ({ movie }) => {
   )
 };
 
-export default card;
+export default Card;
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -315,6 +498,7 @@ export default card;
 
 ```jsx
 // src/components/MovieList.js
+
 import React from 'react';
 import Card from './Card';
 import shortid from 'shortid';
@@ -329,7 +513,9 @@ const MovieList = () =>{
   return (
     <ul>
       { 
-        movies.map( (oneMovie) => <Card key={shortid.generate()} movie={oneMovie} /> ) 
+        movies.map( (movieObj) => {
+          return <Card key={ shortid.generate() }  movie={movieObj} /> 
+        } 
       }
     </ul>
   )
@@ -348,9 +534,44 @@ export default MovieList;
 
 
 
-##### Let's create a improved `MovieList` and `Card` Component that are even more dynamic.
+#### Let's create an improved `MovieList` and `ImprovedCard` Component that are even more dynamic.
 
 
+
+<br>
+
+
+
+#### First let's create an array of data we want to render - `src/data.js`
+
+
+
+**`src/data.js`**
+
+```js
+//	src/data.js
+
+const data = [
+  { title: "The Godfather", director: "Francis Coppola",  rating: 9 },
+  { title: "Star Wars", director: "Rian Johnson",  rating: 8 },
+  { title: "The Shawshank Redemption", director: "Frank Darabont",  rating: 9 },
+  { title: "Jurassic Park", director: "Steven Spielberg",  rating: 5 },
+  { title: "Sharknado", director: "Anthony C. Ferrante",  rating: 2 },
+  { title: "Titanic", director: "James Cameron" ,  rating: 9}
+]
+
+export default data;
+```
+
+
+
+
+
+<br>
+
+
+
+#### Create a new Card component
 
 
 
@@ -358,18 +579,20 @@ export default MovieList;
 
 ```jsx
 // src/components/ImprovedCard.js
+
 import React from 'react';
 
-const improvedCard = (props) => {
+const ImprovedCard = (props) => {
   return (
     <div>
       <h2>{props.title}</h2>
       <p>Director: {props.director}</p>
+      <p>Rating: {props.rating}</p>
     </div>
   )
 };
 
-export default improvedCard;
+export default ImprovedCard;
 ```
 
 
@@ -384,7 +607,7 @@ export default improvedCard;
 
 
 
-#### Create `DynamicMovieList` class component which takes array of any size.
+#### Create `ImprovedMovieList` class component which takes array of any size.
 
 
 
@@ -392,17 +615,20 @@ export default improvedCard;
 
 
 
-**`src/components/DynamicMovieList.js`**
+**`src/components/ImprovedMovieList.js`**
 
 ```jsx
-// src/components/DynamicMovieList.js
+// src/components/ImprovedMovieList.js
 import React, { Component } from 'react';
 import ImprovedCard from './ImprovedCard';
 import shortid from 'shortid';
 
 
-class DynamicMovieList extends Component {
+class ImprovedMovieList extends Component {
   //  we use `constructor` as we pass movies through props to set the as `state` value
+  //  Even though  there is a use case for this pattern, 
+  //  Setting initial state from the props is an anti-pattern,
+  //	and componentDidUpdate lifecycle method should be used insted
   constructor(props) {
     super();
     this.state = {
@@ -411,6 +637,7 @@ class DynamicMovieList extends Component {
   }
 
   render() {
+    
     return (
       <ul>
         { 
@@ -423,31 +650,14 @@ class DynamicMovieList extends Component {
   }
 }
 
-export default DynamicMovieList; 
+export default ImprovedMovieList; 
 ```
 
 
 
+<br>
 
 
-#### Create a mock of the data - `src/data.js`
-
-
-
-**`src/data.js`**
-
-```js
-const data = [
-  { title: "The Godfather", director: "Francis Coppola" },
-  { title: "Star Wars", director: "Rian Johnson" },
-  { title: "The Shawshank Redemption", director: "Frank Darabont" },
-  { title: "Jurassic Park", director: "Steven Spielberg" },
-  { title: "Sharknado", director: "Anthony C. Ferrante" },
-  { title: "Titanic", director: "James Cameron" }
-]
-
-export default data;
-```
 
 
 
@@ -458,15 +668,18 @@ export default data;
 **`src/components/App.js`**
 
 ```jsx
-...
-...
-import DynamicMovieList from './components/DynamicMovieList';
+//	...
+//	...
+
+import ImprovedMovieList from './components/ImprovedMovieList';
 
 import data from './data';
 
-...
-<h2>Dynamic Movie List</h2>
-<DynamicMovieList moviesArray={data}></DynamicMovieList>
+//	...
+//			...
+
+		<h1>Improved Movie List</h1>
+		<ImprovedMovieList moviesArray={data} />
 ```
 
 
@@ -482,13 +695,21 @@ import data from './data';
 **`src/components/ImprovedCard.js`**
 
 ```jsx
-const improvedCard = (props) => {
+// src/components/ImprovedCard.js
+
+const ImprovedCard = (props) => {
   return (
     <div>
       <h2>{props.title}</h2>
       <p>Director: {props.director}</p>
-
-      <button onClick={props.clickToDelete}>Delete</button>
+      <p>Rating: {props.rating}</p>
+      
+      <button 																{/*  ADD A BUTTON */}
+        className="btn-delete"
+        onClick={() => console.log('Delete clicked')}
+      >
+        Delete
+      </button>
       
     </div>
   )
@@ -503,19 +724,23 @@ const improvedCard = (props) => {
 
 
 
-#### Create a method in `DynamicMoviesList` that will be removing movies.
+#### Create a method in `ImprovedMoviesList` for removing movies.
 
 
 
-**src/components/DynamicMoviesList.js**
+##### `src/components/ImprovedMoviesList.js`
 
 ```jsx
-  deleteMovie = (movieIndex) => {
+//	src/components/ImprovedMoviesList.js
+
+
+	deleteMovie = (movieIndex) => {							//   <-- CREATE METHOD
     const moviesCopy = this.state.movies;
     moviesCopy.splice(movieIndex, 1);
     this.setState( {movies: moviesCopy} );
   }
 
+  
   render() {
     return (
       <ul>
@@ -523,9 +748,9 @@ const improvedCard = (props) => {
           this.state.movies.map( (oneMovie, index) => {
             return (
               <ImprovedCard 
-                key={index} 
+                key={shortid.generate()} 
                 {...oneMovie}
-                clickToDelete={ ()=> this.deleteMovie(index) }
+                clickToDelete={ ()=> this.deleteMovie(index) }		{/*  UPDATE */}
             //  clickToDelete={ this.deleteMovie.bind(this, index) }
               />
             ) 
@@ -541,5 +766,102 @@ const improvedCard = (props) => {
 
 
 
+<br>
+
+
+
+##### Update `ImprovedMovieCard`
+
+```jsx
+const ImprovedCard = (props) => {
+  return (
+    <div>
+      <h2>{props.title}</h2>
+      <p>Director: {props.director}</p>
+      <p>Rating: {props.rating}</p>
+      
+      <button
+        className="btn-delete"
+        onClick={props.clickToDelete}									{/*  UPDATE */}
+       >
+        Delete
+      </button>
+      
+    </div>
+  )
+};
+```
+
+
+
+
+
+<br>
+
+
+
+#### Add styles to the `App.css`
+
+```css
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+li {
+  list-style: none;
+}
+
+h1 {
+  padding:30px;
+  border: 2px solid black;
+  background: lightcyan;
+}
+
+h2 {
+  padding: 20px 50px;
+  border: 2px solid black;
+  display: inline-block;
+}
+
+button.btn-delete {
+  padding: 10px 25px;
+  font-size: 24px;
+  border-radius: 5px;
+
+}
+```
+
+
+
 ### [Repo with code example](<https://github.com/ross-u/React---List-and-Keys---Done>)
 
+
+
+
+
+<br>
+
+
+
+
+
+<hr>
+
+
+
+## Additional Resources
+
+
+
+#### [React Lists and Keys](https://reactjs.org/docs/lists-and-keys.html)
+
+
+
+#### [Arrays in React](https://medium.com/byte-sized-react/component-arrays-in-react-a46e775fae7b)
+
+
+
+#### [Index as a key is an anti-pattern](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318)

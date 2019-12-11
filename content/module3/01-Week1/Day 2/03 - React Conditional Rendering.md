@@ -10,7 +10,10 @@
 git clone https://github.com/ross-u/React---Conditional-Rendering-Starter-repo-
 
 cd React---Conditional-Rendering-Starter-repo-/
+
 npm i
+
+code .
 ```
 
 
@@ -25,11 +28,12 @@ In a pseudo code example we can give an example:
 
 ```js
 // PSEUDO CODE  :)
+
 if  (user is logged In)   {
-	render <UserImage>;
+	return <UserImage>;
 }
 else if (user is not logged in) {
-	render <LoginButton>
+	return <LoginButton>
 }
 ```
 
@@ -51,7 +55,9 @@ if (true) {
 
 
 
-#### Conditional rendering in React works the same way conditions work in JavaScript.
+#### Conditional rendering in React works the same way conditionals work in JavaScript.
+
+
 
 ####  We can use JavaScript operators  `if ... else` or the  `ternary` operator.
 
@@ -77,11 +83,13 @@ if (true) {
 
 
 
+
+
 ### This won't work!  - but lets check it:
 
 
 
-**src/components/ConditionalExample.js**
+##### `src/components/ConditionalExample.js`
 
 ```jsx
 // src/components/ConditionalExample.js
@@ -110,16 +118,28 @@ export default ConditionalExample;
 
 
 
+<br>
+
+
+
 ### Import it in and use it in `App.js`
 
 
 
-**src/App.js**
+##### `src/App.js`
 
 ```jsx
+// src/App.js
+
+//	...
+//	...
+
 import ConditionalExample from './components/ConditionalExample';
 
-render() {
+// ...
+//		...
+
+  render() {
     return (
       <div className="App">
         <Navbar></Navbar>
@@ -132,31 +152,37 @@ render() {
 
 
 
+> <br>
+
 
 
 #### This will work :
 
 
 
-**src/components/ConditionalExample.js**
+##### `src/components/ConditionalExample.js`
 
 ```jsx
 // src/components/ConditionalExample.js
+
 import React from 'react';
 
 
-//  `if - else` statements don't work inside JSX expressions. When using `if - else` it needs to be enclosed in a function.
+//  `if - else` statements don't work inside JSX expressions. 
+// `if - else` statements must be enclosed in a function.
 
-const renderTitle = (propsPassed) => {
-  if (propsPassed.title) { 
-    return <h3>TRUE - {propsPassed.title} </h3>;
+const renderTitle = (titleString) => {
+  if (titleString) { 
+    return <h3>TRUE - {titleString} </h3>;
   } else {
-    return <h3>FALSE - {propsPassed.title}</h3>;
+    return <h3>FALSE - {titleString}</h3>;
   } 
 }
 
 // function component
-const conditionalExample = (props) => {
+const ConditionalExample = (props) => {
+  const { title } = props;
+  
   return (
     <div>
       { renderTitle(props) }
@@ -164,10 +190,14 @@ const conditionalExample = (props) => {
   )
 };
 
-export default conditionalExample;
+export default ConditionalExample;
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -175,19 +205,25 @@ export default conditionalExample;
 
 #### We have slightly different `data.js` and movies now have `hasOscars` property.
 
+
+
 #### Check `src/data.js`
 
 
 
-
-
-#### Let's change our `ImprovedCard` component to do conditional rendering.
+<br>
 
 
 
-**src/components/ImprovedCard.js**
+#### Update the `ImprovedCard`  to conditionally render values.
+
+
+
+##### `src/components/ImprovedCard.js`
 
 ```jsx
+//	src/components/ImprovedCard.js
+
 import React from 'react';
 
 const improvedCard = (props) => {
@@ -197,10 +233,9 @@ const improvedCard = (props) => {
       <p>Director: {props.director}</p>
 
       {
-        props.hasOscars ?
-        	<p>Got the Oscar Award!!!! </p>
-        	:
-        	<p>Great movie but no Oscars! 😔</p>
+        (props.hasOscars) 
+          ? <p>Got the Oscar Award!!!!</p>
+          : <p>Great movie but no Oscars! 😔</p>
       }
 
       <button className='btn-delete' onClick={props.clickToDelete}>Delete</button>
@@ -216,13 +251,17 @@ export default improvedCard;
 
 
 
+<br>
+
+
+
 
 
 #### Doing the same with short circuit evaluation `&&`
 
 
 
-**src/components/improvedCard.js**
+`src/components/improvedCard.js`
 
 ```jsx
 // src/components/ImprovedCard.js
@@ -250,6 +289,8 @@ export default improvedCard;
 
 
 
+<br>
+
 
 
 
@@ -258,27 +299,30 @@ export default improvedCard;
 
 
 
-**src/components/DynamicMovieList.js**
+##### `src/components/DynamicMovieList.js`
 
 ```jsx
+// src/components/DynamicMovieList.js
+
 class DynamicMovieList extends Component {
   constructor(props) {
     super();
     this.state = {
       movies: props.moviesArray,
-      showMovies: true              /* ADD A BOOLEAN PROPERTY TO THE STATE */
+      showMovies: true            /* ADD A BOOLEAN PROPERTY TO THE STATE */
     }
   };
   
-  toggleMovies = () => {
+  toggleMovies = () => {									//		<-- CREATE METHOD
     this.setState({ showMovies: !this.state.showMovies });
   }
   
-  ...
-  ...
+  //	...
+  //	...
+  
   render() {
     return (
-      <div>
+      <div>																		{/*    ADD     */}
         <button onClick={this.toggleMovies}>
           Toggle Movies
         </button>
@@ -286,16 +330,16 @@ class DynamicMovieList extends Component {
         <ul>
         {
             
-          this.state.showMovies ? 
-          this.state.movies.map( (oneMovie, index) => {
-            return <ImprovedCard ..... />
-          })
-          :
-          null
+          this.state.showMovies 										   {/*    ADD     */}
+            ? this.state.movies.map( (oneMovie, index) => {
+            		return <ImprovedCard ..... />
+          	})
+            
+          	: null
             
         }
         </ul>
-      </div><button onClick={this.toggleMovies} >TOGGLE MOVIES</button>
+      </div>
       
     )
   }

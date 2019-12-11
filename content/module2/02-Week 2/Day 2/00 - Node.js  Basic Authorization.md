@@ -20,13 +20,22 @@ After this lesson, you will be able to:
 
 ### What is the authorization?
 
-#### Authorization is the method we use to protect access to some content in our app from certain users. 
-
-#### We want to give access to th user only to routes that he is authorized for.
-
+- We give access to certain routes only to the users that are authorized.
+- Authorization is the process deciding what resources is the user authorized to access.
 
 
-#### We will cover authentication in another learning unit. In this learning unit we will just cover the concept of **authorizing** the user, and the different ways we can do that.
+
+
+
+We will cover authentication in another learning unit. 
+
+
+
+(On the other hand **authentication** describes the process of authenticating the user, e.g. via Login form, sessions, tokens );
+
+
+
+In this learning unit we will just cover the concept of **authorizing** the user, and the different ways we can do that.
 
 
 
@@ -40,7 +49,9 @@ We have several ways to provide authorization in our applications.
 
 #### Email and password
 
-The most basic approach for authorization:. **PROS**: Everyone has an email account 100% of users covered.
+The most basic approach for authorization:. 
+
+**PROS**: Everyone has an email account 100% of users covered.
 
 
 
@@ -60,45 +71,59 @@ With the rise of the social networks, a new way to authorize users appears: it�
 
 
 
-
-
-### A common factor in any of the types is a password. How to secure secure our user's passwords.
-
+<br>
 
 
 
+#### A common factor in every authorization types is the password. 
 
-### Password Security
+
+
+#### How to secure secure our user's passwords.
+
+
+
+<br>
+
+
+
+## Password Security & Encryption
 
 We can send a form submission data in two different ways, depending on the HTTP method :
 
 
 
-- **GET**: we submit the form values through the Web address’ query string.
+- **GET**:  we submit the form values through the URL query string.
 
-- **POST**: we submit the form values hidden in the request’s body.
+- **POST**: we submit the form values hidden in the request body.
 
-  
 
-In both cases, we receive the values somehow and in both cases we can't send the password as a plaint text as this would be a huge security risk.
+
+<br>
+
+
 
 **We have to encrypt the password.**
 
 
 
+Doesn't matter if POST / GET we can't leave the password as a plaint text in the database or out of it, as this would be a security risk.
 
 
 
-
-#### To encrypt our passwords, we are going to use a [Hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function).
+<br>
 
 
 
 #### Hash functions
 
-#### A [hash function](https://en.wikipedia.org/wiki/Hash_function) is a function that, given any string as a parameter, generates a unique string of data.
+- To encrypt our passwords, we are going to use a [Hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function).
 
-Hash functions are used in cryptography to ensure the integrity of the text. The same string will have always have the same hash.
+- A [hash function](https://en.wikipedia.org/wiki/Hash_function) is a function that, given any string as a parameter, generates a unique string of data.
+
+- Hash functions are used in cryptography to ensure the integrity of the text. The same string will have always have the same unique hash.
+
+
 
 
 
@@ -106,7 +131,7 @@ It’s not impossible to **decrypt a hash value to get its original content**.
 
 Decrypting a hash value **is just extremely impractical**. 
 
-Because of the math involved and due to computationally intense operations,
+Because of the math involved and due to computationally intense operations.
 
  even if the user steals our encrypted passwords, It could take from months to years for it to be decrypted.
 
@@ -118,7 +143,15 @@ There are a lot of algorithms used to encrypt data with hash functions. The most
 
 
 
-Bcrypt is a hashing algorithm thats meant to transform a plain text password into something thats's undecipherable.
+<br>
+
+
+
+### Bcrypt
+
+
+
+[Bcrypt](https://www.npmjs.com/package/bcrypt) is a hashing algorithm thats meant to transform a plain text password into something that's undecipherable.
 
 
 
@@ -126,13 +159,21 @@ Bcrypt is a hashing algorithm thats meant to transform a plain text password int
 
 
 
-We are going to use [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) because it provides a salt protect against [rainbow table](https://en.wikipedia.org/wiki/Rainbow_table) attacks, and an adaptive function: over time, the iteration count can be increased to make it slower, so it remains resistant to [brute-force](https://en.wikipedia.org/wiki/Brute-force_search) attacks. It’s also specially designed for passwords.
+Hashing scrambles our password into a long string of characters that is practically impossible to decode via a mathematical method, 
+
+~~but only with brute force which is very impractical and long.~~
 
 
 
-Think of a hashing as a one way scrambler, which scrambles our password into a long string of characters that is practically impossible to decode via a mathematical method (but only with brute force which is very impractical and long).
+~~We are going to use [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) because it provides a salt protect against [rainbow table](https://en.wikipedia.org/wiki/Rainbow_table) attacks, and an adaptive function: over time, the iteration count can be increased to make it slower, so it remains resistant to [brute-force](https://en.wikipedia.org/wiki/Brute-force_search) attacks. It’s also specially designed for passwords.~~
 
 
+
+<br>
+
+
+
+**Salt** is [random](https://en.wikipedia.org/wiki/Random_Number_Generator) data that is used as an additional input to a [one-way function](https://en.wikipedia.org/wiki/One-way_function) that "[hashes](https://en.wikipedia.org/wiki/Cryptographic_hash_function)" [data](https://en.wikipedia.org/wiki/Data_(computing)), a [password](https://en.wikipedia.org/wiki/Password) or [passphrase](https://en.wikipedia.org/wiki/Passphrase). 
 
 
 
@@ -142,13 +183,23 @@ Node.JS [bcrypt package](https://www.npmjs.com/package/bcrypt) allows us to encr
 
 
 
+### [
+
+
+
+
+
+
+
+### OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_83d7129f38bde763a2557d189ab98a7b.png)
+
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_83d7129f38bde763a2557d189ab98a7b.png)
 
 
 
 
 
-
+<br>
 
 
 
@@ -157,6 +208,8 @@ Node.JS [bcrypt package](https://www.npmjs.com/package/bcrypt) allows us to encr
 # Sign up workflow
 
 
+
+### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_7776ce6ec2afe91c8b15fec37ba1e24a.png)
 
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_7776ce6ec2afe91c8b15fec37ba1e24a.png)
 
@@ -177,7 +230,8 @@ Node.JS [bcrypt package](https://www.npmjs.com/package/bcrypt) allows us to encr
 ### Create the project using express generator
 
 ```bash
-express --hbs basic-auth
+express --view=hbs basic-auth
+
 cd basic-auth
 ```
 
@@ -189,18 +243,28 @@ cd basic-auth
 
 ```bash
 # Install all the dependencies listed in package.json by express generator
-npm install
+npm i
+
 
 # Install mongoose and bcrypt
-npm install --save mongoose
-npm install --save bcrypt
+npm i --save mongoose bcrypt
+
+
+# Install nodemone
+npm i --save-dev nodemon
+
 
 # Create additional folders and files
-mkdir views/auth models;
-touch views/auth/signup.hbs models/user.js routes/auth.js
+mkdir views/auth models
+touch views/auth/signup.hbs models/User.js routes/auth.js
+
 
 # Remove routes/users
 rm routes/users.js
+
+
+code .
+
 ```
 
 
@@ -209,7 +273,7 @@ rm routes/users.js
 
 
 
-
+<br>
 
 
 
@@ -217,13 +281,15 @@ rm routes/users.js
 
 ## Our tree structure
 
+
+
 ```js
 📦basic-auth
  ┣ 📂bin
  ┣ 📂node_modules
  ┃
  ┣ 📂models
- ┃ ┗ 📜user.js
+ ┃ ┗ 📜User.js
  ┃
  ┣ 📂public
  ┃
@@ -257,15 +323,20 @@ rm routes/users.js
 
 ​	
 
-**app.js**
+##### `app.js`
 
 ~~`var indexRouter = require('./routes/index');`~~
 ~~`var usersRouter = require('./routes/users');`~~
 
 ```js
+// app.js
+
 const router = require('./routes/index');
 ...
 ...
+
+// app.use('/', indexRouter);				// REMOVE
+// app.use('/users', usersRouter);	// REMOVE
 
 // Routes
 app.use('/', router);
@@ -273,17 +344,21 @@ app.use('/', router);
 
 
 
+<br>
+
 
 
 #### Link the `authRouter` in the `routes/index.js`
 
-**routes/index.js**
+##### `routes/index.js`
 
 ```js
 // routes/index.js
+
 const express = require("express");
 const router = express.Router();
-const authRouter = require('./auth');
+
+const authRouter = require('./auth');	// ADD
 
 // *	'/signup'
 router.use('/signup', authRouter)
@@ -291,7 +366,7 @@ router.use('/signup', authRouter)
 
 // GET '/'
 router.get('/', (req, res, next) => {
-  res.render('index', {title: 'Basic authentication code along'});
+  res.render('index', {title: 'Basic auth code along'});
 });
 
 module.exports = router;
@@ -301,17 +376,22 @@ module.exports = router;
 
 
 
+<br>
+
+
+
 #### Create a GET `/signup` route in the  `authRouter` 
 
 
 
-**routes/auth.js**
+##### `routes/auth.js`
 
 ```js
 // routes/auth.js
 const express = require("express");
 const router = express.Router();
 const User = require('./../models/user');
+
 
 //	GET '/signup'
 router.get('/', (req, res, next) => {
@@ -323,17 +403,11 @@ module.exports = router;
 
 
 
+<br>
 
 
 
-
-
-
-
-
-
-
-## Create mongoose connection and User model
+## Create mongoose connection & `User` model
 
 
 
@@ -343,9 +417,9 @@ module.exports = router;
 
 
 
-#### create mongoose connection
+#### Create mongoose connection
 
-**app.js**
+##### `app.js`
 
 ```js
 const mongoose = require("mongoose");
@@ -353,24 +427,33 @@ const mongoose = require("mongoose");
 ...
 ...
 
-mongoose.connect('mongodb://localhost/basic-auth', {
-  keepAlive: true,
+mongoose.connect('mongodb://localhost:27017/basic-auth', {
   useNewUrlParser: true,
-  reconnectTries: Number.MAX_VALUE
+  reconnectTries: Number.MAX_VALUE,
+  useUnifiedTopology: true
 });
 
 ```
 
 
 
+<br>
 
 
-#### create User model
 
-**models/user.js**
+
+
+
+
+### Create `User` model
+
+
+
+##### `models/User.js`
 
 ```js
-// models/user.js
+// models/User.js
+
 const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
@@ -390,22 +473,21 @@ module.exports = User;
 
 
 
+<br>
 
 
 
+### Create a Sign Up form	-	 `views/auth/signup.hbs`
 
 
 
-
-
-### Create a signup form	-	 `views/auth/signup.hbs`
-
-
-
-**views/auth/signup.hbs**
+##### `views/auth/signup.hbs`
 
 ```html
-  <form id="form" action="/signup" method="POST">
+<!--  views/auth/signup.hbs   -->
+
+
+	<form id="form" action="/signup" method="POST">
     <label for="username">Username</label><br>
     <input type="text" name="username"
       placeholder="Your username">
@@ -428,11 +510,15 @@ module.exports = User;
 
 
 
+<br>
+
+
+
 ### Add style to the form
 
 
 
-**public/stylesheet/style.css**
+##### `public/stylesheet/style.css`
 
 ```css
 /* public/stylesheet/style.css */
@@ -492,14 +578,25 @@ button:hover {
 
 
 
+<br>
+
 
 
 ### Update home page `views/index.hbs`
 
-```js
-...
+
+
+##### `views/index.hbs`
+
+```html
+<!--   views/index.hbs   -->
+
+
+<!--   ...   -->
+
+
 <a href="/signup">
-  <button type="button"> SIGN UP </button>
+  <button> SIGN UP </button>
 </a>
 ```
 
@@ -507,15 +604,24 @@ button:hover {
 
 
 
+<br>
 
 
 
+### Update`package.json`
 
-### Create a `start-dev` script in `package.json`
+
+
+##### `package.json`
 
 ```js
-"start-dev": "nodemon ./bin/www",
+"scripts": {
+	"start-dev": "nodemon ./bin/www",
 ```
+
+
+
+<br>
 
 
 
@@ -527,15 +633,19 @@ npm run start-dev
 
 
 
-
-
-### Visit `localhost:3000/` to see the homepage
-
-### Visit `localhost:3000/signup` to see the form
+<br>
 
 
 
+#### Visit [`localhost:3000/`](http://127.0.0.1:3000/) to see the homepage
 
+#### Visit [`localhost:3000/signup`](http://127.0.0.1:3000/signup) to see the form
+
+
+
+
+
+<br>
 
 
 
@@ -545,26 +655,34 @@ npm run start-dev
 
 
 
-**routes/auth.js**
+##### `routes/auth.js`
 
 ```js
-// Require `bcrypt` to hash passwords and specify number for salt rounds
+// routes/auth.js
+
+// 1 - Require `bcrypt` for passwords hashing
+// 2 - Create variable for the number of salt rounds
 
 
+// POST '/auth'
 router.post("/", (req, res, next) => {
-  // Deconstruct the `username` and `password` from request body
+  
+  // 3 - Deconstruct the `username` and `password` from req.body
   
 
-  // Check if `username` and `password` are empty and display error message
+  // 4 - Check if `username` or `password` are empty and display error message
   
   
-  // Query the users collection and to check username and password 
+  // 5 - Check the users collection if the username already exists 
   
-					// > if `username` already exists in the DB and display error message
+			// > if `username` already exists in the DB and display error message
   
-      		// > If `username` doesn't exist generate salts and hash the password 
+      // > If `username` doesn't exist generate salts and hash the password 
       
-  				// > After hashing the password, create new user in DB and redirect to home 
+  		// > After hashing the password, create new user in DB
+  	
+  				// >  When the new user is created, redirect to '/home' page
+  
   
   	// catch errors from User.findOne
 });
@@ -589,13 +707,13 @@ router.post("/", (req, res, next) => {
   // Check if `username` and `password` are empty and display error message
   if (username === '' || password === '') {
     res.render('auth/signup', 
-               { errorMessage: 'Indicate a username and a password.'}
+               { errorMessage: 'Enter the username and password.'}
               );
     return;
   }
   
   
-  	// Query the users collection and to check username and password 
+  	// Check the users collection to check the username
     User.findOne({ username })
     .then((user) => {
       
@@ -613,7 +731,7 @@ router.post("/", (req, res, next) => {
   		// > After hashing the password, create new user in DB and redirect to home 
       User.create( { username, password: hashedPassword})
       	.then(() => res.redirect('/'))
-        .catch((err) => res.render('auth/signup',{ errorMessage:'Error while creating new user'}));
+        .catch((err) => res.render('auth/signup',{ errorMessage:'Error while trying to create a  new user'}));
       
      })
      .catch((err) => next(err));	// catch errors from User.findOne
@@ -625,27 +743,53 @@ router.post("/", (req, res, next) => {
 
 
 
+<br>
+
+
+
 ### BONUS: Advanced security
+
+
 
 
 
 #### Password strength measurement
 
-Node provides us a package to implement this functionality, [`zxcvbn`](https://www.npmjs.com/package/zxcvbn). It provides the tools to check the password strength in both front-end and back-end.
+- To implement the password strength check functionality, we can use the package [`zxcvbn`](https://www.npmjs.com/package/zxcvbn). 
+
+- `zxcvbn` package is a tool to check the password strength in both front-end and back-end.
+
+
+
+<br>
+
+
+
+#### Install the package
+
+```bash
+npm i --save zxcvbn
+```
 
 
 
 
 
-**routes/auth.js**
+##### `routes/auth.js`
 
 ```js
+//  routes/auth.js
+
+//	...
+//			...
+
 // Import zxcvbn
 const zxcvbn = require('zxcvbn');
 
 // Create check for the password strength score after:
 //  	if (username === '' || password === '') {}
 
+			// Check the password strength
 			if (zxcvbn(password).score < 3) {
     		res.render('auth/signup',
       		{ errorMessage: 'Password too weak, try again' }
@@ -656,6 +800,10 @@ const zxcvbn = require('zxcvbn');
 ```
 
 
+
+
+
+<br>
 
 
 

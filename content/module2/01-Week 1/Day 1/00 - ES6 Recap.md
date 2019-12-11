@@ -1,4 +1,4 @@
-![img](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
+
 
 # ES6 | Recap & Scope
 
@@ -128,10 +128,10 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   
   if (true) {
     let name = "John";
-    console.log(`Name INSIDE if block statement: ${name}`);
+    console.log(`Name INSIDE the 'if' block: ${name}`);
   }
   
-  console.log(`Name OUTSIDE if block statement: ${name}`);
+  console.log(`Name OUTSIDE the 'if' block: ${name}`);
   
   // Name inside if block statement: John
 // Name outside if block statement: Ironhacker
@@ -150,23 +150,29 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   
   ```
 
+
+
+​		
+
+```js
 // BUT THIS WILL THROW AN ERROR
-  let message = "This is the first message.";
-let message = "This is the second message."; // <== Duplicate declaration "message" 
-  ```
+let message = "This is the first message.";
+let message = "This is the second message."; // <== Duplicate declaration "message"
+```
 
-  
-  
-  
-  
+
+
+
+
+
   e. `const` variables have to be initialized in the moment of declaration.
-  
-​```js
-  const name1 = "John"; // <== CORRECT
 
-  const name2;
+```js
+const name1 = "John"; // <== CORRECT
+const name2;
+
 name2 = "Sarah"; // WRONG! - This will throw an Error
-  ```
+```
 
   
 
@@ -175,12 +181,13 @@ name2 = "Sarah"; // WRONG! - This will throw an Error
   f.  `const` variables can't be redeclared or assigned new value
 
   ```js
-  // THIS WILL THROW AN ERROR
-  const message = "This is the first message.";
+// THIS WILL THROW AN ERROR
+
+const message = "This is the first message.";
 message = "This is the second message."; // <== "message" is read-only
   
 // AND THIS WILL THROW AN ERROR
-  const message = "This is the first message.";
+const message = "This is the first message.";
 const message = "This is the second message."; // <== Duplicate declaration "message" 
   ```
 
@@ -191,14 +198,16 @@ const message = "This is the second message."; // <== Duplicate declaration "mes
   g.  `const` variables containing Objects and arrays can be mutated (not reassigned).
 
   ```js
-  // This is ok ✅
-  const obj = {};
-  obj.name = "Ironhacker";
-  
-  // This is not 🚨
-  obj = { name: "Ironhacker" };
-  // SyntaxError: Assignment to constant variable
+// This is ok ✅
+const obj = {};
+obj.name = "Ironhacker";
+
+// This is not 🚨
+obj = { name: "Ironhacker" };
+// SyntaxError: Assignment to constant variable
   ```
+
+
 
 
 
@@ -211,6 +220,10 @@ const message = "This is the second message."; // <== Duplicate declaration "mes
 [let example - CODEPEN](https://codepen.io/Denzelzeldi/pen/JjPvbwM?editors=0012)
 
 [const example - CODEPEN](https://codepen.io/Denzelzeldi/pen/LYPmbKm?editors=0010)
+
+
+
+Additional: [TDZ - `let` and `const `Temporal dead zone](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone)
 
 
 
@@ -299,11 +312,13 @@ for (const name of namesArray) {
 
 
 
-### [EXERCISE - CODEPEN `for...of`](https://codepen.io/Denzelzeldi/pen/vMrLrQ?editors=0012)
+### [EXERCISE - `for...of` Bank - GIST](https://gist.github.com/ross-u/ee6905057ed757503738fced8d2c3667) (15 min)
 
 
 
-### [SOLUTION - `for...of`](https://codepen.io/Denzelzeldi/pen/OJLZWzy?editors=0012)
+
+
+### [SOLUTION - `for...of` - on codepen](https://codepen.io/Denzelzeldi/pen/OJLZWzy?editors=0012)
 
 
 
@@ -420,7 +435,88 @@ console.log(greeting() );
 
 
 
-### [Refactor to Arrow Function - Exercise](<https://codepen.io/Denzelzeldi/pen/BEVzzm?editors=0011>) (5 min)
+### [Refactor to Arrow Function - Exercise](https://gist.github.com/ross-u/8db498f2beb0a387829e3ec381657e08) (10 min)
+
+
+
+
+
+<br>
+
+
+
+## Arrow Functions - accessing `this`
+
+
+
+#### Old Function Syntax
+
+- Issue with accessing `this` with `window` methods like `setInterval`:
+
+```js
+class Counter {
+  constructor() {
+    this.count = 1;
+  }
+
+  countUp() {
+    setInterval(function() {
+			console.log(this);	// Window {}
+      console.log(this.count++); // <-- Trouble!
+    }.bind(this), 1000);
+  }
+}
+
+
+console.log(window.setInterval ); // setInterval is a method of `window`
+
+let counterObject1 = new Counter();
+counterObject1.countUp();
+```
+
+
+
+
+
+### New Arrow Syntax
+
+```js
+class Counter {
+  constructor() {
+    this.count = 1;
+  }
+
+  countUp() {
+    setInterval(() => { // arrow function takes the value of this from it's surrounding scope
+      console.log(this.count);
+      this.count++;
+    }, 1000);
+  }
+}
+
+let counterObject2 = new Counter();
+counterObject2.countUp();
+```
+
+
+
+
+
+
+
+
+
+### `default` parameters
+
+```js
+// Example
+function inc(number, increment = 1) {
+  return number + increment;
+}
+
+console.log(inc(2)); // 3
+console.log(inc(2, 23)); // 25
+```
 
 
 
@@ -492,18 +588,25 @@ function myFunction(arg1) {
   console.log(arguments);
 }
 
-// Before ES6 there wsa no simple way to capture remaining arguments
+// Before ES6 there was no simple way to capture the remaining arguments
 myFunction("first argument", "second argument", "third argument", "fourth");
 
 
 // Using the Rest operator
-function myNewFunction(arg1, ...args, lastArg) {
+function myNewFunction(arg1, arg2, ...args) {
 	console.log(arg1);
+  console.log(arg2);
   console.log(args);
-  console.log(lastArg);
 }
 
 myNewFunction("One", "Two", "Three", "Four", "Five");
+
+
+// WRONG - Error: Rest parameter must be last formal parameter
+function wrongRestExample(arg1, ...args, lastArg) {
+  console.log(args);
+}
+
 ```
 
 
@@ -550,9 +653,11 @@ let BankAccount = function(clientName, currency) {
   this.balance = 0.0;
 }
 
+
 BankAccount.prototype.showBalance = function() {
   return `${this.currency} ${this.balance}`;
 }
+
 
 BankAccount.prototype.withdrawMoney = function(amount) {
   if (amount <= this.balance) {
@@ -562,9 +667,11 @@ BankAccount.prototype.withdrawMoney = function(amount) {
   }
 }
 
+
 BankAccount.prototype.depositMoney = function(amount) {
   this.balance += amount
 }
+
 
 let account1 = new BankAccount('mike', '$');
 account1.depositMoney(100);
@@ -703,102 +810,6 @@ mac.nameAndPrice();
 
 
 
-## Arrow Functions - accessing `this`
-
-
-
-#### Old Function Syntax
-
-- Issue with accessing `this` with `window` methods like `setInterval`:
-
-```js
-class Counter {
-  constructor() {
-    this.count = 1;
-  }
-
-  countUp() {
-    setInterval(function() {
-			console.log(this);	// Window {}
-      console.log(this.count++); // <-- Trouble!
-    }.bind(this), 1000);
-  }
-}
-
-
-console.log(window.setInterval ); // setInterval is a method of `window`
-
-let counterObject1 = new Counter();
-counterObject1.countUp();
-```
-
-
-
-
-
-### New Arrow Syntax
-
-```js
-class Counter {
-  constructor() {
-    this.count = 1;
-  }
-
-  countUp() {
-    setInterval(() => { // arrow function takes the value of this from it's surrounding scope
-      console.log(this.count);
-      this.count++;
-    }, 1000);
-  }
-}
-
-let counterObject2 = new Counter();
-counterObject2.countUp();
-```
-
-
-
-
-
-
-
-
-
-### `default` parameters
-
-```js
-// Example 1
-class CounterWithDefault {
-  constructor(startCount = 10) {
-    this.count = startCount;
-  }
-
-  countUp() {
-    setInterval(() => { // arrow function takes the value of this from it's surrounding scope
-      console.log(this.count);
-      this.count++;
-    }, 1000);
-  }
-}
-
-let counterObject3 = new Counter();
-counterObject3.countUp();
-
-/*OR
-let counterObject4 = new Counter(10);
-counterObject4.countUp(); */
-
-
-
-// Example 2
-function inc(number, increment = 1) {
-  return number + increment;
-}
-
-console.log(inc(2)); // 3
-console.log(inc(2, 23)); // 25
-```
-
 
 
 
@@ -821,7 +832,7 @@ console.log(inc(2, 23)); // 25
 
 
 
-### [Summary - Notes for the Students](https://gist.github.com/ross-u/cd6523b92e6ac272f37a5428235fdb24)
+### [Summary - Notes for the Students](https://gist.github.com/ross-u/d268a9ae3b5e79949a855c96e31ab5de)
 
 
 

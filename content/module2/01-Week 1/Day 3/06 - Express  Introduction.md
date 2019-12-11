@@ -30,7 +30,9 @@ We can also enhance it's feautres through additional plugins.
 
 ## **What does 'unopinionated' mean?**
 
-### It means there is no one right way to do things that Express will force you into. By contrast an opinionated framework guides/forces you into a specific way to do something. The best example of such is Ruby on Rails ("the Rails Way").
+### It means there is no one right way to do things that Express will force you into. By contrast an opinionated framework guides/forces you into a specific way to do something. 
+
+### The best example of such is Ruby on Rails ("the Rails Way").
 
 
 
@@ -302,6 +304,14 @@ and
 
 
 
+### or
+
+
+
+#### Get the files from the Repo with `about.html` and `index.html`.
+
+### [Repo with static files](https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-)
+
 
 
 ```js
@@ -365,6 +375,8 @@ touch .gitignore
 
 ```js
 node_modules
+
+.DS_Store
 ```
 
 

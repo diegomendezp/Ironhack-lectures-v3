@@ -2,19 +2,11 @@
 
 
 
-## Learning Goals
-
-After this lesson you will be able to:
-
-- Implement more complex schemas
-- Create, read, update and delete documents using Mongoose models
-- Manipulate with Mongoose documents
-
-
-
 
 
 ### [Repo - empty - file structure only](<https://github.com/ross-u/Mongoose-advanced-schemas-models>)
+
+
 
 ### [Repo - done](<https://github.com/ross-u/Mongoose-advanced-schemas-models-done>)
 
@@ -32,29 +24,33 @@ After this lesson you will be able to:
 
 ## Schemas
 
-####  **A schema gives our database structure**.
+#####  A schema gives our database a structure.
 
-#### It helps us ensure consistency in our database and we are less likely to:
+##### It helps us ensure consistency in our database and prevent:
 
-- **Add fields that shouldn’t exist** (because you did define it in your schema).
-- **Forget fields that are required**.
-- **Use the wrong type in a field**
-
-
+- **Adding document with fields that shouldn’t exist** (because you did define it in your schema).
+- **Forgetting to set data for fields that are required**.
+- **Use the wrong data type in a field**.
 
 
+
+
+
+<br>
 
 
 
 ## Schema allows us to:
 
-- specify the type that each field in the document must have
-- specify the default value if value was not given
-- Type Validation
+- specify the type that each field in the document must have.
+- specify the default value if value was not given.
+- Type Validation.
 
 
 
 
+
+<br>
 
 
 
@@ -62,13 +58,17 @@ After this lesson you will be able to:
 
 ## Schema Data Types
 
-#### A Schema Data Type is a configuration object for an individual field / in the document:
+- A Schema Data Type is set for each field in the Schema
 
-### [SchemaTypes](https://mongoosejs.com/docs/schematypes.html#schematypes)
+- It can be set with a simple notation or a inside a configuration object for more detailed settings of the field:
+
+### [Mongoose - SchemaTypes](https://mongoosejs.com/docs/schematypes.html#schematypes)
 
 
 
 
+
+<br>
 
 
 
@@ -76,7 +76,11 @@ After this lesson you will be able to:
 
 #### Besides type of the fields,  we can set more detailed validation by defining more properties:
 
-<3http://materials.ironhack.com/s/r1AXC2G6EN7#schema-data-types-validation>
+### [List of custom validation properties](https://gist.github.com/ross-u/83a2b5ad4ceb3217ee9489b48ed98c48#schema-data-types-validation)
+
+
+
+### [Mongoose Docs - Validation](https://mongoosejs.com/docs/validation.html#built-in-validators)
 
 
 
@@ -84,33 +88,47 @@ After this lesson you will be able to:
 
 
 
+## Code Along  (or Demo)
+
+<br>
+
+
+
+### Clone the structure Repo
+
+### [Starter Repo - file structure & data only](<https://github.com/ross-u/Mongoose-advanced-schemas-models>)
+
+
+
+<br>
+
+
+
+### Install the dependencies
+
+```bash
+npm i
+```
 
 
 
 
-## Clone the structure Repo
 
-### [Repo - empty - file structure only](<https://github.com/ross-u/Mongoose-advanced-schemas-models>)
-
-
-
-
-
-
-
-
-
-
+<br>
 
 ## Creating a Schema
 
-#### To create a schema we use a `mongoose.Schema` constructor.
+
+
+##### To create a schema we use a `mongoose.Schema` constructor.
 
 
 
+<br>
 
 
-**models/ClientModel.js**
+
+##### `models/ClientModel.js`
 
 ```js
 const mongoose = require("mongoose");
@@ -118,7 +136,7 @@ const Schema = mongoose.Schema; // Schema constructor
 
 // CREATE THE SCHEMA
 const clientSchema = new Schema({
-  name:{ type: String, required: true, unique: true },
+  name:{ type: String, required: true },
   
   age: { type: String, required: true },
   
@@ -128,13 +146,19 @@ const clientSchema = new Schema({
   
   payments:{ type: [paymentSchema], required: true },
 });
+
+
+// CREATE MODEL
+// Future Step ...
 ```
 
 
 
+<br>
 
 
-**schemas/paymentSchema.js**
+
+##### `schemas/paymentSchema.js`
 
 ```js
 const mongoose = require("mongoose");
@@ -144,7 +168,7 @@ const Schema   = mongoose.Schema;
 const paymentSchema = new Schema({
   date:{ type: Date, default: Date.now },
   
-  amount:{ type: Number, required: true, default: 0 }
+  amount:{ type: Number, default: 0 }
 });
 
 // EXPORT
@@ -153,19 +177,25 @@ module.exports = paymentSchema;
 
 
 
+<br>
 
 
 
 
 
+### Referencing one Schema as a Type in another Schema
 
-## Referencing one Schema as a Type in another Schema!
 
 
+<br>
 
 
 
 #### Import `paymentSchema` into  **`models/ClientModel.js`**   and update it
+
+
+
+##### `models/ClientModel.js`
 
 ```js
 const mongoose = require("mongoose");
@@ -183,8 +213,10 @@ const clientSchema = new Schema({
   payments:{ type: [paymentSchema], required: true },
 });
 
+
 // CREATE THE MODEL
 const Client = mongoose.model('Client', clientSchema);
+
 
 // EXPORT THE MODEL
 module.exports = Client;
@@ -195,11 +227,17 @@ module.exports = Client;
 
 
 
+<br>
 
 
 
 
-## INSERTING DOCUMENTS - Model.create
+
+### Inserting Documents - `Model.create()`
+
+
+
+##### `clients.js`
 
 ```js
 // INSERTING DOCUMENTS - `Model.create`
@@ -224,13 +262,27 @@ Client.create( client1 , (err, result) => {
 
 
 
+### *** Run the app with node:  
+
+```bash
+node clients.js
+```
+
+ 
 
 
 
+<br>
 
-## RETRIEVE A SINGLE DOCUMENT - Model.findbyID
 
-```js
+
+### Retrieve a single document - `Model.findById()`
+
+
+
+Get the if of previously inserted document using the **`mongo`** shell: 
+
+```bash
 $ mongo
 > use iron-bank
 db.clients.find()
@@ -238,13 +290,17 @@ db.clients.find()
 
 
 
+<br>
+
+##### `clients.js`
+
 ```js
 // RETRIEVE A SINGLE DOCUMENT - `Model.findById`
 //https://mongoosejs.com/docs/api.html#model_Model.findById
 
 Client.findById('5cc0cc295543162c7451b79b')
-  .then( (result) => console.log(result))
-  .catch( (err) => console.log(err));
+  .then( (result) => console.log('findById() ', result))
+  .catch( (err) => console.error(err));
 
 ```
 
@@ -252,9 +308,11 @@ Client.findById('5cc0cc295543162c7451b79b')
 
 
 
+<br>
 
 
-## INSERT MULTIPLE DOCUMENTS - Model.insertMany
+
+### Insert multiple documents - `Model.insertMany()`
 
 ```js
 //  INSERT MULTIPLE DOCUMENTS - `Model.insertMany`
@@ -262,26 +320,27 @@ Client.findById('5cc0cc295543162c7451b79b')
 
 Client.insertMany(data)
   .then( (result) => console.log(result))
-  .catch(err=> console.log(err))
+  .catch( (err) => console.error(err));
 ```
 
 
 
 
 
+<br>
 
 
 
-
-## RETRIEVE DOCUMENTS  -  Model.find
+### Retrieve Documents  -  `Model.find()`
 
 ```js
 //  RETRIEVE DOCUMENTS  - `Model.find`
 //  https://mongoosejs.com/docs/api.html#model_Model.find
 
+// Can be used without a query to retrieve all documents
 Client.find()
   .then((result) => {
-    let total = 0;
+    let total = 0;	// of all client balances
     result.forEach((client) => total += client.balance);
 
     console.log(`TOTAL: ${(total).toFixed(2)} USD`);
@@ -291,13 +350,25 @@ Client.find()
 
 
 
+Or with `reduce()`
+
+```js
+Client.find().then(result => {
+  let total = result.reduce((total, client) => {
+    return (total + client.balance);
+  }, 0);
+
+  console.log(`REDUCED TOTAL: ${total.toFixed(2)} USD`);
+});
+```
 
 
 
+<br>
 
 
 
-## UPDATE ONE DOCUMENT
+### Update one document `Model.findOneAndUpdate()` 
 
 ```js
 // UPDATE ONE DOCUMENT  - Model.findOneAndUpdate
@@ -314,16 +385,23 @@ Client.findOneAndUpdate({ name: 'Carol Whitney' }, { $set: { payments:  multiple
 
 
 
+<br>
 
 
-## DELETE ONE DOCUMENT
+
+### Delete one document `Model.deleteOne`
 
 ```js
 // DELETE ONE DOCUMENT -  Model.deleteOne
 //https://mongoosejs.com/docs/api.html#model_Model.deleteOne
 
 Client.deleteOne({ name:'Maddox Leon'})
-   .then( (result) => console.log('Success deleting document', result))
-   .catch(err => console.log(err));
+ .then( (result) => {
+    if (result.deletedCount === 0) {
+      throw new Error('deleteOne() - Document instance doesn\'t exist')
+    }
+    else console.log('Success deleting document', result)
+  }
+).catch(err => console.log(err));
 ```
 

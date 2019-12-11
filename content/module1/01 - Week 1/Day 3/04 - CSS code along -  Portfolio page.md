@@ -100,7 +100,7 @@ In CSS we can select each element by writing a selector name and then giving it 
 
 3
 
-#### Let's start sytling our webpage from the `css` file
+#### Let's start styling our webpage from the `css` file
 
 `styles/style.css`
 

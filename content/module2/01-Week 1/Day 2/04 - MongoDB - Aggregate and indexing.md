@@ -6,7 +6,7 @@
 
 
 
-### Clone the repo with the `json` files
+### Clone the Repository with the `json` files
 
 ```bash
 git clone https://github.com/ross-u/MongoDB-Aggregation-Framework-and-Indexing
@@ -14,7 +14,7 @@ git clone https://github.com/ross-u/MongoDB-Aggregation-Framework-and-Indexing
 cd MongoDB-Aggregation-Framework-and-Indexing
 ```
 
-#### [REPO](https://github.com/ross-u/MongoDB-Aggregation-Framework-and-Indexing)
+#### [Repo with json data -  URL](https://github.com/ross-u/MongoDB-Aggregation-Framework-and-Indexing)
 
 
 
@@ -84,9 +84,11 @@ db.orders.find().pretty()
 
 
 
+<br>
 
 
-#### [OPEN IMAGE](https://i.imgur.com/HErprCS.png)
+
+#### 
 
 ![img](https://i.imgur.com/HErprCS.png)
 
@@ -108,7 +110,7 @@ db.orders.find().pretty()
 
 
 
-
+<br>
 
 
 
@@ -116,13 +118,13 @@ db.orders.find().pretty()
 
 
 
-##### [OPEN IMAGE](https://i.imgur.com/ZLt2XmA.png)
-
 
 
 ![](https://i.imgur.com/ZLt2XmA.png)
 
 
+
+<br>
 
 
 
@@ -161,7 +163,7 @@ db.orders.aggregate(
 
 
 
-
+<br>
 
 
 
@@ -175,15 +177,17 @@ db.orders.aggregate(
 
 - When a MongoDB collection doesn’t have indexes, MongoDB has to scan every single document to select the documents that match a query statement.
 
-- If Mongo has an appropiate index to perform the query, it can decrease or limit the number of documents it needs to scan.
+- If MongoDB has an appropriate index to perform the query, it can decrease or limit the number of documents it needs to scan.
 
 
+
+<br>
 
 
 
 ### [Indexing Example](http://learn.ironhack.com/#/learning_unit/6476)
 
-Imagine we have a collection with millions of users and we ask Mongo to return the users that live in a particular city.
+Imagine we have a collection with millions of users and we query the MongoDB to return the users that live in a particular city.
 
 
 
@@ -205,6 +209,8 @@ function findCityWithoutIndex(cityName){
 ```
 
 
+
+<br>
 
 
 
@@ -233,11 +239,13 @@ function createCityIndex(users){
 
 
 
+<br>
+
 
 
 ### Creating Indexes
 
-In Mongo, when we want to accelerate queries that use a particular (often queried) **field** we can create a new index on that collection.
+In MongoDB, when we want to accelerate queries that use a particular (often queried) **field** we can create a new index on that collection.
 
 
 
@@ -273,3 +281,7 @@ Let's create indexes:
 
 
 The index orders its entries first by ascending `"cuisine"` values, and then, within each `"cuisine"`, by descending `"address.zipcode"` values.
+
+
+
+<br>

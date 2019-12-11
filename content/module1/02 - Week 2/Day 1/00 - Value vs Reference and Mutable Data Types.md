@@ -299,7 +299,7 @@ console.log(newBook2);
     function cloneObject(object) {
       let copy;
       
-      if (Array.isArray) {
+      if (Array.isArray(object)) {
       	copy = [];
       } else {
         copy = {};

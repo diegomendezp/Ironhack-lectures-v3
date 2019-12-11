@@ -165,7 +165,7 @@ element {
     height: 100px;
     border: 3px solid green;
     padding: 10px;
-	margin: 10px 20px; /* margin-top and margin-bottom 10px */
+	  margin: 10px 20px; /* margin-top and margin-bottom 10px */
 		    		   /* margin-right and margin-left 20px */
 }
 
