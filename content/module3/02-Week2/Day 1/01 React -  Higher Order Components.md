@@ -35,64 +35,34 @@ Let's remind ourselves - functions are objects. This means that we can create a 
 ```js
 // Component mock
 
-function printHello () {
-  console.log('H E L L O !')
+function component () {
+  const obj = {
+    props: {},
+    state: {}
+  }
+  
+  return obj;
 }
+
 
 function higher (func) {
-   func.myString = 'Bananarama!';
-
-   return func;
-}
-
-
-var enhancedPrintHello = higher(printHello);
-
-console.dir(enhancedPrintHello);
-
-```
-
-
-
-<br>
-
-
-
-### Using Higher Order Functions in React
-
-
-
-Let's do a mock example on how we can use functions to enhance objects passed through the function. 
-
-Essentially, each component created in React is just an object, so let's simulate the possible use case of Higher Order Functions in React.
-
-
-
-```js
-// Component mock - simple object representing a component
-
-var App = {
-  state: { name: 'Uros'},
-  props: {}
-}
-
-function higher (component) {
-  component.currency = 'USD';  
-  component.props.amount = 0;
+  const componentObj = func();
+  componentObj.currency = 'USD';  
+  componentObj.props.amount = 0;
   
   /* or
   componentObj.props.currency = 'USD'; 	*/
-
-
-   return componentObj;
+  return componentObj;
 }
 
 
-var enhancedApp = higher(App);
+var enhancedObj = higher(commponent);
 
-console.log(enhancedApp);
+console.dir(enhancedObj);
 
 ```
+
+
 
 
 
@@ -128,6 +98,8 @@ Higher Order Component is a function that takes a component object. We use it to
 
 
 
+# SERVER
+
 #### Clone the server repository
 
 ```bash
@@ -136,8 +108,10 @@ git clone https://github.com/ross-u/React-Code-Along---Project-Management-Server
 cd React-Code-Along---Project-Management-Server/
 
 code .
+```
 
-git branch -a
+```bash
+# git branch -a
 
 git checkout solution
 
@@ -150,6 +124,12 @@ npm run dev
 
 
 
+<br>
+
+
+
+# CLIENT
+
 #### Clone the client repository
 
 ```bash
@@ -160,13 +140,11 @@ cd React-Code-Along---Project-Managemet-Client/
 npm i
 
 code .
-
-npm start
 ```
 
 
 
-
+<br>
 
 
 
@@ -175,30 +153,32 @@ npm start
 
 
 ```jsx
-//	hoc/Higher.js
-
-import React from 'react'
+import React from 'react';
 import axios from 'axios';
 
-const Higher = (WrappedComponent) => {
-
-  const colors = ['red', 'pink', 'orange', 'green', 'yellow', 'purple', 'blue', 'cyan'];
-  const randomColor = colors[Math.floor(Math.random() * 7)];
+const Higher = WrappedComponent => {
+  
+  const userData = {
+    username: 'Bob',
+  };
+  
+  const color = 'MediumSpringGreen';
 
   const getData = () => {
-    return axios.get('https://api.chucknorris.io/jokes/random')
-  }
+    return axios.get('https://api.chucknorris.io/jokes/random');
+  };
 
-  return (props) => {
-    return(
-      <div  style={{ color: randomColor}}>
-        <WrappedComponent {...props} getData={getData} />
+  return props => {
+    return (
+      <div>
+        <WrappedComponent {...props} getData={getData} user={userData} color={color}/>
       </div>
-    )
-  }
-}
+    );
+  };
+};
 
-export default Higher; 
+export default Higher;
+
 ```
 
 
@@ -226,12 +206,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Higher from './../hoc/Higher'
 
-...
-	...
-		...
+//	...
+//			...
+//					...
 
-  handleClick = () => {
-     this.props.getData()			//		This is a promise created by "axios.get"
+  getJoke = () => {					//		<---	ADD
+     this.props.getData()		//		This is the method injected by the HOC Higher
       .then((response) =>  {
         this.setState({ title: response.data.value})
       })
@@ -243,9 +223,10 @@ import Higher from './../hoc/Higher'
         <h3>TASK DETAILS</h3>
         <h2>{this.state.title}</h2>
         <p>{this.state.description}</p>
-
-        <button onClick={this.handleClick} >GET JOKE</button>
+        
         <button onClick={this.props.history.goBack} >Go Back</button>
+      
+        <button onClick={this.getJoke} >GET JOKE</button> {/*  ADD */}
       </div>
     )
   }
@@ -255,3 +236,11 @@ export default Higher(TaskDetails);
 ```
 
 ****
+
+
+
+<br>
+
+
+
+### Try Wrapping the `Navabar` component in the `Higher` and printing the passed `props.user.username` or `color` in the navbar. 

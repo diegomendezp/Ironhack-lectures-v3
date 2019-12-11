@@ -59,7 +59,7 @@ npm i
 ```js
 //		routes/auth.js
 
-//  POST    '/signup'
+// POST '/auth/signup'
 router.post('/signup', isNotLoggedIn(), validationLoggin(), async (req, res, next) => {
     const { username, password } = req.body;
 
@@ -73,7 +73,7 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), async (req, res, nex
         const newUser = await User.create({ username, password: hashPass });
         req.session.currentUser = newUser;
         res
-          .status(200)  //  OK
+          .status(201)  //  Created
           .json(newUser);
       }
     } 
@@ -108,10 +108,10 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), async (req, res, next
         res
           .status(200)
           .json(user);
-        return 
+      //return;	 			TODO - remove from the notes
       } 
       else {
-        next(createError(401));
+        next(createError(401));	// Unauthorized
       }
     } 
     catch (error) {
@@ -138,7 +138,7 @@ router.post('/logout', isLoggedIn(), (req, res, next) => {
   res
     .status(204)  //  No Content
     .send();
-  return; 
+  //return; 		TODO - remove from the notes
 });
 ```
 
@@ -176,8 +176,8 @@ module.exports = router;
 
 ```js
 //		routes/auth.js
-...
-		...
+//	...
+//			...
 
 module.exports = router;
 ```
@@ -188,7 +188,7 @@ module.exports = router;
 
 
 
-#### Import the Postman collection from ``
+#### Import the Postman collection from the `.postman` file in the project directory 
 
 
 
@@ -227,7 +227,7 @@ Example: after `/signup` cookie is returned in the response and Postman will set
 
 //  GET    '/me'
 router.get('/me', isLoggedIn(), (req, res, next) => {
-  res.json(req.session.currentUser);
+  res.status(200).json(req.session.currentUser);
 });
 ```
 
@@ -243,7 +243,7 @@ router.get('/me', isLoggedIn(), (req, res, next) => {
 //  GET    '/me'
 router.get('/me', isLoggedIn(), (req, res, next) => {
   req.session.currentUser.password = '*';
-  res.json(req.session.currentUser);
+  res.status(200).json(req.session.currentUser);
 });
 ```
 
