@@ -102,3 +102,5 @@ public
 
 # Unsorted files and content
 _additional_content/
+
+.DS_Store
