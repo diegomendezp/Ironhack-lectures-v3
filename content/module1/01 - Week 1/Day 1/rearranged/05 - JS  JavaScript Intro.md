@@ -16,7 +16,10 @@ After this lesson you will be able to:
 
 - Properly name variables
 
-  
+
+
+
+
 
 ## What is JavaScript?
 
@@ -26,10 +29,16 @@ After this lesson you will be able to:
 
 - **compiled programming language** - the JavaScript engine actually *compiles* the program on the fly and then immediately runs the compiled code.
 
+  
+
   <u>Compiled language</u> <u>is compiled fully to the machine language</u>,  and then run. 
 
   
-
+  
+  JS is dynamically typed, but not interpreted.
+  
+  
+  
   <u>Interpreted language is being saved same as it is written no translating</u>, and is <u>translated line by line on runtime</u>. - faster in development but not as fast as compiled language.
 
 
@@ -63,9 +72,10 @@ After this lesson you will be able to:
 The versions of ECMAScript (shorter *ES*) that are still in use are :
 
 - **ES5** (from 2009.), 
-
  - **ES6** (from 2015.),
  - **ES7** (2016.)
+ - **ES8** ( 2017)
+ - **ES9** ( 2018)
 
 
 

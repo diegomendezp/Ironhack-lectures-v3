@@ -46,7 +46,84 @@ Tag `<b>` only makes the text bold, while `<strong>` gives it the meaning that i
 
 
 
-### [Semantic HTML Example - gist](https://gist.github.com/ross-u/01a0d06dcee8d980c21015192f741b7f)
+
+
+## [MDN - Common Semantic tags](https://developer.mozilla.org/en-US/docs/Glossary/Semantics#Semantic_elements)
+
+
+
+
+
+<br>
+
+
+
+### Most commonly used -  New Semantic Elements in HTML5
+
+```html
+<!-- COMMON HTML5 SEMANTIC ELEMENTS -->
+
+<section>  <!-- defines a section in a document (content). A thematic grouping of content, typically with a heading. -->
+    
+<nav> 	   <!-- nav is used as a major block of navigation links, like navigation bar -->
+<header>   <!-- header for a document or section. Should be used as a container for introductory content. -->
+<main>     <!-- Specifies the main content of a document -->
+<footer>  <!-- a footer for a document or section -->
+<aside>  <!-- aside content that is related to the main content (like a sidebar) -->
+<mark>  <!-- Defines marked/highlighted text -->
+<time>  <!-- defines a human-readable date/time. Can have a machine-readable attribute datetime  -->
+    
+    
+<!-- Save the most special for the end -->
+<!-- There is often a dilemma of which one to use, <section> or <article>  :) -->
+
+<article>  <!-- independent, self-contained content (forum post, blog post, article). -->
+    
+<!-- All these elements are not self closing  :) -->
+```
+
+
+
+
+
+| Tag                                                          | Description                                                  |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [<section>](https://www.w3schools.com/tags/tag_section.asp)  | Defines a section in a document                              |
+| [<article>](https://www.w3schools.com/tags/tag_article.asp)  | Defines an article                                           |
+| [<nav>](https://www.w3schools.com/tags/tag_nav.asp)          | Defines navigation links                                     |
+| [<header>](https://www.w3schools.com/tags/tag_header.asp)    | Specifies a header for a document or section                 |
+| [<main>](https://www.w3schools.com/tags/tag_main.asp)        | Specifies the main content of a document                     |
+| [<footer>](https://www.w3schools.com/tags/tag_footer.asp)    | Defines a footer for a document or section                   |
+| [<aside>](https://www.w3schools.com/tags/tag_aside.asp)      | Defines content aside from the page content                  |
+| [<mark>](https://www.w3schools.com/tags/tag_mark.asp)        | Defines marked/highlighted text                              |
+| [<time>](https://www.w3schools.com/tags/tag_time.asp)        | Defines a date/time                                          |
+| [<details>](https://www.w3schools.com/tags/tag_details.asp)  | Creates a disclosure widget that can be toggled open or closed. |
+| [<figcaption>](https://www.w3schools.com/tags/tag_figcaption.asp) | Defines a caption for a <figure> element                     |
+| [<figure>](https://www.w3schools.com/tags/tag_figure.asp)    | Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc. |
+| [<summary>](https://www.w3schools.com/tags/tag_summary.asp)  | Defines a visible heading for a <details> element            |
+| [<small>](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-small-element) | Small print (also referred to as "fine print") usually refers to the part of a document that contains disclaimers, caveats, or legal restrictions, such as copyright |
+
+
+
+
+
+#### Remember to use the `<section>` as a parent for the `<article>`
+
+```html
+<section>
+	<article></article>
+</section>
+```
+
+
+
+
+
+<br>
+
+
+
+### [Semantic HTML - Demo Example Done - gist](https://gist.github.com/ross-u/01a0d06dcee8d980c21015192f741b7f)
 
 
 
@@ -121,63 +198,6 @@ Tag `<b>` only makes the text bold, while `<strong>` gives it the meaning that i
 
 
 
-
-### Most commonly used -  New Semantic Elements in HTML5
-
-```html
-<!-- COMMON HTML5 SEMANTIC ELEMENTS -->
-
-<section>  <!-- defines a section in a document (content). A thematic grouping of content, typically with a heading. -->
-    
-<nav> 	   <!-- nav is used as a major block of navigation links, like navigation bar -->
-<header>   <!-- header for a document or section. Should be used as a container for introductory content. -->
-<main>     <!-- Specifies the main content of a document -->
-<footer>  <!-- a footer for a document or section -->
-<aside>  <!-- aside content that is related to the main content (like a sidebar) -->
-<mark>  <!-- Defines marked/highlighted text -->
-<time>  <!-- defines a human-readable date/time. Can have a machine-readable attribute datetime  -->
-    
-    
-<!-- Save the most special for the end -->
-<!-- There is often a dilemma of which one to use, <section> or <article>  :) -->
-
-<article>  <!-- independent, self-contained content (forum post, blog post, article). -->
-    
-<!-- All these elements are not self closing  :) -->
-```
-
-
-
-
-
-| Tag                                                          | Description                                                  |
-| :----------------------------------------------------------- | :----------------------------------------------------------- |
-| [<section>](https://www.w3schools.com/tags/tag_section.asp)  | Defines a section in a document                              |
-| [<article>](https://www.w3schools.com/tags/tag_article.asp)  | Defines an article                                           |
-| [<nav>](https://www.w3schools.com/tags/tag_nav.asp)          | Defines navigation links                                     |
-| [<header>](https://www.w3schools.com/tags/tag_header.asp)    | Specifies a header for a document or section                 |
-| [<main>](https://www.w3schools.com/tags/tag_main.asp)        | Specifies the main content of a document                     |
-| [<footer>](https://www.w3schools.com/tags/tag_footer.asp)    | Defines a footer for a document or section                   |
-| [<aside>](https://www.w3schools.com/tags/tag_aside.asp)      | Defines content aside from the page content                  |
-| [<mark>](https://www.w3schools.com/tags/tag_mark.asp)        | Defines marked/highlighted text                              |
-| [<time>](https://www.w3schools.com/tags/tag_time.asp)        | Defines a date/time                                          |
-| [<details>](https://www.w3schools.com/tags/tag_details.asp)  | Creates a disclosure widget that can be toggled open or closed. |
-| [<figcaption>](https://www.w3schools.com/tags/tag_figcaption.asp) | Defines a caption for a <figure> element                     |
-| [<figure>](https://www.w3schools.com/tags/tag_figure.asp)    | Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc. |
-| [<summary>](https://www.w3schools.com/tags/tag_summary.asp)  | Defines a visible heading for a <details> element            |
-| [<small>](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-small-element) | Small print (also referred to as "fine print") usually refers to the part of a document that contains disclaimers, caveats, or legal restrictions, such as copyright |
-
-
-
-
-
-#### Remember to use the `<section>` as a parent for the `<article>`
-
-```html
-<section>
-	<article></article>
-</section>
-```
 
 
 

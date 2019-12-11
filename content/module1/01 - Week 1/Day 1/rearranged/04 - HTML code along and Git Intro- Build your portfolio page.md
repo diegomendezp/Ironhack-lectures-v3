@@ -320,12 +320,12 @@ git log
 <section class="info-section" style="background-color: aliceblue">
     <h1>ABOUT ME</h1>
 
-    <img
-         width="300px"
-         height="300px" 
-         id="avatar-photo"
-         src="https://garden.zendesk.com/css-components/avatars/images/ma.png"
-    >
+        <img
+             width="300px"
+             height="300px" 
+             id="avatar-photo"
+             src="https://garden.zendesk.com/css-components/avatars/images/ma.png"
+        >
 
     <p>Lorem ipsum ... </p>
 </section>
