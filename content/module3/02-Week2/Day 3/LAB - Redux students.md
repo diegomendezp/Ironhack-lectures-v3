@@ -26,7 +26,7 @@ In this exercise we are going to do a simple implementation of Redux store, in o
 
 Don't worry, Redux is a library with it's own rules, but it is quite simple to implement and use.
 
-During this exercise you will as well get familiar with 3 principles of Redux and Redux documentation, which will help you to get yourself comfortable with using it and looking for additional examples in the future.
+During this exercise you will as well get familiar with 3 principles of Redux and Redux documentation, which will help you to get comfortable with using Redux and working with it in the future.
 
 
 
@@ -104,7 +104,7 @@ class App extends React.Component {
   };
 
 
-  addStudent = student => {
+  addStudent = (student) => {
     const { listOfStudents } = this.state;
 
     const updatedListOfStudents = [...listOfStudents, student];
@@ -157,7 +157,7 @@ The reason for this is that we haven't yet created the `Student` and `AddStudent
 
 
 
-##### In the terminal:
+#### In the terminal:
 
 ```bash
 # Create the components directory and the files
@@ -177,7 +177,11 @@ touch components/Student.js components/AddStudent.js
 
 
 
-##### In `Student.js`
+#### Implement the `Student.js` component.
+
+
+
+#####`src/components/Student.js`
 
 ```jsx
 //	src/components/Student.js
@@ -207,7 +211,11 @@ export default Student;
 
 
 
-##### In `AddStudent.js`:
+#### Implement the `AddStudent.js` component
+
+
+
+##### `src/components/AddStudent.js`
 
 ```jsx
 //	src/components/AddStudent.js
@@ -299,9 +307,9 @@ export default AddStudent;
 
 At the moment you can see that our list is working properly and that we are saving our list of students in the `state` of the `App.js` component.
 
-This is a totally normal use case taking in consideration that our app at this stage is very simple.  However, once our app grows larger and we start having multiple components nested many levels in depth, and we need to access the student list from those components, we would have to pass the data by doing "prop drilling" and passing all the data as props. 
+This is a totally normal use case, taking into consideration that our app is very simple, at this stage.  However, once our app grows larger and we end up having multiple components, nested many levels in depth, we end up having to pass the data by doing "prop drilling" and passing all the data as props. 
 
-Deep "prop drilling" makes our code hard to read and also causes re-rendering in all of the components where the props are passing. As we know, component re-rendering is caused by passing new props to the component or change in the state ([component updating](https://reactjs.org/docs/react-component.html#updating)).
+Deep "prop drilling" makes our code hard to read and also causes re-rendering in all of the components where the new props are being passed. As we know, component re-rendering is caused by passing new props to the component or change in the state ([component updating](https://reactjs.org/docs/react-component.html#updating)).
 
 
 
@@ -309,7 +317,7 @@ Deep "prop drilling" makes our code hard to read and also causes re-rendering in
 
 
 
-Redux is a predictable state container for JavaScript apps. It helps us write applications that behave consistently, and are easy to test and debug. You can use Redux together with [React](https://reactjs.org/), or with any other view library.
+Redux is a predictable state container for JavaScript apps. It helps us write applications that use a central state/store, behave consistently, and are easy to test and debug. You can use Redux together with [React](https://reactjs.org/), or with any other view library.
 
 Using Redux with our React apps enables us to have one state which serves as a "single source of truth".
 
@@ -330,8 +338,8 @@ Using Redux with our React apps enables us to have one state which serves as a "
 Redux can be described in three fundamental principles:
 
  - **Single source of truth**  - The state of your whole application is stored in a single store.
- - **State is read-only** - The only way to change the state is to emit an action, an object describing what happened.
- - **Changes are made with pure functions** - To specify how the Redux state is transformed by actions, you write reducers as pure functions .
+ - **State is read-only** - The only way to change the state is to emit an action (only through a Redux action), an object describing what happened.
+ - **Changes are made with pure functions** - To specify how the Redux state is transformed by actions, you write reducers as pure functions . (Reducer is a function that manages the store).
 
 
 
@@ -363,7 +371,7 @@ In our `index.js` we will import the `react` and `react-redux`packages, create t
 
 
 
-##### In the `index.js`
+#####  `src/index.js`
 
 ```jsx
 // src/index.js
@@ -416,9 +424,11 @@ serviceWorker.unregister();
 
 
 
+**NOTE**:
+
 After you do the above, importing Redux and creating the store and the reducer, you should get an error  `Error: Expected the reducer to be a function`.
 
- This is normal and it is happening because we didn't pass the reducer to the `createStore()`, which is our next step.
+ This is normal and it is happening because we didn't pass the reducer function to the `createStore()`. We will do this in the next step.
 
 
 
@@ -426,7 +436,7 @@ After you do the above, importing Redux and creating the store and the reducer, 
 
 
 
-#### Pass the reducer to the store, and enable Redux DevTools
+#### Pass the reducer to the store, and enable the [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension#installation).
 
 
 
@@ -446,7 +456,8 @@ After you do the above, importing Redux and creating the store and the reducer, 
 
 // CREATE STORE
 const store = createStore(
-  studentsReducer,	// <--- PASS THE REDUCER
+  studentsReducer,  // <--- PASS THE REDUCER
+                               // ↓ Redux DevTools plugin  ↓
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()	  
 );
 ```
@@ -461,7 +472,7 @@ const store = createStore(
 
 
 
-### Step 5 - `connect` our components to the Redux store
+### Step 5 - `connect`  components to the Redux store
 
 
 
@@ -473,7 +484,11 @@ const store = createStore(
 
 
 
-##### Update the `App.js` , <u>on the top</u>:
+#### Update the `App.js` , <u>on the top</u>:
+
+
+
+##### `src/App.js`
 
 ```jsx
 // src/App.js
@@ -491,7 +506,11 @@ import { connect } from 'react-redux';
 
 
 
-##### Update the `App.js` , <u>on the bottom</u>:
+#### Update the `App.js` , <u>on the bottom</u>:
+
+
+
+##### `src/App.js`
 
 ```jsx
 // src/App.js
@@ -506,24 +525,36 @@ const mapStateToProps = state => {
 };
 
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, null)(App);		//  <--- Update
 
 
 ```
+
+
 
 
 
 <br>
 
-**Syntax:**
 
-```jsx
+
+### Usign `connect` to set props from Redux 
+
+<br>
+
+
+
+
+
+#### **Syntax:**
+
+```js
 connect(mapStateToProps, mapDispatchToProps)(currentComponent)
 ```
 
 
 
- `mapStateToProps` is used to <u>get the data from Redux store</u> state, and it sets those <u>values</u> on the `props` of the current component.
+ `mapStateToProps` is used to <u>get the data from our Redux store</u> state, and it sets those <u>values</u> on the `props` of the current component.
 
 As we <u>only want to read data</u> from Redux store, and we don't need to use  `mapDispatchToProps`, we can instead pass `null` as the second argument).
 
@@ -533,7 +564,7 @@ As we <u>only want to read data</u> from Redux store, and we don't need to use  
 
 
 
-##### In the `App.js` :
+#### In the `App.js` :
 
 ##### 	-	remove the `state` object
 
@@ -541,13 +572,15 @@ As we <u>only want to read data</u> from Redux store, and we don't need to use  
 
 
 
+##### `src/App.js`
+
 ```jsx
-// 	components/App.js
+// 	src/App.js
 
 
 class App extends React.Component {
     
-  // state = {
+  // state = {                                             //  REMOVE
   //   listOfStudents: [
   //     { name: 'John', country: 'Scotland' },
   //     { name: 'Sarah', country: 'USA' },
@@ -557,7 +590,7 @@ class App extends React.Component {
   // };
 
 
-  // addStudent = student => {
+  // addStudent = student => {                             //  REMOVE
   //  const { listOfStudents } = this.state;
 
   //  const updatedListOfStudents = [...listOfStudents, student];
@@ -582,19 +615,26 @@ Instead, we will use `this.props.students` that we got from Redux store setting 
 
 
 
-##### In the `App.js` :
+#### In the `App.js` :
 
 ##### 	-	update the `render`, to map over the  list `this.props.students` coming from Redux
 
 
 
+##### `src/App.js`
+
 ```jsx
-// 	components/App.js
+// 	src/App.js
 
 //	...
+
+//	...
+
+
   render() {
 
   // const { listOfStudents } = this.state;   	//  <--- DELETE
+    
     const { students } = this.props;  	// <--- REPLACE WITH STATE FROM REDUX STORE
     
 
@@ -625,7 +665,11 @@ Instead, we will use `this.props.students` that we got from Redux store setting 
 
 
 
-##### Update the `AddStudent.js` , <u>on the top</u>:
+#### Update the `AddStudent.js` , <u>on the top</u>:
+
+
+
+##### `src/components/AddStudent.js`
 
 ```jsx
 // src/components/AddStudent.js
@@ -634,6 +678,9 @@ Instead, we will use `this.props.students` that we got from Redux store setting 
 
 // IMPORT `connect()` HOC
 import { connect } from 'react-redux';
+
+
+//	...
 ```
 
 
@@ -642,13 +689,19 @@ import { connect } from 'react-redux';
 
 
 
-##### Update the `AddStudent.js` , <u>on the bottom</u>:
+#### Update the `AddStudent.js` , <u>on the bottom</u>:
+
+
+
+##### `src/components/AddStudent.js`
 
 ```jsx
 // src/components/AddStudent.js
 
 //	...
+
 //		...
+
 //			...
 
 const mapDispatchToProps = dispatch => {
@@ -667,7 +720,7 @@ export default connect(null, mapDispatchToProps)(AddStudent);
 
 <br>
 
-**Syntax:**
+#### Syntax:
 
 ```jsx
 connect(mapStateToProps, mapDispatchToProps)(currentComponent)
@@ -694,14 +747,18 @@ The method `addStudent` that we just created, dispatches an action object to the
 
 
 
-##### In the `AddStudent.js` :
+#### In the `AddStudent.js` :
 
 ##### 	-	remove `addStudentToList` coming from the `props`
 
 ##### 	-	and replace it with `addStudent`  that dispatches the action.
 
+
+
+##### `src/components/AddStudent.js`
+
 ```jsx
-//	components/AddStudent.js
+//	src/components/AddStudent.js
 
 //	...
 //		...
@@ -737,7 +794,7 @@ The method `addStudent` that we just created, dispatches an action object to the
 
 ##### 1. Open the Redux DevTools and open the `State` tab.
 
-##### 2. Add few new students using the Add New Student `form`, and watch how each action is being logged in the Redux DevTools.
+##### 2. Add few new students using the Add New Student `form`, and notice how each action is being logged in the Redux DevTools.
 
 
 
@@ -794,7 +851,9 @@ touch api/db.json
 
 
 
-##### Save the below data in `./api/db.json`:
+#### Save the below data in `./api/db.json`:
+
+##### `./api/db.json`
 
 ```json
 {
@@ -817,7 +876,7 @@ touch api/db.json
 
 
 
-##### Run the mock API (using the separate terminal)
+#### Run the mock API (using the separate terminal)
 
 ```bash
 json-server --watch api/db.json --port 8000
@@ -835,13 +894,15 @@ json-server --watch api/db.json --port 8000
 
 
 
-##### In the `index.js`:
+#### In the `index.js`:
 
 ##### 	-	create a case for action `'ADD_ALL_STUDENTS'` 
 
 ##### 	-	update the `initialState` to an empty array  ( `initialState = []` )
 
 
+
+##### `src/index.js`
 
 ```jsx
 // src/index.js
@@ -889,13 +950,21 @@ No worries, the next step is to update our Redux state with data from the API, o
 
 
 
-##### In the `App.js`, <u>on the top</u>, import `axios`
+#### In the `App.js`, <u>on the top</u>, import `axios`
+
+
+
+##### `src/App.js`
 
 ```jsx
 //	src/App.js
 
 // IMPORT axios
 import axios from 'axios';
+
+//	...
+
+//	...
 ```
 
 
@@ -906,9 +975,13 @@ import axios from 'axios';
 
 
 
-##### In the `App.js`, <u>on the bottom</u>:
+#### In the `App.js`, <u>on the bottom</u>:
 
 ##### 		- create `mapDispatchToProps` and update `connect()`, passing it `mapDispatchToProps`
+
+
+
+##### `src/App.js`
 
 ```jsx
 //	src/App.js
@@ -955,7 +1028,11 @@ The method `addAllStudents` that we just created, dispatches an action object to
 
 
 
-##### Update the `App.js`, to make a `GET` request to the API when the component mounts:
+#### Update the `App.js`, to make a `GET` request to the API when the component mounts:
+
+
+
+##### `src/App.js`
 
 ```jsx
 //	src/App.js
@@ -979,7 +1056,7 @@ class App extends React.Component {
 
 
 
-### Step 8 - Make it clean 
+### Step 8 - Make it DRY 
 
 
 
@@ -1019,7 +1096,11 @@ touch redux/reducers/studentsReducer.js   redux/actions/actions.js   redux/types
 
 
 
-##### Update the `studentsReducer.js`, with the reducer code from `index.js`
+#### Update the `studentsReducer.js`, with the reducer code from `index.js`.
+
+
+
+##### `src/redux/reducers/studentsReducer.js`
 
 ```js
 // src/redux/reducers/studentsReducer.js
@@ -1048,13 +1129,15 @@ export default studentsReducer;
 
 
 
-##### Update the`index.js`: 
+#### Update the`index.js`: 
 
 ##### 	-	`import` the `studentsReducer.js` file.
 
 ##### 	-	Delete `studentsReducer` function and `initialState`
 
-##### 	
+
+
+#####  `src/index.js`	
 
 ```jsx
 // 	src/index.js
@@ -1098,9 +1181,11 @@ import studentsReducer from './redux/reducers/studentsReducer';
 
 
 
-##### Copy the actions from `App.js` and `AddProject.js` to  a new file `actions.js`
+#### Copy the actions from `App.js` and `AddProject.js` to  a new file `actions.js`
 
-##### `actions.js`
+
+
+##### `src/redux/actions/actions.js`
 
 ```js
 //	src/redux/actions/actions.js
@@ -1125,9 +1210,11 @@ export const addAllStudents = (allStudents) => {
 
 #### Refactor `App.js` to use function from `actions.js`
 
+##### -  Update `App.js`, on the top, import the actions:
 
 
-##### Update `App.js`, on the top, import the actions:
+
+##### `src/App.js`
 
 ```jsx
 //	src/App.js
@@ -1139,9 +1226,15 @@ import * as actions from './redux/actions/actions'
 
 
 
+<br>
 
 
-##### In the `App.js`, on the bottom, update the `mapDispatchToProps`:
+
+#### In the `App.js`, on the bottom, update the `mapDispatchToProps`:
+
+
+
+##### `src/App.js`
 
 ```jsx
 //	src/App.js
@@ -1163,13 +1256,17 @@ const mapDispatchToProps = dispatch => {
 
 
 
+<br>
+
 
 
 #### Refactor `AddStudent.js` to use function from `actions.js`
 
+##### -  Update `AddStudent.js`, <u>on the top</u>, import the actions:
 
 
-##### Update `AddStudent.js`, on the top, import the actions:
+
+##### `src/components/AddStudent.js`
 
 ```jsx
 //	src/components/AddStudent.js
@@ -1181,9 +1278,15 @@ import * as actions from './../redux/actions/actions';
 
 
 
+<br>
 
 
-##### In the `AddStudent.js`, on the bottom, update the `mapDispatchToProps`:
+
+#### In the `AddStudent.js`, on the bottom, update the `mapDispatchToProps`:
+
+
+
+##### `src/components/AddStudent.js`
 
 ```jsx
 //	src/AddStudent.js
@@ -1192,15 +1295,19 @@ import * as actions from './../redux/actions/actions';
 
 //		...
 
+
 const mapDispatchToProps = dispatch => {
   return {
-    addStudent: (newStudentObj) => dispatch( actions.addStudent(newStudentObj) )  
+    addStudent: (newStudentObj) => dispatch( actions.addStudent(newStudentObj)); // ADD  
  // addStudent: newStudentObj => {
- //   dispatch({ type: 'ADD_NEW_STUDENT', payload: newStudentObj });
+ //   dispatch({ type: 'ADD_NEW_STUDENT', payload: newStudentObj });		//	REMOVE
  // },
   };
 };
 
+//	...
+
+//	...
 ```
 
 
@@ -1223,7 +1330,11 @@ To give you a first hand experience how this looks, we will make our `types.js` 
 
 <br>
 
-##### Update the `types.js`
+#### Update the `types.js`
+
+
+
+##### `src/redux/types/types.js`
 
 ```js
 //	src/redux/types/types.js
@@ -1241,12 +1352,16 @@ export const ADD_ALL_STUDENTS = 'ADD_ALL_STUDENTS';
 
 
 
-**Update the `studentsReducer.js`**
+#### Update the `studentsReducer.js`
+
+
+
+##### `src/redux/reducers/studentsReducer.js`
 
 ```javascript
 //	src/redux/reducers/studentsReducer.js
 
-import { 
+import {                  // IMPORT TYPE VARIABLES
   ADD_NEW_STUDENT,
   ADD_ALL_STUDENTS 
 } from './../types/types';
@@ -1256,10 +1371,10 @@ const initialState = [];
 
 const studentsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_NEW_STUDENT:
+    case ADD_NEW_STUDENT:                     // <-- UPDATE
       return [...state, action.payload];
 
-    case ADD_ALL_STUDENTS:
+    case ADD_ALL_STUDENTS:                     // <-- UPDATE
       return action.payload;
 
     default:
@@ -1282,24 +1397,28 @@ export default studentsReducer;
 
 
 
-**Update the `actions.js`**
+#### Update the `actions.js`
 
-```js
+
+
+##### `src/redux/actions/actions.js`
+
+``` js
 //	src/redux/actions/actions.js
 
 
-import { 
+import {                       // IMPORT TYPE VARIABLES
   ADD_NEW_STUDENT,
   ADD_ALL_STUDENTS 
 } from './../types/types';
 
 
 export const addStudent = (newStudentObj) => {
-  return { type: ADD_NEW_STUDENT, payload: newStudentObj }
+  return { type: ADD_NEW_STUDENT, payload: newStudentObj };      // <-- UPDATE
 }
 
 export const addAllStudents = (allStudents) => {
-  return { type: ADD_ALL_STUDENTS, payload: allStudents }
+  return { type: ADD_ALL_STUDENTS, payload: allStudents };       // <-- UPDATE
 }
 
 ```
@@ -1307,6 +1426,8 @@ export const addAllStudents = (allStudents) => {
 
 
 
+
+<br>
 
 
 
@@ -1324,12 +1445,10 @@ You can use this app as a boilerplate for your future projects and reference on 
 
 <br>
 
-Egghead.io has a great free video tutorial on Redux, made by the creator of Redux himself, Dan Abramov. Feel free to check it out, videos are bite size lessons, 2-4 minutes long.
 
 
-
-[Getting Started With Redux - short videos by Dan Abramov (creator of Redux)](https://egghead.io/courses/getting-started-with-redux)
+[Getting Started With Redux](https://egghead.io/courses/getting-started-with-redux)
 
 [Redux Docs](https://redux.js.org/)
 
-[React-Redux Docs](https://react-redux.js.org/)
+[React-Redux Docs](https://react-redux.js.org/)

@@ -1,6 +1,85 @@
-# Redux
+# Redux | Intro and Setup
 
 
+
+<br>
+
+
+
+#### What is Redux
+
+Redux is a predictable state container for JavaScript apps.
+
+It helps you write applications that behave consistently and are easy to test. 
+
+You can use Redux together with [React](https://reactjs.org/), or with any other view library. It is tiny (2kB, including dependencies), but has a large ecosystem of addons available.
+
+
+
+<br>
+
+
+
+**Simply put, Redux is the library for the state management.** 
+
+In a React app Redux helps us to manage the state by using **one store as a single source of truth**, instead of using many different components to save the state.
+
+
+
+<br>
+
+
+
+#### Less "prop drilling" and unnecessary re-rendering
+
+Instead of having to update multiple components and pass data through all of the components in our way, with Redux we get the data directly from the Redux store. 
+
+This way we don't need to pass the props through multiple components (prop drilling) and Redux store will update only the components that are connected to the Redux store.
+
+
+
+<br>
+
+![img](https://hackernoon.com/hn-images/1*87dJ5EB3ydD7_AbhKb4UOQ.png)
+
+
+
+<br>
+
+
+
+
+
+### Should I use Redux or Context, which is better?
+
+
+
+
+
+You should use React Context only for low frequency state and when you plan to store only few things. 
+
+
+
+
+
+As per the React development team :
+
+> Context is primarily used when some data needs to be accessible by *many* components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
+>
+> **If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.**
+
+
+
+**This video can serve as a reference and the answer:**
+
+The explanation starts at 28m 40s
+https://youtu.be/OvM4hIxrqAw?t=1720
+
+
+
+
+
+<br>
 
 
 
@@ -12,9 +91,25 @@
 
 
 
+<br>
 
 
-### Clone the starter repository and checkout to branch `starter-code`
+
+
+
+### Getting started with Redux
+
+
+
+# Redux
+
+
+
+<br>
+
+
+
+#### Clone the starter repository and checkout to branch `starter-code`
 
 
 
@@ -58,6 +153,7 @@ npm i
 
 ```bash
 # In the `project-management-client` directory
+
 npm i redux react-redux --save
 ```
 
@@ -71,7 +167,7 @@ npm i redux react-redux --save
 
 
 
-#### Redux is the library for state management.
+#### `redux` is the library for state management.
 
 #### `react-redux` is the binding library to bind React and Redux together.
 
@@ -79,7 +175,7 @@ npm i redux react-redux --save
 
 
 
-### [OPEN IMAGE](https://hackernoon.com/hn-images/1*87dJ5EB3ydD7_AbhKb4UOQ.png)
+### <br>
 
 
 
@@ -96,12 +192,6 @@ npm i redux react-redux --save
 
 
  
-
-
-
-
-
-
 
 ## Creating the Redux store
 
@@ -132,9 +222,9 @@ touch redux/actions/actions.js
 
 
 
-### In `index.js` we will create a Redux `store` object 
+#### In the `index.js` create a Redux `store` object.
 
-### and do a basic explanation of how it works.
+#### 
 
 ##### `src/index.js`
 
@@ -175,11 +265,11 @@ ReactDOM.render(
 
 
 
-<br>
-
 
 
 #### What is the Redux store?
+
+
 
 ##### We can think of a `store` as an empty object. A unstructured space, assigned to Redux. 
 
@@ -187,7 +277,7 @@ ReactDOM.render(
 
 ##### 
 
-
+<br>
 
 
 
@@ -221,6 +311,8 @@ ReactDOM.render(
 
 
 
+<br>
+
 ##### We can have multiple reducers (and state slices) in the Redux store.
 
 ##### Change to the Redux state can be done only through the reducer.
@@ -233,7 +325,7 @@ ReactDOM.render(
 
 
 
-### Create the reducer and pass it to the store
+#### Create the reducer and pass it to the store.
 
 
 
@@ -257,7 +349,7 @@ export default projectReducer;
 
 
 
-#### Import the reducer and provide it to the store 
+#### Import the reducer and provide it to the store.
 
 ##### `src/index.js`
 
@@ -294,21 +386,27 @@ const store = createStore(
 
 
 
-#### To start changing the Redux state, we have to give a command to the reducer.
+### Changing the redux state
 
 
 
-#### We call this command - an `action`. 
-
-#### `action` is an object containing property`type` for the type of action and can also include `payload`.
+##### To start changing the Redux state, we have to give a command to the reducer.
 
 
 
-#### Action is given to the reducer via `store.dispatch`  function, which is the way how we send the `action` object to the reducer.
+##### We call this command - an `action`. 
 
 
 
-**Redux `state` can be changed only by dispatching an `action` object.**
+##### `action` is an object containing property`type` for the type of action and can also include `payload`.
+
+
+
+##### Action is given to the reducer via `store.dispatch`  function, which is the way how we send the `action` object to the reducer.
+
+
+
+##### Redux `state` can be changed only by dispatching an `action` object.
 
 
 
@@ -363,7 +461,7 @@ store.dispatch(addProject2);
 
 
 
-#### Before we get the dispatched actions to affect the Redux store, we have to create the reducer.
+#### Before we get the dispatched actions to affect the Redux store, we have to create the reducer. Reducer handles the incoming actions.
 
 
 
@@ -371,7 +469,7 @@ store.dispatch(addProject2);
 
 
 
-#### Let's Update the `projectReducer.js` file and create a reducer function.
+#### Update the `projectReducer.js` file and create a reducer function.
 
 
 
@@ -559,13 +657,11 @@ To trigger the update of components when an action is dispatched, **Redux checks
 
 <br>
 
-#### Using the `connect` HOC from `react-redux` we can connect components to Redux state, in order to get data from the Redux store and dispatch actions.
+##### Using the `connect` HOC from `react-redux` we can connect components to Redux state, in order to get data from the Redux store and dispatch actions.
 
 
 
-#### <br>
-
-
+<br>
 
 
 
@@ -617,6 +713,8 @@ export default connect(
 
 <br>
 
+
+
 ##### `components/projects/ProjectList.js`
 
 ```jsx
@@ -655,7 +753,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
 
 
 
-#### Change `getAllProjects` to save the data to the Redux store instead of saving it to the component `state`
+#### Change `getAllProjects` function to save the data to the Redux store via methods dispatching an action, instead of saving it to the component `state`.
 
 
 
@@ -685,7 +783,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
 
 
 
-#### Remove the `state` from `ProjectList` and map the data coming from the Redux state via `this.props.projects` which we set in the `mapStateToProps`.
+#### - Remove the `state` from `ProjectList` 
+
+#### -  map the data coming from the Redux state via `this.props.projects` (which we set in the `mapStateToProps`).
 
 
 
@@ -799,6 +899,8 @@ export default connect(null, mapDispatchToProps)(AddProject);
 
 <br>
 
+#### Update the form submit function and use the methods that we just created to dispatch action with data to the Redux store.
+
 
 
 
@@ -841,7 +943,7 @@ export default connect(null, mapDispatchToProps)(AddProject);
 
 
 
-### Refactor the code and move the actions from `ProjectList` and `AddProject` to a separate file
+#### Refactor the code and move the actions from `ProjectList` and `AddProject` to a separate file
 
 
 
@@ -942,13 +1044,11 @@ Congrats! We successfully  implemented the Redux store in our React app !!! :roc
 
 
 
-<br>
 
 
 
 
-
-### [LAB - Redux Student](https://gist.github.com/ross-u/b5732fdd967f59ac99fc63df85a1716b)
+###       [LAB - Redux Student](https://gist.github.com/ross-u/b5732fdd967f59ac99fc63df85a1716b)
 
 
 
