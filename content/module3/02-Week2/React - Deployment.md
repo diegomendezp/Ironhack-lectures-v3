@@ -34,9 +34,13 @@ rm -rf .git
 cd project-management-client
 npm i
 
+# git init
+
 # Install dependencies in the server folder
 cd ../project-management-server
 npm i
+
+# git init
 ```
 
 
@@ -139,15 +143,15 @@ touch .env.development .env.production
 
 
 
-#### We have to update `package.json` on the client side as well:
+#### We have to update CLIENT directory `package.json` :
 
-```json
-// package.json
-...
+##### `package.json`
 
+```js
 "scripts": {
-      "build-dev": "dotenv -e .env.development react-scripts build", 		<==!!!
-      "build-prod": "dotenv -e .env.production react-scripts build", 		<==!!!
+    "build-dev": "dotenv -e .env.development react-scripts build", 		// 	<==!!!
+    "build-prod": "dotenv -e .env.production react-scripts build", 		// 	<==!!!
+      
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -171,18 +175,25 @@ touch .env.development .env.production
 
 #### Update both of the `.env.---` files
 
+##### `client/.env.development`
+
 ```bash
 # .env.development
 REACT_APP_API_URL=http://localhost:5000
+```
 
 
+
+##### `client/.env.production`
+
+```bash
 # .env.production
 REACT_APP_API_URL=https://name-of-your-app.herokuapp.com
 ```
 
 
 
-
+# !!!
 
 **REACT_APP** prefix **is not optional**. React is looking for it through `process.env`
 
@@ -190,20 +201,23 @@ REACT_APP_API_URL=https://name-of-your-app.herokuapp.com
 
 
 
+<br>
+
 
 
 #### Change the URLs in your react app to point to the `process.env` value 
 
 
 
-`lib/task-services.js`
+##### `lib/task-services.js`
 
 ```js
 //	lib/task-services.js
 
 
-// Fallback solution
-// const apiURL = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'https://project-management-one.herokuapp.com';
+/* Fallback solution
+const apiURL = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'https://your-app-name.herokuapp.com';
+*/
 
 const baseUrl = process.env.REACT_APP_API_URL;
 ```
@@ -212,17 +226,22 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 
 
-`lib/project-services.js`
+##### `lib/project-services.js`
 
 ```js
 //	lib/project-services.js
 
-// Fallback solution
-// const apiURL = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'https://project-management-one.herokuapp.com';
+/* Fallback solution
+const apiURL = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'https://your-app-name.herokuapp.com';
+*/
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
 ```
+
+
+
+<br>
 
 
 
@@ -268,19 +287,21 @@ This step will produce a new directory (called `build`) containing the minified 
 
 
 
- #### Make `index.html` and app accessible on our API by adding this code at the very end of our `app.js`, right after *routes middleware *and just before `module.exports = app;`
+ #### To make `index.html` and app accessible on our API:
+
+ ####  Add below code at the very end of our `app.js`, right after *routes middleware * and just before `module.exports = app;`
 
 
 
-`app.js`
+#####`server/app.js`
 
 ```jsx
 //	app.js
 
 
-...
+//	...
 
-...
+//	...
 
 
 // ROUTES MIDDLEWARE:
@@ -288,7 +309,7 @@ app.use('/api', projectRouter);
 app.use('/api', taskRouter);
 
 
-// REACT APP index.html	
+// ROUTE FOR SERVING REACT APP (index.html)
 app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
   res.sendFile(__dirname + "/public/index.html");
@@ -301,7 +322,7 @@ module.exports = app;
 
 
 
-
+<br>
 
 
 
@@ -313,7 +334,7 @@ module.exports = app;
 
 ```bash
 # CREATE MongoLab SANDBOX DB
-heroku addons:create mongolab:sandbox
+±
 
 
 # OPEN THE DB IN MLAB
@@ -373,27 +394,30 @@ MONGODB_URI=mongodb://localhost/project-management-server
 
 #### and require it on the top of `app.js` using:
 
-#### `app.js`
-
-
+##### `app.js`
 
 ```js
 // app.js
 
-...
+//	...
 
 require('dotenv').config();		//  <--- ADD
 
 
 mongoose
   .connect(process.env.MONGODB_URI, {useNewUrlParser: true})		//  <--- UPDATE
-  .then...
-  				...
-  						...
-...
+//  .then...
+
+//  				...
+
+//  						...
+
+//	...
 ```
 
 
+
+<br>
 
 
 
@@ -406,6 +430,9 @@ mongoose
 ```js
 // app.js
 
+//	...
+
+//	...
 
 // CORS SETTINGS TO ALLOW CROSS-ORIGIN INTERACTION:
 app.use(cors({
@@ -417,13 +444,25 @@ app.use(cors({
 
 
 
+<br>
+
+
+
+
+
 #### Set the `"engines": { "node": 'x.xx.xx'}` in backend `package.json`
+
+
+
+<br>
 
 
 
 #### Run `node -v` to get the version of Node.js installed 
 
 
+
+##### `server/package.json`
 
 ```json
   "engines": {
@@ -474,6 +513,8 @@ heroku logs -n 200
 
 
 
+<br>
+
 
 
 ### [Real-time tail](https://devcenter.heroku.com/articles/logging#real-time-tail)
@@ -482,5 +523,17 @@ heroku logs -n 200
 
 ```bash
 heroku logs -t
+```
+
+
+
+<br>
+
+
+
+#### Run the bash terminal on the Heroku dyno/container instance.
+
+```bash
+heroku run bash
 ```
 
