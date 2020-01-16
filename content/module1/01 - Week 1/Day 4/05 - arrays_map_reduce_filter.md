@@ -300,7 +300,7 @@ const htmlString = listItems.reduce( function (accum, element, index) {
 
 
 
-### [Age Reducer - Exercise]() (10 min) (**MAY BE HARD FOR SOME STUDENTS**)
+### [Age Reducer - Exercise](https://gist.github.com/ross-u/a167ce8ac283c423cc8e45c99e897ead) (10 min) (**MAY BE HARD FOR SOME STUDENTS**)
 
 
 

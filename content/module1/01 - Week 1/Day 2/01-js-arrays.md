@@ -52,7 +52,12 @@ var arrayNames = ["Pedro", 2, true];
 ```js
 /* var example = new Array(/* givenElements ... or arrayLength); */
 
-;
+var example1 = new Array('Apple', 'Banana');
+var example2 = new Array(3);
+
+console.log(example1);  // ['Apple', 'Banana']
+console.log(example2);	// [undefined, undefined, undefined]
+
 ```
 
 

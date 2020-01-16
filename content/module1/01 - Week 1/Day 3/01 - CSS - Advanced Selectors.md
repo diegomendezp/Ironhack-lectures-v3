@@ -97,7 +97,6 @@ One of the goals of this course is to teach you to keep the HTML as tidy, clean,
 
 
 
-
 ## Selecting Siblings
 
 
@@ -138,6 +137,15 @@ div {
 
 
 <iframe height="265" src="http://codepen.io/ironhack/embed/amBQEG/?height=265&amp;theme-id=light&amp;default-tab=html,result&amp;embed-version=2" allowfullscreen="true" style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.35px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; width: 720px;"></iframe>
+
+
+
+
+
+
+
+
+
 
 
 ## Multiple selection - apply same rule-set on multiple selectors
@@ -189,17 +197,17 @@ h2, h6, div > p {
 
 
 
-And this method can work with more complicated selectors as well, although you should probably put each selector in a different line for ease of reading. For example, we may want different elements to have background-color yellow:
+And this method can work with more complicated selectors as well.
 
-```
-.todo-list > li,
-h2 + .red-box,
-h2 {
-  background-color: yellow;
-}
-```
+
 
 You can mix selectors as much as you need to create awesome and beautiful web pages!
+
+
+
+
+
+
 
 ## Attribute Selector
 
@@ -210,7 +218,6 @@ element[attr-name="value"] {
 ```
 
 <iframe height="265" src="http://codepen.io/ironhack/embed/GjAWAo/?height=265&amp;theme-id=light&amp;default-tab=html,result&amp;embed-version=2" allowfullscreen="true" style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.35px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; width: 720px;"></iframe>
-
 
 
 
@@ -231,7 +238,6 @@ element[attr-name="value"] {
 **Check out the code pen and try to understand it** - 
 
 <iframe height="265" src="http://codepen.io/ironhack/embed/RGGQWr/?height=265&amp;theme-id=light&amp;default-tab=html,result&amp;embed-version=2" allowfullscreen="true" style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.35px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; width: 720px;"></iframe>
-
 
 ## Summary
 

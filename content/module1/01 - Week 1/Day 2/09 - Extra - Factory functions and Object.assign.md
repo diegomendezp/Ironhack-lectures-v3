@@ -1,6 +1,8 @@
-### Factory function and Object.assign (consider skipping)
+# Factory function & `Object.assign`
 
 
+
+<br>
 
 
 
@@ -37,6 +39,10 @@ function carFactory (brand, model) {
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -89,6 +95,8 @@ bmw.drive(50);
 ```
 
 
+
+<br>
 
 
 

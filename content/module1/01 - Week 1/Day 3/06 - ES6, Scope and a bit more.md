@@ -82,7 +82,7 @@ function atTheEnd() {
 ```js
 // var variable hoisting
 
-console.log(name);
+console.log(city);
 
 var city = 'Barcelona';
 ```
@@ -163,13 +163,13 @@ JavaScript has function scope by default - meaning that every function creates a
     
 
   ```js
-  //  BLOCK SCOPE - let and cosnt variables
+  //  BLOCK SCOPE - let and const variables
   let name = "Ironhacker";
   
   if (true) {
     let name = "Ted";
     console.log(`Name inside if block statement: ${name}`);
-  }hoisting and temporal dead zone
+  }  // hoisting and temporal dead zone
   
   console.log(`Name outside if block statement: ${name}`);
   
@@ -287,7 +287,7 @@ string text line 2
 
 
 
-### New string methods
+### New string methods 
 
 
 
@@ -544,7 +544,7 @@ const x = {
 
 
 
-### [Summary - Notes for the Students](https://gist.github.com/ross-u/cd6523b92e6ac272f37a5428235fdb24)
+### [Summary - Notes for the Students](https://gist.github.com/ross-u/d268a9ae3b5e79949a855c96e31ab5de)
 
 
 

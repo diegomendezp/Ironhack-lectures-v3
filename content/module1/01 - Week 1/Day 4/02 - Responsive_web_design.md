@@ -40,12 +40,6 @@ Glovo
 
 
 
-IronHack
-
-<https://www.ironhack.com/en>
-
-
-
 
 
 ### Guidelines / main ideas
@@ -60,11 +54,13 @@ IronHack
 
 
 
-### Viewport 
+## Viewport 
 
 
 
-What is the viewport?
+#### What is the viewport?
+
+
 
 ##### The viewport is the user's visible area of a web page.
 
@@ -80,7 +76,7 @@ What is the viewport?
 
 
 
-### Setting The Viewport
+## Setting The Viewport
 
 
 
@@ -117,6 +113,8 @@ Media query is a CSS technique introduced in CSS3.
 It uses the `@media` rule to include a block of CSS properties only if a certain condition is true.
 
 This rules determine when another CSS style starts applying. We call this a breakpoint.
+
+
 
 
 
@@ -445,6 +443,28 @@ img {
   background-position: center; /* Center the image */
 }
 ```
+
+
+
+<br>
+
+##### Common device widths (Generalized - not a set standard)
+
+**XS** - 360px w
+
+**SM** - 480px w
+
+**MD** - 768px w
+
+**LG** - 1024px w
+
+**XL** - 1440px w
+
+**4K** - 2560px w
+
+
+
+### [List of Mobile and Tablet viewport sizes](https://docs.adobe.com/content/help/en/target/using/experiences/vec/mobile-viewports.html)
 
 
 

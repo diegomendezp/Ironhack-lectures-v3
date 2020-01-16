@@ -101,7 +101,7 @@ This specifies the **main-axis**, and direction how flex items are placed in the
 
 
 
-### `justify-content` - position content across the main axis
+### `justify-content` - position content across the <u>main axis</u>
 
 **default**: `justify-content: flex-start`
 

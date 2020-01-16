@@ -8,11 +8,15 @@
 
 A function is a **subprogram** designed to do some task.
 
-They allow the code to be reused (called many times without rewriting it).
+Functions:
 
-Functions can take some values, to work with them.
+- allow the code to be reused (called many times without rewriting it).
 
-Functions either create a side-effect or return a value.
+- can take some values, to work with them.
+
+- either create a <u>side-effect or return a value</u>.
+
+
 
 
 
@@ -20,11 +24,14 @@ Functions either create a side-effect or return a value.
 
 JavaScript is a **programming language with first-class functions**.  
 
-- This means that functions are treated like any other variable and can be passed around:
+Functions are treated like any other variable and can be passed around:
+
+- functions can be assigned as a value to a variable.
 
 - functions can be passed as an argument to other functions,
 - functions  can be returned by another function 
-- functions can be assigned as a value to a variable.
+
+  
 
 
 
@@ -188,7 +195,9 @@ doFoo(1);
 doFoo(1, 2, 3);
 ```
 
-var res
+
+
+
 
 ### Arrow function 
 

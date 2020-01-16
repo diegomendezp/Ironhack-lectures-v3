@@ -146,12 +146,8 @@ var house = "";
 
 if (name === "Khal Drogo") {
   house = "Dothraki Horselord";
-} else if (name === "Daenerys") {
-  house = "Targaryen";
 } else if (name === "Jon Snow" || name === "Sansa" || name === "Arya") {
   house = "Stark";
-} else if (name === "Cersei" || name === "Tyrion" || name === "Ser Jaime") {
-  house = "Lannister";
 } else {
   house = "Other";
 }
@@ -200,9 +196,6 @@ var house = "";
 switch (name) {
   case "Khal Drogo":
     house = "Dothraki Horselord";
-    break;
-  case "Daenerys":
-    house = "Targaryen";
     break;
   case "Jon Snow":
   case "Sansa":

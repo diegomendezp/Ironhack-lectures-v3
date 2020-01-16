@@ -85,7 +85,8 @@ console.log(arr1);
 ### Sorting Strings - works as expected
 
 ```js
-const fruits = ["Watermelon", "Banana", "Orange", "Apple", "Dragon Fruit", "Mango", "Cheries",];
+const fruits = ["Watermelon", "Banana", "Orange", "Apple", "Dragon Fruit", "Mango", "Cheries"];
+
 fruits.sort();
 ```
 
@@ -209,7 +210,6 @@ function compareDescending(a, b) {
 
 
 <h1 style='color: red'>Shorthand works different than the stated rules in the MDN documentation and what was explained above. Students can use the shorthand syntax without needing to explain it. The above one should be understood, but no need to memorize it.  (Stil pending question on stack overflow regarding `sort()` implementation and how it evaluates the shorthand ) </h1>
-
 
 ##### To compare numbers instead of strings, the compare function can simply subtract `b` from `a`. 
 

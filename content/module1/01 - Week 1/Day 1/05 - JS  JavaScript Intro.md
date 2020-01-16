@@ -4,7 +4,7 @@
 
 ## Learning Goals
 
-After this lesson you will be able to:
+After this lesson you will be able to:cd 	
 
 - Explain what JavaScript is and a bit of its history
 

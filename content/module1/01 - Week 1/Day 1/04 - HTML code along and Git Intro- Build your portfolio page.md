@@ -360,7 +360,7 @@ git log
              width="300px"
              height="300px" 
              id="avatar-photo"
-             src="https://garden.zendesk.com/css-components/avatars/images/ma.png"
+             src="C"
         >
 
     <p>Lorem ipsum ... </p>

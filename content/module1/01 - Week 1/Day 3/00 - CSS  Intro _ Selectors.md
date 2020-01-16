@@ -142,13 +142,9 @@ body {
 
 
 
-Let’s play with this Codepen:
-
-<iframe height="265" src="http://codepen.io/ironhack/embed/RGbGpR/?height=265&amp;theme-id=0&amp;default-tab=html,result&amp;embed-version=2" allowfullscreen="true" style="-webkit-text-stroke-width: 0.1px; -webkit-text-stroke-color: initial !important; box-sizing: border-box; color: rgb(249, 240, 225); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.35px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(28, 28, 29); text-decoration-style: initial; text-decoration-color: initial; width: 728px;"></iframe>
-
-
-
 ## Basic Selectors
+
+
 
 ### 	Type selectors
 
@@ -504,7 +500,7 @@ margin: 10px 10px;/* Top & bottom, right & left */
 
 
 
-### [Specificity Example- CODEPEN](https://codepen.io/Denzelzeldi/pen/LYYPRva?editors=1100)
+### [Specificity Example - CODEPEN](https://codepen.io/Denzelzeldi/pen/LYYPRva?editors=1100)
 
 
 

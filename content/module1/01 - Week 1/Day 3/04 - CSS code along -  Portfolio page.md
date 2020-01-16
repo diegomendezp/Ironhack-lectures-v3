@@ -52,7 +52,7 @@ code .
 
 1
 
-#### Create and link the style.css` file
+#### Create and link the `style.css` file
 
 ```bash
 touch styles/style.css
@@ -437,7 +437,7 @@ body {
 
   color: #2d2f3b;
   font-family: sans-serif;
-}
+}z
 
 
 p {

@@ -55,7 +55,6 @@ Tag `<b>` only makes the text bold, while `<strong>` gives it the meaning that i
 
 
 <h3 style='color: green'>VSCode demo</h3>
-
 ### Create a folder structure
 
 ```bash
@@ -204,7 +203,7 @@ inlcuding the <figcaption> holding a caption for the figure/image
         </figure>
         
         <article>
-          <h1>About</h1>
+          <h3>About</h3>
           <p>Sarah Connor is a fictional character in the
             <mark>Terminator</mark> franchise. 
           </p>

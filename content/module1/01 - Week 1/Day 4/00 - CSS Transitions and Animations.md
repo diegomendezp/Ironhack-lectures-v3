@@ -45,7 +45,7 @@ We can set multiple properties by separating them with coma `,` .
 **syntax**
 
 ```css
-transition-property: none | all | [ <property-name> ] [, <property-name> ]
+transition-property: none | all | [ <property-name> ] [, <property-name> ];
 ```
 
 
@@ -61,7 +61,7 @@ We can set multiple times separated with coma for corresponding property.
 **syntax**
 
 ```css
-transition-duration: <time> [, <time>]
+transition-duration: <time> [, <time>];
 ```
 
 
@@ -89,27 +89,38 @@ transition-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|
 We can set multiple times separated with coma for corresponding property.
 
 ```css
-transition-delay: <time> [, <time>]
+transition-delay: <time> [, <time>] ;
+```
+
+
+
+### Example - [CODEPEN Example](https://codepen.io/Denzelzeldi/pen/xxxKoeq?editors=1100)
+
+##### `index.html`
+
+```html
+<section class="box"></section>
 ```
 
 
 
-### Example - [CODEPEN Example](https://codepen.io/Denzelzeldi/pen/xxxKoeq?editors=1100)
+##### `main.css`
 
 ```css
 .box {
-    background-color: #00D1AE;
+    background-color: turquoise;
     width: 100px;
     height: 100px;
+    transition: all 1s; /* This will ensure than after hover we have a smooth transition back to initial style */
 }
 
 .box:hover {
-    background-color: #FF4500;
+    background-color: red;
     width: 400px;
     height: 200px;
     transition-property: width, height, background-color;
     transition-duration: 4s, 2s, 0.5s;
-    transition-timing-function:linear;
+    transition-timing-function: linear;
     transition-delay: 0.5s; /*This will apply on all 3 proprties, but we can set time for each*/
 }
 ```
@@ -131,6 +142,13 @@ transition-delay: <time> [, <time>]
 
 
 
+
+##### `main.css`
+
+```css
+transition: width 4s linear 3s, height 2s linear, background-color 0.5s linear;
+  
+```
 
 
 
@@ -193,14 +211,14 @@ Specifies the duration of animation
 #### Example - simple animation 1
 
 ```html
-<div class="box"></div>
+<section class="box"></section>
 ```
 
 ```css
 .box {
   width: 150px; 
   height: 80px;
-  background-color: #FF5344;
+  background-color: red;
   margin: 20px;
   animation-name: boxSlideIn;
   animation-duration: 4s;
@@ -209,6 +227,10 @@ Specifies the duration of animation
 @keyframes boxslidein {
   0% { margin-left: 100%; }
   100% { margin-left: 0%; }
+  /*
+    or to remove the twitch use `calc()`
+    100% { calc(0% + 20px); }
+  */
 }
 ```
 
@@ -291,7 +313,17 @@ animation: [animation-name] [animation-duration] [animation-timing-function]
   width: 100px; 
   height: 100px;
   background-color: red;
+  animation-name: boxslidein;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 4;
+  animation-direction: reverse;
+  /* shorthand 
+  
   animation: boxslidein 4s ease-in-out 0s 4 reverse;
+  
+  */
 }
 ```
 
