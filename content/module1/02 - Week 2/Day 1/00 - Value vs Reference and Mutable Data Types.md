@@ -28,9 +28,11 @@ There are 7 basic *data types* in *JavaScript*.  Primitive data types are string
 
 
 
-### Primitives - passed (copied) by value
+### Primitives - when passed are copied, the value from the variable is copied (not the reference)
 
-- Primitives: **string, number, boolean, null, undefined, Symbol.** Everything else is an Object type.
+- Primitives: **string, number, boolean, null, undefined, Symbol, BigInt.** 
+
+- Everything else is an Object type - **object, array, function**.
 
 - Variables with **primitives** (data types) **hold the value** that we assigned to it.
 
@@ -47,7 +49,7 @@ There are 7 basic *data types* in *JavaScript*.  Primitive data types are string
   let aCopy = a;
   let bCopy = b;
   
-  // Distinct variables, hold the same value (values were copied)
+  // Distinct variables, hold the same value (values were copied (re-created in memory))
   console.log('a -> ',a);	//	10
   console.log('aCopy -> ',aCopy);	//	10
   
@@ -64,7 +66,7 @@ Changing one does not change the other.
   
   
 
-### Non-primitives - passed (copied) by `reference`
+### Non-primitives -objects are passed around by `reference`
 
 - Non-primitives: **Objects** ( **Objects**,  **Arrays**,  **Functions** ...  (as well Date and Symbol) ).
 - **Reference** - *Address in the memory* of the created *Object* / *Array* / *Function*.
@@ -142,7 +144,7 @@ var myArr = [];
   console.log(obj1 == obj2);	// false
   console.log(obj1 === obj2);	//	false
   
-  // When copying the reference
+  // During assignment `=` the reference (memory address) is being copied
   let arr3 = arr1;
   console.log(arr3 === arr1);
   
@@ -179,7 +181,7 @@ console.log( obj3 === obj1);
   
   ```js
   let person1 = {name: 'John', age: 50}
-  let person2 = person1;
+  let person2 = person1;		// What is being copied in here ?
   
   // Question 1
   person2.name = 'Mark';
@@ -203,11 +205,13 @@ console.log( obj3 === obj1);
 
   ## How to copy an object
 
-  ### [Object.assign()]()  
+  ### [Object.assign()]()  - shallow copy
 
   Object assign is used to copy or overwrite properties from one object to another.
 
   It copies properties from `sourceObject` into `destinationObject`.
+
+We can use it to copy objects and arrays as well.
 
 
 
@@ -348,8 +352,8 @@ console.log(newBook2);
 
 
   ```js
-let obj = { name:'Tom', job: 'Web Developer'}
-let stringified = JSON.stringify(obj);
+let dev1 = { name:'Tom', job: 'Web Developer'};
+let stringified = JSON.stringify(dev1);
 
 console.log(stringified);
 console.log(typeof stringified);
@@ -361,6 +365,8 @@ console.log(typeof backToObject)
   ```
 
   
+
+<br>
 
 
 
@@ -408,6 +414,10 @@ console.log(clonedObject);
 
 
 
+<br>
+
+
+
 ### 	Deep copy - for multidimensional arrays
 
 - #### Use `JSON.parse(JSON.stringify())`;
@@ -416,16 +426,16 @@ console.log(clonedObject);
 // multidimensional array
 const students = [
   ['Ana', 'John', 'Fabio'],
-  ['Alex', 'Mike', [{name: 'Jo'}, {name: 'Bob'}]]
+  ['Alex', 'Mike', 'Vero']
 ];
 
 // using JSON.parse(JSON.stringify())
-const ironhackers = JSON.parse(JSON.stringify(students));
+const studentsCopy = JSON.parse(JSON.stringify(students));
 students[0].push("Sandra");
 
 console.log(students); // [ [ 'Ana', 'John', 'Fabio', 'Sandra' ],
   // [ 'Alex', 'Mike', 'Vero' ] ]
-console.log(ironhackers); // [ [ 'Ana', 'John', 'Fabio' ], [ 'Alex', 'Mike', 'Vero' ] ]
+console.log(studentsCopy); // [ [ 'Ana', 'John', 'Fabio' ], [ 'Alex', 'Mike', 'Vero' ] ]
 ```
 
 

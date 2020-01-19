@@ -111,7 +111,7 @@ function Car (brand, model) {
 	// this.__proto__ = Car.prototype;
   
 	this.brand = brand;	 // create property on the new instance
-  	this.model = model;
+  this.model = model;
 	// return this;
 }
 
@@ -200,8 +200,8 @@ This `prototype` object has a `constructor` property which points back to the fu
 
 
 
-- Is a syntactic sugar, that gives us a cleaner syntax for creating objects with
-  prototypes.
+- `class` Is a syntactic sugar, that gives us a cleaner syntax for creating objects with
+  prototypes, and abstracts the ES5 constructor function.
 
 - ES6 classes are ‘Special functions’ used to create objects ( aka instances).
 
@@ -217,17 +217,20 @@ This `prototype` object has a `constructor` property which points back to the fu
 
 ```js
 class Car {
-	constructor (brand, engineType) { // in the constructor we specifiy parameters that will be passed
-		this.brand = brand; // create property on the new instance
-	}
-  
-  start () { // create method on the Prototype
-    console.log("Engine start");
-	}
+  constructor(brand, model) {
+    // in the constructor we specifiy parameters that will be passed
+    this.brand = brand; // create property on the new instance
+    this.model = model;
+  }
+
+  start() {
+    // create method on the Prototype
+    console.log(`${this.brand} Engine start`);
+  }
 }
 
-const bmw = new Car ("BMW");
-// Car {brand: "BMW"}
+const bmw = new Car("BMW", "750i");
+// Car { brand: "BMW", model: "750i" }
 
 bmw.start();
 ```
@@ -242,37 +245,50 @@ bmw.start();
 
 ```js
 class HybridCar extends Car {
-	constructor (brand, color) {
+  constructor(brand, model, engine) {
     //this = {};
-		super(brand);
-		// call super class Car - which creates property ` brand` on the new instance
-    // this.brand = ... created by super();
-		this.color = color; // create property on the new instance
-	}
-  
-  // creates a method on the HybridCar prototype 
-	description () {
-			console.log(`${this.brand} - ${this.color} color`);
-	}
+    super(brand, model);
+    // call super class Car - which creates properties `brand` and `model` 
+    // on the new instance
+    
+    // this.brand = ... created by super(...);
+    // this.model = ... created by super(...);
 
-  // creates a static method that can be called only from class HybridCar 
-  static className () { return "HybridCar" }
+    this.engine = engine; // create an additional property on the new instance
+
+    // return this
+  }
+
+  // creates a method on the HybridCar prototype
+  description() {
+    console.log(`${this.brand} - ${this.engine} engine.`);
+  }
+
+  // creates a static method that can be called only from class HybridCar
+  static className() {
+    return "HybridCar";
+  }
 }
 
-var bmwHybrid = new HybridCar ("BMW", "black");
-// HybridCar {brand: "BMW"}
+var toyotaHybrid = new HybridCar("Toyota", "Prius", "Hybrid");
+// HybridCar {brand: "Toyota", model: "Prius", engine: "Hybrid"}
 
-bmwHybrid.description(); 	//  from the HybridCar.prototype -> bmwHybrid.__proto__
-bmw.start();	//	from the car.prototype -> bmwHybrid.__proto__.__proto__
+toyotaHybrid.description(); //  from the HybridCar.prototype -> bmwHybrid.__proto__
+toyotaHybrid.start(); //	from the Car.prototype -> bmwHybrid.__proto__.__proto__
+
 ```
+
+
+
+
 
 
 
 <br>
 
+### Consider skipping the exercise, as students will rewrite Vikings to ES6 ???
 
-
-## [Hero Factory - Exercise](https://gist.github.com/ross-u/66d8f3808e6448b54e7455e525153ab5) - **(35 - 45 min)**
+## [Hero Factory ES6 - Exercise](https://gist.github.com/ross-u/5a919d6285dd3d2b67f0f05907c70953) - **(20 min)**
 
 
 

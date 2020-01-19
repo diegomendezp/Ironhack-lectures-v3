@@ -4,7 +4,11 @@
 
 ## Strict mode
 
-JavaScript can be made a *little* stricter by enabling *strict mode*. This is done by putting the string `"use strict"` at the top of a file or a function body. Here’s an example:
+JavaScript can be made a *little* stricter by enabling *strict mode*. This is done by putting the string `"use strict"` at the top of a file or a function body. 
+
+Strict mode makes several changes to normal JavaScript semantics:
+
+- Eliminates some JavaScript silent errors by changing them to throw errors.
 
 - Disallows unnamed variables
 - disallows putting multiple parameters in function with the same name.
@@ -19,19 +23,21 @@ JavaScript can be made a *little* stricter by enabling *strict mode*. This is do
 
 
 
+<br>
 
 
 
-
-
+#### Run in [Repl.it](https://repl.it) :
 
 ```js
 'use strict';
+
 function canYouSpotTheProblem() {
     for (counter = 0; counter < 10; counter++) {
         console.log("Happy happy");
     }
 }
+
 canYouSpotTheProblem();
 
 // → ReferenceError: counter is not defined
@@ -92,7 +98,7 @@ Another useful tool that Chrome DevTools offer us is the Sources Tab. In this se
 To follow the rest of this lesson, **clone this repo**:
 
 ```bash
-$ git clone https://github.com/ironhack-labs/lab-javascript-debugging-error-and-js-hint
+git clone https://github.com/ironhack-labs/lab-javascript-debugging-error-and-js-hint
 ```
 
 
@@ -166,7 +172,7 @@ To do this we **set the Breakpoints** in the code (**Sources** Tab)
 ```js
 // init()` function needs to be debugged as it returns `NaN` and is expected to return a number.
 
-// Set breakpoint in **Sources** Tab for the file `init.js` at the function call `init ();` on line 43.
+// Set breakpoint in **Sources** Tab for the file `init.js` at the function call `init ();` on line 42.
 
 // Add variables `sum` , `subs`, `mult`, `div` and `result` to the  "Watch" list.
 
@@ -200,6 +206,14 @@ The [try … catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 
 ```js
+/*
+Execution of the current function will stop, 
+the statements after throw won't be executed, 
+and control will be passed to the first catch block in the call stack. 
+
+If no catch block exists among caller functions, the program will terminate.
+*/
+
 function checkNumber(x) {
 
   try { 
@@ -209,17 +223,21 @@ function checkNumber(x) {
     else if (typeof x === 'object') {
       throw new Error('Value is an object! Expected a number.')
     }
-    else if (x < 5)  {
-      throw "too low  :( ";
-    }
-    else if (x > 10) {
-      throw "too high";
+    else if (typeof x === 'number')  {
+      console.log('x is a number');
     }
   }
+  
   catch(err) {
-    console.log(err);
+    console.log('IN CATCH BLOCK  err ->', err);
   }
 }
+
+// checkNumber('abc'); 	// throws a string
+// checkNumber( {} );  // throws a new Error instance
+// checkNumber(123);  // 'x is a number'
+
+console.log('After the function');
 ```
 
 

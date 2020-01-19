@@ -252,7 +252,7 @@ let obj1 = {
 	},
 
   // arrow function doesn't have value of this
-  // it reads the value of this from the scope around it/ in which it was defined (in this case parentRegularfunc)
+  // it reads the value of this from the scope around it/ in which it was defined 
 	arrowFunc: () => {
 		console.log(this);
 	},
