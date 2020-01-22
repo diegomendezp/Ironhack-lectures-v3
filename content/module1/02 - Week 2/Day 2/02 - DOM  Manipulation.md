@@ -24,33 +24,42 @@ During the execution of our application, the users will interact with the page, 
 ```bash
 mkdir dom-manipulation
 cd dom-manipulation
+
 touch index.html index.js
+
+code .
 ```
 
-```html
-<!-- index.html -->
 
+
+
+
+##### `index.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>DOM Manipulation</title>
-</head>
-<body>
-  <a href="#" id="google-link" class="link">Google</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DOM Manipulation</title>
+  </head>
+  <body>
+    <a href="#" id="google-link" class="link">Google</a>
 
-  <div id="content">
-    <h1 id="title">Main title</h1>
-	<ul id="item-list"></ul>
-  </div>
+    <div id="content">
+      <h1 id="title">Main title</h1>
+      <ul id="item-list"></ul>
+    </div>
 
-  <button id="add-item-button">Add item</button>
+    <button id="add-item-button">Add item</button>
 
-  <!-- make sure you load .js file in the end so it executes when the DOM is ready -->
-  <script src="index.js"></script>
-
-</body>
+    <!-- make sure you load .js file in the end so it executes when the DOM is ready -->
+    <script src="index.js"></script>
+  </body>
 </html>
+
 ```
 
 
@@ -59,6 +68,7 @@ touch index.html index.js
 
 ```js
 'use strict'
+
 console.log('JS connected');
 ```
 
@@ -127,6 +137,7 @@ console.log(googleLinkUrl);
 ```js
 // TO SET THE ATTRIBUTE NAME USE `setAttribute`
 // syntax:  element.setAttribute(attributeName, value);
+
 let contentDiv = document.getElementById('content');
 
 contentDiv.setAttribute('id', 'title-div');
@@ -394,7 +405,7 @@ toggleButton.addEventListener('click', function() {
 
 
 
-**PRACTICE**
+### PRACTICE (Skip this exercise)
 
 
 
@@ -429,6 +440,10 @@ addItemButton.onclick = function() {
 };
 
 ```
+
+
+
+
 
 
 
@@ -549,9 +564,15 @@ pTags.forEach(paragraphNode => {
 
 
 
+<br>
 
 
-# JS | DOM
+
+
+
+# JS | DOM Exercise (consider skipping)
+
+##### ( Consider skipping, only for more advanced students - example may confuse students with lower level )
 
 ## [Get The Titles - Exercise](https://gist.github.com/ross-u/bc5f6940cad9d98c2c908476412e56dd) (10min)
 
@@ -573,6 +594,8 @@ let titles = document.getElementsByClassName("storylink");
 
 
 
+
+
 **Task 2:**
 
 Now create a for loop that prints the `innerHTML` of each  title element.
@@ -584,6 +607,8 @@ for (let i=0; i < titles.length;i++){
   console.log(titles[i].innerHTML);
 }
 ```
+
+
 
 
 

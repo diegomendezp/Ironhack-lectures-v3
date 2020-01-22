@@ -49,25 +49,9 @@ code .
 
 
 ```html
-<!DOCTYPE>
-<html>
-<head>
-  <title>DOM Intro</title>
-</head>
-<body>
-  <h1>Dog</h1>
- 	<div id="cat">cat</div>
- 	<div id="parrot">parrot</div>
- 	<div class="mouse">mouse</div>
- 	<div class="mouse">mouse</div>
- 	<div class="mouse">mouse</div>
-  <div class="hello">hello</div>
 
-    <!-- include js in the end of the body to make sure 
-    the DOM is already loaded before you want to make updates in it-->
-    <script src="index.js"></script>
-</body>
-</html>
+
+
 ```
 
 
@@ -114,29 +98,37 @@ console.log(document);
 
 ```js
 // TO GET THE ELEMENT FROM DOM YOU CAN USE "getElementById" 
-let theCatDiv = document.getElementById("cat");
-let theParrotDiv = document.getElementById("parrot");
+let firstDiv = document.getElementById("first");
+let secondDiv = document.getElementById("second");
 
-console.log(theCatDiv);
-console.log(theParrotDiv);
+console.log(firstDiv);
+console.log(secondDiv);
 
-console.log(theCatDiv instanceof HTMLElement);
+
+// SKIP BELOW HTMLElement ADVANCED EXAMPLE
+// console.log(theCatDiv instanceof HTMLElement);
 ```
+
+
+
+
 
 **index.js**
 
 ```js
 
 // TO ADD TEXT TO A DOM ELEMENT USE "innerHTML"
-theCatDiv.innerHTML = "I'm a cat";
-theParrotDiv.innerHTML = "I'm a parrot";
+firstDiv.innerHTML = "I'm the first div.";
+secondDiv.innerHTML = "I'm the second div.";
 ```
+
+
 
 **index.js**
 
 ```js
-// set the content of the "theParrotDiv" element to "I'm a cat"
-theParrotDiv.innerHTML = theCatDiv.innerHTML;
+// set the content of the "theParrotDiv" element to "I'm the second div"
+firstDiv.innerHTML = secondDiv.innerHTML;
 ```
 
 
@@ -184,11 +176,11 @@ Instead of hard coding style and behavior in `html` or `css`, these methods enab
 // ...
 
 // TO ADD THE CSS STYLE TO THE ELEMENT USE `.style` property
-theCatDiv.style.backgroundColor = "red";
-theCatDiv.style.border          = "4px yellow dashed";
-theCatDiv.style.fontSize        = "50px";
-theCatDiv.style.marginTop       = "30px";
-theCatDiv.style.paddingBottom   = "30px";
+firstDiv.style.backgroundColor = "red";
+firstDiv.style.border          = "4px yellow dashed";
+firstDiv.style.fontSize        = "50px";
+firstDiv.style.marginTop       = "30px";
+firstDiv.style.paddingBottom   = "30px";
 ```
 
 
@@ -209,9 +201,12 @@ theCatDiv.style.paddingBottom   = "30px";
 
 ```js
 // GET ELEMENTS BY CLASS NAME USE "getElementsByClassName"
-// returns an HTML Collection (array-like object) of all elements which have the given class name
-let miceHTMLCollection = document.getElementsByClassName('mouse');
-console.log(miceHTMLCollection);
+// returns an HTML Collection (array-like object) 
+// of all elements which have the given class name
+
+let theHTMLCollection = document.getElementsByClassName('third');
+
+console.log(theHTMLCollection);
 ```
 
 
@@ -221,7 +216,11 @@ console.log(miceHTMLCollection);
 ## HTML Collections
 
 - The `HTML Collection` represents an **array-like object** of elements. 
-- This array-like object  cannot be iterated with array methods `map`, `forEach`, `push`, etc.
+
+- This array-like object  **cannot be iterated with array methods** `map`, `forEach`, `push`, etc.
+
+- We **can iterate over** using the **with a `for`** loop.
+
 - `HTML Collection` needs to be copied into an array order to use regular array methods. This can be done with `...` spread operator. 
 
 - **Methods that return `HTML Collection`s are:**  
@@ -238,7 +237,7 @@ console.log(miceHTMLCollection);
 
 Use **spread operator [...]** or any other approach to copy the array (we learned 4-5 of them, remember. 
 
-e.g. `const divsArray = Array.from(divsHTMLCollection)`
+e.g. `const divArray = Array.from(divsHTMLCollection)`
 
 
 
@@ -247,10 +246,10 @@ e.g. `const divsArray = Array.from(divsHTMLCollection)`
 ```js
 // The HTML Collection is an array-like object but is not an array (usuall array methods are unavailable). 
 // Turn HTML Collection into an array, using spread operator [...] 
-let miceArray = [...miceHTMLCollection];
+let divArray = [...theHTMLCollection];
 
 
-console.log(miceArray); // <== [div.mouse, div.mouse, div.mouse]
+console.log(divArray); // <== [div.third, div.third, div.third]
 ```
 
 
@@ -270,7 +269,9 @@ console.log(miceArray); // <== [div.mouse, div.mouse, div.mouse]
 ```js
 // GET ELEMENTS BY TAG NAME USE "getElementsByTagName"
 let divsHTMLCollection = document.getElementsByTagName('div');
-console.log(divs); // <== [div#cat, div.mouse, div.mouse, div.mouse]
+
+console.log(divsHTMLCollection); 
+// [div#first, div#second div.third, div.third, div.third]
 
 let divsArray = [...divsHTMLCollection];
 ```
@@ -284,7 +285,7 @@ let divsArray = [...divsHTMLCollection];
 **QUICK EXERCISE:**
 
 ```js
-// Loop over the `divsArray` using `.forEach()` array method and for every element set the following style:
+// Loop over the `allDivsArray` using `.forEach()` array method and for every element set the following style:
 
   element.style.width = "300px";
   element.style.height = "50px";
@@ -326,11 +327,11 @@ The [querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/
 
 ```js
 // TO GET THE FIRST FOUND ELEMENT WITH THE SPECIFIED SELECTOR USE `querySelector`
-let firstMouse = document.querySelector('.mouse');
-let firstDiv = document.querySelector('div');
+let firstClassDiv = document.querySelector('.third');
+let firstFoundDiv = document.querySelector('div');
 
-console.log(firstMouse); // <== <div class="mouse"></div>
-console.log(firstDiv);
+console.log(firstClassDiv); // <== <div class="third"></div>
+console.log(firstFoundDiv);
 ```
 
 
@@ -367,7 +368,9 @@ Property and Method that return `NodeList` are:
 // TO RETURN A NODES LIST OF ELEMENTS BY SELECTOR NAMES USE `querySelectorAll` - ***
 
 // With querySelectorAll we can specify multiple selectors separated by comma
-let allDivs = document.querySelectorAll(".mouse, #cat");
+
+let allDivs = document.querySelectorAll(".third, #first");
+
 console.log(allDivs);
 ```
 
@@ -387,12 +390,12 @@ console.log(allDivs);
 
 ```js
 // TO GET OR SET THE CLASS NAME OF THE ELEMENT USE `.className` property
-let mouse1 = document.querySelector(".mouse");
-console.log(mouse1.className); // <== mouse
+let third1 = document.querySelector(".third");
+console.log(third1.className); // <== third
 
-mouse1.className += ' mickey';
+third1.className += ' active';
 
-console.log(mouse1.className); // <== mouse mickey
+console.log(third1.className); // <== third active
 ```
 
 
@@ -409,11 +412,11 @@ console.log(mouse1.className); // <== mouse mickey
 
 ```js
 // TO GET OR SET THE ID OF THE ELEMENT USE `.id` property
-let mickeyMouse = document.querySelector('.mickey');
+let activeDiv = document.querySelector('.active');
 
-mickeyMouse.id = 'mouse-number-one';
+activeDiv.id = 'intro';
 
-console.log(mickeyMouse);
+console.log(activeDiv);
 ```
 
 

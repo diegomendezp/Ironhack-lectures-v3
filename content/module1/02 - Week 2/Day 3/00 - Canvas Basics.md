@@ -96,7 +96,9 @@ It starts at  **0 , 0** in the top left corner.
 
 ```js
 // fillRect(x, y, width, height)    //Draws a filled rectangle.
+
 // strokeRect(x, y, width, height)  //Draws a rectangular outline.
+
 // clearRect(x, y, width, height)  //Clears the specified rect. area, making it fully transparent.
 ```
 
@@ -106,7 +108,7 @@ It starts at  **0 , 0** in the top left corner.
 
 ```js
 // PURPLE RECTANGLE
-// set the fill style for the fillRect
+// set the fill style for the next shape
 ctx.fillStyle = 'purple';
 
 // draw the rectangle
@@ -169,7 +171,7 @@ ctx.strokeRect(150, 50, 50, 50);
 
 
 
-### **syntax**
+### **syntax** (consider skipping in the lecture)
 
 ```js
 /*
@@ -192,6 +194,8 @@ ctx.lineTo(x, y)    // Draws a line from the current drawing position to the pos
 
 
 
+
+(Continue from here)
 
 
 
@@ -226,6 +230,10 @@ ctx.stroke();
 // close the path
 ctx.closePath();
 ```
+
+
+
+
 
 
 
@@ -340,7 +348,10 @@ ctx.lineWidth = 20;
 ctx.strokeStyle = "green";
 
 // ctx.arc(x, y, radius, startAngle, endAngle)
-ctx.arc(300, 300, 75, 0, Math.PI * 2); //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
+ctx.arc(300, 300, 75, 0, Math.PI * 2); 
+
+//  Math.PI * 2 - Full circle    
+// Math.PI * 1 -  Half circle
 
 // ctx.arc(300, 300, 75, 0, (Math.PI / 180) * degrees); // Converting radians to degrees
 
@@ -368,11 +379,13 @@ ctx.beginPath();
 
 ctx.fillStyle = "yellow";
 
-ctx.arc(300, 300, 15, 0, Math.PI * 2); //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
+ctx.arc(300, 300, 15, 0, Math.PI * 2); 
+//  Math.PI * 2 - Full circle    
+//	Math.PI * 1 -  Half circle
 
 ctx.fill();
 
-ctx.closePath()
+ctx.closePath();
 ```
 
 
@@ -388,13 +401,16 @@ ctx.lineWidth = 4;
 
 ctx.beginPath();
 
-ctx.moveTo(20, 20); // Create a starting point
+ctx.moveTo(20, 20); // Set a starting point
 ctx.lineTo(80, 20); // Create a horizontal line
 
+//	arcTo(x1, y1, x2, y2, radius)
 ctx.arcTo(140, 20, 140, 70, 50); // Create an arc
 ctx.lineTo(140, 120); // Continue with vertical line
 
 ctx.stroke(); // Draw it
+
+ctx.closePath();
 ```
 
 
@@ -442,8 +458,10 @@ We can use property `globalAlpha` to set the transparency of the shape we are dr
 
 // Turn transparency on
 ctx.globalAlpha = 0.2;
+
 ctx.fillStyle = 'blue';
 ctx.fillRect(300, 60, 75, 50);
+
 ctx.fillStyle = 'green';
 ctx.fillRect(330, 80, 75, 50);
 

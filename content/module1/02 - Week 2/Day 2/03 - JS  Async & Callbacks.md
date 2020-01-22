@@ -94,14 +94,22 @@ const timeoutId = setTimeout(someCallbackFunction, 5000);
 const timeoutId = setTimeout(function () {
   console.log("Hey there, Ironhackers!");
 }, 5000);
+```
 
 
 
+```js
 // ES6
 const timeoutId = setTimeout(() => {
   console.log("Hey there, Ironhackers!");
 }, 5000);
 ```
+
+
+
+
+
+<br>
 
 
 
@@ -236,6 +244,8 @@ const intervalId = setInterval(function () {
 
 
 
+
+
 ### Difference between `setInterval` and `setTimeout`
 
 
@@ -277,8 +287,10 @@ function updateClock() {
   
   const timeNow = concatZero(hours) + ':' + concatZero(minutes) + ':' + concatZero(seconds);
 
+  // Print the clock time
 	console.log(timeNow);
   counter++;
+  
   if ( counter > 10 ) {
 		clearInterval(clockInterval)
 	}

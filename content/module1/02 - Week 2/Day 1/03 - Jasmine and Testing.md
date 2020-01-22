@@ -371,7 +371,7 @@ Jasmine is usually installed as a module via   npm - node package manager, howev
 
 ### Students should clone the repo:
 
-### [Jasmine Testing Exercise]()
+### [Jasmine Testing Exercise](https://github.com/ross-u/Jasmine-Testing)
 
 
 

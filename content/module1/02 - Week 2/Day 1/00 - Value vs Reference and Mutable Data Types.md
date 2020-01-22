@@ -32,7 +32,7 @@ There are 7 basic *data types* in *JavaScript*.  Primitive data types are string
 
 - Primitives: **string, number, boolean, null, undefined, Symbol, BigInt.** 
 
-- Everything else is an Object type - **object, array, function**.
+- Everything else is an Object type - **object, array, function** (Date, RegEx).
 
 - Variables with **primitives** (data types) **hold the value** that we assigned to it.
 

@@ -8,6 +8,28 @@
 
 
 
+### Create folder structure
+
+```bash
+mkdir canvas-animations
+
+cd canvas-animations
+
+mkdir styles scripts
+
+touch index.html scripts/index.js styles/main.css
+
+code .
+```
+
+
+
+
+
+<br>
+
+
+
 
 
 ## Setting the canvas dimensions
@@ -18,7 +40,7 @@ To ensure canvas dimensions are rendered properly they have to be set in pixels.
 
 
 
-**index.html**
+##### `index.html`
 
 ```html
 <canvas id="main-canvas"></canvas>
@@ -26,17 +48,18 @@ To ensure canvas dimensions are rendered properly they have to be set in pixels.
 
 
 
-**style.css**
+##### `main.css`
 
 ```css
 canvas {
   border: 3px solid red;
-  visibility: hidden;
+  visibility: hidden;  
 }
 
 body {
   margin: 0;  /* This removes the margin of the browser's default styling */
-  overflow: hidden; /* This prevents scroll overflow showing */
+  overflow: hidden; 
+  /* This prevents scroll overflow showing */
 }
 ```
 
@@ -52,9 +75,9 @@ window.addEventListener('load', () => {
   const canvas = document.getElementById('main-canvas');
   const context = canvas.getContext('2d');
 
-  canvas.height = document.body.clientWidth;
-  canvas.width = document.body.clientHeight;
-  canvas.style.visibility = 'visible';
+  canvas.height = document.body.clientHeight;
+  canvas.width = document.body.clientWidth;
+  canvas.style.visibility = "visible";
 });
 
 ```
@@ -220,7 +243,7 @@ We will work with rendering DOM elements. LAter we will do the real example of r
 **index.html**
 
 ```html
-<canvas id="main-canvas" width="700" height="900"></canvas>
+<canvas id="main-canvas" width="700" height="700"></canvas>
 
 <button>START</button>
 ```
@@ -250,11 +273,15 @@ function clearCanvas() {
   ctx.clearRect(0, 0, 700, 900);
 }
 
-function updateCanvas(){
+function updateState () {
   speed1 += 1; // slowest - 1px per frame
   speed2 += 2; // faster - 2px per frame
   speed3 += 3; // fastest - 3px per frame
+}
 
+function updateCanvas(){
+  updateState();
+  
   // clear the previous frame of elements before printing new one
   clearCanvas();
   ctx.fillRect(100, speed1, 50, 50);
@@ -306,13 +333,17 @@ Let's go through the code together step by step
 **index.html**
 
 ```html
-<canvas id="canvas" height="500" width="700"></canvas>
+<canvas id="pacman-canvas" height="500" width="700"></canvas>
 ```
+
+
+
+
 
 **style.css**
 
 ```css
-canvas {
+#pacman-canvas {
   border: 1px solid red;
   background: black;
 }
@@ -325,8 +356,9 @@ canvas {
 #####  1. Create the canvas and get the context
 
 ```js
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("pacman-canvas");
 const ctx    = canvas.getContext("2d");
+
 ctx.fillStyle = 'white';
 ctx.font = '18px serif';
 ```
@@ -358,7 +390,7 @@ document.addEventListener('keydown', function (e) {
   switch (e.keyCode) {
     case 38: 
       ghost.moveUp();
-      console.log('up',ghost);
+      console.log('up', ghost);
       break;
       
     case 40: ghost.moveDown();
@@ -372,10 +404,14 @@ document.addEventListener('keydown', function (e) {
     case 39: ghost.moveRight();
       console.log('right', ghost);
       break;
+  }
   
   updateCanvas();
-}
+  
+})
 ```
+
+
 
 
 
@@ -385,8 +421,10 @@ document.addEventListener('keydown', function (e) {
 function draw (ghost) {
   let img = document.createElement('img');
   img.src = "https://media.giphy.com/media/Qr8JE9Hvi7ave/200.gif";
+  
+  
   img.onload = function() {
-  // drawImage(imgObj, position-x, position-y, width, height);
+ // drawImage(imgObj, position-x, position-y, width, height);
      ctx.drawImage(img, ghost.x, ghost.y, 50, 50);
   }
 }
@@ -402,7 +440,8 @@ function updateCanvas() {
   // fillText(text, position-x, position-y, maxWidth);
   ctx.fillText("Ghost_x: " + ghost.x, 580, 40);
   ctx.fillText("Ghost_y: " + ghost.y, 580, 60);
-  draw(ghost)
+  
+  draw(ghost);
 }
 ```
 
