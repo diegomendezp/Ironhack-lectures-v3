@@ -12,8 +12,6 @@
 
 
 
-
-
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">1</h2>
 ### Create the project and the file structure
 
@@ -24,6 +22,8 @@ mkdir eternal_enemies && cd eternal_enemies
 mkdir src css
 
 touch index.html src/main.js src/game.js src/player.js src/enemy.js css/style.css
+
+code .
 ```
 
 
@@ -65,7 +65,7 @@ touch index.html src/main.js src/game.js src/player.js src/enemy.js css/style.cs
 
 ```css
 
-/* ---- reset ---- */
+/* ---- CSS reset ---- */
 
 html {
   box-sizing: border-box;
@@ -107,7 +107,7 @@ html, body {
 
 @media (min-width: 768px) {
   .container {
-    max-width: 728px;
+    max-width: 728px;  /* Resizes the container to 728px for large screens */
     margin: 0 auto;
   }
 }
@@ -197,7 +197,7 @@ function main() {
   function removeGameOverScreen() {};
 
     
-  // -- Setting the game state 
+  // -- Setting the game state - start or game over
 
   function startGame() {};
 
@@ -279,7 +279,7 @@ function buildDom(htmlString) {
 // removeSplashScreen() - inside main()
 
   function removeSplashScreen() {
-    // remove() is the DOM element that removes the Node from the page
+    // remove() is the DOM method that removes the Node from the page
     splashScreen.remove();
   };
 ```
@@ -343,7 +343,11 @@ function buildDom(htmlString) {
 // removeGameScreen() - inside main()
   
   function removeGameScreen() {
-    game.removeGameScreen();
+     game.removeGameScreen(); 
+    
+    // We will create this method in next steps on game object
+    // to remove the game screen for the current game
+    // gameScreen.remove()
   }
 ```
 
@@ -354,7 +358,6 @@ function buildDom(htmlString) {
 
   function startGame() {
     removeSplashScreen();
-    // we also need to add clearing of the gameOverScreen
 
     var gameScreen = createGameScreen();
   }
@@ -378,8 +381,8 @@ function buildDom(htmlString) {
 ```js
   function createSplashScreen() {
 
-    ...
-      ...
+  // ...
+    //  ...
 
     var startButton = splashScreen.querySelector('button');
     //startButton.addEventListener('click', function() {
@@ -461,7 +464,6 @@ Game.prototype.removeGameScreen = function() {};
 ```js
 function startGame() {
   removeSplashScreen();
-  // also later we need to add clearing of the gameOverScreen
 
   //var gameScreen = createGameScreen();			<- REMOVE
   
@@ -591,6 +593,7 @@ function startGame() {
 function Player(canvas, lives) {
   this.canvas = canvas;
   this.ctx = this.canvas.getContext('2d');
+  
   this.lives = lives;
   this.size = 100;
   this.x = 50;
@@ -723,9 +726,9 @@ Player.prototype.draw = function() {
 
 Game.prototype.start = function() {
   
-...
-	...
-		...
+//	...
+	//	...
+		//	...
  
 
   // this.player = {};
@@ -858,6 +861,7 @@ Enemy.prototype.isInsideScreen = function() {};
 
 Enemy.prototype.draw = function() {
   this.ctx.fillStyle = '#FF6F27';
+  
   // fillRect(x, y, width, height)
   this.ctx.fillRect(
     this.x,
@@ -1013,7 +1017,7 @@ Game.prototype.startLoop = function() {
 
     // 2. Check if player had hit any enemy (check all enemies)
 
-    // 3. Check if player is going off the screen
+    // 3. Update the player and check if player is going off the screen
 
     // 4. Move existing enemies
 
@@ -1075,7 +1079,7 @@ Game.prototype.startLoop = function() {
     // 2. Check if player had hit any enemy (check all enemies)
     this.checkCollisions();
 
-    // 3. Check if player is going off the screen
+    // 3. Update the player and check if player is going off the screen
     this.player.handleScreenCollision();
 
     // 4. Move existing enemies
@@ -1368,18 +1372,17 @@ function createGameOverScreen(score) {
   gameOverScreen = buildDom(`
     <main>
       <h1>Game over</h1>
-      <p>Your score: <span></span></p>
+      <p>Your score: <span>${score}</span></p>
       <button>Restart</button>
   	</main>
-  `);
+`);
 
+  
   var button = gameOverScreen.querySelector('button');
   button.addEventListener('click', startGame);
 
-  var span = gameOverScreen.querySelector('span');
-  span.innerText = score;
-
   document.body.appendChild(gameOverScreen);
+  
 }
 ```
 

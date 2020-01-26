@@ -43,7 +43,23 @@ To ensure canvas dimensions are rendered properly they have to be set in pixels.
 ##### `index.html`
 
 ```html
-<canvas id="main-canvas"></canvas>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    
+    <canvas id="main-canvas"></canvas>
+
+    <script src="./scripts/index.js"></script>
+    
+  </body>
+</html>
+
 ```
 
 
@@ -73,7 +89,7 @@ body {
 // dimensions of the canvas are set
 window.addEventListener('load', () => {
   const canvas = document.getElementById('main-canvas');
-  const context = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
 
   canvas.height = document.body.clientHeight;
   canvas.width = document.body.clientWidth;
@@ -113,7 +129,7 @@ When doing **animations** on `canvas`, we need to create a set of frames that th
 When making canvas animations there are 4 steps we can take
 
 1. **Save canvas state** - **snapshot** *state of what was shown*
-   Save the current state of the drawing (colors, styles , etc) each time a frame is drawn (current frame).
+   Save the current state of the drawing (position, colors, styles , etc) each time a frame is drawn (current frame).
 2. **Clear the canvas**
    We need to clear any shapes that have been drawn previously using the `clearRect()` method.
 3. **Restore the canvas state**
@@ -437,6 +453,7 @@ function draw (ghost) {
 ```js
 function updateCanvas() {
   ctx.clearRect(0, 0, 1500,1700);
+  
   // fillText(text, position-x, position-y, maxWidth);
   ctx.fillText("Ghost_x: " + ghost.x, 580, 40);
   ctx.fillText("Ghost_y: " + ghost.y, 580, 60);
