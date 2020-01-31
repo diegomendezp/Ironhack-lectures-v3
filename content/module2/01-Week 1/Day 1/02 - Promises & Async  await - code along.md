@@ -120,9 +120,9 @@ Async/Await is a syntactic sugar on top of the promises, making the Promises loo
 
 
 
-- The `await` operator is used to wait for a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). It can only be used inside an [`async function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
+- The `await` operator is used to wait for a completion of a pending [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). It can only be used inside an [`async function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function).
 
-- `async` function always return a `Promise`. The best approach is not to `return` anything from `async` function, but only to `await` completion of operations within the async function, and then invoke a callback.
+- `async` function always return a `Promise`. The best approach is not to `return` anything from `async` function, but only to `await` completion of operations within the async function.
 
 
 
@@ -144,7 +144,8 @@ console.log('ASYNC AWAIT EXAMPLE');
 
 const loadPokemons = async () => {
   try {
-    let response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=100'); // Asynchronous operation - must be awaited
+    let response = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=100'); 
+    // Asynchronous operation - must be awaited
 
     console.log('response', response);
     const data = await response.json(); // Asynchronous operation - must be awaited
@@ -187,7 +188,7 @@ loadPokemons();
 
 
 
-### Wrong way
+### Wrong way (consider skipping this during the lecture)
 
 Waiting for return within `async` function doesn't work as expected, because `async` function immediately returns a `<pending>` `Promise` by default, without any waiting for the promise to finish.
 

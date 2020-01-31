@@ -14,6 +14,8 @@ git clone https://github.com/ross-u/MongoDB-Aggregation-Framework-and-Indexing
 cd MongoDB-Aggregation-Framework-and-Indexing
 ```
 
+
+
 #### [Repo with json data -  URL](https://github.com/ross-u/MongoDB-Aggregation-Framework-and-Indexing)
 
 
@@ -56,14 +58,19 @@ mongo
 ```js
 // List databases
 show dbs
+
 // Switch to database `video`
 use advanced-mongo
 
 // Show collections
 show collections
 
-// List all the documents in the `movies` collection
-db.orders.find().pretty()
+// List all the documents in the `orders` collection
+db.orders.find()
+
+// Increase the number of documents that Mongo shell shows
+// https://docs.mongodb.com/manual/tutorial/configure-mongo-shell/#change-the-mongo-shell-batch-size
+DBQuery.shellBatchSize = 300
 ```
 
 
@@ -134,13 +141,29 @@ Let's run the actual query and execute the above example:
 
 **Run in `mongo` shell**
 
+
+
+### `$match` aggregator
+
 ```js
-var result = db.orders.aggregate([ 
+var result1 = 
+db.orders.aggregate([ { $match: { status: "A" }  }  ])
+                                                                                                     
+result1
+```
+
+
+
+### `$match` and `$group` aggregator
+
+```js
+var result2 = 
+db.orders.aggregate([ 
   { $match: { status: "A" } },
   { $group: { _id: "$cust_id", total: { $sum: "$amount" }  }  } 
 ])
                                                                                                      
-result
+result2
 ```
 
 
@@ -177,7 +200,7 @@ db.orders.aggregate(
 
 - When a MongoDB collection doesn’t have indexes, MongoDB has to scan every single document to select the documents that match a query statement.
 
-- If MongoDB has an appropriate index to perform the query, it can decrease or limit the number of documents it needs to scan.
+- If MongoDB has an appropriate index to perform the query, it can decrease or limit the number of documents it needs to scan, by focusing on a more narrow search region.
 
 
 
@@ -185,56 +208,135 @@ db.orders.aggregate(
 
 
 
-### [Indexing Example](http://learn.ironhack.com/#/learning_unit/6476)
-
-Imagine we have a collection with millions of users and we query the MongoDB to return the users that live in a particular city.
+### Use the repo [JS | Indexing Example](https://github.com/ross-u/JS-Indexing-Example.git)
 
 
 
-Let’s look at a JavaScript simulation of a query without an index and then with an index
+#### Clone the repo
+
+```bash
+# Go out of the previous project
+cd ~
+
+# Clone the repo
+git clone https://github.com/ross-u/JS-Indexing-Example.git
+
+cd JS-Indexing-Example
+
+code .
+```
+
+
+
+
+
+
+
+### STEP 1
+
+Looking for an object in the collection which is not indexed. 
+
+In this example we have a really large array (40k objects), that is going to serve as a mock DB collection.
+
+If we try to search through all of the 40k users in order to find the last user with `id: 39999` and `city: "Los Angeles"`, there is a probability that we will have to traverse the entire collection/array.
+
+
+
+Let's create a function that does this search and time it's performance.
+
+##### `index.js`
 
 ```js
-function findCityWithoutIndex(cityName){
-  
-  const results = [];
-  
-  users.forEach(function(user){
-    if (user.city == cityName) {
-      results.push( user );
+console.log(users);
+
+function findDocumentWithoutIndex(collection, id, city) {
+  for (let i = 0; i < collection.length; i++) {
+    if (collection[i].id === id && collection[i].city === city) {
+      return collection[i];
+    }
+  }
+}
+
+console.time("Find user without index");
+
+var foundUser = findDocumentWithoutIndex(users, 39999, "Los Angeles");
+
+console.timeEnd("Find user without index");
+
+console.log(foundUser);
+```
+
+
+
+<br>
+
+
+
+### STEP 2
+
+In order to optimize search for a user by `id` and the `city` we can create an index, and sort all users by their city.
+
+
+
+Let's create a function which takes the original user collection and creates a collection indexed by `city` names.
+
+
+
+```js
+function createIndex(data) {
+  const index = {};
+
+  data.forEach(function(userData) {
+    if ( ! index[userData.city]) {
+      index[userData.city] = [userData.id];
+    } else {
+      index[userData.city].push(userData.id);
     }
   });
-  
-  return results;
+  return index;
 }
+
+console.time("Index the users by city");
+
+const indexedUsers = createIndex(users);
+
+console.timeEnd("Index the users by city");
+
+// INDEXED USERS
+console.log(indexedUsers);
 ```
 
 
 
 <br>
+
+
+
+### STEP 3
+
+We can now time the performance of the same search this time in the indexed collection. 
+
+Let's run the search and check it's performance.
 
 
 
 ```js
-const index = {};
-
-function createCityIndex(users){
-  users.forEach( function(user) {
-                      
-    if (!index[user.city]) {
-      index[user.city] = [user.id];
-    } 
-    else {
-      index[user.city].push(user.id); 
+function findIndexedDocument(id, city) {
+  for (let i = 0; i < indexedUsers[city].length; i++) {
+    if (
+      indexedUsers[city][i].id === id &&
+      indexedUsers[city][i].city === city
+    ) {
+      return indexedUsers[city][i];
     }
-  })
+  }
 }
 
+console.time("Find indexed user");
 
-// Index key:   city name
-// Index value: array of all users in that city
-// => { miami:     [ 1, 80000000 ],
-//      barcelona: [ 2, 4, 6 ],
-//      madrid:    [ 3, 5, 7 ] }
+var foundUser2 = findDocumentByIdWithoutIndex(39999, "Los Angeles");
+
+console.timeEnd("Find indexed user");
 ```
 
 
@@ -243,7 +345,17 @@ function createCityIndex(users){
 
 
 
-### Creating Indexes
+### CONCLUSION
+
+We can see that it is much faster to search over a indexed chunk in a collection, rather than potentially traversing the entire collection from beginning to the end.
+
+
+
+
+
+<br>
+
+### Creating Indexes in MongoDB
 
 In MongoDB, when we want to accelerate queries that use a particular (often queried) **field** we can create a new index on that collection.
 
@@ -285,3 +397,4 @@ The index orders its entries first by ascending `"cuisine"` values, and then, wi
 
 
 <br>
+

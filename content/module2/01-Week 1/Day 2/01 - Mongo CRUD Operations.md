@@ -24,7 +24,9 @@ CRUD is an acronym for **Create**, **Read**, **Update**, **Delete** which are th
 
 
 
-### CREATE - `insertOne` or `insertMany` methods
+## CREATE -
+
+###  `insertOne` or `insertMany` methods
 
 ```bash
 # insertOne takes a single document and returns a feedback after insertion
@@ -41,7 +43,13 @@ db.users.insertMany([
 
 
 
-### READ - `find` and `pretty` methods
+<br>
+
+
+
+## READ -
+
+###  `find` and `pretty` methods
 
 ```bash
 # find method displays all the documents in the collection in an unorganized way
@@ -158,7 +166,7 @@ db.users.find({ $nor: [{ age: 40}, {name: "Anna"}] })
 
 
 
-[OPEN IMAGE](https://user-images.githubusercontent.com/970858/35269300-840a34a8-0023-11e8-9e8c-42df4816b1e2.png)
+### [OPEN IMAGE](https://user-images.githubusercontent.com/970858/35269300-840a34a8-0023-11e8-9e8c-42df4816b1e2.png)
 
 ![img](https://user-images.githubusercontent.com/970858/35269300-840a34a8-0023-11e8-9e8c-42df4816b1e2.png)
 

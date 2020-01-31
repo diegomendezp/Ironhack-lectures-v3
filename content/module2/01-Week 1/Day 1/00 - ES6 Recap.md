@@ -4,6 +4,48 @@
 
 
 
+### Create folder structure
+
+```bash
+mkdir 00-js-es6
+
+cd 00-js-es6
+
+mkdir src styles images
+
+touch index.html src/index.js styles/main.css
+
+code .
+```
+
+
+
+##### `index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JS | ES6</title>
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <h1>JS | ES6</h1>
+    <script src="./src/index.js"></script>
+  </body>
+</html>
+
+```
+
+
+
+
+
+
+
 ## Scope - `let`, `var`, `const`
 
 
@@ -39,11 +81,19 @@
   
 
 ```js
+// VARIABLE SCOPE - let const var & automatically global
+
 let globalVariable = "I am a global variable."; // GLOBAL SCOPE
 
 function createVariables () {
-	imposter = 'I am an imposter';	// AUTOMATICALY GLOBAL
-	let functionVariable = 'I am a properly declared variable'; // FUNCTION SCOPE
+		imposter = 'I am an imposter';	// AUTOMATICALY GLOBAL
+	  let blockLet = "I am block scoped"; // BLOCK SCOPE
+  	const blockConst = "I am also block scoped"; // BLOCK SCOPE
+    var varLocal = "I have function scope"
+  
+  	console.log('IN FUNCTION, BLOCK let', blockLet);
+    console.log('IN FUNCTION, BLOCK const', blockConst);
+    console.log('IN FUNCTION, LOCAL var', varLocal);
 }
 
 createVariables();
@@ -51,8 +101,7 @@ createVariables();
 
 console.log('WINDOW OBJECT -> ', window);
 
-console.log('GLOBAL VARIABLE -> ', globalVariable);
-console.log('GLOBAL `var` VARIABLE ON WINDOW OBJECT -> ', window.globalVariable);
+console.log('GLOBAL VARIABLE let -> ', globalVariable);
 
 console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
 ```
@@ -82,15 +131,18 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   - functions - <https://codepen.io/Denzelzeldi/pen/gEyejw?editors=0012>
   
   ```js
-  atTheEnd();
+  // HOISTING
+  // var variable declarations
   
-  function atTheEnd() {
-  	console.log('Hello');
-}
-  ```
+  sum(5, 10);
 
+  function sum(a, b) {
+	console.log(a + b);
+  }
+```
   
-
+  
+  
   - variable not defined (doesn't exist)
   
   ```js
@@ -102,6 +154,9 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   * var - <https://codepen.io/Denzelzeldi/pen/yLBjJWK?editors=0010>
   
   ```js
+  // HOISTING
+  // var variable declarations
+  
   console.log(myName);  // undefined  -  declared but without value
   
   var name = 'myName';
@@ -124,14 +179,14 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   
   ```js
   //  BLOCK SCOPE OF THE let 
-  let name = "Ironhacker";
+  let user = "Ironhacker";
   
   if (true) {
-    let name = "John";
-    console.log(`Name INSIDE the 'if' block: ${name}`);
+    let user = "John";
+    console.log(`user INSIDE the 'if' block: ${user}`);
   }
   
-  console.log(`Name OUTSIDE the 'if' block: ${name}`);
+  console.log(`user OUTSIDE the 'if' block: ${user}`);
   
   // Name inside if block statement: John
 // Name outside if block statement: Ironhacker
@@ -145,8 +200,8 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   
   ```js
   // THIS IS OK
-  let message = "This is the first message.";
-  message = "This is the second message.";
+  let message1 = "First message.";
+  message1 = "New message.";
   
   ```
 
@@ -156,8 +211,8 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
 
 ```js
 // BUT THIS WILL THROW AN ERROR
-let message = "This is the first message.";
-let message = "This is the second message."; // <== Duplicate declaration "message"
+let message2 = "You can't re-declare let or const";
+let message2 = "Second message"; // <== Duplicate declaration "message"
 ```
 
 
@@ -165,13 +220,16 @@ let message = "This is the second message."; // <== Duplicate declaration "messa
 
 
 
-  e. `const` variables have to be initialized in the moment of declaration.
+  e. `const` variables **have to be initialized at the moment of declaration**.
 
 ```js
+// THIS IS OK
 const name1 = "John"; // <== CORRECT
-const name2;
 
-name2 = "Sarah"; // WRONG! - This will throw an Error
+
+// THIS WILL THROW AN ERROR
+
+const name2;  // WRONG! - Error | Missing initializer in const declaration
 ```
 
   
@@ -183,12 +241,12 @@ name2 = "Sarah"; // WRONG! - This will throw an Error
   ```js
 // THIS WILL THROW AN ERROR
 
-const message = "This is the first message.";
-message = "This is the second message."; // <== "message" is read-only
+const message3 = "Third message";
+message3 = "New message"; // <== "message" is read-only
   
 // AND THIS WILL THROW AN ERROR
-const message = "This is the first message.";
-const message = "This is the second message."; // <== Duplicate declaration "message" 
+const message4 = "Fourth message";
+const message4 = "Fourth message, again"; // <== Duplicate declaration "message" 
   ```
 
   
@@ -198,14 +256,23 @@ const message = "This is the second message."; // <== Duplicate declaration "mes
   g.  `const` variables containing Objects and arrays can be mutated (not reassigned).
 
   ```js
+// CONST VARIABLES CONTAINING OBJECTS/ARRAYS CAN BE MUTATED
+
 // This is ok ✅
 const obj = {};
 obj.name = "Ironhacker";
+
+console.log("obj", obj);
+
 
 // This is not 🚨
 obj = { name: "Ironhacker" };
 // SyntaxError: Assignment to constant variable
   ```
+
+
+
+
 
 
 
@@ -301,6 +368,8 @@ const x = {
 ### `for...of` loop - as an iterator
 
 ```javascript
+// for...of loop iterates over the iterable objects (Array, arguments, NodeList)
+// and returns the element value in each iteration
 const namesArray = ['John', 'Sarah', 'Alice'];
 
 for (const name of namesArray) {
@@ -310,15 +379,42 @@ for (const name of namesArray) {
 
 
 
+<br>
+
+#### Additional example `for...of` loop (Consider skipping)
+
+```js
+// USAGE WITH FUNCTION'S `arguments` object
+function printArgs() {
+  console.log(arguments); // Array-like object (not same as an array)
+  // THIS WON'T WORK
+  // arguments.forEach(arg => {
+  //   console.log(arg);
+  // });
+
+  // THIS WILL WORK
+  for (let arg of arguments) {
+    console.log(arg);
+  }
+}
 
 
-### [EXERCISE - `for...of` Bank - GIST](https://gist.github.com/ross-u/ee6905057ed757503738fced8d2c3667) (15 min)
+// USAGE WITH HTML COLLECTIONS
+var elementsCollection = document.getElementsByTagName("*");
+console.log(elementsCollection);
+
+// THIS WON'T WORK
+// elementsCollection.forEach((el) => {
+//   console.log(el);
+// });
+
+// THIS WILL WORK
+for (let el of elementsCollection) {
+  console.log("ELEMENT", el);
+}
+```
 
 
-
-
-
-### [SOLUTION - `for...of` - on codepen](https://codepen.io/Denzelzeldi/pen/OJLZWzy?editors=0012)
 
 
 
@@ -385,6 +481,26 @@ console.log('e -> ', e);  // No value is availalbe, JS assigns undefined
 
 
 
+<br>
+
+
+
+
+
+### [EXERCISE - `for...of` Bank - GIST](https://gist.github.com/ross-u/ee6905057ed757503738fced8d2c3667) (15 min)
+
+
+
+
+
+### [SOLUTION - `for...of` - on codepen](https://codepen.io/Denzelzeldi/pen/OJLZWzy?editors=0012)
+
+
+
+
+
+<br>
+
 
 
 ### Arrow function 
@@ -394,17 +510,19 @@ console.log('e -> ', e);  // No value is availalbe, JS assigns undefined
 ##### Doesn't have `arguments` object like normal function
 
 ```js
-/*  Arrow function
+/*  Arrow functions
 Doesn't have `this` variable inside of it but takes it from the scope around it.
 Doesn't have `arguments` object like normal function
 */
 
 let greeting = (name) => {
-	return 'Hello ' + name;
+	return `Hello ${name}!`;
 }
-console.log(greeting() );
 
-let printArguments =() =>{
+console.log( greeting('Michal') );
+
+
+let printArguments = () =>{
   console.log(arguments); // ReferenceError: arguments is not defined
 }
 
@@ -439,11 +557,23 @@ console.log(greeting() );
 
 
 
+#### BONUS Solution: 
+
+```js
+const modify = str => cb1 => cb2 => cb1(cb2(str));
+```
+
+
+
+
+
 
 
 <br>
 
 
+
+### (Consider skipping)
 
 ## Arrow Functions - accessing `this`
 
@@ -476,8 +606,6 @@ counterObject1.countUp();
 
 
 
-
-
 ### New Arrow Syntax
 
 ```js
@@ -487,6 +615,7 @@ class Counter {
   }
 
   countUp() {
+    // regular method countUp takes `this` from the object instance
     setInterval(() => { // arrow function takes the value of this from it's surrounding scope
       console.log(this.count);
       this.count++;
@@ -627,7 +756,7 @@ let myArrowFunciton = (arg1, ...everythingElse ) => {
 	console.log(everythingElse);
 }
 
-myArrowFunciton('1', '2', '3', '4');
+myArrowFunciton("hello", "hola", "hallo", "privet");
 ```
 
 
@@ -678,6 +807,8 @@ account1.depositMoney(100);
 account1.withdrawMoney(25);
 account1.showBalance()
 // $ 75
+
+console.log(account1);
 ```
 
 
@@ -718,6 +849,8 @@ account1.depositMoney(100);
 account1.withdrawMoney(25);
 account1.showBalance()
 // $ 75
+
+console.log(account1);
 ```
 
 
@@ -850,4 +983,4 @@ mac.nameAndPrice();
 - [ES6 Features](http://es6-features.org/)
 
 - [`var` `let` `const`](<https://codeburst.io/learn-let-var-and-const-in-easiest-way-with-guarantee-e6ecf551018a>)
-- [How to get the index in a for-of loop](<https://flaviocopes.com/how-to-get-index-in-for-of-loop/>)
+  - [How to get the index in a for-of loop](<https://flaviocopes.com/how-to-get-index-in-for-of-loop/>)

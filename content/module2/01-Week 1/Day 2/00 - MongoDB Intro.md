@@ -29,6 +29,8 @@
 
 
 
+### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_157ca84354e93013a2289e0e4a8809a6.png)
+
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_157ca84354e93013a2289e0e4a8809a6.png)
 
 
@@ -153,6 +155,7 @@ mongo
 # Start the Mongo server - MacOS
 mongod
 
+# OR
 # Start the Mongo Shell - MacOS
 mongo
 ```
@@ -198,7 +201,7 @@ db
 
 ### `db.collectionName.insertOne()`
 
-### ``db.collectionName.find()`
+### `db.collectionName.find()`
 
 ```bash
 show dbs
@@ -219,6 +222,7 @@ db.users.insertOne({ name: 'Anna', age: 30 })
 db.users.insertOne({ name: 'Anna', age: 40 })
 db.users.insertOne({ name: 'Anna', age: 50 })
 db.users.insertOne({ name: "Marco", age: 30})
+db.users.insertOne({ name: "Marco", age: 50})
 db.users.insertOne({ name: "Marco", age: 60})
 
 
@@ -231,11 +235,22 @@ show dbs
 
 # Show the documents in the collection
 db.users.find()
+
+# Show the documents in the collection, with indentation
+db.users.find().pretty()
 ```
 
 
 
 
+
+<br>
+
+
+
+#### [Mongo Hacker package](https://github.com/TylerBrock/mongo-hacker)
+
+Gives a auto styling to the output in the mongo shell.
 
 <br>
 

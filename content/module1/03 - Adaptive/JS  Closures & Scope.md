@@ -22,6 +22,14 @@ Execution context is the environment / scope where the current code is being eva
 
 
 
+Functions have a closure. It is created during the function declaration. 
+
+The closure contains  the variables that were in the surrounding scope at the time when the function was created.
+
+Closures are commonly used to enable data encapsulation, currying or module pattern.
+
+
+
  ***Closure***, the backpack with the variables that were in scope (around, outside the function) when the function was created.
 
 
@@ -42,19 +50,17 @@ Execution context is the environment / scope where the current code is being eva
 
 ```js
 function outter () {
-  let secret = 'Shhhhh';
-  let enclosedVar = 'meow';
+  let secret1 = 'Shhhhh';
+  let secret2 = 'keep silent';
 
   return function () {
-    return secret;
-    // [secret, enclosedVar] are in closure
+    //debugger;
+    return secret1 + ' ' + secret2;  // [secret, enclosedVar] are in closure
   }  
 }
 
 
 let newFunc = outter();
-
-let secret = 'Well I am not so secret at the end.';
 
 console.log(newFunc());
 ```
@@ -67,6 +73,7 @@ console.log(newFunc());
 
 ```js
 function createMultiplier(multiplyBy) {
+  // var multiplyBy = passed argument value
   return function (number) {
     return number * multiplyBy; // multiplyBy is kept in a closure
   }
@@ -87,22 +94,28 @@ console.log(timesTwo(10));
 ##### Example 3
 
 ```js
-function storeMyPassword (passwordString, mySecret) {
+function createSecret (passwordString, mySecret) {
   let password = passwordString;
   let secret = mySecret;
 
-  return function (passInput) {
-    if (passInput === password) {
-      console.log(`secret is : ${secret}`)
+  return function (passwordInput) {
+    if (passwordInput === password) {
+      console.log(`The secret is: ${secret}`)
     }
     else {
-      console.log('Wrong');
+      console.log('Wrong!');
     }
   }
 }
 
 
-let myPassword = storeMyPassword('bananarama', 'I sleep with my socks on!')
+let getSecret = createSecret('bananarama', 'I stood on the rain and my legs were exposed!')
+
+
+getSecret('mangotango'); // Wrong!
+
+getSecret('bananarama')//  The secret is: ...
+
 ```
 
 

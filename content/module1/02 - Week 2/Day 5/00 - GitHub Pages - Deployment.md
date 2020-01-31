@@ -23,7 +23,7 @@ mkdir github-pages-deployment
 
 cd git-hub-pages-deployment
 
-mkdir scripts css 
+mkdir scripts css styles
 touch index.html styles/styles.css scripts/script1.js scripts/script2.js
 
 code .
