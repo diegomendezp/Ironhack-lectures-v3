@@ -2,9 +2,13 @@
 
 
 
- That’s exactly what we will be learning here: **how to make a basic Website** using Node.js and Express.
+We will be learning **how to make a basic server-side rendered Website** using Node.js and Express.
 
-Sidenote : (This kind of Website **doesn’t need Express or back end**. It would be better to make a Website like this with plain old HTML, CSS and JavaScript . We are only making these simple Websites to lay the foundation of how to use Express so we can do more appropriate back end tasks later)
+
+
+Sidenote : (This kind of Website **doesn’t need Express or back end**. 
+
+It would be better to make a Website like this with plain old HTML, CSS and JavaScript . We are only making these simple Websites to lay the foundation of how to use Express so we can do more appropriate back end tasks later).
 
 
 
@@ -28,11 +32,17 @@ We can also enhance it's feautres through additional plugins.
 
 
 
+
+
 ## **What does 'unopinionated' mean?**
 
-### It means there is no one right way to do things that Express will force you into. By contrast an opinionated framework guides/forces you into a specific way to do something. 
+#### It means there is <u>no one right way to do things</u> that Express will force you into. 
 
-### The best example of such is Ruby on Rails ("the Rails Way").
+#### By contrast an opinionated framework guides/forces you into a specific way to do something. 
+
+
+
+##### (The best example of such opinionated framework is Ruby on Rails ("the Rails Way").
 
 
 
@@ -77,8 +87,13 @@ Are never cached
 
 
 ```bash
-$ mkdir express-hello-world
-$ cd express-hello-world
+mkdir express-hello-world
+
+cd express-hello-world
+
+touch app.js
+
+code .
 ```
 
 
@@ -86,11 +101,10 @@ $ cd express-hello-world
  **|** Install **Express** with NPM and save it as a dependency in our project, then create a file to run our *server* named `app.js`
 
 ```bash
-$ npm init
+npm init
 # (Hit return until prompted to type "yes")
 
-$ npm install express --save
-$ touch app.js
+npm install express --save
 ```
 
 
@@ -127,13 +141,16 @@ const app = express();
 
 ```js
 const express = require('express');
+
 const app = express();
+
 
 // our first Route
 app.get('/', (request, response, next) => {
-  console.log(request);
+  console.log("HTTP method", request.method);
   response.send('<h1>Welcome Ironhacker. :)</h1>');
 });
+
 ```
 
 
@@ -167,7 +184,7 @@ app.listen( 3000, () => {
 
 
 ```js
-Our first Express code
+// Our first Express code
 
 // Require Express
 const express = require('express');
@@ -177,6 +194,7 @@ const app = express();
 
 // our first Route:
 app.get('/', (request, response, next) => {
+  console.log("HTTP method", request.method);
   response.send('<h1>Welcome Ironhacker. :)</h1>');
 });
 
@@ -271,12 +289,16 @@ app.get('/about', (request, response, next) => {
 ### Add the `static` middleware to help serving the static resources, from the `public` folder
 
 ```bash
-mkdir public
-cd public
-mkdir views css
-cd css
-touch main.css about.css
-cd ../../
+mkdir public 
+
+mkdir public/views public/css
+
+touch public/css/main.css public/css/about.css
+
+touch public/views/index.html public/views/about.html
+
+
+
 ```
 
 
@@ -288,15 +310,19 @@ const express = require('express');
 
 const app = express();
 
-app.use(express.static('public'));
 
+
+// middleware for static files
+app.use(express.static('public'));	// <-- ADD
+
+// We setup a folder from where to serve the pages (static files)
 ```
 
 
 
 
 
-### Move the `css` from `HTML string` to  `public/css/main.css` and `public/css/about.css`
+### Add the `css` from `HTML string` to  `public/css/main.css` and `public/css/about.css`
 
 and
 
@@ -313,6 +339,16 @@ and
 ### [Repo with static files](https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-)
 
 
+
+
+
+<br>
+
+
+
+#### Update the current routes to serve the html files from `public` folder
+
+##### `app.js`
 
 ```js
 // middleware for static files
@@ -335,11 +371,19 @@ app.get('/about', (request, response, next) => {
 
 ### Update the HTML strings (remove `<style>`) and include the link to the static file:
 
+##### `public/views/index.html`
+
 ```html
+<!--   index.html   -->
 <link rel="stylesheet" href="../css/main.css">
+```
 
-<!-- AND -->
 
+
+##### `public/views/about.html`
+
+```html
+<!--   about.html   -->
 <link rel="stylesheet" href="../css/about.css">
 ```
 
@@ -347,13 +391,27 @@ app.get('/about', (request, response, next) => {
 
 
 
+#### Save few additional images to your public folder
+
+```bash
+# Download images using terminal
+
+# Download cat image and save it to the `./public` folder
+curl https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg --output ./public/cat.jpeg
+
+
+# Download a dog image and save it to the `./public` folder
+curl https://www.rd.com/wp-content/uploads/2017/10/These-Funny-Dog-Videos-Are-the-Break-You-Need-Right-Now_493370860-Jenn_C-760x506.jpg --output ./public/dog.jpeg
+
+```
+
+
+
 ### Try accessing the files in the `public/` folder via:
 
-`localhost:3000/image1.jpg`
+`localhost:3000/dog.jpeg` 
 
-`localhost:3000/image2.jpg` 
-
-`localhost:3000/cat.jpg`
+`localhost:3000/cat.jpeg`
 
 `localhost:3000/`
 

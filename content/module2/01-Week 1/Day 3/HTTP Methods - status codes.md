@@ -2,6 +2,12 @@
 
 ------
 
+
+
+### Most Commonly Used HTTP Methods:
+
+
+
 **GET**
 
  \- has only Headers
@@ -72,6 +78,12 @@ Removes specific resource by id. Removes all current representations of the targ
 
 
 
+### Other HTTP Methods:
+
+<br>
+
+
+
 **HEAD**
 
  \-  has only Headers
@@ -120,15 +132,15 @@ TRACE requests can be disabled by making a change to the server configuration.
 
 
 
-
-
-## Status codes
+<br>
 
 
 
-100
+## HTTP Status codes
 
- \- Continue
+
+
+**100** - Continue
 
 
 
@@ -168,7 +180,7 @@ TRACE requests can be disabled by making a change to the server configuration.
 
 
 
-### Status code categories
+### HTTP Status code categories
 
 ------
 
@@ -184,7 +196,7 @@ TRACE requests can be disabled by making a change to the server configuration.
 
 
 
-418 - I'm a teapot (1998 Arpil Fools' joke) -
+**418** - [I'm a teapot (1998 Arpil Fools' joke)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418)  :laughing: :tea: 
 
 
 
@@ -196,17 +208,33 @@ We can also expand it and create custom error codes and descriptions
 
 ## Fields in the HTTP Request Headers
 
-------
 
-GET /hello.htm HTTP/1.1
+
+###### EXAMPLE OF A HTTP MESSAGE <u>HEADERS</u>:
+
+
+
+**GET ** /hello.html  **HTTP/1.1**
+
 **User-Agent:** Mozilla/4.0 (compatible; MSIE5.01; Windows NT)
+
 **Host**: www.tutorialspoint.com
+
 **Accept-Encoding:** gzip, deflate
+
 **Connection**: Keep-Alive
 
 
 
-1st line - Method, URI, HTTP version
+<hr>
+
+<br>
+
+###### MEANING:
+
+
+
+1st line - **Method**, URI, **HTTP version**
 
 
 

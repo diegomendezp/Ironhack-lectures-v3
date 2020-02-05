@@ -22,11 +22,13 @@ All the devices connected to the Internet are either **servers** or **clients**.
 
 
 
-To be a server your computer would need to be **turned on**, **awake** and have **Internet literally all the time**. Not very practical for our personal computers.
+To be a server your computer would need to be **turned on**, **awake** and have **Internet literally all the time**. 
+
+Not very practical for our personal computers.
 
 
 
-**Servers**, however, are exactly that: computers that are always turned on, awake and connected to the Internet so that users can connect to them.
+**Servers**, are exactly that: computers that are always turned on, awake and connected to the Internet so that users can connect to them.
 
 
 
@@ -269,11 +271,15 @@ Most common request verbs are:
 
 Every computer connected to the Internet has an **IP address**. 
 
-Think of IP addresses like the street addresses for each computer/ machine.
+IP address is like a street addresses for each computer/ machine.
+
+
 
 The **Domain Name System**, or **DNS** for short,allows us to use domain names.
 
-**DNS** is a system of online directories/ servers that hold IP addresses for the IP addresses that they belong to. A phone book of IP addresses.
+**DNS** is a system of online directories/ servers that hold IP addresses for the IP addresses that they belong to. 
+
+**DNS** is simply a  **phone book/registry of IP addresses**.
 
 
 

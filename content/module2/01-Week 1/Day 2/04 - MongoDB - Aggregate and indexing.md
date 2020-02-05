@@ -208,9 +208,17 @@ db.orders.aggregate(
 
 
 
+# JS Indexing example
+
+
+
 ### Use the repo [JS | Indexing Example](https://github.com/ross-u/JS-Indexing-Example.git)
 
 
+
+
+
+## Getting Started
 
 #### Clone the repo
 
@@ -234,15 +242,17 @@ code .
 
 ### STEP 1
 
-Looking for an object in the collection which is not indexed. 
+In our first step we will simulate looking for an "user object" using 2 search criterias (`id` and `city`) in the collection which is not indexed. 
 
-In this example we have a really large array (40k objects), that is going to serve as a mock DB collection.
+In this example we have a really large array (40k objects :open_mouth: ), that serves as a mock/example of a database collection `users` .
 
-If we try to search through all of the 40k users in order to find the last user with `id: 39999` and `city: "Los Angeles"`, there is a probability that we will have to traverse the entire collection/array.
+If we try to search through all of the 40k users in order to find the last user with `id: 39999` and `city: "Los Angeles"`, there is a probability that we will have to traverse the entire collection (array in our case).
 
 
 
-Let's create a function that does this search and time it's performance.
+Let's create a function that does this search and let's time it's performance.
+
+
 
 ##### `index.js`
 
@@ -274,11 +284,11 @@ console.log(foundUser);
 
 ### STEP 2
 
-In order to optimize search for a user by `id` and the `city` we can create an index, and sort all users by their city.
+In order to optimize the search for a user by these 2 criterias ( `id` and `city`) we can create an index/dictionary, and sort all users **by** their **city**.
 
 
 
-Let's create a function which takes the original user collection and creates a collection indexed by `city` names.
+Let's create a function which takes the original user collection/array and creates a collection (object named `indexedUsers`)  indexed by `city` names.
 
 
 

@@ -11,17 +11,29 @@ After this lesson you will be able to:
 
 
 
+#### Create the file structure
 
+```bash
+mkdir 00-express-dynamic-views
+
+cd 00-express-dynamic-views
+
+mkdir css
+
+touch app.js index.html css/style.css
+
+code .
+```
+
+
+
+<br>
+
+#### Initialize the project and install dependencies
 
 ```bash
 npm init
 npm i --save express
-
-touch app.js index.html
-
-mkdir css
-cd css
-touch style.css
 ```
 
 
@@ -35,12 +47,12 @@ touch style.css
 ##### `app.js`
 
 ```js
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 // Send a text string in the response
 app.get('/', (req, res, next) => {
-  res.send('hello world');
+  res.send('<h1 style="color: red">Hello Express</h1>');
 });
 
 app.listen(3000);
@@ -71,7 +83,7 @@ app.get('/sendhtml', (req, res, next) => {
       </head>
 
       <body>
-        <h1>This is my second route</h1>
+        <h1 style="color: purple">This is my second route</h1>
       </body>
       
     </html>
@@ -117,6 +129,8 @@ This is the same as the `path.dirname(__filename)` .
 
 ```js
 // Add middleware for serving static files
+
+// MIDDLEWARE
 app.use(express.static(__dirname));
 
 // ...
@@ -126,12 +140,47 @@ app.use(express.static(__dirname));
 
 // Sending a view as a file
 app.get('/sendview', (req, res, next) => {
-  //res.render('index.html');
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(`${__dirname}/index.html`);
 });
 ```
 
 
+
+<br>
+
+
+
+### Update `index.html`
+
+##### `index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Express Dynamic Views</title>
+  </head>
+  <body>
+    <h1>Index.html page</h1>
+    <h4>
+      This page was sent from the server using:
+      <pre>res.sendFile(`${__dirname}/index.html`)</pre>
+    </h4>
+  </body>
+</html>
+
+```
+
+
+
+<hr>
+
+
+
+<br>
 
 
 
@@ -233,7 +282,9 @@ app.set('view engine', 'hbs');
 
 
 
+<br>
 
+#### Add content to the `index.hbs` view file
 
 ##### `views/index.hbs`
 
@@ -254,6 +305,10 @@ app.set('view engine', 'hbs');
 
 
 
+<br>
+
+#### Update `app.js` to `res.render()` the `index` view
+
 ##### `app.js`
 
 ```js
@@ -266,6 +321,17 @@ app.get('/', (req, res, next) => {
   res.render('index');	//  																		<---- ADD
 });
 ```
+
+
+
+<br>
+
+## :rotating_light:
+
+<h2 style="color: red">Delete the file <pre>index.html</prepre> 
+</h2>
+
+<h2>If not deleted it will be loaded automatically by express when visiting the home endpoint `/`</h2>
 
 
 
@@ -418,19 +484,18 @@ The below string will be evaluated as a valid HTML code. Notice what happens.
 ```js
 //  bootcamp: '<h3>IronHack WebDev</h3>',
 
-		bootcamp: `
-    <script>
-      console.log('Hello my name is Uros');
-
+    bootcamp: `<script>
       var password = prompt(\` You were logged out. \n \n Enter Your Password: \`);
 
       console.log('BANG! - GOT THE PASSWORD:', password);
 
       setTimeout(() => {
-        window.location.href = "https://www.youtube.com/watch?v=b48HJQL5Hoo";
+        document.body.innerHTML = \`<h1>you've been pwned! (╯ ͠° ͟ʖ ͡°)╯┻━┻ </h1>\`
       }, 5000)
 
-    </script>`,
+      setTimeout(() => {
+        window.location.href = "https://www.youtube.com/watch?v=b48HJQL5Hoo";
+      }, 9000)`
 ```
 
  
@@ -461,11 +526,13 @@ The below string will be evaluated as a valid HTML code. Notice what happens.
 	<h3>#if</h3>
 	
 	{{#if message}}
-    <h2>MESSAGE - This won't be displayed!!</h2>
+    <h2>
+    message - This won't be displayed if message property doesn't exist!
+    </h2>
   {{/if}}
 
   {{#if name}}
-    <h2>This will be displayed!</h2>
+    <h2>name - This will be displayed!</h2>
   {{/if}}
 ```
 
@@ -512,7 +579,7 @@ Add the following, below the existing code in the `student.hbs` view.
 
 
 {{#if address}}
-    <h2>"address" exists</h2>
+    <h2>"address" exists - {{ address }}</h2>
 {{else}}
   <h2>"address" doesn't exist - This will be displayed</h2>
 {{/if}}
@@ -544,7 +611,7 @@ Add the following, below the existing code in the `student.hbs` view.
 If we add the `address` property, then the warning should disappear!
 
 ```js
-app.get('/', (req, res, next) => {
+app.get('/student', (req, res, next) => {
   let data = {
     name: 'Ironhacker',
     message: 'Rocking it!',
@@ -555,7 +622,7 @@ app.get('/', (req, res, next) => {
     
   };
   
-  res.render('index', data);
+  res.render('student', data);
 });
 ```
 
@@ -578,14 +645,14 @@ Add the array to the `data` that we will use to iterate over.
 ##### `app.js`
 
 ```js
-app.get('/', (req, res, next) => {
+app.get('/student', (req, res, next) => {
   let data = {
     name: "Ironhacker",
     message: "Rocking it!",
     address: "Barcelona",
     cities: ["Miami", "Madrid", "Barcelona", "Paris", "México", "Berlín"]
   };
-  res.render('index', data);
+  res.render('student', data);
 });
 ```
 
@@ -676,15 +743,16 @@ Additionally for `object` iteration, `{{@key}}` references the current key name 
 ##### `app.js`
 
 ```js
-app.get('/', (req, res, next) => {
+app.get('/student', (req, res, next) => {
   let data = {
     name: "Ironhacker",
     message: "Rocking it!",
     address: "Barcelona",
     cities: ["Miami", "Madrid", "Barcelona", "Paris", "México", "Berlín"],
+    countries: ["Spain", "France", "Germany", "Portugal", "United States", "Brazil"],
     info: { name: 'Ironhacker', campus: 'Barcelona', year: 2019}
   };
-  res.render('index', data);
+  res.render('student', data);
 });
 ```
 
@@ -705,7 +773,7 @@ app.get('/', (req, res, next) => {
   <li>{{@key}}: {{this}}</li>
   
 {{/each}}
-<ul>
+</ul>
 ```
 
 
@@ -785,7 +853,7 @@ We can do this:
 
 <h3>#with</h3>
 
-<h1>Hello {{name}} {{lastName}}!</h1>
+<h3>Hello {{name}} {{lastName}}!</h3>
 
 {{#with address}}
   <p>{{street}}, {{number}}</p>

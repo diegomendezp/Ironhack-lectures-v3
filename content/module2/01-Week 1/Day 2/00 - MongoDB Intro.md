@@ -8,7 +8,7 @@
 
 
 
-- [Databases](https://en.wikipedia.org/wiki/Database) are **programs that allow us to save and retrieve data** of our applications. 
+- [Databases](https://en.wikipedia.org/wiki/Database) are **programs allow us to save and retrieve data** of our applications. 
 - Until now, every program that we wrote used to reset/refresh every time we run it (variables will be delete as soon we reload or exit).
 
 
@@ -82,9 +82,9 @@ var mydoc = {
 
 
 
-- The documents we store in MongoDB database can be different value types. 
+- The documents <u>we store in MongoDB</u> database can be <u>different value types</u>. 
 
-- These are some of the most useful data types used in mongo documents:
+- These are <u>some of the most useful data types</u> used in mongo documents:
 
 ### [TABLE EXAMPLE](https://gist.github.com/ross-u/460610d2e938810de9fe28fd89ce611e)
 
@@ -106,9 +106,9 @@ var mydoc = {
 
 
 
-### `Object ID` type
+### `ObjectId` type
 
-- `ObjectID` is a MongoDB type used to identify documents in a collection uniquely. 
+- `ObjectIDd is a MongoDB type used to identify documents in a collection uniquely. 
 
 - MongoDB will create them automatically for us. 
 
@@ -149,14 +149,22 @@ mongo
 
 
 
+<br>
+
+
+
 ### **Start MongoDB  and Mongo shell - MacOS**
 
 ```bash
+# Start the Mongo server with Homebrew - MacOS
+brew services start mongodb-community
+
+# OR
 # Start the Mongo server - MacOS
 mongod
 
 # OR
-# Start the Mongo Shell - MacOS
+# Start the Mongo Shdbell - MacOS
 mongo
 ```
 

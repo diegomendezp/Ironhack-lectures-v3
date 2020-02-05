@@ -12,11 +12,52 @@
 
 
 
+#### <u>Lecture breakdown:</u>
+
+- What is normalization
+
+- Document relationship: embedding VS. referencing
+
+  - Referencing example: image and code
+  - Embedding example: image and code
+
+- Why and how?  :  Designing your database schema
+
+  
+
+- Database collection relationship types:
+  - Foreign key
+  - 1:1 - One-To-One
+  - 1:N - One-To-Many
+    - embedding instead of using One-To-Many relationship :thumbsdown:
+  - N:M - Many-To-Many
+    - Example with `ObjectId`s
+    - Simplify the example using numbers (1,2,3) instead of `ObjectId`s
+
+Group exercise - design a database model: Independent practice (15 min)
 
 
 
 
-## Document Structure
+
+<hr>
+
+<br>
+
+
+
+#### [Normalization - CS Wiki](https://computersciencewiki.org/index.php/Normalization)
+
+- **Normalization is a database design method and a process of systematically breaking a complex collecition / table into simpler, smaller, easier to manage collections/ tables**.
+- Purpose of Normalization is to produce a clearer, more readable and more scalable data model.
+
+
+
+
+
+
+
+## Document relationships
 
 Designing data models for MongoDB applications focuses on the structure of documents and how it represents relationships between data. 
 
@@ -29,10 +70,6 @@ We can create relationships between collections in Two ways:
 
 
 
-
-
-
-
 ## Referencing documents - Relations
 
 
@@ -41,17 +78,6 @@ We can create relationships between collections in Two ways:
 
 - **Reference** stores the relationships between data by including ids from one document to another. 
 - Structures of collections that use references to store and organize documents are  called **normalized** data models.
-
-
-
-
-
-#### [Normalization - CS Wiki](https://computersciencewiki.org/index.php/Normalization)
-
-- **Normalization is a database design method and a process of systematically breaking a complex table / collection into simpler, smaller, easier to manage collections/ tables**.
-- Purpose of Normalization is to produce a clearer, more readable and more scalable data model.
-
-
 
 
 
@@ -75,7 +101,7 @@ first we’ll get the `_id` of the user from `user` collection, and then we’ll
 
 
 
-**Example **
+### Referencing Example
 
 
 
@@ -111,6 +137,10 @@ first we’ll get the `_id` of the user from `user` collection, and then we’ll
 
 
 
+<br>
+
+
+
 **To get the address of the current user, we need 2 queries :**
 
 ```js
@@ -139,7 +169,11 @@ db.address.find(
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -225,17 +259,23 @@ When we have multiple documents (sub-documents) that can embed in the same compo
 
 
 
+
+
 <br>
+
+
 
 
 
 ## Defining Your Document Schema
 
-You should start the schema design process by considering the application use, query requirements, and how each document or collection will be linked to each other.
+When designing the database you should start the schema design process by considering the application use, query requirements, and how each document or collection will be linked to each other.
+
+When designing we use the relationship types to describe how collections link to eachother.
 
 
 
-
+<br>
 
 
 
@@ -346,7 +386,7 @@ In the One-to-One relationship Embedding can be choosed as the preferred way to 
 
 ## 1:N
 
-### Model One-to-Many Relationships with Embedded Documents
+### Model One-to-Many Relationships 
 
 One document (collection) is referenced by <u>many other</u> <u>documents</u> <u>in another collection</u>, while the other side's (Many) relationship is only to a single document.
 
@@ -356,7 +396,7 @@ One document (collection) is referenced by <u>many other</u> <u>documents</u> <u
 
 ```js
 {
-   _id: ObjectId("593e7a1a4299c306d656200f"),		// U1
+   _id: U1,
    name: "Bob Codebraker",
    email: "bob.codebraker@mail.com"
 }
@@ -368,17 +408,17 @@ One document (collection) is referenced by <u>many other</u> <u>documents</u> <u
 
 ```js
 {
-   _id: ObjectId("3f2e4b1a4299c306d656200f"),	// A1
+   _id: A1,
    street: "123 Fake Street",
    city: "Faketon",
-   user: ObjectId("593e7a1a4299c306d656200f")		// U1
+   user: U1
 }
 
 {
-   _id: ObjectId("15fe7a12f29dc36d65632f0c"),	// A2
+   _id: A2,
    street: "1 Some Other Street",
    city: "Boston",
-   user: ObjectId("593e7a1a4299c306d656200f")		// U1
+   user: U1
 }
 ```
 

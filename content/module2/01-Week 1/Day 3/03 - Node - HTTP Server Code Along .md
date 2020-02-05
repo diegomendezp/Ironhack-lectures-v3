@@ -1,4 +1,48 @@
-# Node | HTTP Server - Code Along
+# Node | HTTP Server - Code Along/Demo
+
+
+
+
+
+### Code along/Demo intro
+
+During this demo we are going to make our laptop into a server, being open and listening to the incoming HTTP requests on port 3000, on our current IP address.
+
+We will use our local IP address to which we refer to as `localhost`.
+
+
+
+#### `localhost ` - `127.0.0.1`  -->  means this computer
+
+
+
+
+
+To get you address if connected on a wireless network (address on current network). If using ethernet use `en1`.
+
+```bash
+ipconfig getifaddr en0
+```
+
+
+
+To get our external IP address:
+
+```bash
+curl ipecho.net/plain ; echo
+```
+
+or
+
+```bash
+curl ifconfig.me
+```
+
+
+
+
+
+<br>
 
 
 
@@ -17,14 +61,17 @@ We will talk about that in the next lesson.
 
 
 ```bash
-mkdir node-http-server
-cd node-http-server
+mkdir 01-node-http-server && cd 01-node-http-server
+
 touch server.js
+
+code .
+
 ```
 
 
 
-**server.js**
+##### `server.js`
 
 ```js
 const http = require('http');
@@ -33,7 +80,7 @@ const server = http.createServer();
 
 
 server.listen(3000, () => {
-  console.log(`Server running at PORT 3000`);
+  console.log(`Server running at port 3000`);
 });
 ```
 
@@ -41,9 +88,13 @@ server.listen(3000, () => {
 
 
 
-Let's run the server:
+Let's run the server (from the root of the project):
 
 ```bash
+pwd
+
+ls
+
 node server.js
 ```
 
@@ -64,9 +115,11 @@ const port = 3000;
 const server =
   http.createServer((request, response) => {
     
-    console.log('Server request-response example');
+    console.log('Request reached the server!');
+ // console.log(request);  // The HTTP message converted to a `request` object
+// console.log(request.headers);  // HTTP message headers
     
-    response.write('Hello, world!'); // Write the HTTP response body content
+    response.write('Hello, world!'); // Set the HTTP response body content
     response.end();  // Send the response back
   });
 
@@ -86,6 +139,14 @@ server.listen( port, () => {
 
 
 
+## or
+
+ to make it more interesting, get your current ip address on the wireless network and let others access your server. Remember to add the port to the IP you get back:
+
+```bash
+ipconfig getifaddr en0
+```
+
 <br>
 
 
@@ -103,21 +164,27 @@ server.listen( port, () => {
 ```js
 const http = require('http');
 
-const server =
-  http.createServer((request, response) => {
-    console.log(`Someone has requested ${request.url}`);
+const server = http.createServer((request, response) => {
+  
+  // console.log("Request reached the server");
+  
+  //  response.write('Hello, world!'); 
+  //  response.end();
+  
+  
+  console.log(`Someone has requested ${request.url}`);
 
-    if (request.url === '/') {						// domain-name.com
+    if (request.url === '/') {						// domain.com
       response.write('Hello, world!');
       response.end();
     }
     
-    else if (request.url === '/about') {	// domain-name.com/about
+    else if (request.url === '/about') {	// domain.com/about
       response.write('My name is Bob!');
       response.end();
     }
     
-    else {																// domain-name.com/*
+    else {																// domain.com/*
       response.statusCode = 404;
       response.write('404 Page');
       response.end();
@@ -169,6 +236,8 @@ Standard ports:  **:80** ( **HTTP** ) and **:443** ( **HTTPS** ) .
 
 
 
+
+
 <br>
 
 
@@ -177,9 +246,33 @@ Standard ports:  **:80** ( **HTTP** ) and **:443** ( **HTTPS** ) .
 
 
 
-#### Fork and clone the repository
+<br>
+
+Create the folder for the repo
+
+```bash
+pwd
+
+ls
+
+mkdir 02-node-http-server-part2
+
+cd 02-node-http-server-part2
+```
+
+
+
+### Fork and clone the repository
 
 ### [Repo with static files](https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-)
+
+```bash
+git clone https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-.git
+
+cd Node.js-Serving-Static-Files-Code-Along-
+
+code .
+```
 
 
 
@@ -187,30 +280,41 @@ Standard ports:  **:80** ( **HTTP** ) and **:443** ( **HTTPS** ) .
 
 ### Require the modules for `http`, parsing url `url` and `fs` for reading writing files
 
+
+
+##### `server.js`
+
 ```js
 // server.js
 
-const http = require('http'); // require the  node's `http` module
+// require the  node's modules
+const http = require('http'); 
 const url = require("url");
 const fs = require('fs');
 ```
 
 
 
+<br>
+
+
+
 #### Create the basic server
 
+##### `server.js`
+
 ```js
-// index.js
+// server.js
 
 // Our port to listen for incoming HTTP requests
 const port = 3000;
 
-// runs a method which creates the server object
+// create the server
 const server = http.createServer((request, response) => {
-
-    if (request.url === '/index.html') {
+	// `http.createServer` creates the server object
+    
+  	if (request.url === '/index.html') {
       
-      code .
     }
     
     else if (request.url === '/about.html') {
@@ -232,10 +336,15 @@ const server = http.createServer((request, response) => {
   });
 
 
+// start the server
 server.listen(port, () => {
   console.log(`Server running at PORT ${port}`);
 });
 ```
+
+
+
+<br>
 
 
 
@@ -248,6 +357,8 @@ server.listen(port, () => {
 
 // Inside the `http.createServer((request, response) =>`  callback
 
+		// If domain is  www.page.com/about.html the parsed
+		// string saved to `let` `path` will be '/about.html'
 		let path = url.parse(request.url).pathname;
 
 
@@ -267,6 +378,7 @@ server.listen(port, () => {
           response.end(); 
         }
       });  
+      
     }
 ```
 

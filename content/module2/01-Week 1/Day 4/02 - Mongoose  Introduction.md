@@ -84,8 +84,8 @@ Let’s start a new project and install it.
 
 ```bash
 # Create Directory
-mkdir mongoose-example
-cd mongoose-example
+mkdir 02-mongoose-orm
+cd 02-mongoose-orm
 
 # Initialize npm and install mongoose
 npm init

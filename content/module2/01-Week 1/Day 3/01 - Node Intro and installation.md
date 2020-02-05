@@ -32,9 +32,9 @@
 
   - listen to HTTP messages & send HTTP messages. 
 
-    
+- Check if NodeJS is installed `node --version` & `npm --version`
 
-- Installing NodeJS. NodeJS automatically comes with the `npm`.
+-  Once installed, NodeJS comes automatically with the `npm`.
 
 - Run a `test.js` file  that `console.log`s, from terminal with `node`.
 
@@ -132,6 +132,20 @@ Machine language is a language that your computer processor speaks and it is ver
 
 <br>
 
+
+
+## NodeJS with V8
+
+### [OPEN IMAGE](https://www.oscarblancarteblog.com/wp-content/uploads/2017/05/NodeJS-Architecture.png)
+
+![](https://www.oscarblancarteblog.com/wp-content/uploads/2017/05/NodeJS-Architecture.png)
+
+
+
+
+
+<br>
+
 #### Node provides features that are not available in the browser, like:  
 
 - ##### creating a server.
@@ -154,11 +168,30 @@ Node.js is a server technology and a JavaScript runtime environment, it is not a
 
 <br>
 
+### Check if you have Node.js installed
 
 
-## Installing Node.js
+
+```bash
+node --version
+# Returns the version of the NodeJS if installed
+# 12.13.0
+
+npm --version
+# Returns the version of the npm
+```
+
+
+
+
+
+## Installing Node.js (if not installed)
 
 #### [~~nvm - Instructions~~](<http://materials.ironhack.com/s/BySQC2fpVE7#installing-node>)
+
+### [nvm - official instructions](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+
 
 
 
@@ -177,7 +210,12 @@ Node.js is a server technology and a JavaScript runtime environment, it is not a
 ##### Create a file `test.js`
 
 ```bash
+mkdir 00-node-intro && cd 00-node-intro
+
+
 touch test.js
+
+code .
 ```
 
 
@@ -220,6 +258,8 @@ node test.js
 
 
 
+
+
 - `npm` is a Node Package manager that enables us to download and install different JavaScript files called 'packages' or 'modules' into our project.
 - Other alternative package manager is Yarn, however yarn is out of scope of this lecture and we will be using only `npm` as our package manager.
 
@@ -234,7 +274,7 @@ node test.js
 1. `npm` CLI used to get the packages and it is also a server for all the packages.
 
 2. `npm` registry that is the database used to keep and serve the packages.
-3. npm website - NPM  documentation. It aslo contains information for every published package.
+3. <u>npm website</u> - NPM  documentation. It aslo contains information for every published package.
 
 
 
@@ -303,16 +343,28 @@ npm --version
 #### `npm init` creates a `package.json` file
 
 ```bash
-mkdir npm-getting-started
-cd npm-getting-started
+mkdir npm-getting-started  &&  npm-getting-started
+
 touch index.js
 
+code .
+```
+
+
+
+
+
+While in the project folder, run the following command in the terminal:
+
+```bash
 npm init
 ```
 
 
 
 <br>
+
+
 
 `npm init` will initiate a prompt of questions to be answered for the setup of the `package.json` file.
 
@@ -328,15 +380,19 @@ npm init
 npm install --save chalk
 ```
 
-`npm install` grabs the package from the npm servers
-
-`--save` flag adds adds the package to our `package.json` file under `dependencies` .
-
-`node_moudles` folders is then created. This is where the acctual code for all packages is stored.
 
 
+#### What happens when we run the above command ?
 
-If we want to have the module only for development and not for deployment, we can save it as a Development Dependency, using flag `--save-dev`
+1. `npm install` grabs the package from the npm servers
+
+2. `--save` flag adds adds the package to our `package.json` file under `dependencies` .
+
+3. If not existing already, the`node_moudles` folders is created. This is where the acctual code for all packages is stored.
+
+
+
+If we want to have the module only for development and not for deployment, we can save it as a Development Dependency, using flag `--save-dev`.
 
 ```bash
 npm install --save-dev nodemon
@@ -360,9 +416,9 @@ npm install --save-dev nodemon
 
 
 
-#### [OPEN IMAGE](https://i.imgur.com/JbO1G2D.png)
+#### [OPEN IMAGE](https://i.imgur.com/qomoB1p.png)
 
-![](https://i.imgur.com/JbO1G2D.png)
+![](https://i.imgur.com/qomoB1p.png)
 
 
 
@@ -371,7 +427,13 @@ npm install --save-dev nodemon
 
 
 1. `npm install` will install the npm package to the node_modules folder  without adding it to the `package.json`
-2. `npm install --save` - package(s) required by the application to run
+
+   
+
+2. `npm install --save` - package(s) required by the application to run.
+
+
+
 3. `npm install --save-dev` - package(s) required for development purpose.
 
 
@@ -382,7 +444,9 @@ npm install --save-dev nodemon
 
 ### `dependencies`
 
-`dependencies` are 3rd-party packages that the application needs in order to run or function. These packages will be deployed with the production version of the app and will be downloaded to the user’s browser cache whenever someone uses the app/website. In case of the back-end apps `dependencies` are installed during the deployment and are required on the machine instance where the server is running. 
+`dependencies` are 3rd-party packages that the application needs in order to run or function. 
+
+These packages will be deployed with the production version of the app and will be downloaded to the user’s browser cache whenever someone uses the app/website. In case of the back-end apps `dependencies` are installed during the deployment and are required on the machine instance where the server is running. 
 
 
 
@@ -396,15 +460,13 @@ npm install --save-dev nodemon
 
 
 
-### Setting `.gitignore` ( omit the `node_modules`  folder)
+
+
+<br>
 
 
 
-#### Do not `commit` the node_modules. It will make your repository a lot larger!
-
-- If you commit only `package.json`, any user will be able to recreate your `node_modules` by simply running `npm install`.
-
-- We use the `.gitignore` file to add `node_moudles` to the list of files and folders that will not be commited.
+## NodeJS Modules
 
 
 
@@ -412,30 +474,11 @@ npm install --save-dev nodemon
 
 
 
-#### Setting the `.gitignore`  file.
+### Node `require() / module.exports`  
 
+### VS  
 
-
-```bash
-touch .gitignore
-```
-
-
-
-```js
-# Dependency directories
-node_modules/
-```
-
-
-
-
-
-<br>
-
-
-
-### Node `require()/module.exports`  VS  ES6 `import/export`
+### ES6 `import / export`
 
 
 
@@ -471,7 +514,7 @@ To import a module and use it in our script we use the NodeJS' built in`require(
 
 
 
-##### `test.js`
+##### `index.js`
 
 ```js
 const chalk = require('chalk');
@@ -480,6 +523,18 @@ const chalk = require('chalk');
 
 console.log(chalk.green('Hello ironhackers'));
 console.log(chalk.yellow.bgRed.bold('Hello ironhackers'));
+```
+
+
+
+<br>
+
+
+
+##### Run the script using NodeJS
+
+```bash
+node index.js
 ```
 
 
@@ -510,6 +565,7 @@ const greetings = {
   es: 'Hola Ironhackers',
   de: 'Hallo Ironhackers',
   fr: 'Salut Ironhackers',
+  it: 'Ciao Ironhackers'
 };
 
 /* 
@@ -526,7 +582,7 @@ We can now load the exported module/file in our `test.js` file
 
 
 
-##### `test.js`
+##### `index.js`
 
 ```js
 const chalk = require('chalk');
@@ -537,17 +593,26 @@ greet = {
   en: 'Hello Ironhackers',
   es: 'Hola Ironhackers',
   de: 'Hallo Ironhackers',
-  fr: 'Salut Ironhackers'
+  fr: 'Salut Ironhackers',
+  it: 'Ciao Ironhackers'
 }
 
 */
 
-console.log(chalk.whiteBright.bgBlue.bold(greet.en));
-console.log(chalk.yellow.bgRed.bold(greet.es));
-console.log(chalk.bgYellowBright(greet.de));
+console.log( chalk.whiteBright.bgBlue.bold(greet.en) );
+
+console.log( chalk.yellow.bgRed.bold(greet.es) );
+
+console.log( chalk.bgYellowBright(greet.de) );
+
 console.log(
   chalk.whiteBright.bgBlueBright(greet.fr.split(' ')[0]),
-  chalk.blueBright.bgRed(greet.fr.split(' ')[1]),
+  chalk.whiteBright.bgRed(greet.fr.split(' ')[1]),
+);
+
+console.log(
+  chalk.whiteBright.bgRed(greet.it.split(' ')[0]),
+  chalk.whiteBright.bgGreen(greet.it.split(' ')[1]),
 );
 
 ```

@@ -302,9 +302,7 @@ db.dropDatabase()
 
 
 
-### [MongoDB CRUD recap - Exercise](https://gist.github.com/ross-u/98550bf123f44638f94a3c5eedf88c35) (15 - 20 min)
-
-
+## [MongoDB CRUD recap - Exercise](https://gist.github.com/ross-u/98550bf123f44638f94a3c5eedf88c35) (15 - 20 min)
 
 
 

@@ -60,7 +60,8 @@ console.log('PROMISE EXAMPLE');
 const loadPokemons = async () => {
   
   // CREATE A FETCH GET REQUEST
-  fetch('https://pokeapi.co/api/v2/pokemon/?limit=100') // Asynchronous operation - must be awaited
+  fetch(
+  ) // Asynchronous operation - must be awaited
     .then(response => {
       console.log('response', response);
                       

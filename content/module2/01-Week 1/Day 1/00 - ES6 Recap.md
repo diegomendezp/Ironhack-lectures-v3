@@ -99,9 +99,9 @@ function createVariables () {
 createVariables();
 
 
-console.log('WINDOW OBJECT -> ', window);
-
 console.log('GLOBAL VARIABLE let -> ', globalVariable);
+
+console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', imposter);
 
 console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
 ```
@@ -137,22 +137,16 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   sum(5, 10);
 
   function sum(a, b) {
-	console.log(a + b);
+	  console.log(a + b);
   }
-```
-  
-  
-  
-  - variable not defined (doesn't exist)
-  
-  ```js
-  console.log(myName);  //  ReferenceError: myName is not defined
   ```
+
+
+
   
-  
-  
+
   * var - <https://codepen.io/Denzelzeldi/pen/yLBjJWK?editors=0010>
-  
+
   ```js
   // HOISTING
   // var variable declarations
@@ -161,6 +155,18 @@ console.log('AUTOMATICALLY GLOBAL (WITHOUT KEYWORD)', window.imposter);
   
   var name = 'myName';
   ```
+
+
+
+
+
+- variable **is not defined** (doesn't exist)
+
+```js
+console.log(myName);  //  ReferenceError: myName is not defined
+```
+
+
 
 
 
@@ -718,7 +724,7 @@ function myFunction(arg1) {
 }
 
 // Before ES6 there was no simple way to capture the remaining arguments
-myFunction("first argument", "second argument", "third argument", "fourth");
+myFunction("One", "Two", "Three", "Four", "Five");
 
 
 // Using the Rest operator

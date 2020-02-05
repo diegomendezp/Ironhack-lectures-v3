@@ -4,7 +4,7 @@
 
 ### [Code Along - starter repo for the students](https://github.com/ross-u/Code-Along-Mongo-Movies)
 
-
+[]()
 
 ### [Code Along - solution (give at the end)](https://github.com/ross-u/Code-Along-Mongo-Movies-Solution)
 
@@ -216,7 +216,15 @@ db.movies.find({ rate: { $ne: "9.0"} }).limit(10)
 **<u>Your query</u>**:
 
 ```js
-  db.movies.find({ $nor: [{director:"Steven Spielberg"}, { director:"Quentin Tarantino"}] }, {title: 1, director: 1, _id: 0})
+  db.movies.find(
+    { 
+    	$nor: [
+      	{ director:"Steven Spielberg" },
+      	{ director:"Quentin Tarantino"}
+    	] 
+    }, 
+    {title: 1, director: 1, _id: 0}
+  )
 ```
 
  
@@ -381,8 +389,7 @@ db.movies.find({ rate: { $ne: "9.0"} }).limit(10)
 **<u>Your query</u>**:
 
 ```js
-
- db.movies.updateMany({ year: 2017 }, {$set: {rating: ratingObj}})
+db.movies.updateMany({ year: 2017 }, {$set: {rating: ratingObj}})
 ```
 
  

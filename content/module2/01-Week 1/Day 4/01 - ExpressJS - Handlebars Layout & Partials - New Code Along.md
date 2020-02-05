@@ -38,7 +38,7 @@
 
 
 
-### Partials
+### Partials (smaller components)
 
 - Partials allow for code reuse.
 
@@ -79,9 +79,15 @@
 ### Create the file structure
 
 ```bash
+mkdir 01-express-handlebars-code-along
+
+cd 01-express-handlebars-code-along
+
 mkdir public views public/stylesheets views/partials
 
 touch app.js .gitignore moviesData.js public/stylesheets/styles.css views/index.hbs views/layout.hbs views/movies.hbs
+
+code .
 ```
 
 
@@ -92,7 +98,9 @@ touch app.js .gitignore moviesData.js public/stylesheets/styles.css views/index.
 
 
 
-### Copy `data.js` content from the [Repo](https://github.com/ross-u/express-handlebars-layout-and-partials).
+### Copy `Moviesdata.js` content from the [Repo](https://github.com/ross-u/express-handlebars-layout-and-partials).
+
+[File link](https://raw.githubusercontent.com/ross-u/express-handlebars-layout-and-partials/master/moviesData.js)
 
 
 
@@ -178,6 +186,21 @@ app.listen(PORT, () => console.log(`Server listening on a PORT ${PORT}`));
 
 
 
+### Run the server
+
+```bash
+# This will run the script we saved in the package.json
+npm run start
+```
+
+
+
+<br>
+
+
+
+
+
 ### Add the routes to the `app.js`
 
 
@@ -208,7 +231,7 @@ app.get("/movies", (req, res, next) => {
 
 ### Populate the `styles.css`
 
-
+[file url](https://raw.githubusercontent.com/ross-u/express-handlebars-layout-and-partials/master/public/stylesheets/styles.css)
 
 ##### `public/stylesheets/styles.css`
 
@@ -513,3 +536,12 @@ app.get("/movies", (req, res, next) => {
 });
 ```
 
+
+
+
+
+<br>
+
+
+
+### Done! ✅ 
