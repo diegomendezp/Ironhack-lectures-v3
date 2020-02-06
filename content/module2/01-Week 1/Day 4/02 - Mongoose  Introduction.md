@@ -82,18 +82,41 @@ Let’s start a new project and install it.
 
 
 
+#### Create the file structure
+
 ```bash
 # Create Directory
 mkdir 02-mongoose-orm
+
 cd 02-mongoose-orm
 
-# Initialize npm and install mongoose
-npm init
-npm install --save mongoose
 touch example.js
+
+code .
 ```
 
 
+
+<br>
+
+
+
+#### Initialize `npm` and install mongoose dependency
+
+```bash
+# Initialize npm
+npm init
+
+# install mongoose
+npm install --save mongoose
+
+# install nodemon
+npm install --save-dev nodemon
+```
+
+
+
+<br>
 
 
 
@@ -103,7 +126,10 @@ First, we must require mongoose in our `example.js`:
 
 ```js
 const mongoose = require('mongoose');
+
+// The name of the new or existing database
 const dbName = 'example-mongoose';
+
 
 // CREATE AN INSTANCE OF CONNECTION TO DATABASE - `example-mongoose`
 mongoose.connect(
@@ -159,16 +185,19 @@ mongoose.connect(
 
 ```js
 // CREATE A MODEL
-/* Mongoose models are JavaScript constructor functions that 
-create objects to be stored in a specific collection, 
-and are connected to that collection  */
+/* Mongoose models create structured objects 
+and store or retrieve them from  specific collection that they manage.
 
-const Cat = mongoose.model(
-  'Cat', 
-  { 									// SCHEMA OBJECT
-    name: String,
-  	color: String,
-  });
+Below model will be in charge of collection `cats`.
+We will explain the difference in collection name (Cats vs cats) later.
+*/
+
+const Cat = mongoose.model("Cat", {
+  // SCHEMA OBJECT
+  name: String,
+  color: String
+});
+
 ```
 
 
@@ -211,14 +240,11 @@ kitty.save( (err) => {
   if (err) console.log(err); // if instance cannot be saved for some reason
   else console.log(`instance saved to DB ${dbName}`);
 });
-
-
-
 ```
 
 
 
-DB and collection don't exist yet
+DB and collection don't exist yet (because we need to run the file !)
 
 ```bash
 $ mongo
@@ -388,7 +414,7 @@ const promise2 = Dog.insertMany( arrayOfDogs );
 
 
 Promise.all( [promise1, promise2] )
-  .then( (result) => console.log('Promise.all result: ', result))
+  .then( (result) => console.log('Promise.all result: ', result));
   .catch( (err) => console.error(err));
 ```
 
@@ -419,7 +445,15 @@ mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected'
 
 // If the connection throws an error
 mongoose.connection.on('error', (err) => console.log('Mongoose connection error: ' + err));
+```
 
+
+
+
+
+#### Consider skipping 
+
+```js
 // If the Node process ends, close the Mongoose connection 
 process.on('SIGINT', () => {  
   mongoose.connection.close(() => { 
@@ -428,8 +462,6 @@ process.on('SIGINT', () => {
   }); 
 });
 ```
-
-
 
 
 

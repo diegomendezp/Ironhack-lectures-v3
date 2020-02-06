@@ -42,13 +42,10 @@
 
 ## Schema allows us to:
 
-- specify the type that each field in the document must have.
-- specify the default value if value was not given.
-- Type Validation.
+- specify the data type for each document field (type validation).
+- specify the default value, if no value was given when inserting the document.
 
-
-
-
+  
 
 <br>
 
@@ -84,7 +81,7 @@
 
 
 
-
+<h1 style="background: lightblue">1</h1>
 
 
 
@@ -98,7 +95,13 @@
 
 ### [Starter Repo - file structure & data only](<https://github.com/ross-u/Mongoose-advanced-schemas-models>)
 
+```bash
+git clone https://github.com/ross-u/Mongoose-advanced-schemas-models.git
 
+cd Mongoose-advanced-schemas-models/
+
+code .
+```
 
 <br>
 
@@ -115,6 +118,10 @@ npm i
 
 
 <br>
+
+
+
+<h1 style="background: lightblue">2</h1>
 
 ## Creating a Schema
 
@@ -181,7 +188,7 @@ module.exports = paymentSchema;
 
 
 
-
+<h1 style="background: lightblue">3</h1>
 
 ### Referencing one Schema as a Type in another Schema
 
@@ -204,9 +211,10 @@ const Schema = mongoose.Schema; // Schema constructor
 // IMPORT THE SCHEMA TO USE IT AS A NESTED TYPE
 const paymentSchema = require('../schemas/paymentSchema');
 
+
 // CREATE THE SCHEMA
 const clientSchema = new Schema({
-  name:{ type: String, required: true, unique: true },
+  name:	{ type: String, required: true, unique: true },
   age: { type: String, required: true },
   accountActive:{ type: Boolean, default: true },
   balance: { type: Number, required: true },
@@ -230,6 +238,8 @@ module.exports = Client;
 <br>
 
 
+
+<h1 style="background: lightblue">4</h1>
 
 
 
@@ -262,7 +272,7 @@ Client.create( client1 , (err, result) => {
 
 
 
-### *** Run the app with node:  
+### *** Run the app with node (or install nodemon):  
 
 ```bash
 node clients.js
@@ -273,6 +283,8 @@ node clients.js
 
 
 <br>
+
+<h1 style="background: lightblue">5</h1>
 
 
 
@@ -312,6 +324,8 @@ Client.findById('5cc0cc295543162c7451b79b')
 
 
 
+<h1 style="background: lightblue">6</h1>
+
 ### Insert multiple documents - `Model.insertMany()`
 
 ```js
@@ -328,6 +342,10 @@ Client.insertMany(data)
 
 
 <br>
+
+
+
+<h1 style="background: lightblue">7</h1>
 
 
 
@@ -364,7 +382,13 @@ Client.find().then(result => {
 
 
 
+
+
 <br>
+
+
+
+<h1 style="background: lightblue">8</h1>
 
 
 
@@ -386,6 +410,8 @@ Client.findOneAndUpdate({ name: 'Carol Whitney' }, { $set: { payments:  multiple
 
 
 <br>
+
+<h1 style="background: lightblue">9</h1>
 
 
 

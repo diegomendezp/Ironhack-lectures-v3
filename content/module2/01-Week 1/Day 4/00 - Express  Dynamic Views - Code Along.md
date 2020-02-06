@@ -33,7 +33,10 @@ code .
 
 ```bash
 npm init
+
 npm i --save express
+
+npm i --save-dev nodemon
 ```
 
 
@@ -495,7 +498,7 @@ The below string will be evaluated as a valid HTML code. Notice what happens.
 
       setTimeout(() => {
         window.location.href = "https://www.youtube.com/watch?v=b48HJQL5Hoo";
-      }, 9000)`
+      }, 9000)</script>`
 ```
 
  

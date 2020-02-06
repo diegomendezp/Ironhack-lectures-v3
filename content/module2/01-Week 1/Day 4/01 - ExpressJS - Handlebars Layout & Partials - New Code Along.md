@@ -177,7 +177,7 @@ hbs.registerPartials(__dirname + "/views/partials");
 //
 
 // START THE SERVER
-app.listen(PORT, () => console.log(`Server listening on a PORT ${PORT}`));
+app.listen(PORT, () => console.log(`Server listening at PORT ${PORT}`));
 ```
 
 
