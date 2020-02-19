@@ -16,13 +16,21 @@
 
 #### -  Authorization is related to signing up and the overall process of allowing users to access certain resources.
 
+
+
+
+
 #### -  Authentication is related to authenticating the user during the current request, via login, sessions or tokens.
 
 
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -118,6 +126,8 @@ Cookies are a convenient way to carry information between sessions, without havi
 
 #### Login diagram
 
+### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_5308102df9341ab5a67d20d61bc61b15.png)
+
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_5308102df9341ab5a67d20d61bc61b15.png)
 
 
@@ -165,10 +175,14 @@ npm i
 In the same directory install `express-session` and `connect-mongo`
 
 ```bash
-npm install --save express-session connect-mongo
+npm install --save  express-session  connect-mongo
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -182,10 +196,10 @@ npm install --save express-session connect-mongo
 const session    = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 
-...
-...
+//	...
+//	...
 
-
+//	https://www.npmjs.com/package/express-session#secret
 
 // Session middleware
 app.use(session({
@@ -207,7 +221,7 @@ app.use('/', router);
 
 
 
-- **secret**: Used to sign the session ID cookie (*required*)
+- **secret**: Used to sign the session ID (create a hash), that is assigned/retrieved  from/to the cookie (*required*)
 
 - **cookie**: Object for the session ID cookie. In this case, we only set the `maxAge` attribute, which configures the expiration date of the cookie (in milliseconds).
 
@@ -225,10 +239,10 @@ app.use('/', router);
 
 
 
-##### `views/auth/login.hbs`
+##### `views/auth/login-form.hbs`
 
 ```html
-<!--   views/auth/login.hbs    -->
+<!--   views/auth/login-form.hbs    -->
 
 
 <form action="/login" method="POST" id="form">
@@ -240,16 +254,18 @@ app.use('/', router);
   <label for="password">Password</label>
   <input type="password" name="password">
 
+  
   {{#if errorMessage }}
     <div class="error-message">{{ errorMessage }}</div>
   {{/if}}
 
   <button type="submit">Login</button>
-
-  <p class="account-message">
-    Don't have an account? <a href="/signup">Sign up</a>
-  </p>
 </form>
+
+
+<p class="account-message">
+  Don't have an account? <a href="/signup">Sign up</a>
+</p>
 ```
 
 
@@ -274,7 +290,7 @@ const bcrypt = require('bcrypt');
 
 //  GET   '/login'
 router.get('/', (req, res, next) => {
-  res.render("auth/login");
+  res.render("auth/login-form");
 });
 
 
@@ -297,8 +313,9 @@ module.exports = router;
 ```js
 // routes/index.js
 
-...
-...
+//	...
+//	...
+
 const loginRouter = require('./login');
 
 // * '/login' 
@@ -316,7 +333,7 @@ router.use('/login', loginRouter);
 #### Start the server
 
 ```bash
-npm run start-dev
+npm run start:dev
 ```
 
 
@@ -346,8 +363,8 @@ npm run start-dev
 ```js
 // routes/login.js
 
-...
-	...
+//	...
+//		...
 
 
 //  POST   '/login'
@@ -357,14 +374,14 @@ router.post("/", (req, res, next) => {
   const thePassword = req.body.password;
 
   if (theUsername === "" || thePassword === "") {
-    res.render("auth/login", {errorMessage: 'Indicate username and password.'});
+    res.render("auth/login-form", {errorMessage: 'Indicate username and password.'});
     return;
   }
 
   User.findOne({ "username": theUsername })
   .then(user => {
       if (!user) {
-        res.render("auth/login", { errorMessage: 'The username doesn\'t exist.' });
+        res.render("auth/login-form", { errorMessage: 'The username doesn\'t exist.' });
         return;
       }
     
@@ -377,7 +394,7 @@ router.post("/", (req, res, next) => {
         req.session.currentUser = user;
         res.redirect("/");
       } 
-    	else res.render("auth/login", { errorMessage: 'Incorrect password' });
+    	else res.render("auth/login-form", { errorMessage: 'Incorrect password' });
   })
   .catch(error => next(error));
   
@@ -464,6 +481,7 @@ We check the `session.currentUser` on each incoming request to see if the user w
 const express = require("express");
 const router = express.Router();
 
+
 router.use((req, res, next) => {
   if (req.session.currentUser) { // <== if there's user in the session (user is logged in)
     next(); // ==> go to the next route ---
@@ -474,9 +492,8 @@ router.use((req, res, next) => {
 });																	//		|
 // 		 ------------------------------------  
 //     | 
-//     V
-router.get("/secret", (req, res, next) => {
-  res.render("secret");
+//     V|router.get("/secret", (req, res, next) => {
+  res.ren	der("secret");
 });
 
 module.exports = router;
@@ -525,7 +542,7 @@ router.get('/secret', isLoggedIn, (req, res, next) => {		//    <--- UPDATE
 ##### `app.js`
 
 ```js
-...
+//	...
 const siteRoutes = require('./routes/site-routes');
 
 
@@ -674,8 +691,9 @@ router.use('/logout', logoutRouter);
 
 ```
 // Sessions can be stored server-side (ex: user auth) or client-side
-// (ex: shopping cart). express-session saves sessions in a store, and
-// NOT in a cookie. To store sessions in a cookie, use cookie-session.
+// (ex: shopping cart). 
+// express-session saves sessions in a store, and NOT in a cookie
+// To store sessions in a cookie, use cookie-session.
 ```
 
 ```

@@ -11,6 +11,10 @@ After this lesson you will be able to:
 
 
 
+<br>
+
+
+
 #### Create the file structure
 
 ```bash
@@ -28,6 +32,8 @@ code .
 
 
 <br>
+
+
 
 #### Initialize the project and install dependencies
 
@@ -430,7 +436,7 @@ app.get('/student', (req, res, next) => {
 
 
 
-
+<br>
 
 
 
@@ -454,7 +460,7 @@ bootcamp: '<h3>IronHack WebDev</h3>'
 
 
 
-##### To parse the HTML strings, use the triple-stash: **{{{ }}}**.
+##### To parse the HTML strings, use the triple-stash: `{{{ }}}`.
 
 This will ensure that any HTML tag is parsed as an HTML element and not as a string.
 
@@ -463,22 +469,24 @@ This will ensure that any HTML tag is parsed as an HTML element and not as a str
 ##### `student.hbs`
 
 ```handlebars
-<p>Welcome to the {{{ bootcamp }}}.</p>
+<p>Welcome to the {{{ bootcamp }}} .</p>
 ```
 
 
+
+<br>
 
 
 
 ### Be aware:
 
-When not sanitizing the input from the user we may end up with malicious script being sent back and then saved to the database.
+When not sanitizing the input from the user we may end up with the situation where malicious script being injected in the view.
 
 Using `{{{ }}}` leaves the input unsanitized, meaning that HTML characters are not escaped.
 
 
 
-The below string will be evaluated as a valid HTML code. Notice what happens.
+The below string will be evaluated as a valid HTML code. Notice what happens!
 
 
 
@@ -503,11 +511,11 @@ The below string will be evaluated as a valid HTML code. Notice what happens.
 
  
 
+<br>
 
 
 
-
-### Handlebars Helper Features
+## Handlebars Helper Features
 
 
 
@@ -564,6 +572,8 @@ app.get('/student', (req, res, next) => {
 
 
 
+<br>
+
 
 
 ## Using `else` condition
@@ -590,6 +600,8 @@ Add the following, below the existing code in the `student.hbs` view.
 
 
 
+<br>
+
 
 
 ### `unless` block helper
@@ -599,7 +611,6 @@ Add the following, below the existing code in the `student.hbs` view.
 ##### `student.hbs`
 
 ```handlebars
-
 <hr>
 
 <h3>#unless</h3>
@@ -634,6 +645,8 @@ app.get('/student', (req, res, next) => {
 
 
 <br>
+
+
 
 ###  `each` block helper
 
@@ -681,6 +694,8 @@ app.get('/student', (req, res, next) => {
 
 
 
+<br>
+
 
 
 #### `{{ #each <collection> }} {{ else }}`
@@ -709,7 +724,7 @@ app.get('/student', (req, res, next) => {
 
 
 
-
+<br>
 
 
 
@@ -734,6 +749,8 @@ When looping through items in `each`, you can optionally reference the current l
 ```
 
 
+
+<br>
 
 
 
@@ -761,6 +778,8 @@ app.get('/student', (req, res, next) => {
 
 
 
+<br>
+
 
 
 ##### `student.hbs`
@@ -780,6 +799,8 @@ app.get('/student', (req, res, next) => {
 ```
 
 
+
+<br>
 
 
 
@@ -812,7 +833,7 @@ The first and last steps of iteration are noted via the `@first` and `@last` var
 
 
 
-
+<br>
 
 
 
@@ -851,7 +872,6 @@ app.get('/student', (req, res, next) => {
 We can do this:
 
 ```handlebars
-
 <hr>
 
 <h3>#with</h3>
@@ -868,6 +888,14 @@ We can do this:
 Using the `with` helper, we shift the context from where we get the data, so that we can refer to `{{address.street}}` and `{{address.number}}`, as `{{street}}` and `{{number}}`.
 
 
+
+
+
+<br>
+
+
+
+## [Lecture Notes for the students](https://gist.github.com/ross-u/f97c131891de6f1a1f86a6cacb1f4cb9)
 
 
 

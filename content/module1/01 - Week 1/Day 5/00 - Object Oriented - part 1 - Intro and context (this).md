@@ -87,6 +87,16 @@ The function's keyword  `this` can be found in every function (except arrow func
 
 
 
+## CONTEXT
+
+`this` is natural to the **functions** . Once a `function` is called and it executes, `this` is created inside of the scope of that function. at that moment `this` keeps the reference of the **context** that called it. 
+
+
+
+
+
+
+
 #### These are the 5 rules that describe how the value of `this` is used in JavaScript:
 
 
@@ -99,7 +109,7 @@ The function's keyword  `this` can be found in every function (except arrow func
 
 if a code is being executed as part of a simple function call then `this` refers to the `global` / `Window` object.
 
-`this` keyword in the function holds the value of the `Window` object.
+`this` keyword in the function holds the value of the `Window` object (or `undefined` if in strict mode).
 
 ```js
 function whatIsThis () {
@@ -175,7 +185,7 @@ myObject.myMethodRegular();
 
 
 
-#### 4. If `apply`, `call`  or `bind` are used to call/create a regular function, `this` inside the function is the variable that is passed in as the first argument . 
+#### 4. If `apply`, `call`  or `bind` are used to call/create a regular function, `this` inside the function is the variable that is passed in as the first argument .  We say that they explicityl bind the valu of `this`.
 
 
 

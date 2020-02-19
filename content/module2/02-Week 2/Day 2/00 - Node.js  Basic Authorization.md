@@ -16,26 +16,41 @@ After this lesson, you will be able to:
 
 
 
+
+
 ## Authorization
 
 ### What is the authorization?
 
-- We give access to certain routes only to the users that are authorized.
-- Authorization is the process deciding what resources is the user authorized to access.
+
+
+Authorization is the process deciding what resources is the user authorized to access.
+
+
+
+We give access to certain routes only to the users that are authorized.
 
 
 
 
 
-We will cover authentication in another learning unit. 
 
 
 
-(On the other hand **authentication** describes the process of authenticating the user, e.g. via Login form, sessions, tokens );
+
+<br>
 
 
 
-In this learning unit we will just cover the concept of **authorizing** the user, and the different ways we can do that.
+
+
+On the other hand **authentication** describes the process of authenticating the user, e.g. via Login form, sessions, tokens.
+
+
+
+
+
+<br>
 
 
 
@@ -44,6 +59,8 @@ In this learning unit we will just cover the concept of **authorizing** the user
 ###  Types of authorization
 
 We have several ways to provide authorization in our applications.
+
+
 
 
 
@@ -57,9 +74,13 @@ The most basic approach for authorization:.
 
 
 
+
+
 #### Username
 
 Some applications like Twitter authorize their users with a `username`.  **PROS**: You can show the username to other users in the application, providing them some privacy. 
+
+
 
 
 
@@ -79,7 +100,13 @@ With the rise of the social networks, a new way to authorize users appears: it�
 
 
 
-#### How to secure secure our user's passwords.
+
+
+<br>
+
+
+
+#### We need to know how to secure our user's passwords that we store in the Database.
 
 
 
@@ -177,13 +204,17 @@ Hashing scrambles our password into a long string of characters that is practica
 
 
 
+<br>
+
+
+
 #### Encryption with BCrypt
 
 Node.JS [bcrypt package](https://www.npmjs.com/package/bcrypt) allows us to encrypt passwords using the bcrypt algorightm. 
 
 
 
-### [
+
 
 
 
@@ -252,11 +283,22 @@ npm i --save mongoose bcrypt
 
 # Install nodemone
 npm i --save-dev nodemon
+```
 
 
+
+
+
+#### Create additional folders and files
+
+```bash
 # Create additional folders and files
-mkdir views/auth models
-touch views/auth/signup.hbs models/User.js routes/auth.js
+mkdir views/auth 
+mkdir models
+
+touch views/auth/signup-form.hbs 
+touch models/User.js 
+touch routes/auth.js
 
 
 # Remove routes/users
@@ -264,12 +306,7 @@ rm routes/users.js
 
 
 code .
-
 ```
-
-
-
-
 
 
 
@@ -299,7 +336,7 @@ code .
  ┃
  ┣ 📂views
  ┃ ┣ 📂auth
- ┃ ┃ ┗ 📜signup.hbs
+ ┃ ┃ ┗ 📜signup-form.hbs
  ┃ ┃
  ┃ ┣ 📜error.hbs
  ┃ ┣ 📜index.hbs
@@ -332,8 +369,9 @@ code .
 // app.js
 
 const router = require('./routes/index');
-...
-...
+
+//	...
+//	...
 
 // app.use('/', indexRouter);				// REMOVE
 // app.use('/users', usersRouter);	// REMOVE
@@ -366,7 +404,7 @@ router.use('/signup', authRouter)
 
 // GET '/'
 router.get('/', (req, res, next) => {
-  res.render('index', {title: 'Basic auth code along'});
+  res.render('index', {title: 'Basic auth code along'} );
 });
 
 module.exports = router;
@@ -395,7 +433,7 @@ const User = require('./../models/user');
 
 //	GET '/signup'
 router.get('/', (req, res, next) => {
-  res.render("auth/signup");
+  res.render("auth/signup-form");
 });
 
 module.exports = router;
@@ -403,7 +441,11 @@ module.exports = router;
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -423,13 +465,13 @@ module.exports = router;
 
 ```js
 const mongoose = require("mongoose");
+const dbName = 'basicAuth';
 
-...
-...
+//	...
+//	...
 
-mongoose.connect('mongodb://localhost:27017/basic-auth', {
+mongoose.connect(`mongodb://localhost:27017/${dbName}`, {
   useNewUrlParser: true,
-  reconnectTries: Number.MAX_VALUE,
   useUnifiedTopology: true
 });
 
@@ -460,8 +502,12 @@ const Schema   = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   password: String
-}, {
-  timestamps: true
+}, 
+{ 
+  timestamps: { 
+  	createdAt: 'created_at',
+  	updatedAt: 'updated_at'
+	}
 });
 
 const User = mongoose.model("User", userSchema);
@@ -481,26 +527,26 @@ module.exports = User;
 
 
 
-##### `views/auth/signup.hbs`
+##### `views/auth/signup-form.hbs`
 
 ```html
-<!--  views/auth/signup.hbs   -->
+<!--  views/auth/signup-form.hbs   -->
 
 
 	<form id="form" action="/signup" method="POST">
+    
     <label for="username">Username</label><br>
-    <input type="text" name="username"
-      placeholder="Your username">
+    <input type="text" name="username" placeholder="Your username">
 
     <label for="password">Password</label><br>
-    <input type="password" name="password"
-      placeholder="********">
+    <input type="password" name="password">
 
     <button type="submit">Create account</button>
   </form>
 
 
-{{!-- error message display --}} 
+{{!-- error message display: --}} 
+
 {{#if errorMessage}}
   <div class="error-message">{{ errorMessage }}</div>
 {{/if}}
@@ -616,7 +662,7 @@ button:hover {
 
 ```js
 "scripts": {
-	"start-dev": "nodemon ./bin/www",
+	"start:dev": "nodemon ./bin/www",
 ```
 
 
@@ -628,7 +674,7 @@ button:hover {
 ### Run the server 
 
 ```bash
-npm run start-dev
+npm run start:dev
 ```
 
 
@@ -706,9 +752,9 @@ router.post("/", (req, res, next) => {
   
   // Check if `username` and `password` are empty and display error message
   if (username === '' || password === '') {
-    res.render('auth/signup', 
-               { errorMessage: 'Enter the username and password.'}
-              );
+    res.render('auth/signup-form', 
+      { errorMessage: 'Enter the username and password.'}
+     );
     return;
   }
   
@@ -719,7 +765,7 @@ router.post("/", (req, res, next) => {
       
 			// > if `username` already exists in the DB display error message
       if ( user !== null ) {
-        res.render('auth/signup',{ errorMessage:'The username already exists'});
+        res.render('auth/signup-form', { errorMessage:'The username already exists'});
         return;
       }
       
@@ -731,7 +777,12 @@ router.post("/", (req, res, next) => {
   		// > After hashing the password, create new user in DB and redirect to home 
       User.create( { username, password: hashedPassword})
       	.then(() => res.redirect('/'))
-        .catch((err) => res.render('auth/signup',{ errorMessage:'Error while trying to create a  new user'}));
+        .catch((err) =>  {
+        	res.render(
+            'auth/signup-form',
+            { errorMessage:'Error while trying to create a  new user'}
+          )
+        );
       
      })
      .catch((err) => next(err));	// catch errors from User.findOne
@@ -791,7 +842,8 @@ const zxcvbn = require('zxcvbn');
 
 			// Check the password strength
 			if (zxcvbn(password).score < 3) {
-    		res.render('auth/signup',
+    		res.render(
+          'auth/signup-form',
       		{ errorMessage: 'Password too weak, try again' }
     		);
     		return;
@@ -816,6 +868,8 @@ We recommend you add the [re-captcha](https://www.npmjs.com/package/express-reca
 
 
 ### [rexpress-recaptcha  npm](<https://www.npmjs.com/package/express-recaptcha>)
+
+
 
 
 

@@ -14,93 +14,19 @@ To send more information, or to prevent the information from showing in the brow
 
 
 
-
-
-### Let see how we can use POST method with forms.
-
-```js
-  .
-  ├── app.js
-  ├── package.json
-  |
-  └── views/
-      |
-      └── user-info-form.hbs
-```
+​	
 
 
 
 
 
-##### `app.js`
-
-```js
-const express = require('express');
-const app = express();
-const PORT = 3000;
-
-app.set('view engine', 'hbs');
-app.set('view', __dirname + '/views')
-
-app.get('/get-user-info', (req, res) => {
-  res.render('user-info-form');
-});
-
-app.get('/display-user-info', (req, res) => {
-  res
-    .status(201)
-    .send(req.query)
-});
-
-// START THE SERVER
-app.listen(PORT, () => console.log(`Server listening on port ${PORT} !`));
-```
-
-
-
-
-
-
-
-#### **Create a form**
-
-
-
-##### `views/user-info-form.hbs`
-
-```html
-<form action="/display-user-info">
-  
-  <label for="name-input">Name</label>
-  <input id="name-input" type="text" name="name">
-
-  <label for="age-input">Age</label>
-  <input id="age-input" type="number" name="age">
-
-  <label for="superhero-input">Favorite Superhero</label>
-  <input id="superhero-input" type="text" name="superhero">
-
-  <button type="submit">Submit Info!</button>
-</form>
-```
-
-
-
-
-
-All input types can be found [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) on MDN.
+#### All form input types can be found [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) on MDN.
 
 
 
 <br>
 
 
-
-#### Navigate to `localhost:3000/get-user-info`
-
-
-
-Fill the form and submit it.
 
 
 
@@ -129,13 +55,11 @@ mkdir express-post-form
 cd express-post-form
 
 mkdir views
-cd views
-touch login.hbs
+touch views/login.hbs app.js
 
-cd ..
-touch app.js
+
 npm init
-npm i --save mongoose express hbs
+npm i --save mongoose hbs
 ```
 
 
@@ -149,8 +73,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-app.set('view engine', 'hbs');
-app.set('view', __dirname + '/views')
+
 
 app.get('/', (req, res) => {
   res.render('login');
@@ -187,9 +110,7 @@ app.listen(PORT, () => console.log(`Server listening on port ${PORT} !`));
   <label for="password">Password</label>
   <input id="password" type="password" name="password">
   
-  <button type="submit">
-    Login
-  </button>
+  <button type="submit"> Login </button>
 </form>
 ```
 
@@ -265,8 +186,8 @@ We’ve used a couple of packages thusfar, including bodyParser. These packages 
 
 
 ```bash
-function myFakeMiddleware( req, res, next){
-  console.log("myFakeMiddleware was called!");
+function myMiddlewareFunc( req, res, next){
+  console.log("myMiddlewareFunc was called!");
   next();
 }
 
@@ -290,8 +211,8 @@ $ npm i --save-dev morgan
 ```js
 const morgan = require('morgan');
 
-...
-...
+// ...
+// ...
 app.use(morgan('tiny'))
 ```
 
@@ -317,3 +238,14 @@ app.use(morgan('tiny'))
 
 
 
+
+
+<br>
+
+
+
+
+
+### Additional example on using `fetch` to make the requests from the client to the server.
+
+### [fetch POST and GET - basic example (Repo)](https://github.com/ross-u/fetch-POST-and-GET-request-basic-example)

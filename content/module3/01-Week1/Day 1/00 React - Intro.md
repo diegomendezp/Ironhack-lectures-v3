@@ -2,7 +2,107 @@
 
 
 
-###### 
+## Lecture outline
+
+
+
+- [**Client Server Architecture**](#client-server-architecture)
+
+  - Multi-Page Application - image
+
+  - Single-Page Application - image
+
+    
+
+- [**What is a framework ?**](#what-is-a-framework)
+
+  - Framework includes multiple libraries.
+
+    
+
+    
+
+- [**Intorduction to React**](#introduction-to-react)
+
+  - React Docs page
+  - React Docs call it a `library`, but often called a `framework`.
+  - React uses multiple packages and the Babel transpiler.
+  - React key features:
+    - Component based, fast development, scalable, all in one file (HTML, JS and data)
+
+
+
+- [**React app structure & functionality**](#react-structure-functionality)
+  - one `index.html` file
+  - funtionality and components are created by the `js` scripts
+  - every view change, React simulates browser URL change (React routing)
+
+
+
+
+
+- [**JSX** ](#jsx)
+  - **JSX** is an XML/HTML-like syntax including JS used by React
+  - React couples JS and HTML with JSX into so called components.
+
+
+
+- [**React Hello World**](#hello-world-example) example - in browser (React CDN and Babel CDN)
+
+  
+
+- [**Build A Simple React App**](#build-simple-react-app) - Code Along
+
+  - Clone the starter  repo and run `npm i`
+
+  - Create files for react app
+
+  - Explain what `webpack` and `babel` packages do.
+
+  - `npm install` React packages `react`, `react-dom`
+
+    
+
+  - Create **`src/index.js`** (explain what does this file do)
+
+    -  `index.js` file injects the React app code into the `index.html`.
+    - `ReactDOM.render` injects react into `div#root`
+
+    
+
+  - Create `src/App.js` react component
+
+    - `render()` (mandatory in class components, takes JSX code)
+
+      
+
+  - Run the webpack dev server - `npm run webpack`.
+
+  - Add state object `{ city: 'Miami'}` to `App` component.
+
+    
+
+- [**Exercise** - Create a component](#create-a-component) `ListComponent.js`
+
+  - Give a hint by importing `ListComponent` in `App.js` and adding it to the `render()` of `App`
+
+
+
+- Install [React Dev Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+
+
+
+
+
+<hr>
+
+
+
+<br>
+
+
+
+<a name="client-server-architecture"></a>
 
 ## Client-Server Architecture
 
@@ -20,15 +120,15 @@ We built applications where every URL request made by the browser, is responded 
 
 
 
-Every time the user clicks a link or moves to another view, the whole page is refreshed, because of new `.html` page (and attached resources)  being returned.
+Every time the user clicks a link or moves to another view, the whole page is refreshed, because of the new `.html` page (and attached resources)  being returned.
 
 This results in a slow user interaction.
 
 
 
-#### [IMAGE](https://i.imgur.com/rXm0Yt7.jpg)
+#### [IMAGE](https://i.imgur.com/JCVUhNq.jpg)
 
-![img](https://i.imgur.com/rXm0Yt7.jpg)
+![img](https://i.imgur.com/JCVUhNq.jpg)
 
 
 
@@ -60,15 +160,17 @@ This results in a slow user interaction.
 
   
 
-  ### [OPEN IMAGE](https://i.imgur.com/6h657ym.jpg)
+  ### [OPEN IMAGE](https://i.imgur.com/zgVlwDq.png)
   
-  ![img](https://i.imgur.com/6h657ym.jpg)
+  ![img](https://i.imgur.com/zgVlwDq.png)
 
 
 
 
 
 
+
+<br>
 
 
 
@@ -77,16 +179,17 @@ This results in a slow user interaction.
 **Single**-**Page Applications** (SPAs) are:
 
 - Web apps that load a **single** **HTML** **page** (and connected `.js` scripts)
--  **dynamically update** the **views**  as the user interacts with the **app** (without requesting additional `.html` or `.js` files)
+-  **update** the **views**  as the user interacts with the **app** (without requesting additional `.html` or `.js` files)
 -  taking the data as a response coming from the API ( as a JSON ). 
--  Typical examples of SPAs are Gmail or Twitter.
-- 
+- Typical examples of SPAs are Gmail or Twitter.
+
+  
 
 <br>
 
 
 
-
+<a name="what-is-a-framework"></a>
 
 ## What is a Framework?
 
@@ -95,24 +198,6 @@ This results in a slow user interaction.
 > A universal, reusable software environment to facilitate faster development of applications and  software solutions.
 
 
-
-
-
-<br>
-
-
-
-##   React
-
-
-
-- In this module we will learn how to create client side app using the React framework for the front-end: 
-
-
-
-- React is a `library`, but often called a `framework`.
-
-- React uses multiple APIs and the Babel transpiler  (may be a reason it is refered to as a framework)
 
 
 
@@ -128,7 +213,59 @@ This results in a slow user interaction.
 
 
 
-### React app
+<br>
+
+
+
+
+
+<a name="introduction-to-react"></a>
+
+## Introduction to React
+
+
+
+- In this module we will learn how to create client side app using the React framework for the front-end: 
+
+
+
+- React is a `library`, but often called a `framework`.
+
+- React uses multiple packages and the Babel transpiler  (may be a reason it is refered to as a framework)
+
+
+
+Official definition of [React](https://reactjs.org/) is that it is an open-source **JavaScript library** which is used for building user interfaces specifically for Single Page Applications (SPA). 
+
+
+
+It’s used for handling view layer (front-end) for web and mobile apps.
+
+
+
+
+
+**React key features :**
+
+- allows developers to create large web applications which can change data, without reloading the page. 
+- **The main purpose of React is to be fast, scalable, and simple.**
+- **Component-Based**. Build encapsulated components that have their own state, then use them to make complex UIs.  
+- Components are represented and used as **html** tags.
+- **All in one file - HTML,  JS (logic) and state (data).**.
+
+
+
+
+
+<br>
+
+
+
+
+
+<a name="react-structure-functionality"></a>
+
+### React app structure & functionality
 
 
 
@@ -144,47 +281,15 @@ This results in a slow user interaction.
 
 
 
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Introduction to React
-
-Official definition of [React](https://reactjs.org/) is that it is an open-source **JavaScript library** which is used for building user interfaces specifically for Single Page Applications (SPA). 
-
-It’s used for handling view layer for web and mobile apps.
-
-
-
-
-
-React key features :
-
-- allows developers to create large web applications which can change data, without reloading the page. 
-- **The main purpose of React is to be fast, scalable, and simple.**
-- **Component-Based**. Build encapsulated components that have their own state, then use them to make complex UIs.  
-- Components are represented and used as **html** tags.
-- **All in one file - HTML,  JS (logic) and state (data).**.
-
-
-
-
-
 
 
 <br>
 
 
+
+
+
+<a name="jsx"></a>
 
 ### JSX
 
@@ -206,7 +311,7 @@ React key features :
 
 
 
-
+<a name="hello-world-example"></a>
 
 # React  Hello World
 
@@ -256,8 +361,6 @@ React key features :
   </body>
 </html>
 ```
-
-
 
 
 
@@ -320,6 +423,8 @@ React key features :
 
 ##### Let's update our component `<App>` and create a state object inside it:
 
+
+
 ##### `index.html`
 
 ```jsx
@@ -359,7 +464,15 @@ We are using it only as an example and it should be the only use case.
 
 
 
+<br>
 
+
+
+
+
+
+
+<a name="build-simple-react-app"></a>
 
 ## Build a simple React App
 
@@ -369,36 +482,72 @@ We are using it only as an example and it should be the only use case.
 
 ## [Code Along - follow step by step](<http://materials.ironhack.com/s/E4MEfrXzftD#setup-the-environment>)
 
+
+
+#### Clone the starter code
+
+
+
 ```bash
 git clone https://github.com/ironhack-labs/react-module-day1-start
+
 cd react-module-day1-start
-npm install
+
+
+code .
 ```
 
 
 
-While inside of `react-module-day1-start` folder:
+<br>
+
+
+
+#### Install the depenedencies
 
 ```bash
-mkdir dist public src
+npm i
+```
 
-touch src/index.js src/App.js src/App.css public/index.html 
+
+
+#### Create files for react app
+
+
+
+While inside of `react-module-day1-start` folder :
+
+```bash
+mkdir dist 
+mkdir public
+mkdir src
+
+# index.html file is used to show the application in the DOM
+touch public/index.html 
+
+# Theses are the JS files that our react app needs
+touch src/index.js
+touch src/App.js
+
+# CSS file for the React component App
+touch src/App.css 
 ```
 
 
 
 
 
+<br>
 
 
-## Create an `public/index.html` 
+
+### Create an `public/index.html` 
 
 
 
 ##### `public/index.html`
 
 ```html
-
 <!DOCTYPE html>
 
 <html>
@@ -412,7 +561,7 @@ touch src/index.js src/App.js src/App.css public/index.html
     <!-- this is the root of the React app-->
     <div id="root"></div>
     
-    <!-- this script is the build of the React app-->
+    <!-- this script is the build/bundle of the React app-->
     <script src="../dist/bundle.js"></script>
   </body>
 </html>
@@ -422,9 +571,25 @@ touch src/index.js src/App.js src/App.css public/index.html
 
 
 
+<br>
+
+
+
 ### Install React and React Dom
 
 Our `package.json` already has some dev-dependencies, but we need two more packages so let’s install `react` and `react-dom`.
+
+
+
+```bash
+npm install --save react react-dom
+```
+
+
+
+
+
+If encountering problems with the Ironhack repo, use the version specified in the learning unit:
 
 ```bash
 npm install --save react@16.3.2 react-dom@16.3.2 
@@ -438,17 +603,38 @@ npm install --save react@16.3.2 react-dom@16.3.2
 
 
 
-##### - `bundle.js` script file will be created by running ` webpack` which will take all files from the `src/` folder and then bundle it all in  `.js` files ready for deployment.
+### What do `babel` and `webpack` packages do ?
 
 
 
-##### - In the  `src/index.js` we hook our React app to the `index.html` and the `div#root` element. 
+- `babel` and `webpack` packages work together.
+- They take the code written in JSX syntax and make it into ES5 `js`.
 
 
 
-##### We use `ReactDOM.render` to inject the main component `App` into the `div#root` .
+#### <u>babel</u>
+
+- Takes the ES6 or ES7 `js` code and converts it to ES5 (to ensure backward compatibility)
+
+  
+
+#### <u>webpack</u>
+
+-  ` webpack` creates the javascript bundles, takes multiple `js` files and bundles them into one (or few for big apps).
+
+- `webpack` takes all the `js` files from the `src/` folder and bundles them all to  `bundle.js` file ready for deployment/production.
+
+
+
+
+
+
+
+
 
 #### `<App />` becomes the root connection to React and a parent for all other components. 
+
+## <u>`<App />` is refered to as a Root Component</u> (of any app you build with React)
 
 
 
@@ -456,14 +642,22 @@ npm install --save react@16.3.2 react-dom@16.3.2
 
 
 
-#### Create **`src/index.js`**
+#### Create **`src/index.js`** (and what does this file do)
+
+
+
+##### -   `index.js` file injects the React app code into the `index.html`.
+
+
+
+##### -	We use `ReactDOM.render` to inject the main component `App` into the `div#root` .
 
 
 
 ##### `src/index.js`
 
 ```js
-//	src/index.js
+//	src/index.js - Injects the App to DOM
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -531,7 +725,19 @@ export default App;
 
 
 
-`render()` is the only mandatory method on a React component, it should exist and it should return a valid JSX element (including `null` - (or `null` )).
+
+
+<br>
+
+
+
+#### `render()`
+
+**`render()`** is the only **mandatory** method in a React class component. 
+
+It should exist and it should return a valid JSX element (including `null` - (or `null` )).
+
+
 
 
 
@@ -556,11 +762,17 @@ export default App;
 
 
 
+<br>
+
 
 
 #### Run the development server command -  `npm run webpack `
 
-<span style="color: red">If needed update `webpack-cli`  :</span>   `npm i webpack-cli@3.1.1 --save-dev`
+
+
+<span style="color: red">( If needed update `webpack-cli`  :</span>   `npm i webpack-cli@3.1.1 --save-dev` )
+
+
 
 
 
@@ -618,7 +830,11 @@ npm run build
 
 
 
-#### Update the component and add the state object 
+### Update the `App` component and add the state object 
+
+
+
+##### `src/App.js`
 
 ```jsx
 //	src/App.js
@@ -652,19 +868,25 @@ export default App;
 
 
 
-### Exercise
+<a name="create-a-component"></a>a
+
+### Exercise - Create a component
 
 
 
-Create a component `MyComponent.js` and insert if multiple times in the `App.js` component.
+Create a component `ListComponent.js` and insert if multiple times in the `App.js` component.
 
 
 
 Here is a hint:
 
+
+
+##### `src/App.js`
+
 ```js
 import React from 'react';
-import MyComponent from './MyComponent';							//  <-- ADD
+import ListComponent from './ListComponent';							//  <-- ADD
 import './App.css';
 
 class App extends React.Component {
@@ -677,8 +899,8 @@ class App extends React.Component {
       <div className="App">
         <h1>Hello IronHackers! </h1>
         <h3>Welcome to {this.state.city} </h3>
-        <MyComponent />															// <-- ADD
-        <MyComponent />															// <-- ADD
+        <ListComponent />															// <-- ADD
+        <ListComponent />															// <-- ADD
       </div>
     );
   }
@@ -693,27 +915,28 @@ class App extends React.Component {
 
 **Possible solution**
 
+##### `src/MyComponent.js`
+
 ```jsx
 import React from 'react';
 
-class MyComponent extends React.Component {
+class ListComponent extends React.Component {
   render() {
     return (
       <div class="my-component">
-        <h5>This is my component</h5>
+        <h5>This is my List Component</h5>
         <ul>
           <li>item 1</li>
           <li>item 2</li>
           <li>item 3</li>
           <li>item 4</li>
-          <li>item 5</li>
         </ul>
       </div>
     );
   }
 }
 
-export default MyComponent;
+export default ListComponent;
 
 ```
 

@@ -4,7 +4,7 @@
 
 After this lesson you will be able to:
 
-- Understand what generators are and why they help us
+- Understand what generator packages are and why they help us
 - Install & use the `express-generator`
 - Run a `seeds.js` file to fill your database before starting a project
 
@@ -30,32 +30,31 @@ A generator is a **program that helps to create other application programs which
 
 
 
-<https://www.npmjs.com/package/express-generator>
+#### [npm express-generator](https://www.npmjs.com/package/express-generator)
+
+
+
+#### [ExpressJS docs - generator](https://expressjs.com/en/starter/generator.html)
 
 
 
 
 
-```
-npm init
+```bash
 npm i -g express-generator
 ```
 
 
 
 ```bash
-express --view=hbs library
-cd library
+express --view=hbs library-code-along
+
+cd library-code-along
 ```
 
 
 
-##### `package.json`
-
-```json
-// add
-"start-dev": "nodemon ./bin/www"
-```
+### `package.json` with dependencies list is automatically included
 
 `express-generator`  creates a skeleton and a `package.json` file for us. Notice the `din/www.js` file, which hods a file that is responsible for starting the server and listening on events that happen with the server.
 
@@ -67,13 +66,31 @@ Before running the server we have to run `npm install` to tell `npm` to install 
 code package.json
 npm install
 
-
-npm run start-dev
+npm install --save-dev nodemon
 ```
 
 
 
 
+
+##### `package.json`
+
+```json
+// add
+"start:dev": "nodemon ./bin/www"
+```
+
+
+
+
+
+<br>
+
+#### Run the server
+
+```bash
+ npm run start:dev
+```
 
 
 
@@ -116,7 +133,7 @@ npm run start-dev
 
 - **routes**
 
-  - *index.js* - the route configuration, by default, is set for the `/` route.
+  - *index.js* - the route configuration, by default, is set for the `/` route.		
 
     
 
@@ -150,13 +167,20 @@ npm i --save mongoose
 
 
 
+<br>
 
 
-**app.js**
+
+#### Connect to database using  `mongoose`
+
+
+
+##### `app.js`
 
 ```js
-...
+//	...
 const mongoose = require('mongoose');
+
 
 // DB connection
 mongoose.connect('mongodb://localhost/library', {useNewUrlParser: true})
@@ -169,21 +193,40 @@ mongoose.connect('mongodb://localhost/library', {useNewUrlParser: true})
 
 
 
+<br>
 
 
-### Let's create one file that hold all the routes 
 
-**app.js** - refactor it
+#### Remove the precreated `router` import and middleware setup in `app.js` in order to explain what it does.
+
+##### `app.js`
 
 ```js
-// Refactor app.js
-const router = require('./routes/index');
-...
-	...
-// as the last middleware
+// app.js
 
-// ROUTER
-app.use(router);
+//	var indexRouter = require('./routes/index');	//		<--	REMOVE
+//	var usersRouter = require('./routes/users');	//		<--	REMOVE
+
+//	...
+//	...
+//	...
+
+//	app.use('/', indexRouter);			//		<--	REMOVE
+//	app.use('/users', usersRouter);	//		<--	REMOVE
+
+
+
+// AND ADD ROUTES
+
+app.get('/books', (req, res, next) => {
+  res.render('books');
+});
+
+// home  page route - renders the `index.hbs`
+app.get('/', (req, res, next) => {
+  res.render('index', { title: 'Home'})
+});
+
 
 ```
 
@@ -191,20 +234,78 @@ app.use(router);
 
 
 
-**routes/index.js**
+<br>
+
+
+
+#### Create the `books.hbs` view file 
+
+
+
+##### `views/books.hbs`
+
+```js
+<h1> BOOKS PAGE / VIEW </h1>
+```
+
+
+
+<br>
+
+
+
+
+
+### Visit [localhost:3000/](http://localhost:3000/)	- home page / view
+
+### Visit [localhost:3000/books](http://localhost:3000/books) - books page / view
+
+### Visit [localhost:3000/bookzzz](http://localhost:3000/bookzzz) - 404 page /view
+
+
+
+<br>
+
+
+
+### Let's refactor our code and create one file that hold all the routes 
+
+
+
+##### `app.js` - refactor it
+
+```js
+// Refactor app.js
+const router = require('./routes/index');
+//	...
+//		...
+
+// as the last middleware
+
+// ROUTER - contains all the routes
+app.use(router);
+
+```
+
+
+
+<br>
+
+
+
+#####  `routes/index.js`
 
 ```js
 const express = require('express');
 const router = express.Router();
 
-const booksRouter = require('./books');
+
+app.get('/books', (req, res, next) => {
+  res.render('books');
+});
 
 
-// Route books
-router.use('/books', booksRouter);
-
-
-// home route GET - renders the `index.hbs`
+// home page route - renders the `index.hbs`
 router.get('/', (req, res, next) => {
   res.render('index', { title: 'Home'})
 });
@@ -216,7 +317,59 @@ module.exports = router;
 
 
 
-**routes/books.js**
+
+
+
+
+<br>
+
+
+
+#### Move the books route to another router file
+
+Create a `books.js` file in the `/routes` folder
+
+```bash
+touch ./routes/books.js
+```
+
+
+
+
+
+##### `routes/index.js`
+
+```js
+const express = require('express');
+const router = express.Router();
+
+const booksRouter = require('./books');
+
+
+//	app.get('/books', (req, res, next) => { 
+//    res.render('books');						//  <-- MOVE TO
+//	});																//	`routes/books.js`
+
+
+// Route 		/books
+router.use('/books', booksRouter);		//	<-- ADD
+
+
+// GET			/	 - renders the `index.hbs`
+router.get('/', (req, res, next) => {
+  res.render('index', { title: 'Home'})
+});
+
+module.exports = router;
+```
+
+
+
+<br>
+
+
+
+##### `routes/books.js`
 
 ```js
 // books router
@@ -226,8 +379,6 @@ const router = express.Router();
 
 // GET /books
 router.get('/', (req, res, next) => {
-  console.log('IN GET /books');
-  
   res.render('books');
 });
 
@@ -240,9 +391,13 @@ module.exports = router;
 
 
 
-##### `views/books.hbs`
 
-```js
-<h1>BOOKS</h1>
-```
+
+### We continue to the next part ...
+
+
+
+#### Questions ?
+
+
 

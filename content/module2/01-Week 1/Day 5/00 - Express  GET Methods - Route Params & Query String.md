@@ -16,7 +16,43 @@ After this lesson you will be able to:
 
 
 
-Create files
+#### Create files
+
+```bash
+mkdir 00-express-params-query-get
+
+cd 00-express-params-query-get
+
+mkdir views
+
+touch app.js views/index.hbs
+
+code .
+```
+
+
+
+<br>
+
+
+
+#### Initialize `npm` and install the dependencies
+
+
+
+```bash
+npm init
+
+npm install --save express hbs
+
+npm install --save-dev nodemon
+```
+
+
+
+<br>
+
+The file structure should be as follows:
 
 ```bash
 .
@@ -30,7 +66,17 @@ Create files
 
 
 
-`package.json` - Add `nodemon` as start script
+<br>
+
+
+
+
+
+#### Create `start` script for nodemon in `package.json`
+
+
+
+##### `package.json`
 
 ```json
 "scripts": {
@@ -38,6 +84,8 @@ Create files
 ```
 
 
+
+<br>
 
 
 
@@ -385,8 +433,7 @@ app.post('/email', (req, res, next) => {
   <input type='text' name='Email'>
 
   <label for=''>Password</label>
-  <input type='text' name='Password'>// SET THE STATIC FOLDER FOR PUBLIC FILES
-app.use(express.static(__dirname + '/public'));
+  <input type='text' name='Password'>
 
   <button type='submit'>Submit</button>
 </form>

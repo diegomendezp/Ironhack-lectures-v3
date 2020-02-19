@@ -55,6 +55,8 @@ Here you have a list of the commands I use in daily basis. The format is `git co
 | `git stash`                                |      ---      | Saves the current unstaged changes in the ws into the stash stack for later retrieval. |
 | `git stash pop`                            |    `gstp`     | Reapplies temporary changes from stash to the working directory |
 
+
+
 ## Gitflow
 
 GitFlow is a branching and realease model for git that will help you work as a team as it aids you to scale painlessly your collaboration.
@@ -66,6 +68,10 @@ GitFlow is based on two main branches, `master` and `develop`.
 The master branch should be protected, since no one is allowed to commit into it. The idea is that master only holds code that can be deployed into production at any moment.
 
 The `develop` branch is the central branch for the development branch. No one should commit directly into it and all code in there should be realiable, since all developers depend on it. It's stability level is more flexible than master, though.
+
+
+
+
 
 ### Working on a feature
 
@@ -153,7 +159,7 @@ Before pushing you have your last change to ammend your mistakes thanks to rebas
 
 Imagine you have this history: 
 
-```
+```bash
 * de1eaf5 i pray to spongebob for this to work now
 * d6cd1e2 fix: now working for sure
 * 9bedf67 fix: now its working

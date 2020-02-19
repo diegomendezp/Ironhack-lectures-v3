@@ -14,7 +14,11 @@ Create additional directories and files for Models.
 
 ```bash
 mkdir models schemas
-touch models/Author.js models/Book.js schemas/reviewSchema.js
+
+touch models/Author.js 
+touch models/Book.js
+
+touch schemas/reviewSchema.js
 ```
 
 
@@ -149,13 +153,27 @@ const books = [
   },
 ];
 
+
+// SEED SEQUENCE
+
+// 1. ESTABLISH CONNECTION TO MONGO DATABASE
 mongoose
-  .connect(`mongodb://localhost:27017/${dbName}`)
+  .connect(
+  	`mongodb://localhost:27017/${dbName}`,
+		{ useNewUrlParser: true, useUnifiedTopology: true }
+	)
   .then(() => {
+  // 2. WHEN CONNECTED CREATE DOCUMENTS FROM ARRAY OF books
     return Book.create(books);
+  // forwards the promise to next `then`
+  
+  // // OR
+  // const createBooksPromise = Book.create(books);
+  // return createBooksPromise;
   })
-  .then(books => {
-    console.log(`Inserted ${books.length} books`);
+  .then(createdBooks => {
+  // 3. WHEN .create() OPERATION IS DONE, CLOSE DB CONNECTION
+    console.log(`Inserted ${createdBooks.length} books`);
     mongoose.connection.close();
   })
   .catch(err => console.log(err));
@@ -163,6 +181,10 @@ mongoose
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -182,9 +204,17 @@ node bin/seed.js
 
 ## Setting up everything
 
-First, create a new route `books/add` on our `routes/index.js` file that should render a `book-add.hbs`  view displaying a Form for adding new books. 
+First, **create a new route `books/add`** on our `routes/index.js` file that should render a `book-add.hbs`  view displaying a Form for adding new books. 
 
 **Which method will we use?**
+
+
+
+
+
+
+
+Create the route that renders add book `<form>`
 
 
 
@@ -250,11 +280,18 @@ module.exports = router;
 // routes/books.js
 
 //	...
-//		...
 
 
 // IMPORT THE MODEL 
 const Book = require('./../models/Book');
+
+
+//		...
+
+//			...
+
+
+
 
 
 // POST	/books/add
@@ -291,7 +328,8 @@ router.post('/add', (req, res, next) => {
 
 // GET /books
 router.get('/', (req, res, next) => {
-      .then(allTheBooksFromDB => res.render('books', { allTheBooksFromDB }))
+  Book.find()
+    .then(allTheBooksFromDB => res.render('books', { allTheBooksFromDB }))
     .catch(err => console.log(err));
 });
 ```
@@ -306,13 +344,18 @@ router.get('/', (req, res, next) => {
 
 ##### `views/books.hbs`
 
-```html
-<h1>BOOKS</h1>
-{{#each allTheBooksFromDB}}
-    <p class='book-title'>
-        <a href="/books/edit?_id={{this._id}}" class="edit-button">EDIT</a>
-        <a href="/books/details/{{this._id}}">{{this.title}}</a> 
-    </p>
+```handlebars
+<h1>BOOKS PAGE / VIEW </h1>
+
+{{#each allTheBooksFromDB }}
+  <p class='book-title'>
+
+    <a href="/books/edit?_id={{this._id}}" class="edit-button">
+      EDIT
+    </a>
+    <a href="/books/details/{{this._id}}"> {{this.title}} </a>
+
+  </p>
 {{/each}}
 ```
 
@@ -353,15 +396,21 @@ router.get('/', (req, res, next) => {
 
 
 
+
+
 <br>
+
+
 
 ### Our `routes/books.js` router file now has 3 routes:
 
 
 
+
+
 ##### `routes/books.js`
 
-```css
+```js
 const express = require('express');
 const router = express.Router();
 const Book = require('./../models/book');
@@ -399,7 +448,11 @@ module.exports = router;
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -407,7 +460,11 @@ module.exports = router;
 
 
 
-This route will be used by our Edit Book form which we will serve via the **EDIT** button.
+This route will render a  **<u>Edit Book `<form>`</u>**. 
+
+When user clicks on the EDIT button next to the book title, Edit Book page with `<form>` will show.
+
+
 
 <br>
 
@@ -427,10 +484,12 @@ router.get('/edit', (req, res, next) => {
   const { _id } = req.query;
   
   Book.findOne( { _id } )
-    .then((book) => res.render( 'book-edit', {book} ))
+    .then((oneBook) => res.render( 'book-edit', { book: oneBook } ))
     .catch((err) => console.log(err));
-})
+});
 ```
+
+
 
 
 
@@ -440,9 +499,21 @@ router.get('/edit', (req, res, next) => {
 
 ### Create the Edit form
 
+
+
+```bash
+touch views/book-edit.hbs
+```
+
+
+
 We need to create the edit form, where the user will be able to modify the info of each book.
 
 Our form will be sending the data via the `POST` method in the request body.
+
+
+
+<br>
 
 
 
@@ -450,19 +521,25 @@ Our form will be sending the data via the `POST` method in the request body.
 
 ```html
 <form action="/books/edit" method="POST">
+
   <label for="">Title:</label>
   <input type="text" name="title">
-	<br>
+  <br>
+
   <label for="">Author:</label>
   <input type="text" name="author">
-	<br>
+  <br>
+
   <label for="">Description:</label>
   <input type="text" name="description">
-	<br>
+  <br>
+
   <label for="">Rate:</label>
   <input type="number" name="rating">
-	<br>
+  <br>
+  
   <button class="edit-button" type="submit">EDIT</button>
+
 </form>
 ```
 
@@ -486,19 +563,19 @@ Our form will be sending the data via the `POST` method in the request body.
 
 ##### `views/book-edit.hbs`
 
-```handlebars
+```html
 <form action="/books/edit?_id={{book._id}}" method="POST">  {{!-- <-- UPDATE --}}
   <label for="">Title:</label>
-  <input type="text" name="title" value="{{book.title}}">  {{!-- <-- UPDATE --}}
+  <input type="text" name="title" value="{{book.title}}" >  {{!-- <-- UPDATE --}}
 
   <label for="">Author:</label>
-  <input type="text" name="author" value="{{book.author}}">  {{!-- <-- UPDATE --}}
+  <input type="text" name="author" value="{{book.author}}" >  {{!-- <-- UPDATE --}}
 
   <label for="">Description:</label>
-  <input type="text" name="description" value="{{book.description}}">  {{!-- <-- UPDATE --}}
+  <input type="text" name="description" value="{{book.description}}" >  {{!-- <-- UPDATE --}}
 
   <label for="">Rate:</label>
-  <input type="number" name="rating" value="{{book.rating}}">  {{!-- <-- UPDATE --}}
+  <input type="number" name="rating" value="{{book.rating}}" >  {{!-- <-- UPDATE --}}
 
   <button type="submit">EDIT</button>
 </form>
@@ -569,7 +646,7 @@ router.get('/details/:bookId', (req, res, next) => {
   const { bookId } = req.params;
 
   Book.findById(bookId)
-    .then(book => res.render('book-details', { book }))
+    .then(oneBook => res.render('book-details', { book: oneBook } ) )
     .catch(err => console.log('Error retrieving book details: ', err));
 });
 ```
@@ -582,7 +659,19 @@ router.get('/details/:bookId', (req, res, next) => {
 
 
 
-### Crate a view `book-details.hbs`
+
+
+### Create a view `book-details.hbs`
+
+
+
+```bash
+touch views/book-details.hbs
+```
+
+
+
+<br>
 
 
 
@@ -691,7 +780,7 @@ module.exports = Author;
 
 
 
-### Update book model - use `Author` Id as reference
+### Update book model - use `Author` Id as a reference
 
 Update`Book` model, and replace the type of data we are assigning to the `author` field. 
 
@@ -713,9 +802,12 @@ const Schema   = mongoose.Schema;
 const bookSchema = new Schema({
   title: String,
   description: String,
-  author: [ { type : Schema.Types.ObjectId, ref: 'Author' } ],
+  author: [ 
+    { type : Schema.Types.ObjectId, ref: 'Author' } 
+  ],
   rating: Number
-}, {
+}, 
+ {
   timestamps: {
     createdAt: "createdAt",
     updatedAt: "updatedAt"
@@ -736,13 +828,54 @@ module.exports = Book;
 
 
 
+### - Create `author-add` view  for adding new authors 
+
 ### - Create `authors.js` router,
 
-### -  update `index.js` router to connect it, 
-
-### -  create `author-add` view  for adding new authors
+### -  Update `index.js` router to connect it, 
 
 
+
+
+
+
+
+<br>
+
+
+
+### Create the `author-add.hbs`  view -  form
+
+
+
+##### `views/author-add.hbs`
+
+```html
+<form action="/authors/add" method="POST">
+  <label for="">Name:</label>
+  <input type="text" name="name">
+  <br>
+  <label for="">Last Name:</label>
+  <input type="text" name="lastName">
+  <br>
+  <label for="">Nationality:</label>
+  <input type="text" name="nationality">
+  <br>
+  <label for="">Birthday:</label>
+  <input type="date" name="birthday">
+  <br>
+  <label for="">Picture Url</label>
+  <input type="text" name="pictureUrl">
+  <br>
+  <button type="submit">ADD</button>
+</form>
+```
+
+
+
+
+
+<br>
 
 
 
@@ -769,10 +902,15 @@ router.get('/add', (req, res, next) => res.render("author-add"));
 router.post('/add', (req, res, next) => {
   
   const { name, lastName, nationality, birthday, pictureUrl } = req.body;
+  // const name = req.body.name;
+  // const lastName = req.body.lastName;
+  // const nationality = req.body.nationality;
+  // const birthday = req.body.birthday;
+  
   const newAuthor = new Author({ name, lastName, nationality, birthday, pictureUrl})
   
   newAuthor.save()
-  	.then((book) => res.redirect('/books'))
+  	.then((createdAuthor) => res.redirect('/books'))
   	.catch((error) => console.log(error));
 });
 
@@ -816,39 +954,6 @@ module.exports = router;
 
 
 
-<br>
-
-
-
-
-
-### Create the `author-add.hbs`  view -  form
-
-
-
-##### `views/author-add.hbs`
-
-```html
-<form action="/authors/add" method="POST">
-  <label for="">Name:</label>
-  <input type="text" name="name">
-  <br>
-  <label for="">Last Name:</label>
-  <input type="text" name="lastName">
-  <br>
-  <label for="">Nationality:</label>
-  <input type="text" name="nationality">
-  <br>
-  <label for="">Birthday:</label>
-  <input type="date" name="birthday">
-  <br>
-  <label for="">Picture Url</label>
-  <input type="text" name="pictureUrl">
-  <br>
-  <button type="submit">ADD</button>
-</form>
-```
-
 
 
 <br>
@@ -857,7 +962,7 @@ module.exports = router;
 
 
 
-# Changing the data schema requires creating a new database or a collection, to ensure data consistency and no errors.
+## Changing the data schema requires creating a new database or a collection, to ensure data consistency and no errors.
 
 
 
@@ -870,237 +975,208 @@ module.exports = router;
 ##### `bin/seed2.js`
 
 ```js
-const mongoose = require('mongoose');
-const Book = require('./../models/Book');
-const Author = require('./../models/Author');
+const mongoose = require("mongoose");
+const Book = require("./../models/Book");
+const Author = require("./../models/Author");
 
+const dbName = "library";
+
+const books = [
+  {
+    title: "The Hunger Games",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Suzanne",
+      lastName: "Collins",
+      nationality: "American",
+      birthday: new Date(1962, 07, 11),
+      pictureUrl:
+        "https://www.thefamouspeople.com/profiles/images/suzanne-collins-3.jpg"
+    },
+    rating: 10
+  },
+  {
+    title: "Harry Potter",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Joanne",
+      lastName: "Rowling",
+      nationality: "English",
+      birthday: new Date(1965, 06, 31),
+      pictureUrl:
+        "https://www.biography.com/.image/t_share/MTE4MDAzNDE3OTI3MDI2MTkw/jk-rowling_editedjpg.jpg"
+    },
+    rating: 9
+  },
+  {
+    title: "To Kill a Mockingbird",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Harper",
+      lastName: "Lee",
+      nationality: "American",
+      birthday: new Date(1926, 03, 28),
+      pictureUrl:
+        "https://cdn.cnn.com/cnnnext/dam/assets/150710115858-harper-lee-c1-exlarge-169.jpg"
+    },
+    rating: 8
+  },
+  {
+    title: "Pride and Prejudice",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Jane",
+      lastName: "Austen",
+      nationality: "English",
+      birthday: new Date(1817, 11, 16),
+      pictureUrl:
+        "https://www.biography.com/.image/t_share/MTE1ODA0OTcxNTQ2ODcxMzA5/jane-austen-9192819-1-402.jpg"
+    },
+    rating: 9
+  },
+  {
+    title: "Twilight",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Sthephenie",
+      lastName: "Meyer",
+      nationality: "American",
+      birthday: new Date(1973, 11, 24),
+      pictureUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Stephenie_Meyer_by_Gage_Skidmore.jpg/1200px-Stephenie_Meyer_by_Gage_Skidmore.jpg"
+    },
+    rating: 10
+  },
+  {
+    title: "The Book Thief",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Markus",
+      lastName: "Zusak",
+      nationality: "Australian",
+      birthday: new Date(1975, 05, 23),
+      pictureUrl: "https://images.penguinrandomhouse.com/author/59222"
+    },
+    rating: 7
+  },
+  {
+    title: "The Chronicles of Narnia",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Suzanne",
+      lastName: "Lewis",
+      nationality: "British",
+      birthday: new Date(1898, 10, 29),
+      pictureUrl:
+        "https://media1.britannica.com/eb-media/24/82724-004-C01DBECB.jpg"
+    },
+    rating: 8
+  },
+  {
+    title: "Animal Farm",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "George",
+      lastName: "Orwell",
+      nationality: "Indian",
+      birthday: new Date(1903, 05, 25),
+      pictureUrl:
+        "https://www.biography.com/.image/t_share/MTIwNjA4NjMzOTMzNjI4OTQw/george-orwell-9429833-1-4022.jpg"
+    },
+    rating: 9
+  },
+  {
+    title: "Gone with the Wind ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "Margaret",
+      lastName: "Mitchell",
+      nationality: "American",
+      birthday: new Date(1900, 10, 08),
+      pictureUrl:
+        "https://media1.britannica.com/eb-media/13/153113-004-8474546E.jpg"
+    },
+    rating: 10
+  },
+  {
+    title: "The Fault in Our Stars ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    author: {
+      name: "John",
+      lastName: "Green",
+      nationality: "American",
+      birthday: new Date(1977, 07, 24),
+      pictureUrl:
+        "https://i.guim.co.uk/img/media/8a5dc5e279a570fdba282c88d4a2a363a38bc2e4/0_96_4768_2860/master/4768.jpg?w=300&q=55&auto=format&usm=12&fit=max&s=33c90ed86c41e7d9e2a4297936a2e504"
+    },
+    rating: 8
+  }
+];
+
+// STEP 1 - CREATE A FUNCTION THAT CREATES BOOKS AND AUTHORS
+
+// Creates books and authors
+//  - returns an array of ( Book.create() ) promises
+function populateDatabase(booksArr) {
+  const bookPromisesArr = booksArr.map(bookObj => {
+    const chainedPromise = Author.create(bookObj.author)
+      .then(createdAuthor => {
+        return Book.create({ ...bookObj, author: createdAuthor._id });
+      })
+      .catch(error => console.log(error));
+
+    return chainedPromise;
+  });
+
+  return bookPromisesArr;
+}
+
+// STEP 2 - OPEN DB CONNECTION
 mongoose
-  .connect('mongodb://localhost:27017/library', {
+  .connect(`mongodb://localhost:27017/${dbName}`, {
     useNewUrlParser: true,
+    useUnifiedTopology: true
   })
-  .then(() => insertFirst())
+
+  .then(connectionObj => {
+ 
+  // STEP 3 - DROP THE DATABASE 
+    console.log(`MongoDB connection open.`);
+
+    const dropPr = connectionObj.connection.dropDatabase();
+    return dropPr; // Forward the promise to next then
+  })
+
+  .then(dropStatus => {
+  // STEP 4 - CREATE BOOKS AND AUTHORS IN DB
+    console.log(`DATABASE "${dbName}" DROPPED`);
+
+    const bookPromises = populateDatabase(books);
+    const whenAllDonePr = Promise.all(bookPromises);
+
+    return whenAllDonePr; // Forward the resolution of Promise.all
+  })
+
+  .then(createdBooks => {
+  // STEP 5 - CLOSE THE CONNECTION
+    console.log(`Inserted ${createdBooks.length} books and authors.`);
+
+    const closePr = mongoose.connection.close();
+    return closePr;
+  })
+// STEP 6 - WHEN CONNECTION IS CLOSED, LOG IT TO THE TERMINAL
+  .then(() => console.log(`MongoDB connection closed!`))
   .catch(err => console.log(err));
-
-// STEP 0 - insert documents to ensure that collection exists
-function insertFirst() {
-  const pr1 = Book.create({ title: 'Drop', description: 'Drop', rating: 5 });
-  const pr2 = Author.create({
-    name: 'Drop',
-    lastName: 'Drop',
-    nationality: 'Drop',
-    pictureUrl: 'Drop',
-  });
-
-  Promise.all([pr1, pr2])
-    .then(() => {
-      dropTheCollections();
-    })
-    .catch(err => console.log(err));
-}
-
-// STEP 1 - drop the existing collections
-function dropTheCollections() {
-  const pr1 = Book.collection.drop();
-  const pr2 = Author.collection.drop();
-
-  Promise.all([pr1, pr2])
-    .then(() => {
-      console.log('Collections dropped successfully');
-
-      populateDatabase();
-    })
-    .catch(err => console.log(err));
-}
-
-// STEP 2 - Create a function that will populate the database
-function populateDatabase() {
-  const books = [
-    {
-      title: 'The Hunger Games',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Suzanne',
-        lastName: 'Collins',
-        nationality: 'American',
-        birthday: new Date(1962, 07, 11),
-        pictureUrl:
-          'https://www.thefamouspeople.com/profiles/images/suzanne-collins-3.jpg',
-      },
-      rating: 10,
-    },
-    {
-      title: 'Harry Potter',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Joanne',
-        lastName: 'Rowling',
-        nationality: 'English',
-        birthday: new Date(1965, 06, 31),
-        pictureUrl:
-          'https://www.biography.com/.image/t_share/MTE4MDAzNDE3OTI3MDI2MTkw/jk-rowling_editedjpg.jpg',
-      },
-      rating: 9,
-    },
-    {
-      title: 'To Kill a Mockingbird',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Harper',
-        lastName: 'Lee',
-        nationality: 'American',
-        birthday: new Date(1926, 03, 28),
-        pictureUrl:
-          'https://cdn.cnn.com/cnnnext/dam/assets/150710115858-harper-lee-c1-exlarge-169.jpg',
-      },
-      rating: 8,
-    },
-    {
-      title: 'Pride and Prejudice',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Jane',
-        lastName: 'Austen',
-        nationality: 'English',
-        birthday: new Date(1817, 11, 16),
-        pictureUrl:
-          'https://www.biography.com/.image/t_share/MTE1ODA0OTcxNTQ2ODcxMzA5/jane-austen-9192819-1-402.jpg',
-      },
-      rating: 9,
-    },
-    {
-      title: 'Twilight',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Sthephenie',
-        lastName: 'Meyer',
-        nationality: 'American',
-        birthday: new Date(1973, 11, 24),
-        pictureUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Stephenie_Meyer_by_Gage_Skidmore.jpg/1200px-Stephenie_Meyer_by_Gage_Skidmore.jpg',
-      },
-      rating: 10,
-    },
-    {
-      title: 'The Book Thief',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Markus',
-        lastName: 'Zusak',
-        nationality: 'Australian',
-        birthday: new Date(1975, 05, 23),
-        pictureUrl: 'https://images.penguinrandomhouse.com/author/59222',
-      },
-      rating: 7,
-    },
-    {
-      title: 'The Chronicles of Narnia',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Suzanne',
-        lastName: 'Lewis',
-        nationality: 'British',
-        birthday: new Date(1898, 10, 29),
-        pictureUrl:
-          'https://media1.britannica.com/eb-media/24/82724-004-C01DBECB.jpg',
-      },
-      rating: 8,
-    },
-    {
-      title: 'Animal Farm',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'George',
-        lastName: 'Orwell',
-        nationality: 'Indian',
-        birthday: new Date(1903, 05, 25),
-        pictureUrl:
-          'https://www.biography.com/.image/t_share/MTIwNjA4NjMzOTMzNjI4OTQw/george-orwell-9429833-1-4022.jpg',
-      },
-      rating: 9,
-    },
-    {
-      title: 'Gone with the Wind ',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'Margaret',
-        lastName: 'Mitchell',
-        nationality: 'American',
-        birthday: new Date(1900, 10, 08),
-        pictureUrl:
-          'https://media1.britannica.com/eb-media/13/153113-004-8474546E.jpg',
-      },
-      rating: 10,
-    },
-    {
-      title: 'The Fault in Our Stars ',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      author: {
-        name: 'John',
-        lastName: 'Green',
-        nationality: 'American',
-        birthday: new Date(1977, 07, 24),
-        pictureUrl:
-          'https://i.guim.co.uk/img/media/8a5dc5e279a570fdba282c88d4a2a363a38bc2e4/0_96_4768_2860/master/4768.jpg?w=300&q=55&auto=format&usm=12&fit=max&s=33c90ed86c41e7d9e2a4297936a2e504',
-      },
-      rating: 8,
-    },
-  ];
-
-  // STEP 3
-  // Map over the array `books` and for each book take it's author and insert it into `authors` collection
-  // and create a new array `createAuthors` which holds only names (String) of each author
-  const createAuthors = books.map(book => {
-    const newAuthor = new Author(book.author);
-    return newAuthor
-      .save()
-      .then(author => author.name)
-      .catch(error => console.error(console.error()));
-  });
-
-  // STEP 4
-  // After all authors are created `Promise.all(createAuthors)`
-  // Map the data array `books`, and for each book replace `book.author` name with _id retrieved by `Author.findOne`
-  // Map creates a new array of updated book objects -> `updatedBooksArray` and at the end assigns it to `updatedBooksData`
-  let updatedBookPromises = Promise.all(createAuthors)
-    .then(() => {
-      let updatedBooksArray = books.map(book => {
-        return Author.findOne({
-          name: book.author.name,
-          lastName: book.author.lastName,
-        }).then(author => Object.assign({}, book, { author: author._id }));
-        // Overwrites the original `book.author` name string, and puts author `_id`
-      });
-
-      return updatedBooksArray;
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-
-  // STEP 5
-  // updatedBookPromises holds all the promises, then we use Promise.all to resolve all those promises and forward the result via .then() in array `newUpdatedBooks`
-  // Insert all objects from `newUpdatedBooks` into the collection `books`
-  updatedBookPromises
-    .then(updatedBookPromises => Promise.all(updatedBookPromises))
-    .then(finalBooksArray => Book.create(finalBooksArray))
-    .then(result =>
-      result.forEach(book => console.log('Book inserted -> ', book.title)),
-    )
-    .catch(err =>
-      console.log('Error while inserting all newUpdatedBooks', err),
-    );
-}
-
 ```
 
 
@@ -1221,14 +1297,20 @@ router.get('/details/:bookId', (req, res, next) => {
 ##### `views/book-details.hbs`
 
 ```handlebars
-...
+{{!-- ... --}}
+
 <span> 
+
 	Written by: 
 	{{#each book.author}} 
 		{{this.name}} {{this.lastName}}  
 	{{/each}}
+	
 </span>
-...
+
+{{!-- ... --}}
+
+
 ```
 
 

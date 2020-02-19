@@ -1,4 +1,73 @@
-# M2 - Deployment  - MLab - with credit card 
+# M2 - Deployment  - MLab 
+
+
+
+
+
+### Create the `.env` variables that will be used in production 
+
+### and update the files that depend on them
+
+
+
+###### `.env`
+
+```bash
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/your-db-name
+SESSION_SECRET=cookies-and-milk
+```
+
+
+
+<br>
+
+
+
+###### `app.js`
+
+```js
+// app.js
+
+
+// STEP 1
+
+// Ensure that dotenv is imported using `require`
+require("dotenv").config();
+
+
+
+// STEP 2
+
+// UPDATE MONGOOSE CONNECTION URL STRING
+mongoose.connect(process.env.MONGODB_URI , {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+
+
+
+// STEP 3
+
+// UPDATE EXPRESS-SESSION `secret`
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,							// <--- UPDATE
+    // cookie: { maxAge: 3600000 * 1 },	// 1 hour
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 60 * 60 * 24 * 7 // Time to live - 7 days (14 days - Default)
+    })
+  })
+);
+```
+
+<br>
+
+
 
 
 
