@@ -2,6 +2,26 @@
 
 
 
+<br>
+
+
+
+### Before the lecture advise the students:
+
+There will be a questionaire at the end of this lesson, you are expected to answer:
+
+- What is a component state
+- What are props
+- What is the Difference between the class and function components
+
+
+
+
+
+<br>
+
+
+
 ### 	State
 
 
@@ -22,7 +42,7 @@
 
 
 
-- React has built in method for changing the component state.
+- **React has built in method for changing the component state.**
 
 
 
@@ -31,12 +51,22 @@
 
 
 ```bash
-npx create-react-app react-state-lecture
+npx create-react-app 01-react-state-lecture
 
-cd react-state-lecture 
+cd 01-react-state-lecture
 
 code .
+```
 
+
+
+<br>
+
+
+
+### Start the development server
+
+```bash
 npm start
 ```
 
@@ -45,6 +75,28 @@ npm start
 <br>
 
 
+
+
+
+### Create the functional component `User`
+
+```bash
+mkdir src/components
+
+touch src/components/User.js
+```
+
+
+
+<br>
+
+
+
+#### `rfce` + `Tab`
+
+
+
+<br>
 
 ##### `src/components/User.js`
 
@@ -94,12 +146,12 @@ class App extends Component {
   state = {
     backColor: "yellow",
     userA: {
-      firstName: "Harper",
-      avatarUrl: "https://www.refreshmiami.com/wp-content/uploads/2018/07/55085_logo-ironhack.png"
+      name: "Harper",
+      avatar: "https://www.refreshmiami.com/wp-content/uploads/2018/07/55085_logo-ironhack.png"
     },
     userB: {
-      firstName: "Ana",
-      avatarUrl: "https://s3.amazonaws.com/owler-image/logo/ironhack_owler_20180828_221413_original.png"
+      name: "Anna",
+      avatar: "https://s3.amazonaws.com/owler-image/logo/ironhack_owler_20180828_221413_original.png"
     }
   };
 
@@ -206,9 +258,13 @@ class App extends Component {
 
 
 
+<br>
 
 
-#### [List of Supported Events - with links](<https://reactjs.org/docs/events.html#supported-events>)
+
+
+
+### [List of Supported Events - with links](<https://reactjs.org/docs/events.html#supported-events>)
 
 
 
@@ -225,7 +281,7 @@ class App extends Component {
 - `setState` is React's method we use to update/change the state object in a component.
 
 - Always  use `setState()` method to update `state`.
-- Calling `setState()`triggers the DOM in the current component to re-render.
+- Calling `setState()`**triggers the** DOM of the current **component to re-render**.
 
 - If we don't use it to update the `state`  DOM will not be rendered.
 
@@ -235,7 +291,7 @@ class App extends Component {
 
 
 
-### Do Not Modify State Directly
+### Do Not Modify State Directly !!!
 
 
 
@@ -245,7 +301,8 @@ For example, this will not re-render a component:
 
 ```js
 clickHandler = () => {
-  this.state.clickCount = this.state.clickCount + 1 ;	// WRONG - This will not re-render a component   
+  this.state.clickCount = this.state.clickCount + 1 ;	
+  // WRONG - This will not re-render a component   
 }
  
 ```
@@ -302,19 +359,33 @@ The main difference is that `state` is **defined directly inside the component**
 
 
 
-Another important thing is : only the component itself can change it's state. It is `class` component which defines the `state` inside itself and one that updates it at the appropriate time.
+Another important thing is : **only the component itself can change it's state.** 
 
-
-
-
-
-
-
-## [LECTURE CODE EXAMPLE REPO](https://github.com/ross-u/React-State-example-)
+It is `class` component which defines the `state` inside itself and one that updates it at the appropriate time.
 
 
 
 <br>
+
+
+
+### React allows us to skip the `constructor` part
+
+The reason for this is that React is implementing the future ES Next new JavaScript feature proposal named [Class fields declarations](https://github.com/tc39/proposal-class-fields).
+
+
+
+<br>
+
+
+
+
+
+## [LECTURE CODE EXAMPLE REPO](https://github.com/ross-u/01-react-state-lecture)
+
+
+
+<br> 
 
 
 

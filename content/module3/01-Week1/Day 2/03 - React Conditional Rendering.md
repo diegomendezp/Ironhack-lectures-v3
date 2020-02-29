@@ -4,19 +4,44 @@
 
 
 
-## [CLONE STARTER REPO](<https://github.com/ross-u/React---Conditional-Rendering-Starter-repo->)
+## [CLONE STARTER REPO](https://github.com/ross-u/03-react-conditional-rendering)
 
 ```bash
-git clone https://github.com/ross-u/React---Conditional-Rendering-Starter-repo-
+git clone https://github.com/ross-u/03-react-conditional-rendering.git
 
-cd React---Conditional-Rendering-Starter-repo-/
+cd 03-react-conditional-rendering
 
 npm i
 
 code .
+
+# The starter code is on the master branch
+git checkout master
 ```
 
 
+
+<br>
+
+
+
+
+
+### (Teacher) Checkout to the new branch
+
+```bash
+git checkout -b wd-mm-yyyy
+```
+
+
+
+ 
+
+<br>
+
+
+
+### Coniditionals in React
 
 
 
@@ -26,8 +51,18 @@ In React, we can use conditional rendering (if else) to render one component or 
 
 In a pseudo code example we can give an example:
 
+
+
+##### `src/components/ConditionalExample.js`
+
 ```js
+//	src/components/ConditionalExample.js
+
+
+
 // PSEUDO CODE  :)
+
+//	...
 
 if  (user is logged In)   {
 	return <UserImage>;
@@ -35,11 +70,17 @@ if  (user is logged In)   {
 else if (user is not logged in) {
 	return <LoginButton>
 }
+  
+//	...
+  
+//			...
 ```
 
 
 
 
+
+<br>
 
 
 
@@ -77,7 +118,7 @@ if (true) {
 
 
 
-#### `if - else` statements don't work inside JSX expressions. 
+#### `if - else` statements don't work directly inside the JSX expressions. 
 
 ####  When using `if - else` it needs to be enclosed in a function.
 
@@ -134,7 +175,7 @@ export default ConditionalExample;
 //	...
 //	...
 
-import ConditionalExample from './components/ConditionalExample';
+import ConditionalExample from './components/ConditionalExample';		// <- IMPORT
 
 // ...
 //		...
@@ -142,10 +183,11 @@ import ConditionalExample from './components/ConditionalExample';
   render() {
     return (
       <div className="App">
-        <Navbar></Navbar>
+        
+        <Navbar />
 
-        <h1 style={{background: 'orange'}}>Conditional Example</h1>
-        <ConditionalExample title='' />
+        <h1 style={{background: 'orange'}}>Conditional Example</h1>	{/* <- ADD  */}
+        <ConditionalExample title='' />                             {/* <- ADD  */}
 ```
 
 
@@ -185,7 +227,7 @@ const ConditionalExample = (props) => {
   
   return (
     <div>
-      { renderTitle(props) }
+      { renderTitle(title) }
     </div>
   )
 };
@@ -231,13 +273,15 @@ const improvedCard = (props) => {
     <div>
       <h2>{props.title}</h2>
       <p>Director: {props.director}</p>
+      
 
-      {
+      {                                         {/*   <--  ADD CONDITIONAL */}
         (props.hasOscars) 
           ? <p>Got the Oscar Award!!!!</p>
           : <p>Great movie but no Oscars! 😔</p>
       }
 
+      
       <button className='btn-delete' onClick={props.clickToDelete}>Delete</button>
 
     </div>
@@ -261,7 +305,7 @@ export default improvedCard;
 
 
 
-`src/components/improvedCard.js`
+##### `src/components/improvedCard.js`
 
 ```jsx
 // src/components/ImprovedCard.js
@@ -299,12 +343,12 @@ export default improvedCard;
 
 
 
-##### `src/components/DynamicMovieList.js`
+##### `src/components/ImprovedMovieList.js`
 
 ```jsx
-// src/components/DynamicMovieList.js
+// src/components/ImprovedMovieList.js
 
-class DynamicMovieList extends Component {
+class ImprovedMovieList extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -322,20 +366,19 @@ class DynamicMovieList extends Component {
   
   render() {
     return (
-      <div>																		{/*    ADD     */}
-        <button onClick={this.toggleMovies}>
+      <div>																				{/*    ADD     */}
+        <button onClick={this.toggleMovies}>                 {/*    ADD     */}
           Toggle Movies
         </button>
         
         <ul>
         {
             
-          this.state.showMovies 										   {/*    ADD     */}
-            ? this.state.movies.map( (oneMovie, index) => {
+          ! this.state.showMovies 										   	{/*    ADD     */}
+            ? null
+            : this.state.movies.map( (oneMovie, index) => {
             		return <ImprovedCard ..... />
           	})
-            
-          	: null
             
         }
         </ul>
@@ -345,7 +388,7 @@ class DynamicMovieList extends Component {
   }
 }
 
-export default DynamicMovieList; 
+export default ImprovedMovieList; 
   
 ```
 
@@ -353,9 +396,15 @@ export default DynamicMovieList;
 
 
 
-## [CODE EXAMPLE REPO - DONE](<https://github.com/ross-u/React---Conditional-Rendering-Done->)
+<br>
 
 
+
+## [CODE EXAMPLE REPO - DONE - `example-done` branch](https://github.com/ross-u/03-react-conditional-rendering/tree/example-done)
+
+
+
+<br>
 
 
 

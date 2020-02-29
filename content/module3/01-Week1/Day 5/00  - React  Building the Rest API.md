@@ -4,7 +4,7 @@
 
 ## REST API
 
-REST stands for **Representational State Transfer**.
+stands for **Representational State Transfer**.
 
 
 
@@ -29,6 +29,8 @@ The name REpresentational State Transfer implies exchanging data.
 The server acts as a data store, and the client retrieves and stores data. 
 
 The server transfers object states to the client. The client can update these states too.
+
+
 
 Most REST APIs implement [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete): Create, Retrieve, Update, and Delete.
 
@@ -55,6 +57,16 @@ Most REST APIs implement [CRUD](https://en.wikipedia.org/wiki/Create,_read,_upda
 | `/api/projects/:i`  | `GET`     | (empty)      | Returns the single project | 200 OK              |
 | `/api/projects/:i`  | `PUT`     | JSON         | Edits the projects         | 200 OK              |
 | `/api/projects/:id` | `DELETE`  | (empty)      | Deletes the projects       | 204 No Content      |
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -94,30 +106,50 @@ We will be building the backend for our **Project Management** app, and we will 
 
 ### [Starter repo](https://github.com/ross-u/React-Code-Along---Project-Management-Server.git)
 
+```bash
+git clone https://github.com/ross-u/React-Code-Along---Project-Management-Server.git
+
+
+cd React-Code-Along---Project-Management-Server
+
+
+npm i
+
+
+code .
+```
 
 
 
 
-### Create the `.env` file and add the line:
 
-###  `PORT=3000`
-
+### Create the `.env` file and add the following lines:
 
 
 
+##### `.env`
 
-### Start the app,  `npm run dev` 
+```bash
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/project-management
+```
 
 
 
 
 
-### Create model in file `models/ProjectModel.js`
+### Start the app,  `npm run start:dev` 
 
-##### `models/ProjectModel.js`
+
+
+
+
+### Create a model in file the `models/project-model.js`
+
+##### `models/project-model.js`
 
 ```js
-// models/ProjectModel.js
+// models/project-model.js
 
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
@@ -126,7 +158,7 @@ const projectSchema = new Schema({
   title: String,
   description: String,
   tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
-  // owner will be added later on
+  // The owner will be added later on
 });
 
 const Project = mongoose.model('Project', projectSchema);
@@ -142,12 +174,12 @@ module.exports = Project;
 
 
 
-### Create model in file `TaskModel.js`
+### Create a model in the file `task-model.js`
 
-##### `models/TaskModel.js`
+##### models/task-model.js
 
 ```js
-// models/TaskModel.js
+// models/task-model.js
 
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
@@ -191,8 +223,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router  = express.Router();
 
-const Project = require('./../models/ProjectModel');
-const Task = require('./../models/TaskModel');
+const Project = require('./../models/project-model');
+const Task = require('./../models/task-model');
 
 
 // POST '/api/projects'
@@ -221,6 +253,10 @@ module.exports = router;
 
 
 
+<br>
+
+
+
 
 
 #### Update `app.js`
@@ -242,15 +278,29 @@ app.use('/api', projectRouter);
 
 
 
+<br>
+
+
+
 #### Now use [Postman](https://www.getpostman.com/) to test this route out.
 
-`POST` `http://localhost:3000/api/projects`
+```bash
+# POST 
 
-##### In Body send:
+# URL
+http://localhost:5000/api/projects
+```
 
-`title: "Learn React"`
 
-`description: "Get react skills and build an awesome final project"`
+
+##### In the request Body send:
+
+```json
+{
+  "title": "Learn React",
+  "description": "Get react skills and build an awesome final project"
+}
+```
 
 
 
@@ -331,7 +381,7 @@ router.get('/projects', (req, res, next) => {
 //	...
 //	...
 
-// GET '/api/projects/:id'		 => to get a specific projects
+// GET '/api/projects/:id'		 => to get a specific project
 router.get('/projects/:id', (req, res) => {
   const { id } = req.params;
 
@@ -497,8 +547,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router  = express.Router();
 
-const Project = require('../models/ProjectModel');
-const Task = require('../models/TaskModel');
+const Project = require("../models/project-model");
+const Task = require("../models/task-model");
 
 
 module.exports = router;
@@ -554,7 +604,7 @@ app.use('/api', taskRouter);			// <-- UNCOMMENT & UPDATE
 // routes/task-routes.js
 
 // POST '/api/tasks'    => to create a new task
-router.post('/tasks', (req, res)=>{
+router.post('/tasks', (req, res) => {
   const { title, description, projectID } = req.body;
 
   Task.create({
@@ -586,7 +636,7 @@ router.post('/tasks', (req, res)=>{
 
 
 
-### Create `GET` `/projects/:projectId/tasks`
+### Create `GET` `/projects/:projectId/tasks/:taskId`
 
 Get one task by it's id
 
@@ -773,7 +823,7 @@ app.use(cors({
 
 
 
-
+<br>
 
 
 
@@ -785,6 +835,8 @@ app.use(cors({
 
 
 
-### Update the `.env` file  to: `PORT=5000`
+### The `PORT` in the `.env` file for our server should be: `PORT=5000`
+
+
 
 Our client side will be running on port 3000

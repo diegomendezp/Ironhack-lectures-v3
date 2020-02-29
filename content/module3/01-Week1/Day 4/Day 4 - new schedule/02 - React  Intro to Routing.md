@@ -57,6 +57,7 @@ The current location is the last item set in `history` through methods such as `
 
 
 
+<br>
 
 
 
@@ -66,8 +67,7 @@ The current location is the last item set in `history` through methods such as `
 
 
 
-
-### Demo
+## Demo
 
 
 
@@ -96,7 +96,7 @@ code .
 #### Install `react-router-dom` package
 
 ```bash
-npm i react-router-dom --save
+npm i react-router-dom react-rout--save
 ```
 
 
@@ -107,7 +107,7 @@ npm i react-router-dom --save
 
 
 
-
+<br>
 
 
 
@@ -128,13 +128,15 @@ npm i react-router-dom --save
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-// <Router>  (BrowserRouter) is a React router root component 
+
+// <Router>  `BrowserRouter` is a React router root component 
 // <Route>   is used to specify which component will be rendered for each `path` 
+
 
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router>              {/*  <--    ADD THE ROUTER  */}
         <Navbar />
       </Router>
     </div>
@@ -245,7 +247,7 @@ export default App;
 
 
 
-
+<br>
 
 
 
@@ -377,8 +379,11 @@ function App() {
       <Router>
         <Navbar />
         
-        <Switch>
+        <Switch>                                         {/* ADD THE Switch*/}
           <Route path="/" component={Dashboard}/>		{/* REMOVE exact*/}
+          
+          {/*      ...      */}
+        </Switch>
 ```
 
 
@@ -461,7 +466,7 @@ export default Navbar;
 
 
 
-
+<br>
 
 
 
@@ -518,7 +523,7 @@ function App() {
 
 //	...
 
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router} from 'react-router-dom';			// <-- IMPORT
 
 ReactDOM.render((
   <Router>
@@ -595,6 +600,7 @@ import { Link, NavLink } from 'react-router-dom';
 ```css
 .selected-link {
   background: rebeccapurple;
+  text-shadow: 1px 0px 3px white;
 }
 ```
 
@@ -604,7 +610,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 
 
-
+<br>
 
 
 
@@ -630,30 +636,33 @@ import { Link, NavLink } from 'react-router-dom';
 //	src/components/DashboardWRedirect.js
 
 import React, { Component } from 'react'
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect } from 'react-router';			// <-- IMPORT Route and Redirect
 
 
 class DashboardWRedirect extends Component {
-  state = { loggedIn: true };		// Create a state for Login status
+  state = { isLoggedIn: true };					  //		<--	 CREATE A STATE FOR LOGIN STATUS
   
 
-	//	Helper method which returns either Dashboard elements or <Redirect>
-  checkIfLogged = () => {
-    if (this.state.loggedIn) {
+
+  // CREATE A HELPER METHOD
+
+	//	Helper method which returns either Dashboard content or <Redirect>
+
+  checkIfLoggedIn = () => {
+    if ( ! this.state.isLoggedIn) return <Redirect to="/error" />;
+    else {
       return(
         <div>
           <h1>Dashboard With redirect</h1>
-          <img src="https://media.giphy.com/media/3oKIPEqDGUULpEU0aQ/giphy.gif" alt="dashboard-gif"/>
-        </div>)
-        
-    } else { 
-      return <Redirect to="/error" /> 
-    };
+          <img src="https://i.imgur.com/F4hHytz.gif" alt="dashboard-gif"/>
+       </div>
+      )
+    }
   }
   
 
   render() {
-    return (<Route exact path="/" render={this.checkIfLogged}/>)
+    return <Route exact path="/" render={this.checkIfLoggedIn}/>
   }
 }
 
@@ -661,6 +670,10 @@ export default DashboardWRedirect;
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -678,7 +691,7 @@ export default DashboardWRedirect;
 //	...
 //	...
 
-import DashboardWRedirect from './components/DashboardWRedirect';
+import DashboardWRedirect from './components/DashboardWRedirect';			// <-- IMPORT
 
 
 import './App.css';
@@ -689,11 +702,15 @@ function App() {
       {/* <Router> */}
         <Navbar />
         <Switch>
-          {/* <Route path="/" component={Dashboard} exact/> */}
-          <Route path="/" component={DashboardWRedirect} exact/>
+          {/* <Route path="/" component={Dashboard} exact/> */}		// <-- COMMENT
+          <Route path="/" component={DashboardWRedirect} exact/>		// <-- ADD
 ```
 
 
+
+
+
+<br>
 
 
 

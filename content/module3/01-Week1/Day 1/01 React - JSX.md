@@ -9,9 +9,9 @@
 ### Clone the starter code repo
 
 ```bash
-git clone https://github.com/ross-u/react-jsx.git
+git clone https://github.com/ross-u/01-react-jsx.git
 
-cd react-jsx
+cd 01-react-jsx
 
 code .
 ```
@@ -43,6 +43,10 @@ npm i
 ```bash
 git checkout -b wd-ft-mmm-yyyy
 ```
+
+
+
+<br>
 
 
 

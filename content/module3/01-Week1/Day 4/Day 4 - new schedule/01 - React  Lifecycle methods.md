@@ -13,12 +13,15 @@
 Create a project and files
 
 ```bash
+# Create the react project
 npx create-react-app react-lifecycle-methods
 
 cd react-lifecycle-methods
 
+# Create the directory for components
 mkdir src/components
 
+# Create a component file
 touch src/components/Clock.js
 ```
 
@@ -29,6 +32,16 @@ touch src/components/Clock.js
 <br>
 
 
+
+### (Teacher) - checkout to the new branch
+
+```bash
+git checkout wd-mmm-yyyy
+```
+
+
+
+<br>
 
 
 
@@ -78,7 +91,7 @@ We place our code in the lifecycle methods in order to run it in a certain phase
 
 
 
-Lifecycle methods are special methods that are called automatically by React during the different stages. 
+Lifecycle methods are special methods that are called automatically by React during the different stages of life of one component. 
 
 
 
@@ -96,11 +109,11 @@ They are also reffered to as **lifecycle hooks.** (Different than the new **[Rea
 
 
 
+<br>
 
 
 
-
-## Phases brake down and explanation 
+## Brake down of Phases and explanation 
 
 
 
@@ -122,17 +135,26 @@ These methods are called in the following order when an instance of a component 
 
 #### `constructor` - [Example - gist](<https://gist.github.com/ross-u/ce9f84d3f6e2f5b16e52dfb378cf84e0>) 
 
+###### `rce` + `Tab`
 
+
+
+<br>
+
+##### `components/Clock.js`
 
 ```jsx
+import React from 'React';
+
 class Clock extends React.Component {
+  
 	constructor(props) {
     super(props);
     this.state = { 
-      year: props.year
+      year: 2020
     };
     
-	  console.log('IN CONSTRUCTOR');
+	  console.log('1 - IN CONSTRUCTOR');
   };
   
 	// custom methods and lifecycle methods go after the `constructor`- e.g. `render()`
@@ -184,7 +206,7 @@ class Clock extends React.Component {
   
   
   render() {
-    console.log('IN RENDER');					{/* ADD */}
+    console.log('2 - IN RENDER');					{/* ADD */}
     
     return (
       <div>
@@ -200,7 +222,7 @@ class Clock extends React.Component {
 
 
 
-- The `render()` method is next in line lifecycle method called right after the `constructor` 
+- The `render()` method is the next in line lifecycle method called right after the `constructor` 
 - `render()` is the only <u>required method</u> in a `class` component
 - The `render()` function should be pure, meaning that it does not modify component's `state`.
 - This method structures and prepares the JSX, and returns React elements.
@@ -236,12 +258,12 @@ class Clock extends React.Component {
 	/* our code to run after `render()` is finished 
 		and component is mounted onto the DOM */
     
-    console.log('IN "COMPONENT DID MOUNT"');					// <-- ADD
+    console.log('3 - IN "COMPONENT DID MOUNT"');					// <-- ADD
   }
   
   
   render() {
-    console.log('IN RENDER');
+    console.log('2 - IN RENDER');
     
     return (
       <div>
@@ -258,6 +280,12 @@ class Clock extends React.Component {
 
 
 
+
+
+<br>
+
+
+
 - `componentDidMount()` is called immediately after component `render()` , after the component is mounted (inserted into the DOM).
 
   
@@ -267,6 +295,82 @@ class Clock extends React.Component {
   
 
 - We **shouldn't call `setState()`** here since this will lead to re-rendering of the component (causes performance issues).
+
+
+
+
+
+<br>
+
+
+
+###  The `componentDidMount` methods is commonly used to set the inital `state` of the class components.
+
+
+
+<br>
+
+
+
+#### Let's use `componentDidMount` to set the inital `state` of the `Clock` and see how this is usually done.
+
+
+
+##### `App.js`
+
+```jsx
+//	...
+
+//			...
+
+
+			{
+          this.state.showClock
+             ? <Clock currentYear={2020}/> 		{/* UPDATE - TO PASS THE PROP */}
+             : null
+      }
+
+
+//	...
+//			...
+```
+
+
+
+<br>
+
+
+
+##### `components/Clock.js`
+
+```jsx
+//	...
+
+class Clock extends React.Component {
+  constructor(props) {
+    	// ...
+  };
+
+  
+  
+  componentDidMount() {																// <-- UPDATE CODE IN C.D.M
+		//	...
+    
+    console.log('3 - IN "COMPONENT DID MOUNT"');				
+    
+    this.setState({ year: this.props.currentYear });				// <-- ADD SET STATE
+  }
+```
+
+
+
+
+
+
+
+
+
+<br>
 
 
 
@@ -284,13 +388,13 @@ class Clock extends React.Component {
 
 
 
-## II - Updating
+# II - Updating
 
 
 
 
 
-An update can be caused by **changes of the `props` or `state`**. 
+An update phase is caused by **changes of the `props` or `state`**. 
 
 Update phase is initiated my  passing new `props`, `setState()` or `forceUpdate()`.
 
@@ -324,47 +428,138 @@ Update phase is initiated my  passing new `props`, `setState()` or `forceUpdate(
 
 
 
+
+
+### `render()` (Update phase)
+
+
+
+
+
+#### Update the `<Clock />` with the new `props`.
+
+
+
+##### `components/Clock.js`
+
+```   jsx
+// ...
+
+class Clock extends React.Component {
+    //	...
+  
+  		//	...
+
+  
+
+  render() {
+    //	...
+    
+    //			...
+
+      <div>
+        {/* 
+        
+        	...
+        			...
+       	
+       	*/}
+
+        <h2>Current Time</h2>										{/* 	<-- ADD AT THE BOTTOM  	*/}
+        <p>
+          {                                      {/* 	<-- ADD  	*/}
+            this.props.currentTime
+              ? this.props.currentTime
+              : 'LOADING'
+          	}
+        </p>
+      
+        {/* We will pass the currentTime by clicking the button in <App /> */}
+      </div>
+    );
+  }
+}
+```
+
+
+
+<br>
+
+
+
+#### Create a method for updating time and pass time as the prop to the `<Clock />`
+
+
+
+##### `App.js`
+
+```jsx
+//	...
+
+//				...
+
+//			CREATE A METHOD TO UPDATE TIME IN THE STATE OF  App
+		updateTime = () => {
+       const currentTime = new Date().toUTCString();
+       this.setState({ currentTime });
+     }
+    
+    
+    //	...
+    
+    //			...
+
+    
+        <button onClick={this.updateTime}> UPDATE TIME </button> // <-- ADD A BUTTON
+
+
+        {
+          this.state.showClock
+             ? <Clock currentYear={2020}  currentTime={ this.state.currentTime }/> 
+             : null
+        }                               {/*   ^ ^ ^     PASS NEW PROP    ^ ^ ^   */}
+```
+
+
+
+<br>
+
+
+
+
+
 - [ ] 
 
 #### `componentDidUpdate()` - [Example - gist](<https://gist.github.com/ross-u/6d5c2ca9fa75f5815b547baee440f84c>) 
+
+
+
+##### `components/Clock.js`
 
 ```jsx
 // ...
 
 class Clock extends React.Component {
-  constructor(props) {		// 	M1
+  constructor(props) {
     //	...
   };
   
-  componentDidMount() {		//	M3
+  componentDidMount() {
     //	...
   }
   
   
   componentDidUpdate(prevProps, prevState) {	//	U2			// <-- ADD
-  /* code to run after update happens via  
-		passing new `props`, `setState` or `forceUpdate` */
+  /* code to run after the update happens via  
+		passing new `props`, 
+		or by calling the `setState` or `forceUpdate`  */
     
     console.log('IN "COMPONENT DID UPDATE"')
   }
   
   
-  render() {	// M2	 U1
-    console.log('IN RENDER');
-
-    return (
-      <div>
-        <h1>Clock</h1>
-
-        <h2>Year</h2>
-        <p>{this.state.year}</p>
-
-        <h2>Current Time</h2>										{/* 	<-- ADD  	*/}
-        <p> { this.props.currentTime ? this.props.currentTime : 'LOADING' } </p>
-      
-    {/* We are passing currentTime by clicking the button in <App /> component */}
-      </div>
-    );
+  render() {
+    // ...
   }
 }
 ```
@@ -402,15 +597,21 @@ componentDidUpdate(prevProps) {
 
 
 
+<br>
+
+
+
+
+
 ## III - Unmounting
 
 
 
-`componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed (removed from the DOM). 
+**`componentWillUnmount()`** is invoked immediately before a component is unmounted and destroyed (removed from the DOM). 
 
 
 
-Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests,  like for example stopping `setInterval()` timers before the component gets destroyed and prevent memory leaking .
+**Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests,  like for example stopping `setInterval()` timers before the component gets destroyed and prevent memory leaking .**
 
 
 
@@ -422,17 +623,91 @@ You **should not call setState()** in `componentWillUnmount()` because the compo
 
 
 
+<br>
+
+
+
+##### `components/Clock.js`
+
+```jsx
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      year: 2020,
+      timerId: null,                  //		<-- CREATE NEW PROPERTY
+      timer: 0,                           //		<-- CREATE NEW PROPERTY
+    };
+
+  }
+
+  
+  
+  
+  updateTimer = () => {                         //		<-- CREATE NEW METHOD
+    this.setState({ timer: this.state.timer + 1 });
+  };
 
 
 
 
 
+	//	UPDATE THE CODE IN THE componentDidMount()
 
-### Exercise - Follow and understand 
+  componentDidMount() {
+    console.log('IN "COMPONENT DID MOUNT"');
+    
+    const timerId = setInterval(this.updateTimer, 1000);   // <-- CREATE AN INTERVAL
+    this.setState({ year: this.props.currentYear, timerId }); // <-- SET timerId
+  }
+
+
+	//		...
+
+	//				...
+
+
+
+	// ADD THE LIFECYLCLE METHOD  `componentWillUnmount()`
+	// CLEAR THE TIMEOUT BEFORE THE COMPONENT IS DESTROYED
+
+  componentWillUnmount() {                                    // <-- ADD
+    console.log('\n XXX  IN "COMPONENT WILL UNMOUNT"  XXX');
+    clearTimeout(this.state.timerID);                         // <-- ADD
+  }
+
+
+  render() {
+    //	...
+    
+    //			...
+    
+
+        <h2>Timer: {this.state.timer} </h2>                   {/*    <--  ADD       */}
+
+```
+
+
+
+<br>
+
+
+
+
+
+## Exercise - Follow and understand 
 
 ### [Lifecycle methods Exercise](<https://gist.github.com/ross-u/dade01d6a7e03f2aa064383d6515567a>)
 
 
+
+
+
+
+
+
+
+<br>
 
 
 
@@ -529,9 +804,13 @@ Any value returned by **`getSnapshotBeforeUpdate()`** is passed as a parameter t
 
 
 
-## [COMPLETE LECTURE NOTES AND EXAMPLES](<https://gist.github.com/ross-u/4c6ca7e15eb713cb158bfaee88ace8eb>)
+## [COMPLETE LECTURE NOTES AND EXAMPLES](https://github.com/ross-u/00-react-lifecycle-methods/tree/example-done)
 
 
+
+
+
+<br>
 
 
 
@@ -558,6 +837,10 @@ Any value returned by **`getSnapshotBeforeUpdate()`** is passed as a parameter t
 
 
 [componentWillUnmount()](<https://reactjs.org/docs/react-component.html#componentwillunmount>)
+
+
+
+<br>
 
 
 

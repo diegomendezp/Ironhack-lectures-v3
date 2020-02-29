@@ -42,9 +42,9 @@ When you run `create-react-app`, it will always create the project with the late
 
 
 ```bash
- npx create-react-app my-new-app
+ npx create-react-app 00-my-new-app
  
- cd my-new-app
+ cd 00-my-new-app
 ```
 
 
@@ -64,7 +64,7 @@ it will generate the initial project structure and install the needed dependenci
 
 
 ```js
-📂my-app
+📂00-my-new-app
 ┃
 ┣ 📂public
 ┃ ┣ 📜favicon.ico
@@ -200,15 +200,19 @@ import React from 'react';
 // importing logo from src folder - loaded as a file in the bundle
 import logoFileFromSRC from '../logo.svg'; 
 
-// Logo served from the public folder by the development server
-const logoPublicUrl = '/logo512.png';
+// Logo served from the public folder (Production only):
+/* IMPORTANT: throws an error during development with create react app
+// Should be used only in production
+ import logoPublicURL from "/logo512.svg";
+*/
+
 
 
 function Header (props) {
   return (
     <header className="App-header">
     
-      <img src={logo} className="App-logo" />
+      <img src={logofileFromSRC} className="App-logo" />
     
       <h1 className="App-title">Welcome to React {props.name} !</h1>
 
@@ -248,7 +252,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header name="John"></Header>
+        <Header name="John"/>
       </div>
     );
   }
@@ -287,13 +291,15 @@ import Description from './Description.js';
 // importing logo from src folder - loaded as a file in the bundle
 import logoFileFromSRC from './../logo.svg';
 
-// Logo served from the public folder by the development server
-const logoPublicUrl = '/logo512.png';
+// Logo served from the public folder (Production only)
+// const logoPublicUrl = '/logo512.png';
+
+
 
 function Header(props) {
   return (
     <header className="App-header">
-      <img src={logoPublicUrl} className="App-logo" />
+      <img src={logoFileFromSRC} className="App-logo" />
 
       {/*  Pass the data via the `appTitle` prop*/}
       <Title appTitle="Welcome to React, Ironhacker!" />
@@ -322,12 +328,12 @@ export default Header;
 
 
 
- Example 		**src/components/Header.js**
+ ##### `src/components/Header.js`
 
 ```js
-import logo from '../logo.svg';
+import logofileFromSRC from "../logo.svg";
 
-<img src={logo} className="App-logo" alt="logo" />
+<img src={logofileFromSRC} className="App-logo" alt="logo" />
 ```
 
 

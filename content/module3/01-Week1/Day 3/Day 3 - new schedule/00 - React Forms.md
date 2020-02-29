@@ -18,6 +18,8 @@ In React we store values from the form in the `state` of the component.
 
 
 
+<br>
+
 
 
 - [ ] 
@@ -40,24 +42,45 @@ We will set the component that renders the form to also controls what happens in
 
 - [ ] 
 
-### [STARTER REPO ](<https://github.com/ross-u/React---Froms-Starter-repo->)
+### [STARTER REPO ](https://github.com/ross-u/02-react-forms)
 
 ```bash
-git clone https://github.com/ross-u/React---Froms-Starter-repo-.git
+#
+# Clone the repo
+git clone https://github.com/ross-u/02-react-forms.git
 
+# Enter the project directory
+cd 02-react-forms
 
-cd React---Froms-Starter-repo-
-
-
+# Install the dependencies
 npm i
 
-
+# Open in the editor
 code .
+
+# The starter code is on the master branch
+git checkout master
 ```
 
 
 
 
+
+<br>
+
+
+
+### (Teacher) Checkout to the new branch
+
+```bash
+git checkout -b wd-mm-yyyy
+```
+
+
+
+
+
+<br>
 
 
 
@@ -102,6 +125,8 @@ export default AddMovie;
 
 
 
+<br>
+
 
 
 
@@ -136,6 +161,7 @@ render(){
           	<input name="IMDbRating" type="text" value={this.state.IMDbRating}/>
               
             <button type="submit"> Submit </button>
+            
         	</form>
       </div>
   )
@@ -149,7 +175,7 @@ render(){
 
 
 
-
+<br>
 
 
 
@@ -216,7 +242,7 @@ You provided a `value` prop to a form field without an `onChange` handler. *Set 
 
 
 
-
+<br>
 
 
 
@@ -244,16 +270,16 @@ render(){
       <div>
         <form onSubmit={this.handleFormSubmit}>
             <label>Title:</label>
-            <input ... onChange={(e) => this.handleTitleInput(e)} />
+            <input {/* ... */} onChange={(e) => this.handleTitleInput(e)} />
 
             <label>Director:</label>
-            <input ... onChange={(e) => this.handleDirectorInput(e)} />
+            <input {/* ... */} onChange={(e) => this.handleDirectorInput(e)} />
 
             <label>Oscar Awarded:</label>
-            <input ... onChange={(e) => this.handleOscarsCheck(e)} />
+            <input {/* ... */} onChange={(e) => this.handleOscarsCheck(e)} />
 
             <label>IMDb Rating:</label>
-            <input ... onChange={(e) => this.handleRatingInput(e)} />
+            <input {/* ... */} onChange={(e) => this.handleRatingInput(e)} />
             
             <button type="submit"> Submit </button>
         </form>
@@ -266,7 +292,7 @@ render(){
 
 
 
-- [x] 
+- [ ] 
 
 #### Create the handler functions for each input
 
@@ -301,7 +327,7 @@ class AddMovie extends Component {
  // this.setState({ [name]: value });
   }
 
-  handleOscarsCheck = (e) => {
+  handleOscarsCheckInput = (e) => {
     const { name, checked } = e.target;
     console.log('\n INPUT NAME', name);
     console.log('CHECKED ', checked);
@@ -326,6 +352,10 @@ class AddMovie extends Component {
 
 
 
+<br>
+
+
+
 
 
 
@@ -342,7 +372,7 @@ class AddMovie extends Component {
 
 
 
-
+<br>
 
 
 
@@ -364,8 +394,8 @@ class AddMovie extends Component {
 
 //	...
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
+  handleFormSubmit = (e) => {
+    e.preventDefault();
     // call funtion from DynamicMovieList
 
     // Reset State
@@ -378,7 +408,11 @@ class AddMovie extends Component {
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -397,7 +431,7 @@ class AddMovie extends Component {
 
 //	...
 
-addMovieHandler = (newMovie) => {
+addNewMovie = (newMovie) => {
   const moviesCopy = [...this.state.movies];
   moviesCopy.push(newMovie);
   
@@ -410,7 +444,7 @@ addMovieHandler = (newMovie) => {
       <div>
         
         {/* UPDATE -  PASS THE METHOD AS THE PROP */}
-        <AddMovie addTheMovie={this.addMovieHandler} />
+        <AddMovie addTheMovie={this.addNewMovie} />
 
 ```
 
@@ -431,11 +465,12 @@ addMovieHandler = (newMovie) => {
 ```jsx
 // src/components/AddMovie.js
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
+  handleFormSubmit = (e) => {
+    e.preventDefault();
     
     // call the function passed from props and give it a new movie
-    this.props.addTheMovie(this.state);
+    const newMovieObj = this.state;
+    this.props.addTheMovie(newMovieObj);
   
   	// Reset the state
     this.setState({ title: '', director: '', hasOscars: false, IMDbRating: '' });  	};
@@ -445,6 +480,8 @@ addMovieHandler = (newMovie) => {
 
 
 
+
+<br>
 
 
 
@@ -463,10 +500,9 @@ addMovieHandler = (newMovie) => {
 **`components/AddMovie.js`**
 
 ```jsx
-  handleChange(event) {
-    event.preventDefault();
+  handleChange(e) {
     // All our inputs have same `name` as the `state` property name.
-    let { name, value } = event.target;
+    let { name, value } = e.target;
     
     if (name === "hasOscars" && this.state.hasOscars === false){
       value = true;
@@ -484,16 +520,16 @@ render(){
       <div>
         <form onSubmit={this.handleFormSubmit}>
             <label>Title:</label>
-            <input ... onChange={(e) => this.handleChange(e)} />
+            <input {/* ... */} onChange={ this.handleChange } />
 
             <label>Director:</label>
-            <input ... onChange={(e) => this.handleChange(e)} />
+            <input {/* ... */} onChange={ this.handleChange } />
 
             <label>Oscar Awarded:</label>
-            <input ... onChange={(e) => this.handleChange(e)} />
+            <input {/* ... */} onChange={ this.handleChange } />
 
             <label>IMDb Rating:</label>
-            <input ... onChange={(e) => this.handleChange(e)} />
+            <input {/* ... */} onChange={ this.handleChange } />
             
             <button type="submit"> Submit </button>
         </form>
@@ -505,6 +541,27 @@ render(){
 - [ ] 
 
 
+
+<br>
+
+
+
+### DRY - Refactor the function to work with any checkbox input with any name:
+
+```jsx
+  handleChange = e => {
+    // All our inputs have same `name` as the `state` property name.
+    let { name, value, type } = e.target;                            // <-- UPDATE
+
+    if (type === "checkbox" && this.state[name] === false) {	  // <-- UPDATE
+      value = true;
+    } else if (type === "checkbox" && this.state[name] === true) {  // <-- UPDATE
+      value = false;
+    }
+
+    this.setState({ [name]: value });
+  };
+```
 
 
 

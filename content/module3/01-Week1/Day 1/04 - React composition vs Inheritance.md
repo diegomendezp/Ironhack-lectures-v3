@@ -15,13 +15,68 @@
 React was created by Facebook. Quoting them:
 
 > “At Facebook, we use React in thousands of components, and we haven’t found any use cases where we would recommend creating component inheritance hierarchies.
-> Props and composition give you all the flexibility you need to customize a component’s look and behavior in an explicit and safe way. 
+> Props and composition give you all the flexibWility you need to customize a component’s look and behavior in an explicit and safe way. 
 
 
 
 
 
 
+
+
+
+
+
+<br>
+
+
+
+### Clone the starter code repo
+
+```bash
+git clone https://github.com/ross-u/04-react-composition-vs-inheritance.git
+
+cd 04-react-composition-vs-inheritance
+
+code .
+
+# Checkout to the starter-code branch
+git checkout starter-code
+```
+
+
+
+
+
+<br>
+
+
+
+### Install the dependencies
+
+```bash
+npm i
+```
+
+
+
+
+
+<br>
+
+
+
+### (Teacher) Create a new branch
+
+```bash
+git checkout -b wd-ft-mmm-yyyy
+```
+
+
+
+
+
+<br>
 
 
 
@@ -50,6 +105,8 @@ function FancyBorder(props) {
     <div className='fancy'>
     	<h3>{props.title}<h3>
       {props.children}
+      {/* Content placed between the component tags is available via the `props.children` */}
+
     </div>
   );
 }
@@ -65,9 +122,11 @@ export default FancyBorder;
 
 ```css
 .fancy {
-  border: 5px dashed magenta;
+  border: 3px dashed magenta;
+  padding: 10px 30px;
+  box-shadow: 5px 5px 2px rgb(143, 139, 135);
   border-radius: 15px;
-  background: rebeccapurple;
+  background: rgb(152, 97, 208);
 }
 ```
 
@@ -81,8 +140,8 @@ import FancyBorder from './FancyBorder.js'
 // ...
 
 
-    <FancyBorder title='Fancy Box Example'>
-      <h1>Welcome to Fancy Box</h1>
+    <FancyBorder title='Fancy Border Example'>
+      <h1>Welcome</h1>
       <p>Thank you for visiting our spacecraft!</p>
     </FancyBorder>
   
@@ -106,7 +165,19 @@ Remember that components may accept arbitrary props, including primitive values,
 
 
 
+<br>
 
 
-### [CODE Repo (Props, components, Composition)- Done](<https://github.com/ross-u/Git-Components-and-props>)
+
+##### Finsihed example with an extra additional example of passing components via props is available on branch `example-done`.
+
+Both examples are taken from the [ReactJs docs page](https://reactjs.org/docs/composition-vs-inheritance.html).
+
+```bash
+git checkout example-done
+```
+
+
+
+### [CODE Repo (Starter code and Finished Example)](https://github.com/ross-u/04-react-composition-vs-inheritance)
 

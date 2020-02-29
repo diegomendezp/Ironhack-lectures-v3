@@ -28,25 +28,53 @@ We can **transform an array** with data to an **array of elements**.
 
 
 ```bash
-npx create-react-app react-list-and-keys
+npx create-react-app 02-react-list-and-keys
 
-cd react-list-and-keys
+cd 02-react-list-and-keys
 
 code .
 ```
 
 
 
+<br>
+
+
+
+### (TEacher) create the new branch
+
+```bash
+git checkout -b wd-mmm-yyyy
+```
+
+<br>
+
+
+
+### Install the dependencies
+
+
+
+```
+npm i 
+```
+
+<br>
+
+
+
+### Create the file structure
+
 
 
 ```bash
+# Create directory for the components
 mkdir src/components
 
-cd src/components/
-
-touch List.js Navbar.js Navbar.css
-
-cd ../../
+# Create the component files
+touch src/components/List.js
+touch src/components/Navbar.js
+touch src/components/Navbar.css 
 ```
 
 
@@ -63,9 +91,48 @@ Let's reuse the `<Navbar>` component from `Navbar.js`file  from our previous exa
 
 
 
+##### `src/components/Navbar.js`
+
+```jsx
+// src/components/Navbar.js
+
+import React, { Component } from 'react';
+import './Navbar.css';
+
+class Navbar extends Component {
+  state = {
+    username: 'YOUR NAME'
+  } 
+
+  render() {
+    return (
+      <nav id='navbar'>
+        <ul>
+          <a href="#"><li>Home</li></a>
+          <a href="#"><li>Contact</li></a>
+          <a href="#"><li>About</li></a>
+        </ul>
+
+        <div className="nav-details">
+          <p className="nav-username">{this.state.username}</p>
+        </div>
+      </nav>
+    )
+  }
+}
+
+export default Navbar;
+```
+
+
+
 
 
 <br>
+
+
+
+### Create arrays containing HTML elements and strings, to be rendered in the next examples
 
 
 
@@ -179,10 +246,16 @@ export default App;
 ```jsx
 // src/App.js
 
-				{ /* EXAMPLE 3 - List created by mapping over an array */ }
-        <h2> List</h2>
+				{ /* EXAMPLE 3 - List created by mapping over an array - in a component */ }
+        <h2> List In a Component</h2>
         <List cities={cities} />
 ```
+
+
+
+
+
+<br>
 
 
 
@@ -191,27 +264,24 @@ export default App;
 ```jsx
 // src/components/List.js
 
-import React from 'react';
+import React from "react";
 
+function List(props) {
+  const { cities } = props;
 
-class List extends React.Component {
-  render() {
-
-    const { cities } = this.props;
-
-    return (
-      <ul>
-        {
-          cities.map( (cityName) => {
-            return  <h4>{cityName}</h4> 
-          })
-        }
-      </ul>
-    );
-  }
+  return (
+    <ul>
+      {
+        cities.map(cityName => {
+        	return <li>{cityName}</li>;
+      	})
+      }
+    </ul>
+  );
 }
 
 export default List;
+
 ```
 
 
@@ -314,7 +384,7 @@ If the keys change or there are no keys, then the **entire DOM is destroyed and 
 
 
 
-We don’t recommend using indexes for keys if the order of items may change. 
+**We don’t recommend using indexes for keys if the order of items may change.** 
 
 This can negatively impact performance and may cause issues with component state. 
 
@@ -410,6 +480,16 @@ class List extends React.Component {
 ```jsx
 // src/App.js
 
+//	...
+
+import shortid from 'shortid';				// <-- IMPORT shorid
+
+
+//	...
+
+//			...
+
+
         <h2> Mapping over an array</h2>
         {
           names.map((name, index) => (
@@ -504,9 +584,9 @@ import Card from './Card';
 import shortid from 'shortid';
 
 const movies = [
-  { title: "Jurassic Park", director: "Steven Spielberg" },
-  { title: "Sharknado", director: "Anthony C. Ferrante" },
-  { title: "Titanic", director: "James Cameron" }
+  { _id:"2143lkjgfw8", title: "Jurassic Park", director: "Steven Spielberg" },
+  { _id:"jg59lkjgby5", title: "Sharknado", director: "Anthony C. Ferrante" },
+  { _id:"a45i3ljamv2", title: "Titanic", director: "James Cameron" }
 ];
 
 const MovieList = () =>{
@@ -514,8 +594,8 @@ const MovieList = () =>{
     <ul>
       { 
         movies.map( (movieObj) => {
-          return <Card key={ shortid.generate() }  movie={movieObj} /> 
-        } 
+          return <Card key={ movieObj._id }  movie={movieObj} /> 
+        })
       }
     </ul>
   )
@@ -552,12 +632,12 @@ export default MovieList;
 //	src/data.js
 
 const data = [
-  { title: "The Godfather", director: "Francis Coppola",  rating: 9 },
-  { title: "Star Wars", director: "Rian Johnson",  rating: 8 },
-  { title: "The Shawshank Redemption", director: "Frank Darabont",  rating: 9 },
-  { title: "Jurassic Park", director: "Steven Spielberg",  rating: 5 },
-  { title: "Sharknado", director: "Anthony C. Ferrante",  rating: 2 },
-  { title: "Titanic", director: "James Cameron" ,  rating: 9}
+  { _id:"g2d3lkjgfa1", title: "The Godfather", director: "Francis Coppola",  rating: 9 },
+  { _id:"2143lkjgfd2", title: "Star Wars", director: "Rian Johnson",  rating: 8 },
+  { _id:"6r48lkjgff3", title: "The Shawshank Redemption", director: "Frank Darabont",  rating: 9 },
+  { _id:"3t439kj5fe4", title: "Jurassic Park", director: "Steven Spielberg",  rating: 5 },
+  { _id:"f1t3lnjgfo5", title: "Sharknado", director: "Anthony C. Ferrante",  rating: 2 },
+  { _id:"1e39kdj01i6", title: "Titanic", director: "James Cameron" ,  rating: 9}
 ]
 
 export default data;
@@ -621,14 +701,13 @@ export default ImprovedCard;
 // src/components/ImprovedMovieList.js
 import React, { Component } from 'react';
 import ImprovedCard from './ImprovedCard';
-import shortid from 'shortid';
 
 
 class ImprovedMovieList extends Component {
   //  we use `constructor` as we pass movies through props to set the as `state` value
   //  Even though  there is a use case for this pattern, 
   //  Setting initial state from the props is an anti-pattern,
-  //	and componentDidUpdate lifecycle method should be used insted
+  //	and `componentDidUpdate` lifecycle method should be used insted
   constructor(props) {
     super();
     this.state = {
@@ -642,7 +721,7 @@ class ImprovedMovieList extends Component {
       <ul>
         { 
           this.state.movies.map( (oneMovie) => {
-            return <ImprovedCard key={shortid.generate()} {...oneMovie} /> 
+            return <ImprovedCard key={oneMovie._id} {...oneMovie} /> 
           })
         }
       </ul>
@@ -722,6 +801,10 @@ const ImprovedCard = (props) => {
 
 
 
+<br>
+
+
+
 
 
 #### Create a method in `ImprovedMoviesList` for removing movies.
@@ -734,24 +817,26 @@ const ImprovedCard = (props) => {
 //	src/components/ImprovedMoviesList.js
 
 
-	deleteMovie = (movieIndex) => {							//   <-- CREATE METHOD
-    const moviesCopy = this.state.movies;
-    moviesCopy.splice(movieIndex, 1);
-    this.setState( {movies: moviesCopy} );
-  }
+  deleteMovie = (movieId) => {  													//   <-- CREATE METHOD
+    const moviesCopy = this.state.movies.filter((movie) => {
+      return movie._id !== movieId;
+    });
+
+    this.setState({ movies: moviesCopy });
+  };
 
   
   render() {
     return (
       <ul>
         { 
-          this.state.movies.map( (oneMovie, index) => {
+          this.state.movies.map( (oneMovie) => {
             return (
               <ImprovedCard 
                 key={shortid.generate()} 
                 {...oneMovie}
-                clickToDelete={ ()=> this.deleteMovie(index) }		{/*  UPDATE */}
-            //  clickToDelete={ this.deleteMovie.bind(this, index) }
+                clickToDelete={ ()=> this.deleteMovie(oneMovie._id) }		{/*  UPDATE */}
+            //  clickToDelete={ this.deleteMovie.bind(this, oneMovie._id) }
               />
             ) 
           })
@@ -833,6 +918,10 @@ button.btn-delete {
 
 }
 ```
+
+
+
+<br>
 
 
 

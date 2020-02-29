@@ -489,7 +489,7 @@ We are using it only as an example and it should be the only use case.
 
 
 ```bash
-git clone https://github.com/ironhack-labs/react-module-day1-start
+git clone https://github.com/ironhack-labs/react-module-day1-start.git
 
 cd react-module-day1-start
 
@@ -518,6 +518,7 @@ npm i
 While inside of `react-module-day1-start` folder :
 
 ```bash
+# Create the folder structure
 mkdir dist 
 mkdir public
 mkdir src

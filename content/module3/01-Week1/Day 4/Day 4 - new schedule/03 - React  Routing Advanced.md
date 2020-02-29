@@ -9,22 +9,29 @@
 
 
 ```bash
+# Clone the repo
 git clone https://github.com/ross-u/React---Routing-Advanced-Starter-repo-.git
 
 cd React---Routing-Advanced-Starter-repo-
 
-code .
-
-# Remove the .git to avoid overwriting the master starter repo
-
 npm i
 
-npm start
+code .
 ```
 
 
 
 
+
+<br>
+
+
+
+### Install the dependencies
+
+```bash
+npm i
+```
 
 
 

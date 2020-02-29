@@ -42,19 +42,36 @@ Moving the values from one component to its parent in order for the common ances
 
 
 
-### [STARTER REPO](<https://github.com/ross-u/React---Lifting-State-Starter-Repo-.git>)
+### [STARTER REPO](https://github.com/ross-u/00-react-lifting-state-up)
 
 
 
 ```bash
-git clone https://github.com/ross-u/React---Lifting-State-Starter-Repo-.git
+git clone https://github.com/ross-u/00-react-lifting-state-up.git
 
-cd React---Lifting-State-Starter-Repo-
+cd 00-react-lifting-state-up
 
 npm i
 
 code .
+
+# The starter code is on the master branch
+git checkout master
 ```
+
+
+
+<br>
+
+
+
+### (Teacher) Checkout to the new branch
+
+```bash
+git checkout -b wd-mm-yyyy
+```
+
+
 
 
 
@@ -70,9 +87,15 @@ npm start
 
 
 
+
+
 <br>
 
 
+
+
+
+### 1. Start Example
 
 
 
@@ -128,6 +151,7 @@ In order to do that we have to lift the `state` to the closest common ancestor, 
 //     taskCompleted: false
 //   }
   
+    
 //			 ⇡  	⇡ 						
 // Delete `state` from `Task.js`
 ```
@@ -138,7 +162,7 @@ In order to do that we have to lift the `state` to the closest common ancestor, 
 
 
 
-#### Create new property in `ToDoList` state
+#### Create new property in the `ToDoList` state
 
 
 
@@ -297,7 +321,7 @@ render() {
       
   <button className='add' 
     onClick={()=> this.props.updateTaskStatus(this.props.id) }>
-{/*				    ⤤ 		  PASS METHOD AS PROP 		⤣								*/}
+{/*				    ⤤ 		  USE THE METHOD PASSED AS A PROP 		⤣								*/}
     
     {
         this.props.isDone ?			// 	 ⟻	UPDATE HERE
@@ -338,6 +362,10 @@ render() {
 
 
 
+
+
+
+<br>
 
 
 
@@ -402,6 +430,8 @@ deleteTaskById (id)  {
 
 
 
+<br>
 
 
-### [Code Example - Done](<https://github.com/ross-u/React---Lifting-State-Done->)
+
+### [Code Example Done - branch `example-done`](https://github.com/ross-u/00-react-lifting-state-up/tree/example-done)
