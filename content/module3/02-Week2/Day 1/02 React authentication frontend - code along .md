@@ -50,9 +50,8 @@ code .
 
 #### Create `AuthProvider` component which will be holding the state with information:
 
--  `isLoggedin` boolean - showing if user is logged in or not
+-  `isLoggedIn` boolean - showing if user is logged in or not
 - `user` object with user data  coming from DB
-- `isLoading` flag
 - functions that will be available on `props` to Consumer components. 
 
 
@@ -61,59 +60,77 @@ code .
 
 
 
-#### Create `lib/AuthProvider.js`
+#### Create `lib/Auth.js`
 
 ```jsx
-//	lib/AuthProvider.js
+//	lib/Auth.js
 
 import React from "react";
-import auth from "./auth-service";				// IMPORT functions for axios requests to API
+import authService from "./auth-service";// IMPORT functions for axios requests to API
 const { Consumer, Provider } = React.createContext();
 
-// HOC to create Consumer
+
+
+// HOC to create a Consumer
 const withAuth = (WrappedComponent) => {};
+
+
 
 // Provider
 class AuthProvider extends React.Component {
-  state = { isLoggedin: false, user: null, isLoading: true };
+  state = { 
+    isLoggedIn: false,
+    user: null,
+    isLoading: true 
+  };
+
 	
 	componentDidMount() {
-    auth.me()
-    .then((user) => this.setState({ isLoggedin: true, user: user, isLoading: false }))
-    .catch((err) => this.setState({ isLoggedin: false, user: null, isLoading: false }));
+    authService.me()
+     .then((user) => this.setState({ isLoggedIn: true, user: user, isLoading: false }))
+     .catch((err) => this.setState({ isLoggedIn: false, user: null, isLoading: false }));
   }
+
 
   signup = (user) => {};
 
   login = (user) => {};
 	
 	logout = () => {};
+
 	
   render() {
-    const { isLoading, isLoggedin, user } = this.state;
+    const { isLoading, isLoggedIn, user } = this.state;
     const { login, logout, signup } = this;
     
     return (
-      isLoading ? 
-      <div>Loading</div> 
-      :
-      (<Provider value={{ isLoggedin, user, login, logout, signup}} >
+      (<Provider value={{ isLoading, isLoggedIn, user, login, logout, signup}} >
          {this.props.children}
       </Provider>)
-    )	/*<Provider> "value={}" data will be available to all <Consumer> components */
+    )	
+    /*
+      <Provider> `value={}`` data will be available to all <Consumer> components 
+    */
   }
 }
 
-export { Consumer, withAuth };		//  <--	REMEMBER TO E X P O R T  ! ! !
 
-export default AuthProvider;			//	  <--		REMEMBER TO E X P O R T  ! ! !
+
+
+export { withAuth, AuthProvider };		//  <--	REMEMBER TO E X P O R T  ! ! !
+//      Consumer ,  Provider
+
+
+
+
+export default AuthProvider;	//	  <--		WE COULD ALSO SET A DEFAULT EXPORT
 ```
 
 
 
 
 
-
+<br>
 
 
 
@@ -122,7 +139,7 @@ export default AuthProvider;			//	  <--		REMEMBER TO E X P O R T  ! ! !
 
 
 ```jsx
-//	lib/AuthProvider.js
+//	lib/Auth.js
 
 // Provider
 class AuthProvider extends React.Component {
@@ -130,30 +147,42 @@ class AuthProvider extends React.Component {
 //    		...
 //    				....
     
+  
+  
+  
   signup = (user) => {
     const { username, password } = user;
     
-    auth.signup({ username, password })
-      .then((user) => this.setState({ isLoggedin: true, user}) )
+    authService.signup({ username, password })
+      .then((user) => this.setState({ isLoggedIn: true, user}) )
       .catch( (err) => console.log(err));
-//TODO - Remove from notes  .catch(({response}) => this.setState({ message: response.data.statusMessage})); TODO - Remove from the notes
   };
+
+
+
 
 
   login = (user) => {
     const { username, password } = user;
 
-    auth.login({ username, password })
-      .then((user) => this.setState({ isLoggedin: true, user }))
+    authService.login({ username, password })
+      .then((user) => this.setState({ isLoggedIn: true, user }))
       .catch((err) => console.log(err));
   };
+
+
+
 
 
   logout = () => {
-    auth.logout()
-      .then(() => this.setState({ isLoggedin: false, user: null }))
+    authService.logout()
+      .then(() => this.setState({ isLoggedIn: false, user: null }))
       .catch((err) => console.log(err));
   };
+
+
+
+
 
 //				...
 //		...
@@ -189,7 +218,7 @@ class AuthProvider extends React.Component {
 
 //	...
 
-import AuthProvider from "./lib/AuthProvider";
+import { AuthProvider } from "./lib/Auth";
 
 //	...
 //			...
@@ -238,28 +267,35 @@ class App extends Component {
 
 
 
-
+##### `/lib/Auth.js`
 
 ```jsx
-//	lib/AuthProvider.js
+//	lib/Auth.js
+
+
+//	...
+
+
+//	...
+
 
 const withAuth = (WrappedComponent) => {
 
-  return class extends React.Component {
+  return class extends Component {
     render() {
       
       return (
         <Consumer>
 {/* <Consumer> component provides callback which receives Providers "value" object */}  
         { 
-          ({login, signup, user, logout, isLoggedin}) => {
+          ({ user, isLoggedIn, login, signup, logout}) => {
           return (
             <WrappedComponent 
+              user={user} 
+              isLoggedIn={isLoggedIn}
               login={login} 
               signup={signup} 
-              user={user}
               logout={logout}
-              isLoggedin={isLoggedin}
               {...this.props} />
           );
         }}
@@ -268,6 +304,15 @@ const withAuth = (WrappedComponent) => {
     }
   };
 };
+
+
+
+
+
+
+//	...
+
+//	...
 ```
 
 
@@ -290,14 +335,14 @@ const withAuth = (WrappedComponent) => {
 
 #### Update `pages/Signup.js` - to wrap the component and make it a consumer
 
-`pages/Signup.js`
+##### `pages/Signup.js`
 
 ```jsx
 //	pages/Signup.js
 
 //	...
 
-import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
+import { withAuth } from "./../lib/Auth";				//			<-- UPDATE HERE
 
 //	...
 //			...
@@ -308,7 +353,7 @@ import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
     const { username, password } = this.state;
     //  console.log('Signup -> form submit', { username, password });
   
-    this.props.signup({ username, password });			//			<-- UPDATE HERE
+    this.props.signup(username, password);			       //			<-- UPDATE HERE
   };
 
 //			...
@@ -339,7 +384,7 @@ export default withAuth(Signup);			//			<-- UPDATE HERE
 
 //	...
 
-import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
+import { withAuth } from "../lib/Auth";				//			<-- UPDATE HERE
 
 //	...
 //			...
@@ -350,7 +395,7 @@ import { withAuth } from "../lib/AuthProvider";				//			<-- UPDATE HERE
     const { username, password } = this.state;
     //  console.log('Signup -> form submit', { username, password });		
   
-    this.props.login({ username, password });			//			<-- UPDATE HERE
+    this.props.login(username, password);			           //			<-- UPDATE HERE
   };
 
 //			...
@@ -458,19 +503,18 @@ export default withAuth(Navbar);				//			<-- UPDATE HERE
 
 
 
-#### We still need to create proper routing:
+#### We still need to create the proper react component routing:
 
 	- When user is logged in, we need to forward him to private page, the`Private` component
 
-
 ​	
-	- When user is not logged in and tries to access `/private` page we need to route him 
-	  to  `Login` component
+
+- **When** user is **not logged** in **forbid access to the `/private` page**, **and** instead **re-route**/show **to** the user  the  **`Login`** page/component.
 
 
 
 
-* When user is not logged and tries to access either `Signup` or `Login` component, we need to allow him to go to either one.
+* **When** user is **not logged** and tries to access either `Signup` or `Login` component, we need to **allow** user **to see** **Signup** and **Login** pages/components.
 
 
 
@@ -487,14 +531,25 @@ export default withAuth(Navbar);				//			<-- UPDATE HERE
 
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { withAuth } from "../lib/AuthProvider";
+import { withAuth } from "../lib/Auth";
 
-function AnonRoute({ component: Component, isLoggedin, ...rest }) {
+function AnonRoute({ component: Component, isLoggedIn, ...rest }) {
  return (
   <Route
     {...rest}
-    render={(props) => !isLoggedin ? <Component {...props} /> : <Redirect to="/private"/>}
+    render={
+       (props) => !isLoggedIn ? <Component {...props} /> : <Redirect to="/private"/>
+     }
   />
+     // <Route
+    //   {...rest}
+    //   render={ 
+    //     function (props) {
+    //       if (isLoggedIn) return <Redirect to="/private" />
+    //       else if (! isLoggedIn ) return <Component {...props} />;
+    //   }
+    //   }
+    // />
   );
 }
 
@@ -504,6 +559,10 @@ export default withAuth(AnonRoute);
 
 
 <br>
+
+
+
+
 
 
 
@@ -554,14 +613,21 @@ import AnonRoute from "./components/AnonRoute";
 
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { withAuth } from "../lib/AuthProvider";
+import { withAuth } from "../lib/Auth";
 
-function PrivateRoute({ component: Component, isLoggedin, ...rest }) {
+function PrivateRoute({ component: Component, isLoggedIn, ...rest }) {
   return (
    <Route
     {...rest}
-    render={ (props)  => isLoggedin ? <Component {...props} /> : <Redirect to="/login" />}
+    render={ (props)  => isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />}
    />
+    // <Route
+    //   {...rest}
+    //   render={function(props) {
+    //     if (isLoggedIn) return <Component {...props} />;
+    //     else if (!isLoggedIn) return <Redirect to="/login" />;
+    //   }}
+    // />
   );
 }
 
@@ -617,5 +683,5 @@ import PrivateRoute from "./components/PrivateRoute";
 
 
 
-### [Code Example Repo - Done](<https://github.com/ross-u/React-Auth-Client-Code-Along---Code-Example->)
+### [Code Example Repo - Done](https://github.com/ross-u/react-auth-frontend-boilerplate-v2)
 

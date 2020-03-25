@@ -8,20 +8,43 @@
 
 
 
-#### Clone Starter repository and remove `.git`
+#### Clone Starter repositories and remove `.git`
 
 
 
 ```bash
-git clone https://github.com/ross-u/React-Deployment.git
+git clone https://github.com/ross-u/M3-Deployment-Client.git
 
-cd React-Deployment
-
+cd M3-Deployment-Client
 
 rm -rf .git
+
+npm i
+
+code .
 ```
 
 
+
+```bash
+git clone https://github.com/ross-u/React-Deployment-Server.git
+
+cd React-Deployment-Server
+
+rm -rf .git
+
+git init
+
+npm i
+
+code .
+```
+
+
+
+
+
+<br>
 
 
 
@@ -87,7 +110,13 @@ heroku login
 
 
 
-### Connecting the Server side repository to Heroku
+<br>
+
+
+
+
+
+### Create a new Heroku app (in Heroku Dashboard)
 
 
 
@@ -97,6 +126,28 @@ heroku login
 
 
 
+#### https://dashboard.heroku.com/apps
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+
+## Connect the server repository to Heroku
+
 
 
 #### Inside the server directory run :
@@ -104,8 +155,13 @@ heroku login
 
 
 ```bash
+# INSIDE THE SERVER REPO (root directory)
+# RUN THE FOLLOWING COMMANDS:
+
+
 # Add heroku remote
 heroku git:remote -a name-of-the-app
+
 
 
 # Check the remotes available
@@ -115,7 +171,7 @@ git remote -v
 # Make some changes to the code and deploy them to Heroku using Git.
 git add .
 
-git commit -m 'Make it better'
+git commit -m 'Deploy to heroku'
 
 git push heroku master
 ```
@@ -126,7 +182,33 @@ git push heroku master
 
 
 
-## Setting environment variables - on the client side.
+
+
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Setup the client (React app) and run the build
+
+
+
+<br>
+
+
+
+### Setting environment variables - on the client side.
 
 
 
@@ -143,18 +225,30 @@ touch .env.development .env.production
 
 
 
-#### We have to update CLIENT directory `package.json` :
+<br>
+
+
+
+#### Update the CLIENT directory `package.json` ,
+
+####  Add custom scripts 
+
+#### `build-dev` and `build-prod`
+
+
+
+These scripts can be used as a example on runing custom builds
 
 ##### `package.json`
 
 ```js
 "scripts": {
-    "build-dev": "dotenv -e .env.development react-scripts build", 		// 	<==!!!
-    "build-prod": "dotenv -e .env.production react-scripts build", 		// 	<==!!!
+    "build:dev": "dotenv -e .env.development react-scripts build",
+    "build:prod": "dotenv -e .env.production react-scripts build",
       
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
 }
 ```
@@ -173,7 +267,9 @@ touch .env.development .env.production
 
 
 
-#### Update both of the `.env.---` files
+### Update both of the `.env.---` files
+
+
 
 ##### `client/.env.development`
 
@@ -193,9 +289,17 @@ REACT_APP_API_URL=https://name-of-your-app.herokuapp.com
 
 
 
+
+
+<br>
+
+
+
+
+
 # !!!
 
-**REACT_APP** prefix **is not optional**. React is looking for it through `process.env`
+**REACT_APP** prefix **is not optional**. React (CREATE REACT APP) is looking for it through `process.env`
 
 
 
@@ -219,7 +323,13 @@ REACT_APP_API_URL=https://name-of-your-app.herokuapp.com
 const apiURL = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'https://your-app-name.herokuapp.com';
 */
 
-const baseUrl = process.env.REACT_APP_API_URL;
+
+  constructor() {
+    this.api = axios.create({
+      baseURL: process.env.REACT_APP_API_URL,			     // <-- UPDATE
+      withCredentials: true
+    });
+  }
 ```
 
 
@@ -235,9 +345,38 @@ const baseUrl = process.env.REACT_APP_API_URL;
 const apiURL = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'https://your-app-name.herokuapp.com';
 */
 
-const baseUrl = process.env.REACT_APP_API_URL;
+  constructor() {
+    this.api = axios.create({
+      baseURL: process.env.REACT_APP_API_URL,			     // <-- UPDATE
+      withCredentials: true
+    });
+  }
 
 ```
+
+
+
+
+
+##### `lib/auth-services.js`
+
+```js
+//	lib/project-services.js
+
+/* Fallback solution
+const apiURL = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'https://your-app-name.herokuapp.com';
+*/
+
+  constructor() {
+    this.api = axios.create({
+      baseURL: process.env.REACT_APP_API_URL,			     // <-- UPDATE
+      withCredentials: true
+    });
+  }
+
+```
+
+
 
 
 
@@ -281,6 +420,12 @@ This step will produce a new directory (called `build`) containing the minified 
 
 
 
+<br>
+
+
+
+
+
 
 
 ### Update server `app.js`
@@ -289,7 +434,7 @@ This step will produce a new directory (called `build`) containing the minified 
 
  #### To make `index.html` and app accessible on our API:
 
- ####  Add below code at the very end of our `app.js`, right after *routes middleware * and just before `module.exports = app;`
+ ####  Add below code at the very end of our `app.js`, right after *routes middleware * and just before `module.exports = app;` or the error handling middleware
 
 
 
@@ -322,7 +467,13 @@ module.exports = app;
 
 
 
+
+
+
+
 <br>
+
+
 
 
 
@@ -334,14 +485,14 @@ module.exports = app;
 
 ```bash
 # CREATE MongoLab SANDBOX DB
-±
+heroku addons:create mongolab:sandbox
 
 
 # OPEN THE DB IN MLAB
 heroku addons:open mongolab
 
 
-# GET THE MONOG_DB URI FROM HEROKU VARIABLES
+# GET THE MONGODB_URI FROM HEROKU VARIABLES
 heroku config:get MONGODB_URI
 ```
 
@@ -353,7 +504,7 @@ heroku config:get MONGODB_URI
 
 
 
-Check that the config variable MOprocess.env.MONGODB_URINGODB_URI is  created in your Heroku app page:
+### Check that the config variable process.env.`MONGODB_URI` and `SECRET_SESSION` are set for your Heroku app:
 
  *Heroku app page   **>>**   Settings   **>>**   Config Vars   **>>**   Reveal Config Vars*
 
@@ -423,7 +574,9 @@ mongoose
 
 #### Update the  `CORS` settings in the back-end `app.js`
 
+Add `credentials`
 
+and the new `heroku` url.
 
 ### `app.js` 
 
@@ -436,6 +589,7 @@ mongoose
 
 // CORS SETTINGS TO ALLOW CROSS-ORIGIN INTERACTION:
 app.use(cors({
+  credentials: true,
   origin: ['http://localhost:3000', 'https://your-heroku-app-name.herokuapp.com'],
 }));
 ```
@@ -466,11 +620,15 @@ app.use(cors({
 
 ```json
   "engines": {
-    "node": "10.15.3"
+    "node": "12.13.0"
   },
 ```
 
 
+
+
+
+<br>
 
 
 

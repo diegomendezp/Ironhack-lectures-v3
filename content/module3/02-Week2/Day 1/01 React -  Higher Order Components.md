@@ -152,10 +152,25 @@ code .
 
 
 
+```bash
+mkdir src/components/hoc
+
+touch src/components/hoc/Higher.js
+```
+
+
+
+<br>
+
+
+
+##### `hoc/Higher.js`
+
 ```jsx
 import React from 'react';
 import axios from 'axios';
 
+// function component
 const Higher = WrappedComponent => {
   
   const userData = {
@@ -168,7 +183,8 @@ const Higher = WrappedComponent => {
     return axios.get('https://api.chucknorris.io/jokes/random');
   };
 
-  return props => {
+  // Return a new enhanced function component
+  return (props) => {
     return (
       <div>
         <WrappedComponent {...props} getData={getData} user={userData} color={color}/>
@@ -224,9 +240,12 @@ import Higher from './../hoc/Higher'
         <h2>{this.state.title}</h2>
         <p>{this.state.description}</p>
         
+        <h2>JOKE</h2>
+        <p>{this.state.joke}</p>                                         {/*  ADD */}
+        
         <button onClick={this.props.history.goBack} >Go Back</button>
       
-        <button onClick={this.getJoke} >GET JOKE</button> {/*  ADD */}
+        <button onClick={this.getJoke} >GET JOKE</button>                {/*  ADD */}
       </div>
     )
   }

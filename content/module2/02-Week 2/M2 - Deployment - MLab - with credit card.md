@@ -191,7 +191,7 @@ git push heroku master
 #### In the Dashboard >>> *<u>Settings</u>* section, add the following Config Var:
 
 ```
-SESSION_SECRET=cookies-and-milk
+SECRET_SESSION=cookies-and-milk
 ```
 
 

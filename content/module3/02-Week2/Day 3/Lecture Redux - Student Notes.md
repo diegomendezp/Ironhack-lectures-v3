@@ -337,6 +337,8 @@ ReactDOM.render(
 //	redux/reducers/projectReducers.js
 
 const projectReducer = (state, action) => {
+  // RULES ON HOW TO HANDLE THE REDUX STATE WITH PROJECTS
+  //	...
   return state;
 };
 
@@ -490,6 +492,8 @@ const initialState = {
 };
 
 const projectReducer = (state, action) => {
+// This `if` block runs only once, when the store is first created
+// and sets the initial state of the store.
    if (!state) {
      return initialState;
    }
@@ -511,6 +515,32 @@ export default projectReducer;
 
 
 
+
+#### The above can be simplified to (common syntax with Redux):
+
+```js
+//	redux/reducers/projectReducers.js
+
+const initialState = {
+  projects: [],
+};
+
+const projectReducer = (state = initialState, action) => {
+  return state;
+}
+
+export default projectReducer;
+```
+
+
+
+
+
+<br>
+
+
+
+## `NOTE:`
 
 #### If we run our app we will see that redux automatically runs one action called `INIT` which forms the store, by using the `initialStore` value.
 
@@ -597,6 +627,12 @@ const projectReducer = (state = initialState, action) => {
         projects: [...state.projects, action.payload] 
       };
       return newState;
+      /* // REDUX SYNTAX SHOULD BE SIMPLIFIED TO:
+      return {
+        ...state,
+        projects: [...state.projects, action.payload] 
+      }
+      */
 
 
       
@@ -605,10 +641,6 @@ const projectReducer = (state = initialState, action) => {
         ...state,
         projects: [...action.payload],
       };
-      /* SAME AS:
-        const newState = { ...state, projects: [...action.payload] }
-        return newState;
-      */
 
     default:
       return state;
@@ -695,9 +727,11 @@ import { connect } from 'react-redux';
 
 // adds selected data from Redux store, as props to the component
 const mapStateToProps = (state) => {};
+//  addReduxDataToProps  // <-- More descriptive name
 
 // adds methods with actions, as props to the component
 const mapDispatchToProps = (dispatch) => {};
+//  addReduxActionsToProps // <-- More descriptive name
 
 
 //connect({get data from redux store}, {create dispatch methods})(Component)
@@ -733,7 +767,7 @@ const mapStateToProps = (state) => {
 //	CREATE METHODS WITH ACTIONS ON THE PROPS
 const mapDispatchToProps = (dispatch) => {
   return {
-    addAllProjects: (allProjects) => { 
+    addAllProjectsToRedux: (allProjects) => { 
         dispatch( {type: 'ADD_ALL_PROJECTS', payload: allProjects} ) 
    } 
   }
@@ -768,7 +802,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
   getAllProjects = () => {
     axios.get(`http://localhost:5000/api/projects`).then(response => {
       // this.setState({ listOfProjects: response.data });	 <--- DELETE
-      this.props.addAllProjects(response.data);
+      this.props.addAllProjectsToRedux(response.data);
     });
   };
 
@@ -881,7 +915,7 @@ import { connect } from "react-redux";
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProject: project => {
+    addProjectToRedux: project => {
       dispatch({ type: 'ADD_PROJECT', payload: project });
     },
   };
@@ -923,7 +957,7 @@ export default connect(null, mapDispatchToProps)(AddProject);
     axios
       .post(`http://localhost:5000/api/projects`, { title, description })
       .then(() => {
-         this.props.addProject({ title, description });                  //	<--	ADD
+         this.props.addProjectToRedux({ title, description });                  //	<--	ADD
       
          this.setState(
            { title: '', description: '' },
