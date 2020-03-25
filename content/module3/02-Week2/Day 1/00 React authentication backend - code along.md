@@ -60,7 +60,7 @@ npm i
 //		routes/auth.js
 
 // POST '/auth/signup'
-router.post('/signup', isNotLoggedIn(), validationLoggin(), async (req, res, next) => {
+router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) => {
     const { username, password } = req.body;
 
     try {																									 // projection
@@ -71,6 +71,8 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), async (req, res, nex
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashPass = bcrypt.hashSync(password, salt);
         const newUser = await User.create({ username, password: hashPass });
+
+        newUser.password = "*";
         req.session.currentUser = newUser;
         res
           .status(201)  //  Created
@@ -78,7 +80,7 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), async (req, res, nex
       }
     } 
     catch (error) {
-      next(error);
+      next(createError(error));
     }
   },
 );
@@ -96,7 +98,7 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), async (req, res, nex
 //		routes/auth.js
 
 //  POST    '/login'
-router.post('/login', isNotLoggedIn(), validationLoggin(), async (req, res, next) => {
+router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => {
     const { username, password } = req.body;
     try {
       const user = await User.findOne({ username }) ;
@@ -104,6 +106,8 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), async (req, res, next
         next(createError(404));
       } 
       else if (bcrypt.compareSync(password, user.password)) {
+        
+        user.password = '*';
         req.session.currentUser = user;
         res
           .status(200)
@@ -115,7 +119,7 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), async (req, res, next
       }
     } 
     catch (error) {
-      next(error);
+      next(createError(error));
     }
   },
 );
@@ -133,18 +137,21 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), async (req, res, next
 //		routes/auth.js
 
 //  POST    '/logout'
-router.post('/logout', isLoggedIn(), (req, res, next) => {
+router.post('/logout', isLoggedIn, (req, res, next) => {
   req.session.destroy();
   res
     .status(204)  //  No Content
     .send();
-  //return; 		TODO - remove from the notes
 });
 ```
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -154,14 +161,12 @@ router.post('/logout', isLoggedIn(), (req, res, next) => {
 //		routes/auth.js
 
 //  GET    '/private'   --> Only for testing - Same as `/me` but it returns a message instead
-router.get('/private', isLoggedIn(), (req, res, next) => {
+router.get('/private', isLoggedIn, (req, res, next) => {
   res
     .status(200)  // OK
-    .json({ message: 'Test - User is logged in'});
+    .json( { message: 'Test - This is private and the user is logged in' } );
 });
 
-
-module.exports = router;
 ```
 
 
@@ -226,26 +231,15 @@ Example: after `/signup` cookie is returned in the response and Postman will set
 //		routes/auth.js
 
 //  GET    '/me'
-router.get('/me', isLoggedIn(), (req, res, next) => {
-  res.status(200).json(req.session.currentUser);
+router.get('/me', isLoggedIn, (req, res, next) => {
+  const currentUserSessionData = req.session.currentUser;
+  currentUserSessionData.password = '*';
+  
+  res.status(200).json(currentUserSessionData);
 });
 ```
 
-<br>
 
-
-
-#### We can also edit the `/me` route to ensure password is not sent to the client side
-
-```js
-//		routes/auth.js
-
-//  GET    '/me'
-router.get('/me', isLoggedIn(), (req, res, next) => {
-  req.session.currentUser.password = '*';
-  res.status(200).json(req.session.currentUser);
-});
-```
 
 <br>
 

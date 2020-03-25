@@ -42,6 +42,12 @@ npm i
 cd ../project-management-client
 
 npm i
+
+# Checkout to the root of the project
+cd ../
+
+# Open the code editor
+code .
 ```
 
 
@@ -53,6 +59,32 @@ npm i
 <br>
 
 
+
+### Checkout to the server directory, and start the server
+
+```bash
+# In the `project-management-server`
+npm run dev
+```
+
+
+
+<br>
+
+
+
+### Checkout to the client directory, and start the Create React App dev server
+
+```bash
+# In the `project-management-client`
+npm start
+```
+
+
+
+
+
+<br>
 
 
 
@@ -118,12 +150,17 @@ npm i redux react-redux --save
 #### Create the following directories and files:
 
 ```bash
-cd src/
+# Create file structure for redux files
+mkdir src/redux
+mkdir src/redux/reducers
+mkdir src/redux/actions 
+mkdir src/redux/types
 
-mkdir redux redux/reducers redux/actions redux/types
+# Create a reducer file
+touch src/redux/reducers/projectReducer.js
 
-touch redux/reducers/projectReducer.js
-touch redux/actions/actions.js
+# Create actions file
+touch src/redux/actions/actions.js
 ```
 
 
@@ -157,8 +194,7 @@ const store = createStore(/* redux store takes reducer functions */);
 
 // PROVIDE REDUX STORE TO THE APP
 ReactDOM.render(
-  //  												ADD PROVIDER WITH STORE
-  <Provider store={store}>			
+  <Provider store={store}>            {/*       ADD PROVIDER WITH STORE 	  */}
     <Router>
       <App />
     </Router>
@@ -185,7 +221,9 @@ ReactDOM.render(
 
 ##### We can think of a `store` as an empty object. A unstructured space, assigned to Redux. 
 
-##### Store takes one or more reducers. Reducer creates a storage in the redux state.
+##### Store takes one or more reducers.
+
+##### Reducer creates a storage in the redux state.
 
 ##### 
 
@@ -205,7 +243,7 @@ ReactDOM.render(
 
 
 
-##### Essentially, each reducer creates and manages a slice of the space/state in the Redux store. 
+##### Essentially, each reducer creates and manages a slice of the space/state in the Redux store.
 
 ##### We can think of it as a warehouse worker that has it's own room where data is being stored.
 
@@ -218,8 +256,12 @@ ReactDOM.render(
 
 // Warehouse Worker = `Reducer`
 
-// Package with Instruction = `Action`
+// Package with Data and an Instruction = `Action`
 ```
+
+
+
+<br>
 
 
 
@@ -247,6 +289,8 @@ ReactDOM.render(
 //	redux/reducers/projectReducers.js
 
 const projectReducer = (state, action) => {
+  // RULES ON HOW TO HANDLE THE REDUX STATE WITH PROJECTS
+  //	...
   return state;
 };
 
@@ -292,7 +336,11 @@ const store = createStore(
 
 
 
+
+
 <br>
+
+
 
 
 
@@ -394,6 +442,8 @@ const initialState = {
 };
 
 const projectReducer = (state, action) => {
+  // This if block runs only once, when the store is first created
+  // and sets the initial state of the store.
    if (!state) {
      return initialState;
    }
@@ -412,9 +462,31 @@ export default projectReducer;
 
 <br>
 
+#### The above can be simplified to (common syntax with Redux):
+
+```js
+//	redux/reducers/projectReducers.js
+
+const initialState = {
+  projects: [],
+};
+
+const projectReducer = (state = initialState, action) => {
+  return state;
+}
+
+export default projectReducer;
+```
 
 
 
+
+
+<br>
+
+
+
+## `NOTE:`
 
 #### If we run our app we will see that redux automatically runs one action called `INIT` which forms the store, by using the `initialStore` value.
 
@@ -501,6 +573,12 @@ const projectReducer = (state = initialState, action) => {
         projects: [...state.projects, action.payload] 
       };
       return newState;
+      /* // REDUX SYNTAX SHOULD BE SIMPLIFIED TO:
+      return {
+        ...state,
+        projects: [...state.projects, action.payload] 
+      }
+      */
 
 
       
@@ -509,10 +587,6 @@ const projectReducer = (state = initialState, action) => {
         ...state,
         projects: [...action.payload],
       };
-      /* SAME AS:
-        const newState = { ...state, projects: [...action.payload] }
-        return newState;
-      */
 
     default:
       return state;
@@ -601,9 +675,13 @@ import { connect } from 'react-redux';
 
 // adds selected data from Redux store, as props to the component
 const mapStateToProps = (state) => {};
+//  addReduxDataToProps  // <-- More descriptive name
+
+
 
 // adds methods with actions, as props to the component
 const mapDispatchToProps = (dispatch) => {};
+//  addReduxActionsToProps // <-- More descriptive name
 
 
 //connect({get data from redux store}, {create dispatch methods})(Component)
@@ -631,13 +709,14 @@ export default connect(
 const mapStateToProps = (state) => {
   return {
     projects: state.projects
+// prop name: what data from redux store
   }
 }
 
 //	CREATE METHODS WITH ACTIONS ON THE PROPS
 const mapDispatchToProps = (dispatch) => {
   return {
-    addAllProjects: (allProjects) => { 
+    addAllProjectsToRedux: (allProjects) => { 
         dispatch( {type: 'ADD_ALL_PROJECTS', payload: allProjects} ) 
    } 
   }
@@ -672,7 +751,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
   getAllProjects = () => {
     axios.get(`http://localhost:5000/api/projects`).then(response => {
       // this.setState({ listOfProjects: response.data });	 <--- DELETE
-      this.props.addAllProjects(response.data);
+      this.props.addAllProjectsToRedux(response.data);
     });
   };
 
@@ -711,8 +790,8 @@ class ProjectList extends Component {
   
   
   render() {
- // const { listOfProjects } = this.state;     <--- REMOVE
-    const { projects } = this.props; 		 // <-- ADD
+ // const { listOfProjects } = this.state;                 // <--- REMOVE
+    const { projects } = this.props; 		         // <-- ADD
         
     return (
       <div>
@@ -781,10 +860,11 @@ import { connect } from "react-redux";
 //	...
 //			...
 
+//  addReduxActionsToProps // <-- More descriptive name
 const mapDispatchToProps = dispatch => {
   return {
-    addProject: project => {
-      dispatch({ type: 'ADD_PROJECT', payload: project });
+    addProjectToRedux: function (oneProject) {
+      dispatch({ type: 'ADD_PROJECT', payload: oneProject });
     },
   };
 };
@@ -823,7 +903,7 @@ export default connect(null, mapDispatchToProps)(AddProject);
     axios
       .post(`http://localhost:5000/api/projects`, { title, description })
       .then(() => {
-         this.props.addProject({ title, description });                  //	<--	ADD
+         this.props.addProjectToRedux({ title, description });            //	<--	ADD
       
          this.setState(
            { title: '', description: '' },
@@ -852,12 +932,12 @@ export default connect(null, mapDispatchToProps)(AddProject);
 ```jsx
 //	redux/actions/actions
 
-export const addProject = project => ({
+export const addProject = (project) => ({
   type: 'ADD_PROJECT',
   payload: project,
 });
 
-export const addAllProjects = allProjects => ({
+export const addAllProjects = (allProjects) => ({
   type: 'ADD_ALL_PROJECTS',
   payload: allProjects,
 });
