@@ -4,18 +4,6 @@
 
 
 
-## [Box Model recap](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model#Parts_of_a_box)
-
-
-
-### [Overflow - example recap](https://codepen.io/Denzelzeldi/pen/jJdwbz?editors=1100)
-
-
-
-
-
-
-
 
 
 
@@ -48,7 +36,7 @@ Glovo
 
 
 
-##### Responsive design focus is on mobile first. 
+##### TResponsive design focus is on mobile first. 
 
 ##### Instead of making an app for desktop and then trimming it to fit the mobile, we instead make it for mobile first with most essential features and then work up from there when creating a desktop version.
 

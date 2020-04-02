@@ -9,7 +9,7 @@
 In this chapter you will:
 
 - Understand what CSS is and learn how to create styles in different ways: inline and in document.
-- Learn how to represent and set colors in to fonts and backgrounds in HTML.
+- Learn how to represent and set colors to fonts and backgrounds in HTML.
 - Select elements with element, class or id selectors to change CSS properties.
 
 
@@ -554,7 +554,7 @@ margin: 10px 10px;/* Top & bottom, right & left */
 
 - ### CSS reset
 
-  <http://www.pitt.edu/~ctomer/lis2600/css_reset/index.html>
+  <https://meyerweb.com/eric/tools/css/reset/
 
   **CSS Reset** is a short, often compressed, or “minified,” set of **CSS **rules that **resets** the styling of all HTML elements to a consistent baseline. **Resets** are particularly useful for normalizing the text size and removing all margins.
 

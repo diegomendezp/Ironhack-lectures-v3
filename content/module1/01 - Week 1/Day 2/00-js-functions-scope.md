@@ -349,6 +349,45 @@ If a variable is declared outside of the function, it is possible to use it in a
 
 
 
+
+
+
+
+
+
+##### Example
+
+
+
+### [OPEN IMAGE](https://i.imgur.com/neGxBNR.png)
+
+![](https://i.imgur.com/neGxBNR.png)
+
+```js
+// Scope chain
+
+// Each nested scope "inherits" (can see) values from the previous scope (scope above it).
+
+function outer() {
+  
+  function inner() {
+    var i = 4;
+  }
+
+  var o = 3;
+}
+
+var g = 1;
+
+if (2 === 2) {
+  var b = 2;
+}
+```
+
+
+
+
+
 **Example**
 
 ```js

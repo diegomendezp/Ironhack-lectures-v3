@@ -4,17 +4,63 @@
 
 ## Learning Goals
 
-After this lesson you will be able to:cd 	
+After this lesson you will be able to:
 
-- Explain what JavaScript is and a bit of its history
-
+- Explain what JavaScript
 - Explain what ES6 is and how JavaScript evolves
-
 - Understand and apply basic JavaScript syntax
-
 - Declare variables in JavaScript
-
 - Properly name variables
+
+
+
+
+
+
+
+<h3 style='color: green'>VSCode demo</h3>
+
+### Create a folder structure
+
+```bash
+mkdir 04-js-intro
+
+cd 04-js-intro
+
+vanilla-js
+
+code .
+```
+
+**or**
+
+```bash
+mkdir 04-js-intro
+
+cd 04-js-intro
+
+mkdir images scripts styles
+
+touch index.html scripts/index.js
+
+code .
+```
+
+
+
+
+
+
+
+
+
+
+
+#### 1. Create `index.html` skeleton
+
+#### 2. Load the `index.js` via the `<script></script>` tag
+
+#### 3. Go Live ->  and open the Chrome Dev console
 
 
 
@@ -51,6 +97,9 @@ After this lesson you will be able to:cd
 
 - but it is <u>also used in non-browser environments:</u> 
   - #### [Node.js (server side)](https://nodejs.org/en/) - created 2009 (by Ryan Dahl)
+  
+    - In 2018 node surpassed 1 billion downlads
+  
   - #### [Electron](https://electronjs.org/) - Desktop applications 
 
 
@@ -63,7 +112,7 @@ After this lesson you will be able to:cd
 
 
 
-#### [ECMAScript](https://electronjs.org/)
+#### [ECMAScript](https://www.ecma-international.org/publications/standards/Ecma-262.htm)
 
 ***ECMAScript* is the standard for JavaScript** and its implementation.(  it's most popular implementation.)
 
@@ -95,39 +144,6 @@ Enough of theory,  let’s move to JavaScript and  start writing  code.
 - **JavaScript** does not strictly require **semicolons**, however we use them always to prevent [possible errors](https://www.freecodecamp.org/news/codebyte-why-are-explicit-semicolons-important-in-javascript-49550bea0b82/).
 
 
-
-
-
-
-
-<h3 style='color: green'>VSCode demo</h3>
-### Create a folder structure
-
-```bash
-mkdir 04-js-intro
-
-cd 04-js-intro
-
-mkdir images scripts styles
-
-touch index.html scripts/index.js
-
-code .
-```
-
-
-
-
-
-
-
-
-
-#### 1. Create `index.html` skeleton
-
-#### 2. Load the `index.js` via the `<script></script>` tag
-
-#### 3. Go Live ->  and open the Chrome Dev console
 
 
 
@@ -183,7 +199,7 @@ multi-line comment
 
 
 
-The purpose behind naming them is actually to be able to **reference** them later on.
+The purpose behind naming them is to be able to **reference** them later on.
 
 
 
@@ -199,16 +215,16 @@ The purpose behind naming them is actually to be able to **reference** them late
 
 
 ```js
-// Objects
-var myArray = [];
-var myObject = {};
-
 // Primitives
 var myString = "Uros";
 var myNumber = 100;
 var myBoolean = true; // true or false
 var myNull = null;
 var myUndefined = undefined;
+
+// Objects
+var myArray = [];
+var myObject = {};
 
 // We won't use the below data types
 var mySymbol = Symbol();
@@ -278,7 +294,7 @@ age = 30;  // variable initialization
 
 ```js
 var user2 = 'Sarah';  // variable declaration and initialization 
-var age = 30;  // variable declaration and initialization
+var city = 30;  // variable declaration and initialization
 ```
 
 
@@ -301,13 +317,15 @@ Rules for naming variables:
 
 
 ```js
-// Naming a variable
+// Naming a variable:
+// - JS is case sensitive
+// - First chaacter can't be number
 var a;
 var color;
-var _private;
+var _private; // convention - common practice
 var $button;
-var getTop10;	// camelCase
-var a_large_name;	// kebab-case
+var camelCase;	// camelCase
+var a_large_name;	// kebab_case
 var thisWayIsCalledCamelCase;
 var π;
 ```
@@ -382,33 +400,45 @@ console.log(favoriteFood);
 
 favoriteFood = "Pizza";
 console.log(favoriteFood);
+console.log(typeof favoriteFood);
+
+favoriteFood = 123;
+console.log(favoriteFood);
+console.log(typeof favoriteFood);
 
 // console:
 // Steak
 // Pizza <== as we can see, the variable changed value from 'Steak' to 'Pizza'
+// 123  <== as we can see, variable changed the data type from stirng to number
 ```
 
 
 
+<br>
 
+
+
+
+
+
+
+#### Redeclaring a variable -
 
 
 
 ```js
-var favoriteFood;
+// Redeclaring a variable
 
-favoriteFood = "Steak";
-console.log("Value: ",favoriteFood," Type: ", typeof favoriteFood);
+var favoriteCountry;
 
-/ Redeclaring a variable
-var favoriteFood = "Cake";
+favoriteCountry = "Australia";
 
-favoriteFood = 20;
-console.log("Value: ",favoriteFood," Type: ", typeof favoriteFood);
 
-// console:
-// Value:  Steak  Type:  string
-// Value:  20     Type:  number
+// Redeclaring a variable, removes the previous value.
+// Be careful when using `var` not to redeclare/overwrite existing variables
+var favoriteCountry = "JSland";
+
+console.log(favoriteCountry);
 ```
 
 
@@ -447,7 +477,7 @@ These variables are called **constants** and if we try to change its values we w
 
 ```js
 const name = "Ana";
-name = "Marina";
+name = "Mariana";  // TypeError: Assignment to constant variable;
 
 // console:
 // unknown: "name" is read-only
@@ -461,7 +491,7 @@ const price; // <== error 🚨
 
 
 
-**`let`** is used to create a block scoped variable, which we will explain in the next days.
+**`let`** and `const` are used to create block scoped variables, which we will explain in the next days.
 
 
 

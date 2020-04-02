@@ -16,28 +16,6 @@ After this lesson, you will be able to:
 
 
 
-##### Before the code portfolio code along we will do environment setup with VS Code extensions, same as teacher has (for auto complete and other things)
-
-
-
-
-
-
-
-
-
-### We will use [CodePile](https://www.codepile.net/pile/BVkZEz5D) for link sharing and later for code sharing
-
-
-
-
-
-
-
-### What is HTML?
-
-HTML is not a programming language; it is a *markup language* that defines the structure of your content. HTML consists of a series of **elements** that we call tags.
-
 
 
 
@@ -57,10 +35,27 @@ cd 01-html-intro
 
 mkdir images scripts styles
 
-touch index.html
+touch index.html styles/stlyle.css
 
 code .
 ```
+
+
+
+### Teacher only (deactivate prettier)
+
+```bash
+touch .prettierignore
+echo -e "**/*.js \n**/*.html" >> .prettierignore
+```
+
+<br>
+
+
+
+### What is HTML?
+
+HTML is not a programming language; it is a *markup language* that defines the structure of your content. HTML consists of a series of **elements** that we call tags.
 
 
 
@@ -86,7 +81,7 @@ code .
 
 
 
-
+​	
 
 #### [Anathomy of an HTML element - image](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics#Anatomy_of_an_HTML_element)
 
@@ -103,7 +98,7 @@ code .
 <html>
   
   <head>
-    <title>The HTML5 Intorduction</title>
+    <title>HTML5 Intro</title>
     <meta charset="UTF-8">
   </head>
   
@@ -151,22 +146,19 @@ In the HTML DOM, everything is a node. The document is a document node.
 - `<html>`
   **`<html>` Represents the root of an HTML document.** All other elements must be descendants of this element. 
 
-- ```
-  <head>
-  ```
-
+- `<head>`
   
-
-  head Defines an element that provides general information (metadata) about the document, 
+  `<head>` Defines an element that provides general information (metadata) about the document, 
 
   - `<title>`
-    Defines the title of the document.
+  Defines the title of the document.
     
-  - `<meta>`
+- `<meta>`
   Used to define metadata. This includes information about styles, scripts and data to help browsers use and render the page. 
-    
   
-  One of the most commons elements is the `<meta charset="UTF-8">` in our example. This specifies the character encoding for the HTML document as [UTF-8](https://en.wikipedia.org/wiki/UTF-8).
+  Common meta element is the `<meta charset="UTF-8">`  ( as in our example). 
+  
+  It specifies the character encoding for the HTML document as [UTF-8](https://en.wikipedia.org/wiki/UTF-8).
   
   
   
@@ -194,12 +186,12 @@ In the HTML DOM, everything is a node. The document is a document node.
 ### Headings
 
 ```html
-<h1>Heading level 1</h1>
-<h2>Heading level 2</h2>
-<h3>Heading level 3</h3>
-<h4>Heading level 4</h4>
-<h5>Heading level 5</h5>
-<h6>Heading level 6</h6>
+  <h1>Heading level 1</h1>
+  <h2>Heading level 2</h2>
+  <h3>Heading level 3</h3>
+  <h4>Heading level 4</h4>
+  <h5>Heading level 5</h5>
+  <h6>Heading level 6</h6>
 ```
 
 
@@ -209,12 +201,12 @@ In the HTML DOM, everything is a node. The document is a document node.
 #### 	Ordered List
 
 ```html
-<h2>An Ordered HTML List</h2>
-<ol>
-  <li>first item</li>
-  <li>second item</li>
-  <li>third item</li>
-</ol>
+  <h2>An Ordered HTML List</h2>
+  <ol>
+    <li>first item</li>
+    <li>second item</li>
+    <li>third item</li>
+  </ol>
 ```
 
 
@@ -222,12 +214,12 @@ In the HTML DOM, everything is a node. The document is a document node.
 #### 	Unordered List 
 
 ```html
-<h2>An Unordered HTML List </h2>
-<ul>
-  <li>first item</li>
-  <li>second item</li>
-  <li>third item</li>
-</ul>
+  <h2>An Unordered HTML List </h2>
+  <ul>
+    <li>first item</li>
+    <li>second item</li>
+    <li>third item</li>
+  </ul>
 ```
 
 
@@ -315,7 +307,7 @@ https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.p
 -->
 
 <!-- Images in HTML have a set of size attributes -->
-<img src="google_logo.jpg" width="300" height="100" />
+<img src="google_logo.jpg" width="150" height="50" />
 
 <!-- The alt attribute specifies an alternative text to be used, when an image cannot be displayed -->
 <img src="google_logo.jpg" alt="google logo" />
@@ -331,10 +323,6 @@ elements on the page -->
      title="A tooltip"
      src="google_logo.jpg"
      alt="google logo"  />
-
-
-<p title="A tooltip for the paragraph">This paragraph has a tile tooltip</p>
-
 
 ```
 
@@ -371,27 +359,21 @@ elements on the page -->
 Most common self closing tags in HTML are:
 
 1. ```html
-   <!-- inserts a single line break -->
-   <br />
+     <h2> Self closing tags </h2>
    
-   <!-- thematic break in an HTML page - it adds a line -->
-   <hr />
+     <!-- image tag -->
+     <img />
    
-   <!-- image tag -->
-   <img />
+     <!-- inserts a single line break -->
+     <br />
    
-   <!-- form input tag - nested as the child of form -->
-   <form action="">
-     <input />
-   </form>
+     <!-- thematic break in an HTML page - it adds a line -->
+     <hr />
    
-   <!-- link between a document and an external resource 
-   e.g. script -->
-   <link />
-   
-   <!-- provides metadata about the HTML document, 
-   set in the <head> -->
-   <meta />
+     <!-- form input tag - nested as the child of form -->
+     <form action="">
+       <input />
+     </form>
    ```
 
 
@@ -408,7 +390,7 @@ Most common self closing tags in HTML are:
 
 The `<form>` element allows us to get the information from the user.
 
-The `<form>` elements holds **inputs**, **radio buttons**, **select boxes**, **text areas** etc. 
+The `<form>` elements hold:  **inputs**, **radio buttons**, **text areas**, **date** pickers 
 
 
 
@@ -434,14 +416,29 @@ An example of a simple `form` with a post request would be:
   <input id="name" />
 
   <br />
-  <label for="name">Password:</label>
-  <input id="name" type="password" />
+  <label for="pass">Password:</label>
+  <input id="pass" type="password" />
 
-  <textarea rows="4" cols="50"> </textarea>
+  <br />
+  <textarea rows="50" cols="10"> </textarea>
   
   <br />
-  <input type="radio" value="remember" /> Remember me
+  <label>Remember me</label>
+  <input type="radio" name="remember" value="remember" checked/>
 
+  <label>Don't remember me</label>
+  <input type="radio" name="remember" value="forget"/>
+  <!--
+		Radio buttons are designed for selecting one value out of a set.
+		Where multiple controls exist, radio buttons allow one to be selected out of them all.
+	-->
+  
+  
+  <br />
+  <label for="start">Start date:</label>
+  <input type="date" />
+
+  
   <br />
   <button type="submit">Save</button>
 </form>
@@ -463,11 +460,13 @@ An example of a simple `form` with a post request would be:
 
 
 
+<br>
+
+
+
 ## “Block” Vs “Inline”
 
 
-
-![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_9c6c4e882171fdb4c31b128e0861e64a.png)
 
 
 
@@ -491,19 +490,17 @@ Examples of block-level elements are paragraphs or page divisions.
 
 
 
-### Cheat Sheet - [Block vs Inline Elements](https://gist.github.com/ross-u/97bddbb6556932eba37e98ddb4fe281b)
-
-
-
-
-
 ### CodePen - Example on Block and inline elements
 
 ### [Block vs Inline - codepen example](https://codepen.io/Denzelzeldi/pen/MWYGMjY?editors=1000)
 
 
 
+### Cheat Sheet - [Block vs Inline Elements](https://gist.github.com/ross-u/97bddbb6556932eba37e98ddb4fe281b)
 
+
+
+<br>
 
 
 
@@ -523,7 +520,47 @@ When in the body with JavaScript it is set at the end. We will see why later.
 
 
 
-### 
+<br>
+
+
+
+
+
+## Install VS Code extensions and setup environment
+
+
+
+We will do the environment setup with VS Code extensions (for auto complete and other things).
+
+
+
+<br>
+
+
+
+
+
+#### [HTML CSS Support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
+
+#### [IntelliSense for CSS class names in HTML](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion)
+
+####[Prettier - code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+
+
+
+
+- Remove **Beautify** and **JSHint** if you have it installed, as they may cause issues.
+- Change the settings to enable **Format On Save**
+  - `CMD` + `Shift` + `P`    **or**    `Ctrl` + `Shift` + `P`
+  - Preferences: Open Settings (UI)
+  - Search for :  format on save
+  - Enable option: **Editor: Format On Save**
+  - When saving the file from now on prettier should auto format your code
+
+<br>
+
+
 
 ## Indentation and quotes
 
@@ -534,6 +571,10 @@ As well make sure that code looks clean and each indentation gives clear idea wh
 When using quotes in HTML attributes we suggest you to use double quotes `" "`
 
 
+
+
+
+<br>
 
 
 

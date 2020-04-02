@@ -164,6 +164,7 @@ JavaScript has function scope by default - meaning that every function creates a
 
   ```js
   //  BLOCK SCOPE - let and const variables
+  BLOCKED
   let name = "Ironhacker";
   
   if (true) {
@@ -175,20 +176,20 @@ JavaScript has function scope by default - meaning that every function creates a
   
   // Name inside if block statement: Ted
   // Name outside if block statement: Ironhacker
-  ```
-
+```
   
 
-  <br>
-
+  
+<br>
   
 
-  ## `let`
-
+  
+## `let`
   
 
-  #### `let`  can be updated, but it can't be redeclared
-
+  
+#### `let`  can be updated, but it can't be redeclared
+  
   ```js
   // THIS IS OK
   let message = "This is the first message.";
@@ -197,25 +198,25 @@ JavaScript has function scope by default - meaning that every function creates a
   // BUT THIS WILL THROW AN ERROR
   let message = "This is the first message.";
   let message = "This is the second message."; // <== Duplicate declaration "message" 
-  ```
-
+```
   
 
-  #### `const` variables must be initialized in the moment of declaration.
-
+  
+#### `const` variables must be initialized in the moment of declaration.
+  
   ```js
   const name1 = "John"; // <== CORRECT
   
   const name2;
   name2 = "John"; // WRONG! - This will throw an Error
-  ```
-
+```
   
 
   
 
-  #### `const` variables can't be redeclared or assigned new value
-
+  
+#### `const` variables can't be redeclared or assigned new value
+  
   ```js
   // THIS WILL THROW AN ERROR
   const message = "This is the first message.";
@@ -224,14 +225,14 @@ JavaScript has function scope by default - meaning that every function creates a
   // AND THIS WILL THROW AN ERROR
   const message = "This is the first message.";
   const message = "This is the second message."; // <== Duplicate declaration "message" 
-  ```
-
+```
   
 
-  #### `const` Objects and arrays can be mutated (BUT not reassigned). 
-
-  WE WILL SEE WHY IN THE NEXT LESSON ON MUTABILITY.
-
+  
+#### `const` Objects and arrays can be mutated (BUT not reassigned). 
+  
+WE WILL SEE WHY IN THE NEXT LESSON ON MUTABILITY.
+  
   ```js
   // This is ok ✅
   const obj = {};
@@ -240,8 +241,8 @@ JavaScript has function scope by default - meaning that every function creates a
   // This is not 🚨
   obj = { name: "Ironhacker" };
   // SyntaxError: Assignment to constant variable
-  ```
-
+```
+  
   
 
 ​    

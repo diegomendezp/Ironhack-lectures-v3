@@ -47,10 +47,24 @@ SKIP (**All primitive data types are immutable**. Objects are mutable)
 
 ### Create a folder structure
 
-```bash
-mkdir 05-js-numbers
 
-cd 05-js-numbers
+
+```bash
+mkdir 05-js-numbers-strings
+
+cd 05-js-numbers-strings
+
+vanilla-js
+
+code .
+```
+
+**or**
+
+```bash
+mkdir 05-js-numbers-strings
+
+cd 05-js-numbers-strings
 
 mkdir images scripts styles
 
@@ -91,9 +105,9 @@ Number  data type also supports a **special numeric values**:
 // Not a Number - represents an incorrect mathematical operation
 
 var name = "John"; // <== string data type
-var whatIsThis = name / 2;
+var nameDivided = name / 2;
 
-console.log(whatIsThis); // ==> NaN
+console.log(nameDivided); // ==> NaN
 ```
 
 
@@ -129,10 +143,10 @@ In javascript we can use operators to perform mathematical operations.
 ```js
 // Arithmetic operators
 
-console.log(2 + 2);
-console.log(4 - 2);
-console.log(3 * 2);
-console.log(6 / 2);
+console.log(2 + 2); // addition
+console.log(4 - 2); // subtraction
+console.log(3 * 2); // multiplication
+console.log(6 / 2); // division
 ```
 
 
@@ -154,7 +168,11 @@ console.log( 2**3 );  // => 8
 
 #### **Modulo**
 
-Modulo (`%`) is the remainder operator.  It calculates the remainder of a continuous division.
+Modulo (`%`) is the remainder operator.  
+
+It calculates the remainder of a continuous division.
+
+
 
 **USED FOR :**
 
@@ -162,7 +180,7 @@ Modulo (`%`) is the remainder operator.  It calculates the remainder of a contin
  - can be used for other more complex problems 
 
 ```js
-// Modulo
+// Modulo  %
 // remainder of a continuous division
 
 // Division example
@@ -239,7 +257,10 @@ An expression is a combination of any `value` (number, string, array, object) an
 
 So we can say that the following is the example of *expression*:
 
-```
+```js
+// Expression
+// Expression is a combination of any value and one or more operators that result in another value;
+
 2 + 4
 ```
 
@@ -254,13 +275,30 @@ console.log(result);
 
 
 
+
+
 How Does JavaScript know hot to put operators in order?
+
+
 
 ### Operator Precedence
 
 In mathematics and computer programming, the order of operations (or operator precedence) is the same.
 
-Same as in the math we have to follow **PEMDAS** rules.
+Same as in the math we have to follow **PEMDAS** order.
+
+```js
+// Operator precedence
+// PEMDAS
+//  () Parentheses
+//  ** Exponents
+//  *  Multiplication
+//  /  Division
+//  +  Addtion
+//  -  Subtraction
+```
+
+
 
 | Precedence | Operator | Name               |
 | ---------- | -------- | ------------------ |
@@ -297,7 +335,7 @@ This Parse Tree diagram may help you understand it more visually :)
 
 
 
-# **Exercise**: Guess the Expression Result!
+# **Exercise**: Guess the Expression Result! (5 min)
 
 ### [CODEPEN](https://codepen.io/Denzelzeldi/pen/rNBEgLR?editors=0012)
 
@@ -337,20 +375,39 @@ This object has built in methods that we can use to work with numbers.
 ​	
 
 ```js
-Math.round(4.7);    // returns 5
-Math.round(4.4);    // returns 4
+// Math object
+// Math has built in methods used to work with numbers
 
-Math.sqrt(64);      // returns 8
 
-Math.ceil(4.4);     // rounds the value up to nearest integer - returns 5
-Math.floor(4.7);    // rounds the value down to nearest integer - returns 4
+var result1 = Math.round(4.7);    // returns 5
+var result2 = Math.round(4.4);    // returns 4
+var result3 = Math.round(4.5);    // if .5 it rounds up
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round#Description
+
+console.log(result1);
+console.log(result2);
+console.log(result3);
+
+// Math.ceil() / Math.floor() - rounding up or down
+var result4 = Math.ceil(4.4);     // rounds up to nearest integer
+console.log(result5); // returns 5
+
+var result5 = Math.floor(4.7); // rounds down to nearest integer
+console.log(result6); // returns 4
 
 // Math.min() / Math.max() can be used to find the lowest or highest value in a list
-Math.min(0, 150, 30, 20, -8, -200);  // returns -200
-Math.max(0, 150, 30, 20, -8, -200);  // returns 150
+var min = Math.min(0, 150, 30, 20, -8, -200);  // returns -200
+var max = Math.max(0, 150, 30, 20, -8, -200);  // returns 150
 
-Math.random(); // returns random number between 0 and 0.99, 1 is excluded)
-Math.random() * 10; // returns a number between 0 and 9.9999
+console.log(min);
+console.log(max);
+
+// Creating random numbers
+var randomNum = Math.random(); // returns random number between 0 and 0.99, 1 is excluded)
+console.log(randomNum);
+
+var randomXTen = Math.random() * 10; // returns a number between 0 and 9.9999
+console.log(randomXTen);
 ```
 
 
@@ -408,7 +465,7 @@ Certain fractions in the binary numeral system are endless, **therefore computer
 **Example**:
 
 ```js
-0.4 + 0.1
+0.2 + 0.1
 0.30000000000000004
 ```
 
@@ -416,6 +473,15 @@ Certain fractions in the binary numeral system are endless, **therefore computer
 0.3 + 0.6
 0.8999999999999999
 ```
+
+```js
+0.05 + 0.01
+0.060000000000000005
+```
+
+
+
+### Solution
 
 
 
@@ -442,7 +508,9 @@ console.log(result);
 
 
 
-##### We can also multiply the float by some power of 10 in order to leverage `Math.round()`. Except sometimes a decimal of 5 is rounded down instead of up.
+##### We can also multiply the float by some power of 10 in order to leverage `Math.round()`. 
+
+##### Decimal of .5 is rounded up in JavaScript.
 
 
 
@@ -471,8 +539,8 @@ Important to remember is that you can use `toFixed` and in the future when you w
 **Example**
 
 ```js
-1 EUR = 100 cents;
-10 EUR = 1000 cents;
+//   1 EUR = 100 cents;
+//   10 EUR = 1000 cents;
 
 /* Divide the cents by 100 to get the decimal value */
 ```
@@ -502,9 +570,8 @@ isNaN(NaN) //true
 isNaN(0 / 0) //true
 
 // Caveats
-
-isNaN('') //false - **********  
-isNaN(true) //false  - ********
+isNaN('') //false - Empty string doesn't show as an illegal number/result  
+isNaN(true) //false  - Boolean value doesn't show as an illegal number/result  
 ```
 
 
@@ -634,10 +701,10 @@ var string3 = `string three`; // with back ticks - also called template literals
 // Templates literals/strings - using back ticks ``
 // We can embed variables and expressions with: ${}
 
-var name = 'Sarah';
-console.log(`Hello, ${name} !`);
+var username = 'Sarah';
+console.log(`Hello, ${username} !`);
 
-console.log(`${name}'s last name is O'Connor'`);
+console.log(`The username is: ${username}`);
 ```
 
 
@@ -791,6 +858,7 @@ JavaScript includes a **String library of methods** to simplify some of the most
 var emptyContainer = '';
 emptyContainer = emptyContainer += 'Hello';
 emptyContainer += ', welcome to Ironhack';
+
 console.log(emptyContainer);
 
 // When concatenating:  number + string --> string
@@ -828,10 +896,8 @@ console.log('myString.length', myString.length);
 
 console.log(myString[0]); // <== B
 console.log(myString[3]); // <== a
-console.log(myString[8]); // <== m
 console.log(myString[-2]); // undefined
 
-console.log(myString[11]); // undefined
 console.log(myString[myString.length]); // undefined
 console.log(myString[myString.length - 1 ]); // !
 
@@ -994,6 +1060,7 @@ console.log(sliceMinus);	//	happy
 
 - Most of the JavaScript String methods can be found at [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 - [Using special characters in strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Using_special_characters_in_strings)
+- https://www.sitepoint.com/javascript-operators-conditionals-functions/
 
 
 

@@ -28,13 +28,29 @@ For example, a <p> tag meaning is that the enclosed text is a paragraph.
 
 
 
-##### Examples of non-semantic elements:   ` <div>` and `<span>` - Tells nothing about its content.
-
-##### Examples of semantic elements: `<form>`, `<table>`, and `<article>` - Clearly defines its content.
 
 
+<br>
 
 
+
+
+
+##### - Examples of non-semantic elements:
+
+##### 	   ` <div>` and `<span>` - Tells nothing about its content.
+
+
+
+##### - Examples of semantic elements:
+
+##### 	 `<form>`, `<table>`, and `<article>` - Clearly defines its content.
+
+
+
+
+
+<br>
 
 
 
@@ -69,7 +85,14 @@ touch index.html
 code .
 ```
 
+### Teacher only (deactiveate prettier)
 
+```bash
+touch .prettierignore
+echo -e "**/*.js \n**/*.html" >> .prettierignore
+```
+
+<br>
 
 
 
@@ -157,6 +180,27 @@ code .
 
 <br>
 
+### Basic skeleton/outline of container elements on our page
+
+##### `index.html`
+
+```html
+  <nav></nav>
+
+  <main>
+    <header></header>
+
+    <section></section>
+
+    <section></section>
+  </main>
+
+
+  <footer></footer>
+```
+
+<br>
+
 
 
 ### [Semantic HTML - Demo Example Done - gist](https://gist.github.com/ross-u/01a0d06dcee8d980c21015192f741b7f)
@@ -178,14 +222,16 @@ code .
       <a href=""> Gallery</a>
       <a href="">Contact</a>
     </nav>
-
-    <header>
-      <h1>
-        Sarah O'Connor Fanpage
-      </h1>      
-    </header>
       
     <main>
+      
+		<!--  header is container for introductory content of one section of the page  -->
+    <!--  we can have multiple headers in one document  -->
+    <header>
+      <h1>
+        Sarah O'Connor Fan Page
+      </h1>      
+    </header>
         
       <section>
         <h2>Welcome</h2>
@@ -195,15 +241,15 @@ code .
 inlcuding the <figcaption> holding a caption for the figure/image
 -->
         <figure>
-          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/81/Sarah_Connor_%28Linda_Hamilton%29.jpg/220px-Sarah_Connor_%28Linda_Hamilton%29.jpg" 
-               alt="Sarah O'Connor movie screenshot">
+          <img src="https://i.imgur.com/ok9JK16.jpg" alt="Sarah O'Connor movie screenshot">
+          
           <figcaption>
             Source: <a href="">Wikipedia</a>
           </figcaption>
         </figure>
         
         <article>
-          <h3>About</h3>
+          <h2>About</h2>
           <p>Sarah Connor is a fictional character in the
             <mark>Terminator</mark> franchise. 
           </p>
@@ -226,14 +272,29 @@ inlcuding the <figcaption> holding a caption for the figure/image
 		The HTML Inline Frame element (<iframe>) represents a nested browsing context, embedding another HTML page into the current one.
 While theoretically you can use as many <iframe>s as you like, check for performance problems.
 		-->
-    <iframe width="600" 
-            height="400" 
-            src="https://www.youtube.com/embed/heJBfReQF9Q"
+    <iframe 
+    	width="600" 
+      height="400" 
+      src="https://www.youtube.com/embed/D6admCYgHZM"
     >
     </iframe>
+    
+    <iframe
+      width="600" 
+      height="400" 
+      src="https://en.wikipedia.org/wiki/Sarah_Connor_(Terminator)"
+    >
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    
+    
 
     <footer>
       <small> Copyrights ----- 2019 </small>
+      
+      <!-- <small> represents side-comments and small print, 
+			like copyright and legal text, independent of its styled presentation 
+			-->
     </footer>
   
   </body>
@@ -280,14 +341,12 @@ Declaring a language is important for screen readers and search engines. Use `la
 
 
 
-## Link Titles
-
-The `title` attribute specifies extra information about an element. 
-
-```html
-<a href="https://www.google.com/" title="Click link to visit Google.com">Google</a>
-```
+<br>
 
 
 
+### Additional Reading on semantic elements and Accessibility
 
+https://developers.google.com/web/fundamentals/accessibility
+
+https://inclusive-components.design/

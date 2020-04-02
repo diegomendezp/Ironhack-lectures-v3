@@ -8,11 +8,11 @@
 
 
 
-```css
-<ul> /* parent */
-  <li class="menu-item"></li>  /* child */
-  <li class="menu-item"></li>  /* child */
-</ul>
+```html
+    <ul> <!-- parent -->
+      <li class="menu-item">Menu item 1</li>  <!-- child -->
+      <li class="menu-item">Menu item 2</li>  <!-- child -->
+    </ul>
 ```
 
 
@@ -161,6 +161,7 @@ selector1, selector2 {
 **Example**
 
 ```html
+<h2><em>Multiple selection</em> </h2>
 <div>
   <h1>Heading h1</h1>
   <h2>Heading h2</h2>
@@ -211,13 +212,17 @@ You can mix selectors as much as you need to create awesome and beautiful web pa
 
 ## Attribute Selector
 
-```
+
+
+### [OPEN IN CODEPEN](https://codepen.io/Denzelzeldi/pen/gOpEBzV?editors=1100)
+
+
+
+```css
 element[attr-name="value"] {
   property: value;
 }
 ```
-
-<iframe height="265" src="http://codepen.io/ironhack/embed/GjAWAo/?height=265&amp;theme-id=light&amp;default-tab=html,result&amp;embed-version=2" allowfullscreen="true" style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.35px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; width: 720px;"></iframe>
 
 
 
@@ -235,9 +240,7 @@ element[attr-name="value"] {
 
 
 
-**Check out the code pen and try to understand it** - 
 
-<iframe height="265" src="http://codepen.io/ironhack/embed/RGGQWr/?height=265&amp;theme-id=light&amp;default-tab=html,result&amp;embed-version=2" allowfullscreen="true" style="box-sizing: border-box; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.35px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; width: 720px;"></iframe>
 
 ## Summary
 

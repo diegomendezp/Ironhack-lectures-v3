@@ -12,6 +12,8 @@
 
 ##### every box has content area, padding, border and margin.
 
+### [OPEN IMAGE](https://i.imgur.com/LF204FU.gif)
+
 ![img](https://i.imgur.com/LF204FU.gif)
 
 
@@ -77,9 +79,11 @@ div {
 **syntax**
 
 ```css
-element {
-	padding: [padding-top], [padding-right], [padding-bottom], [padding-left];
-}
+/* PADDING PROPERTY
+	padding: <padding-top>, <padding-right>, <padding-bottom>, <padding-left>;
+  padding: <padding top and bottom>, <padding left and right>
+  padding: <padding on all 4 sides>;
+*/
 ```
 
  OR
@@ -132,25 +136,12 @@ with `padding: 10px` what are the width and height of the div ?
 **syntax**
 
 ```css
-element {
-	margin: [margin-top], [margin-right], [margin-bottom], [margin-left];
-}
-```
+/* MARGIN PROPERTY
 
- OR
-
-```css
-element {
-	margin: <margin top and bottom>, <margin left and right>
-}
-```
-
- OR
-
-```css
-element {
-	margin: <margin on all 4 sides>
-}
+	margin: <margin-top>, <margin-right>, <margin-bottom>, <margin-left>;
+  margin: <margin top and bottom>, <margin left and right>
+  margin: <margin on all 4 sides>
+*/
 ```
 
 
@@ -166,7 +157,7 @@ element {
     border: 3px solid green;
     padding: 10px;
 	  margin: 10px 20px; /* margin-top and margin-bottom 10px */
-		    		   /* margin-right and margin-left 20px */
+                      /* margin-right and margin-left 20px */
 }
 
 
@@ -189,7 +180,9 @@ The [top](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-top) and [bott
 
 
 
-**Example**  <https://codepen.io/Denzelzeldi/pen/xBoLmb>
+## Example
+
+###  [MARGIN COLLAPSING - CODEPEN](https://codepen.io/Denzelzeldi/pen/xBoLmb)
 
 
 
