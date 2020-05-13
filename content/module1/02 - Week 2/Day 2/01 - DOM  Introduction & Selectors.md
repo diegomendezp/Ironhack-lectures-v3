@@ -2,7 +2,7 @@
 
 
 
-The Document Object Model (DOM) is an [API (Application Programming Interface)](https://en.wikipedia.org/wiki/Application_programming_interface) for HTML documents. 
+The Document Object Model (DOM) is an Interface - the way to interact with for HTML documents. ([API (Application Programming Interface)](https://en.wikipedia.org/wiki/Application_programming_interface) )
 
 
 
@@ -39,20 +39,46 @@ One parent can have one or many children nodes.
 **Code Along**
 
 ```bash
-mkdir dom-intro
-cd dom-intro
-touch dom.html
-touch index.js
+mkdir 00-dom-intro
+cd 00-dom-intro
+
+vanilla-js
+
 code .
 ```
 
 
 
+<br>
+
+
+
 ```html
+<!DOCTYPE>
+<html>
+<head>
+  <title>DOM Intro</title>
+</head>
+<body>
+  <h1>DOM INTRO</h1>
+ 	<div id="first"></div>
+ 	<div id="second"></div>
+ 	<div class="third"></div>
+ 	<div class="third"></div>
+ 	<div class="third"></div>
 
-
-
+    <!-- Load the .js file at the end so that 
+      it executes only after the DOM is ready -->
+    <script src="index.js"></script>
+</body>
+</html>
 ```
+
+
+
+
+
+<br>
 
 
 

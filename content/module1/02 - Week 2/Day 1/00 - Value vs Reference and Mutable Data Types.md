@@ -20,7 +20,7 @@ There are 7 basic *data types* in *JavaScript*.  Primitive data types are string
 
 
 
-[OPEN IMAGE](https://dotnettricks.blob.core.windows.net/img/javascript/js-datatype.png)
+### [OPEN IMAGE](https://dotnettricks.blob.core.windows.net/img/javascript/js-datatype.png)
 
 
 
@@ -85,48 +85,45 @@ The object reference points to that object's location in memory.
 
 **When we assign an object or array to a variable, what is assigned/given to the variable?**
 
-```js
-var myArr = [];
-
-```
 
 
 
-- **Answer**: Variable is assigned/given the “address in memory” which is the reference to that object or array, not the values.he reference in the memory.
 
-  
-
-  
-
-  
-
-- **QUICK QUESTION** 
+- **QUESTION** 
 
   ```js
-  const arr = []; // this creates an array in the memory
+  const myArr = []; // this creates an array in the memory
   
-  /* What does the arr variable hold?
-  	a) the copy of the object
+  // What does the `arr` variable hold?
+  
+  /*
+    a) the copy of the object
   	b) the memory address, location of the array.
-  */
+*/
   ```
 
   
 
   
 
+  **Answer**: Variable is assigned/given the “address in memory” which is the reference to that object or array, not the values.he reference in the memory.
+
+  
+
+  <br>
+
   
 
   ## `==` and `===`
 
   Both equality operators, `==` and `===`, when used on reference-type variables, they check if the reference is the same. 
-
   
-
+  
+  
   If the variables contain a reference to the same item in the memory, it returns `true`.
-
   
-
+  
+  
   **IMPORTANT** -  2 objects or arrays look completely the same, but they don't reference the same object/array in the memory, they are not the same (when compared == / ===) .
   
   ```js
@@ -141,19 +138,19 @@ var myArr = [];
   console.log(arr1 === arr2);	//	false
   
   // Even if the objects contain identical properties
-  console.log(obj1 == obj2);	// false
+console.log(obj1 == obj2);	// false
   console.log(obj1 === obj2);	//	false
-  
+
   // During assignment `=` the reference (memory address) is being copied
-  let arr3 = arr1;
+let arr3 = arr1;
   console.log(arr3 === arr1);
   
   let obj3 = obj1;
-console.log( obj3 === obj1);
+  console.log( obj3 === obj1);
   ```
-
   
-
+  
+  
   ### Let's practice :
   
   
@@ -162,7 +159,7 @@ console.log( obj3 === obj1);
   
   ```js
   let obj1 = {
-    title: "foo";
+	  title: "foo";
   }
   
   let obj2 = obj1;
@@ -170,7 +167,7 @@ console.log( obj3 === obj1);
   obj2.title = 'bar';
   
   
-	console.log(obj1.title); // ->   What is the result?
+  console.log(obj1.title); // ->   What is the result?
   ```
   
   
@@ -222,13 +219,24 @@ We can use it to copy objects and arrays as well.
   #### copying via Object.assign (using empty object as a destination)
 
   ```js
-let brand = { brand: 'Toyota'. color: 'blue'}
+// Object.assign()
+/* // Syntax:
 
-let car = Object.assign({} , brand);
+  Object.assign(destinationObject, sourceObject) 
 
-let newCar = Object.assign({} , car);
+*/
 
-  // newCar is an exact copy of car, but they are 2 different objects in the memory (different addresses)
+const description = { brand: 'Apple', color: 'silver gray'}
+
+const mac = Object.assign({} , description);
+
+const newMac = Object.assign({} , laptop);
+
+  // `newMac` is an exact copy of `mac`, but they are 2 different objects in the memory (different addresses)
+
+
+// We can specify additional sources after the second parameter
+const bestMac = Object.assing({}, newLaptop, {size: '16in', year: '2020'} );
 
   ```
 
@@ -452,13 +460,13 @@ Immutable are ones that perform an action but don't change the original object o
 
 ##### Array methods - mutable/immutable
 
-| Mutable methods | Immutable methods                | What they do |
-| :-------------- | :------------------------------- | :----------- |
-| .push()         | .concat()                        | adding       |
-| .unshift()      | ES6 spread operator              | adding       |
-| .splice()       | .slice()                         | removing     |
-| .pop()          | .slice() and ES6 spread operator | removing     |
-| .shift()        | .filter()                        | removing     |
+| Mutable methods | Immutable method alternative             | What they do |
+| :-------------- | :--------------------------------------- | :----------- |
+| `.push()`       | `.concat()`                              | adding       |
+| `.unshift()`    | `...` ES6 spread operator                | adding       |
+| `.splice()`     | `.slice()`                               | removing     |
+| `.pop()`        | `.slice()` and `...` ES6 spread operator | removing     |
+| `.shift()`      | `.filter()`                              | removing     |
 
 
 

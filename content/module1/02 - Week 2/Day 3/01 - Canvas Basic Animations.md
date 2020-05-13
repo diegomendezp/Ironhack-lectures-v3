@@ -67,16 +67,17 @@ To ensure canvas dimensions are rendered properly they have to be set in pixels.
 ##### `main.css`
 
 ```css
-canvas {
-  border: 3px solid red;
-  visibility: hidden;  
+body {
+  margin: 0; /* This removes the margin of the browser's default styling */
+  overflow: hidden; /* This prevents scroll overflow showing */
+  height: 100vh;
 }
 
-body {
-  margin: 0;  /* This removes the margin of the browser's default styling */
-  overflow: hidden; 
-  /* This prevents scroll overflow showing */
+#main-canvas {
+  border: 3px solid red;
+  visibility: hidden;
 }
+
 ```
 
 
@@ -84,18 +85,22 @@ body {
 **index.js**
 
 ```js
+const canvas = document.getElementById('main-canvas');
+const ctx = canvas.getContext('2d');
+
 // SET CANVAS DIMENSIONS
 // When page loads, canvas and context are created, and
 // dimensions of the canvas are set
 window.addEventListener('load', () => {
-  const canvas = document.getElementById('main-canvas');
-  const ctx = canvas.getContext('2d');
-
   canvas.height = document.body.clientHeight;
   canvas.width = document.body.clientWidth;
+
+  console.log(canvas.width);
+  console.log(canvas.height);
+
+  
   canvas.style.visibility = "visible";
 });
-
 ```
 
 
@@ -256,7 +261,7 @@ We will work with rendering DOM elements. LAter we will do the real example of r
 
 
 
-**index.html**
+##### `index.html`
 
 ```html
 <canvas id="main-canvas" width="700" height="700"></canvas>
@@ -266,11 +271,26 @@ We will work with rendering DOM elements. LAter we will do the real example of r
 
 
 
-**index.js**
+##### `style.css`
+
+```css
+button {
+  position: fixed;
+  top: 0;
+}
+```
+
+
+
+
+
+##### `index.js`
 
 ```js
 const canvas = document.getElementById("main-canvas");
 const ctx = canvas.getContext("2d");
+
+
 const button = document.querySelector('button');
 
 ctx.fillStyle = "red";  // set fill style for all of the squares

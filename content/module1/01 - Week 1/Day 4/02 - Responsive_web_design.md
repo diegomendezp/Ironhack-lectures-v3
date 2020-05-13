@@ -137,6 +137,10 @@ This rules determine when another CSS style starts applying. We call this a brea
 
 
 
+
+
+
+
 ```css
 body {
   background: white;
@@ -265,24 +269,27 @@ CSS viewport units were specially are units relative to the viewport size.
 
 
 
-**Example** - USE CODEPEN
+### [OPEN IN CODEPEN](https://codepen.io/Denzelzeldi/pen/jOPRBpJ?editors=1100)
 
 ```html
 <html>
   <head>.....</head>
   <body>
-    <h1>Champions League Champions</h1>
+    <h1>Superheroes</h1>
     <ul>
-      <li>Real Madrid</li>
-      <li>FC Barcelona</li>
-      <li>Juventus</li>
-      <li>Manchester United</li>
+      <li>Superman</li>
+      <li>Catwoman</li>
+      <li>Captain Marvel</li>
+      <li>Batman</li>
+      <li>Kat Kane / Batwoman</li>
+      <li>Spider man</li>
     </ul>
   </body>
 </html>
 ```
 
 ```css
+/* Root element font-size serves as a reference for the `rem` unit*/
 html {
   font-size: 10px;
 }
@@ -291,6 +298,7 @@ h1 {
   font-size: 3.5rem
 }
 
+/* Font size of the parent element serves as the reference for the `em` unit*/
 ul {
   font-size: 20px;
 }
@@ -313,11 +321,7 @@ li {
 
 #### 
 
-
-
-## [Video - CSS Units / Box Dimensions](https://www.youtube.com/watch?v=2B_uJhpSIC4)
-
-
+<br>
 
 
 
@@ -395,6 +399,11 @@ p {
   text-align: center;
   font-size: 24px;
 }
+```
+
+
+
+```css
 
 /* MAKING THE IMAGE RESPONSIVE */
 img {
@@ -404,6 +413,8 @@ img {
 ```
 
 
+
+<br>
 
 
 
@@ -452,9 +463,43 @@ img {
 
 
 
+```css
+/* 
+
+Common device widths (Generalized - not a set standard)
+
+XS - 360px w
+
+SM - 480px w
+
+MD - 768px w
+
+LG - 1024px w
+
+XL - 1440px w
+
+4K - 2560px w
+
+*/
+```
+
+
+
 ### [List of Mobile and Tablet viewport sizes](https://docs.adobe.com/content/help/en/target/using/experiences/vec/mobile-viewports.html)
 
 
+
+
+
+<br>
+
+
+
+### [Video - CSS Units / Box Dimensions](https://www.youtube.com/watch?v=2B_uJhpSIC4)
+
+
+
+<br>
 
 
 

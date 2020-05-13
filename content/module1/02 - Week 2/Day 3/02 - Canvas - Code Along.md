@@ -169,11 +169,11 @@ html, body {
 // Creates DOM elements from a string representation
 function buildDom() {};
 
-// Runs on initial start and contains calls all other functions that manage the game
+// Runs on initial start and contains/calls all other functions that manage the game
 function main() {
-  var game; // instance of the Game
-  var splashScreen; // Start Screen
-  var gameOverScreen;
+  let game; // instance of the Game
+  let splashScreen; // Start Screen
+  let gameOverScreen;
 
     
   // -- splash screen
@@ -241,7 +241,7 @@ Notice that we called the `createSplashScreen` at the end of `main`, therefore l
 ```js
 // buildDom
 function buildDom(htmlString) {
-  var div = document.createElement('div');
+  const div = document.createElement('div');
   div.innerHTML = htmlString;
   return div.children[0];
 };
@@ -264,7 +264,7 @@ function buildDom(htmlString) {
       
     document.body.appendChild(splashScreen);
 
-    var startButton = splashScreen.querySelector('button');
+    const startButton = splashScreen.querySelector('button');
     startButton.addEventListener('click', function() {
       console.log('You clicked Start!');
         
@@ -313,7 +313,7 @@ function buildDom(htmlString) {
   // -- game screen
 
   function createGameScreen() {
-    var gameScreen = buildDom(`
+    const gameScreen = buildDom(`
     <main class="game container">
       <header>
         <div class="lives">
@@ -359,7 +359,7 @@ function buildDom(htmlString) {
   function startGame() {
     removeSplashScreen();
 
-    var gameScreen = createGameScreen();
+    let gameScreen = createGameScreen();
   }
 ```
 
@@ -384,7 +384,7 @@ function buildDom(htmlString) {
   // ...
     //  ...
 
-    var startButton = splashScreen.querySelector('button');
+    const startButton = splashScreen.querySelector('button');
     //startButton.addEventListener('click', function() {
       //console.log('You clicked Start!');
     //});
@@ -419,31 +419,32 @@ function buildDom(htmlString) {
 ```js
 'use strict';
 
-function Game() {
-  this.canvas = null;
-  this.ctx = null;
-  this.enemies = [];
-  this.player = null;
-  this.gameIsOver = false;
-  this.gameScreen = null;
+class Game {
+  constructor() {
+    this.canvas = null;
+    this.ctx = null;
+    this.enemies = [];
+    this.player = null;
+    this.gameIsOver = false;
+    this.gameScreen = null;
+    this.score = 0;
+  }
+  
+  // Create `ctx`, a `player` and start the Canvas loop
+  start() {};
+
+  startLoop() {};
+
+  checkCollisions() {};
+
+  updateGameStats() {};
+
+  gameOver() {};
+  
+  passGameOverCallback(callback) {};
+
+  removeGameScreen() {};
 }
-
-
-// Create `ctx`, a `player` and start the Canvas loop
-Game.prototype.start = function() {};
-
-Game.prototype.startLoop = function() {};
-
-Game.prototype.checkCollisions = function() {};
-
-Game.prototype.updateGameStats = function() {};
-
-Game.prototype.passGameOverCallback = function(callback) {};
-
-Game.prototype.gameOver = function() {};
-
-Game.prototype.removeGameScreen = function() {};
-
 ```
 
 
@@ -503,7 +504,9 @@ This method will be the initiator of every new game, and does the following :
 ##### `game.js`
 
 ```js
-Game.prototype.start = function() {
+// start() method on the Game prototype
+
+start() {
   
   // Save reference to canvas and container. Create ctx
   this.canvasContainer = document.querySelector('.canvas-container');
@@ -588,29 +591,32 @@ function startGame() {
 ##### `player.js`
 
 ```js
-'use strict';
+"use strict";
 
-function Player(canvas, lives) {
-  this.canvas = canvas;
-  this.ctx = this.canvas.getContext('2d');
+class Player {
+  constructor(canvas, lives) {
+    this.canvas = canvas;
+    this.ctx = this.canvas.getContext("2d");
+
+    this.lives = lives;
+    this.size = 100;
+    this.x = 50;
+    this.y = canvas.height / 2;
+    this.direction = 0;
+    this.speed = 5;
+  }
+
+  setDirection(direction) {}
+
+  handleScreenCollision() {}
+
+  removeLife() {}
+
+  draw() {}
   
-  this.lives = lives;
-  this.size = 100;
-  this.x = 50;
-  this.y = canvas.height / 2;
-  this.direction = 0;
-  this.speed = 5;
+  didCollide(enemy) {}
+
 }
-
-Player.prototype.setDirection = function(direction) {};
-
-Player.prototype.didCollide = function(enemy) {};
-
-Player.prototype.handleScreenCollision = function() {};
-
-Player.prototype.removeLife = function() {};
-
-Player.prototype.draw = function() {};
 ```
 
 
@@ -637,9 +643,9 @@ Player.prototype.draw = function() {};
 ##### `player.js`
 
 ```js
-// setDirection()
+// setDirection()  - method on the Player prototype
 
-Player.prototype.setDirection = function(direction) {
+setDirection (direction) {
   // +1 down  -1 up
   if (direction === 'up') this.direction = -1;
   else if (direction === 'down') this.direction = 1;
@@ -651,12 +657,12 @@ Player.prototype.setDirection = function(direction) {
 ##### `player.js`
 
 ```js
-// handleScreenCollision()
+// handleScreenCollision()  - method on the Player prototype
 
-Player.prototype.handleScreenCollision = function() {
+handleScreenCollision () {
   this.y = this.y + this.direction * this.speed;
-  var screenTop = 0;
-  var screenBottom = this.canvas.height;
+  const screenTop = 0;
+  const screenBottom = this.canvas.height;
 
   if (this.y > screenBottom) this.direction = -1;
   else if (this.y < screenTop) this.direction = 1;
@@ -668,9 +674,9 @@ Player.prototype.handleScreenCollision = function() {
 ##### `player.js`
 
 ```js
-// removeLife()
+// removeLife()  - method on the Player prototype
 
-Player.prototype.removeLife = function() {
+removeLife () {
   this.lives -= 1;
 };
 ```
@@ -680,18 +686,13 @@ Player.prototype.removeLife = function() {
 ##### `player.js`
 
 ```js
-// draw()
+// draw()  - method on the Player prototype
 
-Player.prototype.draw = function() {
-  this.ctx.fillStyle = '#66D3FA';
+draw() {
+  this.ctx.fillStyle = "#66D3FA";
   // fillRect(x, y, width, height)
-  this.ctx.fillRect(
-    this.x,
-    this.y,
-    this.size,
-    this.size,
-  );
-};
+  this.ctx.fillRect(this.x, this.y, this.size, this.size);
+}
 ```
 
 
@@ -709,22 +710,22 @@ Player.prototype.draw = function() {
 
 
 
-##### 1. Create  `new` `Player` instance .
+##### 1. Create the  `new` `Player` instance .
 
-##### 2. Create `handleKeyDown` function.
+##### 2. Create the `handleKeyDown` function.
 
-##### 2.  Add event listener, with callback - `handleKeyDown` .
+##### 2.  Add the event listener, with callback - `handleKeyDown` , listening on keyboard key press.
 
-##### 3.  Bind event callback  `handleKeyDown` .
+##### 3.  Bind event callback  `handleKeyDown`, as the context (`this` value) of event callbacks  is the global  `Window`  object.
 
 
 
 ##### `game.js`
 
 ```js
-// start()
+// start()  - method on the Game prototype
 
-Game.prototype.start = function() {
+start () {
   
 //	...
 	//	...
@@ -748,13 +749,11 @@ Game.prototype.start = function() {
     }
   };
     
+  
   // Add event listener for moving the player
   
+  document.body.addEventListener('keydown', this.handleKeyDown.bind(this) );
   
-  document.body.addEventListener(
-      'keydown', 
-      this.handleKeyDown.bind(this)
-  );
   // Any function provided to eventListener 
   // is always called by window (this === window)!
   // So, we have to bind `this` to the `game` object,
@@ -811,22 +810,25 @@ Game.prototype.start = function() {
 ##### `enemy.js`
 
 ```js
-'use strict';
+"use strict";
 
-function Enemy(canvas, y, speed) {
-  this.canvas = canvas;
-  this.ctx = canvas.getContext('2d');
-  this.size = 20;
-  this.x = canvas.width + this.size;
-  this.y = y;
-  this.speed = speed;
+class Enemy {
+  constructor(canvas, y, speed) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
+    this.size = 20;
+    this.x = canvas.width + this.size;
+    this.y = y;
+    this.speed = speed;
+  }
+
+  draw() {}
+
+  updatePosition() {}
+
+  isInsideScreen() {}
 }
 
-Enemy.prototype.draw = function() {};
-
-Enemy.prototype.updatePosition = function() {};
-
-Enemy.prototype.isInsideScreen = function() {};
 ```
 
 
@@ -857,9 +859,9 @@ Enemy.prototype.isInsideScreen = function() {};
 ##### `enemy.js`
 
 ```js
-// draw()
+// draw()  - method on the Enemy prototype
 
-Enemy.prototype.draw = function() {
+draw () {
   this.ctx.fillStyle = '#FF6F27';
   
   // fillRect(x, y, width, height)
@@ -877,9 +879,9 @@ Enemy.prototype.draw = function() {
 ##### `enemy.js`
 
 ```js
-// updatePosition()
+// updatePosition()  - method on the Enemy prototype
 
-Enemy.prototype.updatePosition = function() {
+updatePosition () {
   this.x = this.x - this.speed;
 };
 ```
@@ -889,9 +891,9 @@ Enemy.prototype.updatePosition = function() {
 ##### `enemy.js`
 
 ```js
-// isInsideScreen()
+// isInsideScreen()  - method on the Enemy prototype
 
-Enemy.prototype.isInsideScreen = function() {
+isInsideScreen () {
   // if x plus half of its size is smaller then 0 return
   return this.x + this.size / 2 > 0;
 };
@@ -917,10 +919,10 @@ Enemy.prototype.isInsideScreen = function() {
 ##### `game.js`
 
 ```js
-// startLoop()
+// startLoop()  - method on the Game prototype
 
-Game.prototype.startLoop = function() {
-  var loop = function() {
+startLoop () {
+  const loop = function() {
     console.log('in loop');
       
     // EVERYTHING HAPPENS HERE !
@@ -1006,8 +1008,10 @@ Game.prototype.startLoop = function() {
 
 
 ```js
-Game.prototype.startLoop = function() {
-  var loop = function() {
+// startLoop()  - method on the Game prototype
+
+startLoop () {
+  const loop = function() {
     
 // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
   
@@ -1063,8 +1067,10 @@ Game.prototype.startLoop = function() {
 ##### `game.js`
 
 ```js
-Game.prototype.startLoop = function() {
-  var loop = function() {
+// startLoop()  - method on the Game prototype
+
+startLoop () {
+  const loop = function() {
 // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
 
     // 0. Our player was already created - via `game.start()`
@@ -1153,9 +1159,9 @@ Game.prototype.startLoop = function() {
 ##### `game.js`
 
 ```js
-// checkCollisions()
+// checkCollisions()  - method on the Game prototype
 
-Game.prototype.checkCollisions = function() {
+checkCollisions () {
   
   this.enemies.forEach( function(enemy) {
     
@@ -1196,30 +1202,34 @@ Game.prototype.checkCollisions = function() {
 ##### `player.js`
 
 ```js
-Player.prototype.didCollide = function(enemy) {
-  var playerLeft = this.x;
-  var playerRight = this.x + this.size;
-  var playerTop = this.y;
-  var playerBottom = this.y + this.size;
+// didCollide() - method on the Player prototype
 
-  var enemyLeft = enemy.x;
-  var enemyRight = enemy.x + enemy.size;
-  var enemyTop = enemy.y;
-  var enemyBottom = enemy.y + enemy.size;
+didCollide(enemy) {
+    const playerLeft = this.x;
+    const playerRight = this.x + this.size;
+    const playerTop = this.y;
+    const playerBottom = this.y + this.size;
 
-  // Check if the enemy intersects any of the player's sides
-  var crossLeft = enemyLeft <= playerRight && enemyLeft >= playerLeft;
-    
-  var crossRight = enemyRight >= playerLeft && enemyRight <= playerRight;
-  
-  var crossBottom = enemyBottom >= playerTop && enemyBottom <= playerBottom;
-  
-  var crossTop = enemyTop <= playerBottom && enemyTop >= playerTop;
+    const enemyLeft = enemy.x;
+    const enemyRight = enemy.x + enemy.size;
+    const enemyTop = enemy.y;
+    const enemyBottom = enemy.y + enemy.size;
 
-  if ((crossLeft || crossRight) && (crossTop || crossBottom)) {
-    return true;
-  }
-  return false;
+    // Check if the enemy intersects any of the player's sides
+    const crossLeft = enemyLeft <= playerRight && enemyLeft >= playerLeft;
+
+    const crossRight = enemyRight >= playerLeft && enemyRight <= playerRight;
+
+    const crossBottom = enemyBottom >= playerTop && enemyBottom <= playerBottom;
+
+    const crossTop = enemyTop <= playerBottom && enemyTop >= playerTop;
+
+    if ((crossLeft || crossRight) && (crossTop || crossBottom)) {
+      return true;
+    }
+    else {
+      return false; 
+    }
 };
 ```
 
@@ -1240,20 +1250,23 @@ Player.prototype.didCollide = function(enemy) {
 
 
 
+The `gameOver` method will be used to set the `gameIsOver` flag, and to invoke the function `gameOver` from the `main.js` which removes the game screen and creates game over screen.
+
 
 
 ##### `game.js`
 
 ```js
-// gameOver()
+// gameOver() - method on the Game prototype
 
-Game.prototype.gameOver = function() {
+gameOver () {
   // flag `gameIsOver = true` stops the loop
   this.gameIsOver = true;
     
   console.log('GAME OVER');
   
-  // Call the gameOver function from `main` to show the Game Over Screen
+  // Call the `gameOver` function from `main` to remove the Game screen
+  // and show the Game Over Screen
   //...
 };
 ```
@@ -1263,7 +1276,7 @@ Game.prototype.gameOver = function() {
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">29</h2>
-### In order to get access to the function from the `main.js` we will pass it as a callback to our `game` object when new game is created.
+### In order to get access to the function `gameOver` from the `main.js` we will pass it as a callback to our `game` object when new game is created.
 
 
 
@@ -1307,9 +1320,9 @@ function startGame() {
 ##### `game.js`
 
 ```js
-// game.js   passGameOverCallback()
+// passGameOverCallback()  - method on the Game prototype
 
-Game.prototype.passGameOverCallback = function(gameOver) {
+passGameOverCallback (gameOver) {
   this.onGameOverCallback = gameOver;
 };
 ```
@@ -1319,15 +1332,17 @@ Game.prototype.passGameOverCallback = function(gameOver) {
 ##### `game.js`
 
 ```js
-// game.js   passGameOverCallback()
+// gameOver()  - method on the Game prototype
 
 
-Game.prototype.gameOver = function() {
+gameOver () {
   // flag `gameIsOver = true` stops the loop
   this.gameIsOver = true;
   
+  
   // Call the gameOver function from `main` to show the Game Over Screen
-  this.onGameOverCallback();
+
+  this.onGameOverCallback();     //    <--- UPDATE
 };
 ```
 
@@ -1345,9 +1360,9 @@ Game.prototype.gameOver = function() {
 ##### `game.js`
 
 ```js
-//	game.js	 removeGameScreen()
+// removeGameScreen()  - method on the Game prototype
 
-Game.prototype.removeGameScreen = function() {
+removeGameScreen () {
   this.gameScreen.remove(); // remove() is the DOM method which removes the DOM Node  
 };
 ```
@@ -1455,9 +1470,9 @@ function startGame() {
 ##### `game.js`
 
 ```js
-// 	game.js		updateGameStats()
+// updateGameStats()  -  method on the Game prototype
 
-Game.prototype.updateGameStats = function() {
+updateGameStats () {
   this.score += 1;
   this.livesElement.innerHTML = this.player.lives;
   this.scoreElement.innerHTML = this.score;
@@ -1467,9 +1482,9 @@ Game.prototype.updateGameStats = function() {
 
 
 ```js
-// 	game.js		startLoop()
+// startLoop()   -  method on the Game prototype
 
-Game.prototype.startLoop = function() {
+startLoop () {
   var loop = function() {
 
    ...

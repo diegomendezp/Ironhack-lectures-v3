@@ -148,7 +148,7 @@ This results in a slow user interaction.
 
 
 
-<u>Nowadays</u> mostly Applications are created  as <u>Single page applications</u> and have  two parts:
+<u>Nowadays</u> mostly Applications are created  as <u>Single pwage applications</u> and have  two parts:
 
 
 
@@ -179,8 +179,13 @@ This results in a slow user interaction.
 **Single**-**Page Applications** (SPAs) are:
 
 - Web apps that load a **single** **HTML** **page** (and connected `.js` scripts)
--  **update** the **views**  as the user interacts with the **app** (without requesting additional `.html` or `.js` files)
--  taking the data as a response coming from the API ( as a JSON ). 
+
+- app which **updates** the frontend **views**  as the user interacts with the **app** (without requesting additional `.html` or `.js` files)
+
+- Provides (well constructed) ways to the pass data around pages and components on the frontend.
+
+- Takes the data as a JSON response coming from the API ( as a JSON ). 
+
 - Typical examples of SPAs are Gmail or Twitter.
 
   
@@ -217,11 +222,21 @@ This results in a slow user interaction.
 
 
 
+### What is a Frontend Framework ?
+
+A *front-end framework* is a structure and a set of tools (JS libraries and packages)  and logic, put together to help developers build front end applications faster and easier.
+
+
+
+
+
 
 
 <a name="introduction-to-react"></a>
 
 ## Introduction to React
+
+#### [ReactJS - Official Website](https://reactjs.org/)
 
 
 
@@ -325,7 +340,7 @@ It’s used for handling view layer (front-end) for web and mobile apps.
 
 
 
-### [babel-standalone cdn](<https://github.com/babel/babel-standalone#usage>)
+### [babel-standalone cdn](https://babeljs.io/setup#installation)
 
 
 
@@ -559,7 +574,7 @@ touch src/App.css
   </head>
   <body>
     
-    <!-- this is the root of the React app-->
+    <!-- this is the root div where React app will be injected to DOM -->
     <div id="root"></div>
     
     <!-- this script is the build/bundle of the React app-->
@@ -869,13 +884,13 @@ export default App;
 
 
 
-<a name="create-a-component"></a>a
+<a name="create-a-component"></a>
 
 ### Exercise - Create a component
 
 
 
-Create a component `ListComponent.js` and insert if multiple times in the `App.js` component.
+Create a component `List.js` and insert if multiple times in the `App.js` component.
 
 
 
@@ -1006,3 +1021,44 @@ You can get more done in less time, and know that the framework code you're usin
 
 
 And the cost of this? Investing some time learning the framework
+
+
+
+
+
+
+
+
+
+----
+
+**EXERCISE EXPLANATION**
+
+- Clone the repo:
+
+```bash
+git clone https://github.com/ross-u/react-example-and-exercise.git
+```
+
+- Navigate to the folder `react-example-and-exercise` and run `npm i`
+- Inside of `src` create the file `List.js` for the new component.
+
+- `List.js` component should be displaying the following content:
+
+```html
+<div>
+  <h5>This is my List Component</h5>
+  <ul>
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+    <li>item 4</li>
+  </ul>
+</div>
+```
+
+
+
+- Import the component in App.js  and add it inside the render  after the <Apartment />  components.
+- Run the app buy running the `npm run webpack` .
+- Open `localhost:3000` to see the rendered app in the browser.

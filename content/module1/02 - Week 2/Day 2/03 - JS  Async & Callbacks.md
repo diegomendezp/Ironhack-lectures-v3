@@ -12,15 +12,32 @@ For older browsers, the whole browser shared one single thread between all the t
 
 
 
+**An interesting analogy** 
+
+> As a human being, you’re multithreaded. You can type with multiple fingers, you can drive and hold a conversation at the same time. 
+>
+> The only blocking function we have to deal with is sneezing, where all current activity must be suspended for the duration of the sneeze. 
+>
+> That’s pretty annoying, especially when you’re driving and trying to hold a conversation. 
+>
+> You don’t want to write code that’s sneezy.
 
 
-> As a human being, you’re multithreaded. You can type with multiple fingers, you can drive and hold a conversation at the same time. The only blocking function we have to deal with is sneezing, where all current activity must be suspended for the duration of the sneeze. That’s pretty annoying, especially when you’re driving and trying to hold a conversation. You don’t want to write code that’s sneezy.
+
+
+
+```js
+console.log('1');
+
+console.log('2');
+
+console.log('3');
+```
 
 
 
 
 
- *Potential Interview questions*:
 **JavaScript, at its core, is a single-threaded and synchronous language**, and this means next:
 
 - [**single-threaded**](https://en.wikipedia.org/wiki/Thread_(computing)#Single_threading) - **only one block of code is executed at the time**
@@ -35,21 +52,11 @@ For older browsers, the whole browser shared one single thread between all the t
 
 
 
-## Async & Callbacks
+## `setTimeout` & `setInterval`
 
 
 
-In asynchronous programs it is possible to have code on line 1 scheduled to be run at some point in the future so in the meantime, code on lines 2,3, and so on can run.
-
-
-
-
-
-### Callback Function - executed asynchronously
-
-The **callback function** contains the code that will be executed when the asynchronous function finishes its execution. (after some time, after some delay)
-
-
+`setTimeout` and `setInterval` enable us to run a function asynchronously, after a set timeout.
 
 
 
@@ -115,6 +122,18 @@ const timeoutId = setTimeout(() => {
 
 
 
+### Callback Function - executed asynchronously
+
+The **callback function** contains the code that will be executed when the asynchronous function finishes its execution. (after some time, after some delay)
+
+
+
+<br>
+
+
+
+
+
 ### Synchronous vs Asynchronous actions
 
 
@@ -123,10 +142,11 @@ const timeoutId = setTimeout(() => {
 
 ```js
 setTimeout(() => {
-  console.log('First')
+  console.log('First');
 }, 0);
 
 console.log('Second');
+
 console.log('Third');
 ```
 
@@ -145,11 +165,11 @@ console.log('Third');
 // Create a counter that will print a number in a sequence each second.
 
 let counter = 1;
-const callbackFunction = function () {
+function printCounter() {
   setTimeout(/* Your code here ... */);
 }
 
-let timeoutId = setTimeout(callbackFunction, 1000);
+let timeoutId = setTimeout( printCounter, 1000);
 
 
 
@@ -167,15 +187,15 @@ let timeoutId = setTimeout(callbackFunction, 1000);
 // Create a counter that will print a number in a sequence each second.
 
 let counter = 1;
-const callbackFunction = function () {
+function printCounter() {
   console.log(counter);
   counter += 1;
   
  	// new setTimeout calls the callbackFunction again
-  setTimeout(callbackFunction, 1000);
+  setTimeout(printCounter, 1000);
 }
 
-let timeoutId = setTimeout(callbackFunction, 1000);
+let timeoutId = setTimeout(printCounter, 1000);
 
 ```
 
@@ -185,19 +205,19 @@ let timeoutId = setTimeout(callbackFunction, 1000);
 
 ```js
 let counter = 1;
-const callbackFunction = function () {
+function printCounter() {
   console.log(counter);
   counter += 1;
   
  	// we save the id of the setTimeout to the timeoutId variable that is in the globaal scope
-  timeoutId = setTimeout(callbackFunction, 1000);
+  timeoutId = setTimeout(printCounter, 1000);
   
   if (counter > 10) {
     clearTimeout(timeoutId);
   }
 }
 
-let timeoutId = setTimeout(callbackFunction, 1000);
+let timeoutId = setTimeout(printCounter, 1000);
 ```
 
 

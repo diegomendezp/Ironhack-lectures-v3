@@ -47,9 +47,7 @@ Moving the values from one component to its parent in order for the common ances
 
 
 ```bash
-git clone https://github.com/ross-u/00-react-lifting-state-up.git
-
-cd 00-react-lifting-state-up
+npm 
 
 npm i
 

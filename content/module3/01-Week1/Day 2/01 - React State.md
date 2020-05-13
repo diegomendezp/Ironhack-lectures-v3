@@ -51,11 +51,13 @@ There will be a questionaire at the end of this lesson, you are expected to answ
 
 
 ```bash
-npx create-react-app 01-react-state-lecture
+npx create-react-app 01-react-state
 
-cd 01-react-state-lecture
+cd 01-react-state
 
 code .
+
+rm -rf .git
 ```
 
 

@@ -32,6 +32,8 @@ npx create-react-app 02-react-list-and-keys
 
 cd 02-react-list-and-keys
 
+rm -rf .git
+
 code .
 ```
 
@@ -149,13 +151,6 @@ import Navbar from './components/Navbar';
 import List from './components/List';
 
 // array of list item HTML elements that needs to be displayed
-const listItems = [
-  <li>1</li>,
-  <li>2</li>,
-  <li>3</li>,
-  <li>4</li>,
-  <li>5</li>
-];
 
 const names = ['Bob', 'Sarah', 'Anna', 'Marc'];
 
@@ -176,11 +171,9 @@ class App extends Component {
       <div className="App">
         <Navbar />
         
-        { /* EXAMPLE 1  - List from an array of elements */ }
+        { /* EXAMPLE 1 - List created by mapping over an array */ }
         
         { /* EXAMPLE 2 - List created by mapping over an array */ }
-        
-        { /* EXAMPLE 3 - List created by mapping over an array */ }
         
         
       </div>
@@ -197,6 +190,10 @@ export default App;
 
 
 
+
+
+
+
 #### EXAMPLE 1
 
 ##### `src/App.js`
@@ -204,34 +201,10 @@ export default App;
 ```jsx
 // src/App.js        
 
-				{ /* EXAMPLE 1  - List from an array of elements */ }
-        <h2>listItems</h2>
-        <ul>{ listItems }</ul>
-```
-
-
-
-
-
-
-
-<br>
-
-
-
-
-
-#### EXAMPLE 2
-
-##### `src/App.js`
-
-```jsx
-// src/App.js        
-
-				{ /* EXAMPLE 2 - List created by mapping over an array */ }
+				{ /* EXAMPLE 1 - List created by mapping over an array */ }
         <h2> Mapping over an array</h2>
         {
-          names.map( (name) => <h4>{name}</h4> )
+          names.map( (nameStr) => <h4>{nameStr}</h4> )
         }
 ```
 
@@ -239,14 +212,14 @@ export default App;
 
 <br>
 
-#### EXAMPLE 3
+#### EXAMPLE 2
 
 ##### `src/App.js`
 
 ```jsx
 // src/App.js
 
-				{ /* EXAMPLE 3 - List created by mapping over an array - in a component */ }
+				{ /* EXAMPLE 2 - List created by mapping over an array - in a component */ }
         <h2> List In a Component</h2>
         <List cities={cities} />
 ```
@@ -548,7 +521,7 @@ import React from 'react';
 // Destructuring the prop object immediately
 const Card = ({ movie }) => {
   return (
-    <div>
+    <div key={movie._id }>
       <h2>{movie.title}</h2>
       <p>Director: {movie.director}</p>
     </div>
@@ -581,7 +554,6 @@ export default Card;
 
 import React from 'react';
 import Card from './Card';
-import shortid from 'shortid';
 
 const movies = [
   { _id:"2143lkjgfw8", title: "Jurassic Park", director: "Steven Spielberg" },

@@ -6,7 +6,7 @@
 
 
 
-[React | Redux | React Native snippets](<https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets>) 
+[ES7 React | Redux | React Native snippets](<https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets>) 
 
 [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 

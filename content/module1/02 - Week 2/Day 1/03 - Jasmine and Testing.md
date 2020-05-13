@@ -38,17 +38,19 @@ The simple concept of TDD is to write and correct the failed tests before writin
 
 
 
+<br>
+
 
 
 ### 3 Phases of TDD
 
-
+### [OPEN IMAGE](https://www.izenbridge.com/wp-content/uploads/2014/05/phase11.png)
 
 ![img](https://www.izenbridge.com/wp-content/uploads/2014/05/phase11.png)
 
 
 
-### [OPEN IMAGE](https://www.izenbridge.com/wp-content/uploads/2014/05/phase11.png)
+### 
 
 
 
@@ -111,9 +113,6 @@ function centsToDecimals(centValue) {
 // Should return undefined when the parameter is not passed
 
 // Should convert value from cents to floating point number with 2 decimals
-
-// Should return a string representation of a number with `$` sign appended at the end
-
 ```
 
 
@@ -162,8 +161,8 @@ console.log(centsToDecimals() === undefined);
 console.log(
   "\n -->  should convert value from cents to a string, representing floating point number with 2 decimals"
 );
-console.log(centsToDecimals(1000).slice(0, 5) === "10.00"); 
-console.log(centsToDecimals(50273).slice(0, 6) === "502.73");
+console.log(centsToDecimals(1000) === "10.00"); 
+console.log(centsToDecimals(50273) === "502.73");
 // Instead of the entire string, we just want numbers without currency   -> 10.00$
 
 
@@ -182,15 +181,6 @@ console.log(assertion1 === "10.00");
 console.log(assertion2 === "502.73");
 
 */
-
-
-// 5
-console.log(
-  "\n -->  should return a string representation of a number with `$` sign appended at the end"
-);
-console.log(centsToDecimals(0) === "0.00$");
-console.log(centsToDecimals(999) === "9.99$");
-
 ```
 
 
@@ -299,7 +289,20 @@ function centsToDecimals(centValue) {
 
 
 
-#### Pass Test 5 -
+#### Bonus - Add new test and Pass it -
+
+```js
+// Should return a string representation of a number with `$` sign appended at the end
+
+// 5
+console.log(
+  "\n -->  should return a string representation of a number with `$` sign appended at the end"
+);
+console.log(centsToDecimals(0) === "0.00$");
+console.log(centsToDecimals(999) === "9.99$");
+```
+
+
 
 ```js
 // STEP 2
@@ -490,3 +493,5 @@ describe("centsToDecimals function", function () { // Describes the suite / grou
 });
 
 ```
+
+Furthermore 

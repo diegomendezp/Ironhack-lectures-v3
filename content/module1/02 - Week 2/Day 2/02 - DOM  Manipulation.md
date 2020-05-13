@@ -22,10 +22,10 @@ During the execution of our application, the users will interact with the page, 
 ### **Code Along**
 
 ```bash
-mkdir dom-manipulation
-cd dom-manipulation
+mkdir 01-dom-manipulation
+cd 01-dom-manipulation
 
-touch index.html index.js
+vanilla-js
 
 code .
 ```
@@ -238,7 +238,7 @@ body.appendChild(articleContent);
 **index.js**
 
 ```js
-// 1. Create an image node in your JavaScript file:
+// 1. Create an image node
 
 
 // 2. Add the src attribute with the link to an image
@@ -269,7 +269,15 @@ body.appendChild(articleImage);
 
 
 
+
+
+
+
 #### Adding an element before another element
+
+
+
+### `insertBefore()` - used to insert an element before
 
 **index.js**
 
@@ -324,7 +332,7 @@ button.onclick = function(){
 ### `addEventListener` - Adding multiple event listeners
 
 ```js
-// ADDING MULTIPKE EVENT LISTENERS
+// ADDING MULTIPLE EVENT LISTENERS
 
 button.addEventListener('mouseover', backgroundRed);
 button.addEventListener('mouseout', backgroundWhite);

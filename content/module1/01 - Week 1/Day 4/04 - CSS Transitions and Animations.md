@@ -34,7 +34,7 @@ After this unit, you’ll be able to:
 
 
 
-### `transition-property` 
+### [`transition-property`](https://www.w3schools.com/cssref/css3_pr_transition-property.asp)
 
 ##### Specifies the property that we want to animate.
 
@@ -52,7 +52,7 @@ transition-property: none | all | [ <property-name> ] [, <property-name> ];
 
 
 
-#### `transition-duration`
+#### [`transition-duration`](https://www.w3schools.com/cssref/css3_pr_transition-duration.asp)
 
 ##### Specifies the transition duration.
 
@@ -68,7 +68,7 @@ transition-duration: <time> [, <time>];
 
 
 
-#### `transition-timing-function`
+#### [`transition-timing-function`](https://www.w3schools.com/cssref/css3_pr_transition-timing-function.asp)
 
 ##### Specifies the speed changes of the transition effect
 
@@ -82,7 +82,7 @@ transition-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|
 
 
 
-#### `transition-delay`
+#### [`transition-delay`](https://www.w3schools.com/cssref/css3_pr_transition-delay.asp)
 
 ##### Specifies the transition delay. Delay for X seconds before starting the transition.
 
@@ -93,6 +93,12 @@ transition-delay: <time> [, <time>] ;
 ```
 
 
+
+
+
+<br>
+
+
 
 ### Example - [CODEPEN Example](https://codepen.io/Denzelzeldi/pen/xxxKoeq?editors=1100)
 
@@ -111,7 +117,8 @@ transition-delay: <time> [, <time>] ;
     background-color: turquoise;
     width: 100px;
     height: 100px;
-    transition: all 1s; /* This will ensure than after hover we have a smooth transition back to initial style */
+    transition: all 1s; /* transition back to initial style */
+  /* This will ensure than after hover we have a smooth transition back */
 }
 
 .box:hover {
@@ -129,7 +136,11 @@ transition-delay: <time> [, <time>] ;
 
 
 
-## `transition` shorthand property
+<br>
+
+
+
+## [`transition`](https://www.w3schools.com/cssref/css3_pr_transition.asp) shorthand property
 
 ##### Instead of writing 4 lines of code we can use `transition` shorthand property. 
 
@@ -151,6 +162,10 @@ transition: width 4s linear 3s, height 2s linear, background-color 0.5s linear;
 ```
 
 
+
+
+
+<br>
 
 
 
@@ -211,11 +226,11 @@ Specifies the duration of animation
 #### Example - simple animation 1
 
 ```html
-<section class="box"></section>
+<section class="animated-box"></section>
 ```
 
 ```css
-.box {
+.animated-box {
   width: 150px; 
   height: 80px;
   background-color: red;
@@ -224,7 +239,7 @@ Specifies the duration of animation
   animation-duration: 4s;
 }
 
-@keyframes boxslidein {
+@keyframes boxSlideIn {
   0% { margin-left: 100%; }
   100% { margin-left: 0%; }
   /*
@@ -245,6 +260,31 @@ Specifies the duration of animation
 ##### In order to be able to precisely position the element, set  `position: relative`
 
 
+
+```css
+@keyframes moveAround {
+  0% {
+    top: 0px;
+    left: 0px;
+  }
+  25% {
+    top: 0px;
+    left: 200px;
+  }
+  50% {
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+  }
+}
+```
 
 
 

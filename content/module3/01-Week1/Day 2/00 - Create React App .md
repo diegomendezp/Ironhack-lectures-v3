@@ -4,6 +4,10 @@
 
 
 
+### [create-react-app docs](https://create-react-app.dev/)
+
+
+
 **Create React App** is a tool and a CLI to help you build React applications. 
 
 It saves you from time-consuming setup and configuration.
@@ -42,9 +46,13 @@ When you run `create-react-app`, it will always create the project with the late
 
 
 ```bash
- npx create-react-app 00-my-new-app
+ npx create-react-app 00-try-create-react-app
  
- cd 00-my-new-app
+ cd 00-try-create-react-app
+
+code .
+
+ rm -rf .git
 ```
 
 
@@ -197,7 +205,7 @@ For reference visit: [MDN - ES6 export](<https://developer.mozilla.org/en-US/doc
 
 import React from 'react';
 
-// importing logo from src folder - loaded as a file in the bundle
+// importing logo from src folder - loaded as a file in the bundle if less than 10KB
 import logoFileFromSRC from '../logo.svg'; 
 
 // Logo served from the public folder (Production only):

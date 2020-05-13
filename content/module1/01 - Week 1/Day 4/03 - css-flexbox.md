@@ -78,9 +78,12 @@ This specifies the **main-axis**, and direction how flex items are placed in the
 
 
 ```css
+/*
 .container {
   flex-direction: row(default) | row-reverse | column | column-reverse;
 }
+
+*/
 ```
 
 
@@ -92,9 +95,11 @@ This specifies the **main-axis**, and direction how flex items are placed in the
 - **wrap-reverse**: flex items will wrap onto multiple lines from bottom to top.
 
 ```js
+/*
 .container{
   flex-wrap: nowrap | wrap | wrap-reverse;
 }
+*/
 ```
 
 
