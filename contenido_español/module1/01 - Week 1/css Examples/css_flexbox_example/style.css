@@ -1,0 +1,40 @@
+body { 
+  background: rgb(229, 224, 231);
+}
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row; /* row-reverse column column-reverse */
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.child {
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  margin: 5px;
+  font-size: 30px;
+  background: green;
+  order: 0;
+}
+
+.one {
+  order: 1;
+  background: orange;
+}
+
+.bigger {
+  flex-grow: 2;
+  background: pink;
+}
+
+.flexible {
+  flex-grow: 2;
+  flex-shrink: 3; /* we must setup the default width or flex-basis */
+  /* flex: 2 3 200px; */
+  /* flex: <flex-grow>, <flex-shrink>, <flex-basis> */
+  background: salmon;
+}
