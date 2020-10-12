@@ -166,7 +166,7 @@ render(){
       </div>
   )
 }
-...
+// ...
 ```
 
 
@@ -567,4 +567,111 @@ render(){
 
 
 
-### [EXAMPLE REPO - DONE](<https://github.com/ross-u/React---Froms-Done->)
+#### [EXAMPLE REPO - DONE](<https://github.com/ross-u/React---Froms-Done->)
+
+
+
+
+
+
+
+
+
+### Additional example - `select/options` and `textarea` inputs:
+
+
+
+Create a new component `AddReview`
+
+##### `components/AddReview`
+
+```js
+import React, { Component } from 'react';
+import data from './../data';
+
+class AddReview extends Component {
+  state = {
+    selectInputValue: data[0].title,
+    // selectInputValue: data ? data[0].title : '',
+    textareaInputValue: "",
+    reviews: []
+  };
+
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value })
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { selectInputValue, textareaInputValue } = this.state;
+    const newReview = {
+      movieName: selectInputValue,
+      text: textareaInputValue
+    }
+
+    const updatedReviews = [...this.state.reviews];
+    updatedReviews.push(newReview);
+
+    this.setState({
+      reviews: updatedReviews,
+      selectInputValue: data[0].title,
+      textareaInputValue: ''
+    })
+
+  }
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <h1>Write a review:</h1>
+          <label> Pick your movie: </label>
+
+          <select
+            name="selectInputValue"
+            value={this.state.selectInputValue}
+            onChange={(e) => this.handleChange(e)}
+          >
+            <option value={this.state.selectInputValue}>
+              {this.state.selectInputValue}
+            </option>
+            {
+              data
+                .filter(movie => movie.title != this.state.selectInputValue)
+                .map(movie => <option value={movie.title}>{movie.title}</option>)
+            }
+          </select>
+
+          <br />
+          <label> Review: </label>
+          <textarea
+            name="textareaInputValue"
+            value={this.state.textareaInputValue}
+            onChange={(e) => this.handleChange(e)}
+          />
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
+
+        {this.state.reviews.map(review => {
+          return (
+            <div>
+              <h4>{review.movieName}</h4>
+              <p>{review.text}</p>
+            </div>
+          )
+        })}
+      </div>
+    );
+  }
+}
+
+
+export default AddReview;
+```
+
+
+
+Import the component in `App.js` and render it.

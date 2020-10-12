@@ -44,7 +44,7 @@
   
   
   
-  # Move to a branch
+  # Move to an existing branch
   git checkout <branch-name>
   
   
