@@ -63,7 +63,21 @@ HTML is not a programming language; it is a *markup language* that defines the s
 
 
 
-### Basic Syntax - First Tags
+### [Anathomy of an HTML element - image](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics#Anatomy_of_an_HTML_element)
+
+
+
+
+
+
+
+
+
+### HTML Document Structure 
+
+
+
+### DOCTYPE, html, head, body
 
 **(TRY NOT TO SHARE)** [CODEPEN Example of below code](https://codepen.io/Denzelzeldi/pen/PoYrqzO?editors=1000)
 
@@ -83,15 +97,9 @@ HTML is not a programming language; it is a *markup language* that defines the s
 
 ​	
 
-#### [Anathomy of an HTML element - image](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics#Anatomy_of_an_HTML_element)
+### Initial Web Page Structure
 
 
-
-
-
-
-
-### Basic HTML Structure    - 
 
 ```html
 <!DOCTYPE html>
@@ -103,7 +111,7 @@ HTML is not a programming language; it is a *markup language* that defines the s
   </head>
   
   <body>
-    <h1>IronHackers - 2019 04</h1>
+    <h1>IronHackers - 2020 10</h1>
   	<p>Welcome to IronHack!</p>    
   </body>
 
@@ -152,7 +160,7 @@ In the HTML DOM, everything is a node. The document is a document node.
 
   - `<title>`
   Defines the title of the document.
-    
+  
 - `<meta>`
   Used to define metadata. This includes information about styles, scripts and data to help browsers use and render the page. 
   
@@ -281,6 +289,38 @@ The <div> tag defines a division or a section in an HTML document.
 
 
 
+### Self-Closing Tags
+
+Most common self closing tags in HTML are:
+
+1. ```html
+   <h2> Self closing tags </h2>
+      
+   <!-- image tag -->
+   <img />
+      
+   <!-- inserts a single line break -->
+   <br />
+      
+   <!-- thematic break in an HTML page - it adds a line -->
+   <hr />
+      
+   <!-- form input tag - nested as the child of form -->
+   <form action="">
+     <input />
+   </form>
+   ```
+
+
+
+
+
+
+
+
+
+
+
 ### Attributes and Values
 
 
@@ -354,43 +394,11 @@ elements on the page -->
 
 
 
-# Self-Closing Tags
-
-Most common self closing tags in HTML are:
-
-1. ```html
-     <h2> Self closing tags </h2>
-   
-     <!-- image tag -->
-     <img />
-   
-     <!-- inserts a single line break -->
-     <br />
-   
-     <!-- thematic break in an HTML page - it adds a line -->
-     <hr />
-   
-     <!-- form input tag - nested as the child of form -->
-     <form action="">
-       <input />
-     </form>
-   ```
-
-
-
-
-
-
-
-<br>
-
-
-
 ### Forms
 
 The `<form>` element allows us to get the information from the user.
 
-The `<form>` elements hold:  **inputs**, **radio buttons**, **text areas**, **date** pickers 
+The `<form>` element can contain nested child elements:  **inputs**, **radio buttons**, **text areas**, **date** pickers 
 
 
 
@@ -492,7 +500,7 @@ Examples of block-level elements are paragraphs or page divisions.
 
 ### CodePen - Example on Block and inline elements
 
-### [Block vs Inline - codepen example](https://codepen.io/Denzelzeldi/pen/MWYGMjY?editors=1000)
+### [Block vs Inline - codepen example](https://codepen.io/Denzelzeldi/pen/MWYGMjY?editors=1000)d
 
 
 
