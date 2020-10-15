@@ -50,7 +50,7 @@ if (condition) {
 
 
 
-### 	`else if` - second(next) option for the if
+### 	`else if` - second (next) option for the if
 
 ```js
 if (condition1) {
@@ -238,9 +238,9 @@ switch(1) {
 
 ## Loops & Iterations
 
-We use loops and iterations to do repetitive tasks in our programs. 
+We use loops and iterations to do repetitive tasks in our programs and to iterate over the data structures such as arrays (lists of values).
 
-In JavaScript we use `for` or `while` loop to do this 
+In JavaScript we use `for` or `while` loops to do this, or specific Array or Object methods.
 
 ​	Examples loop over a list of names
 
@@ -250,7 +250,7 @@ In JavaScript we use `for` or `while` loop to do this
 
 ### `while` Loop
 
-```
+```js
 while (condition) {
   // code to be executed while the condition is true
 }
@@ -307,10 +307,12 @@ do {
 
 
 
+
+
 ### `for` statement
 
 ```js
-for (initialization; condition; increment) {
+for (initialization; condition;  increment) {
   // code to execute
 }
 
@@ -380,8 +382,8 @@ The number is 3
 
 
 ```js
-//  ++i means ->		i += 1; return i
-//  i++ means ->		oldI = i; i+= 1; return oldI;
+//  ++i means ->		i += 1; return updated/incremented `i`
+//  i++ means ->		oldI = i;   i+= 1;   return oldI;
 ```
 
 
@@ -421,6 +423,7 @@ while (i < 5) {
 ```js
 The number is 1
 The number is 2
+									SKIPS
 The number is 4
 The number is 5
 ```

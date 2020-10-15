@@ -2,11 +2,13 @@
 
 
 
-### What is a function
+### What is a function ?
 
 
 
-A function is a **subprogram** designed to do some task.
+A function is a **reusable recipe (routine)** that performs a set of actions, and may require a set of ingredients (values).
+
+
 
 Functions:
 
@@ -39,15 +41,36 @@ Functions are treated like any other variable and can be passed around:
 
 
 
-##  Creating, naming and calling functions
+##  Function Syntax
+
+### There are several syntax ways to create functions
 
 
 
-##### functions are named using camelCase notation
+### - Function declaration 
+
+####  using keyword `function` (most commonly used)
 
 
 
-#### Defining/creating a function
+**syntax**
+
+```js
+// Function declaration
+function functionName (param1, param2) {
+    // Do something in here
+}
+```
+
+
+
+
+
+
+
+### Function expression - 
+
+#### assigning function to variable (as above)
 
 **syntax**
 
@@ -55,10 +78,81 @@ Functions are treated like any other variable and can be passed around:
 // Creating a function
 
 // Function expression
-var variableName = function ([parameters]) {
+var nameOfFunction = function (param1, param2) {
     // Do something in here
 }
 ```
+
+
+
+
+
+### Creating a function
+
+**PSEUDO-CODE**
+
+```js
+Routine SUM-NUMBERS ( Takes 2 numbers ): 
+Steps:
+- Sums the 2 numbers
+- Prints the sum
+
+```
+
+
+
+**JavaScript:**
+
+```js
+function sumNumbers(num1, num2) {
+  var sum = num1 + num2;
+
+  console.log(total);
+}
+```
+
+
+
+
+
+
+
+### Invoking a function
+
+
+
+The code inside a **function** is executed when the **function** is invoked. It is common to use the term "call a **function**" instead of "**invoke** a **function**"
+
+
+
+We invoke a function by putting a pair of parentheses `( )` after the function name:
+
+
+
+```js
+nameOfTheFunction()
+```
+
+
+
+```js
+sumNumbers(23, 55);
+sumNumbers(500, 800);
+sumNumbers(1, 1);
+sumNumbers(14, 5);
+```
+
+
+
+### Naming a function
+
+##### Functions are named using camelCase notation
+
+##### When naming functions use the `verbSomething`  syntax. 
+
+##### Example `sayHello`, `printDetails`
+
+
 
 
 
@@ -98,7 +192,7 @@ sayGoodbye('Jack');
 
 
 
-## Important
+## Invoking a function
 
 function is called/invoked by putting the parentheses after the variable name. 
 
@@ -106,94 +200,117 @@ This tells us that variable is a function.
 
 
 
-#### Spot a function
+
+
+
+
+
+
+
+
+
+
+
+
+### Function return
+
+
+
+##### Functions by default return `undefined`.
 
 ```js
-// Which of these are functions, and what will cause an errror ?
-
-// 1
-var num = Math.random();
-
-// 2
-var stringLegth = myString.length;
+var result = sumNumbers(10, 40);
+console.log('result = ' + result);
+```
 
 
-// 3
-array.forEach( function (element) {
+
+To return a value from the function we must include the keyword **return.**
+
+```js
+function divideNumbers(num1, num2) {
+  return num1 / num2;
+}
+
+var result2 = divideNumbers(10, 2);
+console.log('result2: ', result2);
+```
+
+
+
+The code inside of the function block coming after the `return` will not be executed, as return interupts the function execution and returns the value.
+
+```js
+function divideNumbers(num1, num2) {
+	console.log('BEFORE');
 	
-})
-
-
-// 4
-var name = 'Bob';
-name();
-
+	return num1 / num2;
+  
+  console.log('AFTER');
+}
 ```
 
 
 
 
 
-##### When naming functions use the `verbSomething`  syntax. 
+***Potential interview question:***
 
-##### Example `sayHello`, `printDetails`
+What does a JavaScript function return? 
 
-
-
-
-
-### There are several syntax ways to create functions
+A JavaScript function **always returns something**.
+		When a returning value is not specified, the function returns `undefined`.
 
 
 
-#### - Function expression - assigning function to variable (as above)
 
 
 
-#### - Function declaration - using keyword `function` 
 
-#### (most commonly used)
-
+### Function can return any type of data from within
 
 
-**syntax**
 
 ```js
-// Function declaration
-function functionName ([parameters]) {
-    // Do something in here
+function returnObj() {
+  return { name: 'Bob' }
 }
+
+function returnArr() {
+  return [1, 2, 4]
+}
+
+
+function returnStr(name) {
+  return "Hello " + name;
+}
+
+
+function returnNum(num1, num2) {
+  return num1 + num2
+}
+
+function returnFunction() {
+  return function () { }
+}
+
+
+returnObj();
+
+returnArr();
+
+returnStr("Uros");
+
+returnNum(9, 1);
+
+returnFunction();
+
+String(returnFunction()); // convert the returned value to a string
 ```
 
 
 
-```javascript
-function addNumbers(p1, p2) {
-  return p1 + p2;
-}
-```
 
-
-
-**Example**
-
-```javascript
-function addNumbers(p1, p2) {
-  console.log(p1 + p2);
-}
-
-addNumbers(2, 4);
-addNumbers(1, 2);
-addNumbers(1, 2, 3);
-addNumbers('foo');
-
-function doFoo(a, b) {
-  console.log(a, b);
-}
-
-doFoo(1);
-doFoo(1, 2, 3);
-```
 
 
 
@@ -237,74 +354,6 @@ console.log(greeting() );
 
 
 
-### Function return
-
-
-
-##### Functions by default returns `undefined`
-
-```js
-var a = 5;
-
-function sumNumbers(num1, num2) {
-    console.log('sum = ' + (num1 + num2) );
-}
-
-var result = sumNumbers(10, 40);
-console.log('result = ' + result);
-```
-
-
-
-
-
-
-
-##### We use `return` keyword to return the value from the function
-
-```js
-function multiplyNumbers(num1, num2) {
-    return num1 * num2;
-    // console.log((num1 * num2));  // this returns undefined
-}
-
-var result = multiplyNumbers(4, 25);
-
-console.log('result = ' + result);
-```
-
-
-
-
-
-##### `return` keyword stops the execution, exit the function and returns the result
-
-```js
-function concatNames(fistName, lastName) {
-    console.log('before return');
-    return fistName + ' ' + lastName;
-    
-    console.log('after return'); // This line is never reached  
-}
-
-var result = concatNames('John', 'Doe');
-
-console.log('result: ' + result);
-```
-
-
-
-
-
-***Potential interview question:***
-
-What does a JavaScript function return? 
-
-A JavaScript function **always returns something**.
-When a returning value is not specified, the function returns `undefined`.
-
-
-
 
 
 ### [Excercise - Function Syntax](https://gist.github.com/ross-u/02d748b20fbd138b9919b71ec1f373ca) (10 min)
@@ -335,12 +384,6 @@ In JavaScript there are two types of scope:
 
 
 
-**Local Scope** - also called function scope
-
-A variable declared inside the function is scoped to that function, meanining it’s not possible to access it (use it) outside the function.
-
-
-
 **Global scope**
 
 Everything declared outside of the functions and on the first level is in Global Scope.
@@ -349,19 +392,21 @@ If a variable is declared outside of the function, it is possible to use it in a
 
 
 
+**Local Scope** - also called function scope
+
+A variable declared inside the function is scoped to that function, meanining it’s not possible to access it (use it) outside the function.
 
 
 
 
 
 
-##### Example
 
 
 
-### [OPEN IMAGE](https://i.imgur.com/neGxBNR.png)
+### **Value visibility in nested scopes**
 
-![](https://i.imgur.com/neGxBNR.png)
+Example
 
 ```js
 // Scope chain
@@ -388,7 +433,17 @@ if (2 === 2) {
 
 
 
-**Example**
+### [OPEN IMAGE](https://i.imgur.com/neGxBNR.png)
+
+![](https://i.imgur.com/neGxBNR.png)
+
+
+
+
+
+
+
+**Example 2**
 
 ```js
 var myColor = "green"; // This is in the global scope
@@ -436,18 +491,21 @@ myFunction();
 **Example**
 
 ```js
-function incrementMe() {
+function incrementInside() {
 	var num = 0;
-    console.log('local scope - num = ', num);
-    num++;
-    console.log('local scope - num = ', num);
+  
+  console.log('local scope - num: ', num);
+  num++;
+  num++;
+  console.log('local scope - num: ', num);
 }
 
-incrementMe();
+incrementInside();
 
-console.log('** Function finishes, local variables are deleted. **')
+console.log('\n** Function execution ends **')
+console.log('** Local variables are deleted. **\n')
 
-incrementMe();
+incrementInside();
 ```
 
 
@@ -461,6 +519,12 @@ incrementMe();
 
 
 #### What happens when we have variables with same name in global and in local scope ?
+
+
+
+When a variable with the same name exists in global and in the local scope, only the variable in the local scope will be available. 
+
+We say that variables with the same name in the nested scope, shadow the ones from the hire scope.
 
 ```js
 var x = 5;
@@ -477,19 +541,39 @@ console.log('global scope x -> ', x);  //  5
 
 
 
-### function arguments - are function's internal variables
+### Function arguments -  function's internal variables
 
 
+
+When creating a function, we set placeholders for values that function will receive. 
+
+Theses placeholders for expected values are called - parameters.
+
+
+
+When a function is invoked, we pass it values following the parameters we set (placeholders).
+
+The values passed to a function on invocation are called - arguments
+
+
+
+**Arguments are automatically created as internal variables**, in the function's scope.
+
+##### Example 1
 
 ```js
-function testArgs (a,b) {
-  // var a = a;	// under the hood
-  // var b = b;	// under the hood
+function sum (a, b) {	// Parameters
+  // var a = a;	    									// behind the scene
+  // var b = b;	    									// behind the scene
   console.log(a + b);
 }
+
+sum(10, 20);    	// Arguments
 ```
 
 
+
+##### Example 2
 
 ```js
 var num = 10;
@@ -540,8 +624,8 @@ This creates global variable by default and it creates a scope pollution.
 ```js
 var x = 5;
 
-function scopeTest2() {
-  x = 100;  // Avoid this
+function example() {
+  x = 100;  						// Avoid this
 }
 
 scopeTest2();
@@ -567,14 +651,14 @@ console.log('global scope x -> ', x);
 #### - Function Declaration hoisting
 
 ```js
-sumNumbers(10, 50);
+subtractNumbers(50, 10);
 
-function sumNumbers (num1, num2) {
-	console.log(num1 + num2);
+function subtractNumbers (num1, num2) {
+	console.log(num1 - num2);
 }
 
 // Why ? 
-// Function Declarations are hoisted to the top of the script.
+// Function Declarations are hoisted to the top of the script, before the program runs.
 ```
 
 
@@ -587,7 +671,9 @@ function sumNumbers (num1, num2) {
 
 
 
-##### As well in JavaScript,  `var` declarations are hoisted (but not initialized :) ). 
+##### As well in JavaScript,  `var` declarations are hoisted to the top, and are given the value undefined.
+
+This is JS Engine optimisation technique.  It creates variables before the run-time.
 
 
 
@@ -598,6 +684,12 @@ var cat = 'Marshmallow';
 
 console.log(cat);
 ```
+
+
+
+
+
+
 
 **Explanation**
 
@@ -615,19 +707,57 @@ console.log(cat);	//	undefined
 
 
 
+
+
+
+
+#### Difference between
+
+####  `undefined` and `Reference Error: x is not defined`
+
+
+
 **Remember :**
 
  `ReferenceError: variable is not defined` is different than `undefined`
 
 
 
+```js
+console.log(cat);
+
+var cat = 'Marshmallow';
+
+console.log(cat);
+
+console.log(dog); // ==> ReferenceError: dog is not defined
+```
+
+
+
+
+
+## Higer Order Functions
+
+
+
+Functions that take other functions as arguments and functions that `return` other functions are by convention called *higher*-*order functions*.
+
+It is just a programming concept and a naming convention developers use to describe a function.
+
+
+
+#### **Simply put:**
+
+#### 	Higher order function is a function receives or returns other functions.
 
 
 
 
 
 
-### Callback Functions
+
+### Example: Function as an argument
 
 In Javascript we can pass functions as parameters to the function.
 
@@ -648,14 +778,14 @@ function eatDessert(){
   console.log("Eating the dessert 🍰");
 }
 
-function startEatingDinner(callback){   
+function startEatingDinner(func){   
   console.log("Eating the dinner 🍽");
   console.log("Finished eating dinner!");
   
-  callback();
+  func();
 }
 
-startEatingDinner(eatDessert);
+startEatingDinner( eatDessert );
 
 /*
 A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action.
@@ -665,48 +795,6 @@ A callback function is a function passed into another function as an argument, w
 A higher-order function is a function that can take another function as an argument, or that returns a function as a result.
 */
 ```
-
-
-
-
-
-
-
-### Anonymous functions
-
-An anonymous function is a function that was declared without any named identifier to refer to it.
-
-
-
-Anonymous functions are usually used by the methods.
-
-**Examples**
-
-```js
-// Methods use anonymous functions
-
-var arr = ['Sarah', 'John', 'Anna', 'Tom'];
-
-arr.forEach( function (arrElement) {
-	console.log(arrElement);
-});
-
-
-// setTimeout method
-setTimeout( function(){
-    console.log("This is just an example of anonymous function since this function really does't have a name.")
-}, 2000);
-
-
-// anonymous arrow function ES6
-
-arr.forEach( (arrElement) => {
-	console.log(arrElement);
-});
-
-```
-
-
 
 
 
@@ -741,27 +829,68 @@ printName('John');  // `printName` variable is now the anonymous function that `
 
 
 
+### Anonymous functions
+
+An anonymous function is a function that was declared without any named identifier.
 
 
-### Never change the passed arguments 
 
+We commonly use anonymous functions, when:
 
+- returning a function from a function, 
 
-Changing the arguments in the function often creates a code that is hard to debug. 
+- in methods
+
+   or
+
+- In function expression.
+
+  
+
+**Examples**
+
+###### Returning a function from a function
 
 ```js
-// BAD - changing the parameters invites bugs and bug prone code
-function concatFullName(firstName, lastName) {
-  firstName = firstName + ' ' + lastName;
-  return firstName;
+function higherFunc() {
+  
+    return function (name) {   // We are returning an anonymous funciton
+        console.log(name);
+    }
 }
 
-// GOOD
-function concatFullName(firstName, lastName) {
-  var result = firstName + ' ' + lastName; // arguments are not tampered with 
-  return result;
+```
+
+
+
+###### In Methods
+
+```js
+// Methods use anonymous functions
+
+var arr = ['Sarah', 'John', 'Anna', 'Tom'];
+
+arr.forEach( function (el) {
+	console.log(el);
+});
+
+```
+
+
+
+###### In function expressions
+
+```js
+// Methods use anonymous functions
+
+var greeting = function (name) {
+  return "Hello " + name;
 }
 ```
+
+
+
+
 
 
 
@@ -853,6 +982,8 @@ function greet(who) {
   beKind();
 }
 
+debugger;
+
 greet("Harry");
 console.log("Bye");
 ```
@@ -860,6 +991,10 @@ console.log("Bye");
 
 
 
+
+
+
+### Blowing the call Stack
 
 
 
@@ -878,6 +1013,38 @@ function egg() {
 
 debugger;
 chicken();
+```
+
+
+
+
+
+
+
+
+
+## Best Practices
+
+
+
+### Never change the passed arguments 
+
+
+
+Changing the arguments in the function often creates a code that is hard to debug.
+
+```js
+// BAD - changing the parameters invites bugs and bug prone code
+function concatFullName(firstName, lastName) {
+  firstName = firstName + ' ' + lastName;
+  return firstName;
+}
+
+// GOOD
+function concatFullName(firstName, lastName) {
+  var result = firstName + ' ' + lastName; // arguments are not tampered with 
+  return result;
+}
 ```
 
 

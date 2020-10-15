@@ -24,12 +24,6 @@ For example, a <p> tag meaning is that the enclosed text is a paragraph.
 
 
 
-###### A semantic element clearly describes its meaning to both the browser and the developer.
-
-
-
-
-
 <br>
 
 
@@ -304,6 +298,10 @@ While theoretically you can use as many <iframe>s as you like, check for perform
 
 
 
+
+
+
+## Extra/Bonus
 
 
 

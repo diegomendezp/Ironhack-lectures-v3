@@ -20,8 +20,9 @@ There are two kinds of data in JavaScript:
 
 
 
-
 **PRIMITIVE** value is **any data that is not an object**.
+
+
 
 There are 7 primitive data types:
 
@@ -30,6 +31,7 @@ There are 7 primitive data types:
 - boolean,
 - undefined,
 - null,
+- 
 - symbol (latest added in ECMAScript2015)
 - BigInt (large integers - used with `BigInt()` or integer with `n`)
 
@@ -37,7 +39,7 @@ There are 7 primitive data types:
 
 
 
-SKIP (**All primitive data types are immutable**. Objects are mutable)
+~~SKIP (**All primitive data types are immutable**. Objects are mutable)~~
 
 
 
@@ -77,7 +79,7 @@ code .
 
 
 
-## A number as data type
+## Number as data type
 
 In JS we have **INTEGERS** and **FLOATING POINT** numbers:
 
@@ -114,10 +116,22 @@ console.log(nameDivided); // ==> NaN
 
 <br>
 
+The initial value of Infinity is `Number.POSITIVE_INFINITY`. 
+
+The value Infinity (positive infinity) is greater than any other number. 
+
+This value behaves mathematically like infinity; for example, any positive number multiplied by Infinity is Infinity, and anything divided by Infinity is 0.
+
+Infinity is simply the concept of being greater than any other number (and vice versa). **It holds no value.**
+
+
+
 
 
 ```js
 // Infinity
+// Infinity is the concept of being greater than any other number (and vice versa). 
+// Infinity holds no value
 
 var lowest = -Infinity;
 var highest = Infinity;
@@ -129,7 +143,64 @@ console.log( 9999999 < highest );
 
 
 
-### Number expressions
+
+
+#### `Infinity` use case
+
+It can be used to initialize a control variable in scenarios when searching for the smallest or largest number.
+
+```js
+function findSmallest(array) {
+  var min = Infinity; // <== control variable used to check agains and store the value
+
+    for (var i = 0; i < array.length; i++) {
+    	var currentNum = array[i];
+      
+      if (currentNum < min) {
+        min = currentNum;
+      }
+  }
+  return min;
+}
+
+findSmallest([67, -7, 231, -55, 0]);
+```
+
+
+
+
+
+## Expressions
+
+An expression is a combination of any `value` (number, string, array, object) and set of `operators` that result in another value.
+
+
+
+So we can say that the following is the example of *expression*:
+
+```js
+// Expression
+// Expression is a combination of any value and one or more operators that result in another value;
+
+2 + 4
+```
+
+Another example is this:
+
+```js
+const result = ((7 + 5) / 3) - 8;
+console.log(result);
+
+// => -4
+```
+
+
+
+
+
+
+
+## Number expressions
 
 In javascript we can use operators to perform mathematical operations.
 
@@ -199,7 +270,7 @@ console.log(4 % 3);	// 1	-> odd
 
 #### Assignment Operators
 
-The basic assignment operator is equal `=` sign, which assigns the value of its right operand to its left operand.
+The basic assignment operator is equal `=` sign, which **assigns the value of its right operand to its left operand.**
 
 
 
@@ -217,12 +288,14 @@ These are the most used assignment operators:
 | **Remainder assignment**      | x %= y   | x = x % y  |
 | **Exponentiation assignment** | x **= y  | x = x ** y |
 
+
+
 To see the full list, visit [Assignment Operators - Overview](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment_Operators#Overview).
 
 
 
 ```js
-// Assignment Operators
+// Assignment Operators Example
 
 var result = 10;
 
@@ -245,32 +318,6 @@ console.log('/=',result);
 // result = result % 2;
 result %= 2;
 console.log('%=',result);
-```
-
-
-
-### Expressions
-
-An expression is a combination of any `value` (number, string, array, object) and set of `operators` that result in another value.
-
-
-
-So we can say that the following is the example of *expression*:
-
-```js
-// Expression
-// Expression is a combination of any value and one or more operators that result in another value;
-
-2 + 4
-```
-
-Another example is this:
-
-```js
-const result = ((7 + 5) / 3) - 8;
-console.log(result);
-
-// => -4
 ```
 
 
@@ -312,7 +359,7 @@ Same as in the math we have to follow **PEMDAS** order.
 
 
 ```js
-const i = 10 + (8 - 3) * 2 ** 3 / 4 - 6
+var total = 10 + (8 - 3) * 2 ** 3 / 4 - 6
 
 //   10 + 5 * 8 / 4 - 6 <== start with the exponents (2 ** 3)
 
@@ -330,29 +377,6 @@ This Parse Tree diagram may help you understand it more visually :)
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_98330aa1e31c3739022d86bec0bcd822.png)
 
 
-
-
-
-
-
-# **Exercise**: Guess the Expression Result! (5 min)
-
-### [CODEPEN](https://codepen.io/Denzelzeldi/pen/rNBEgLR?editors=0012)
-
-```js
-var expressionOne = ((2 * 2) + 5) * 6;
-// console.log(expressionOne);
-
-var expressionTwo = ((2* 2) + (5 * 3)) - 5;
-// console.log(expressionTwo);
-
-var expressionThree = (5 * 5) / (5 * 5);
-// console.log(expressionThree);
-
-var expressionFour = 5 * 5 - 5 * 4;
-// console.log(expressionFour);
-
-```
 
 
 
@@ -551,7 +575,7 @@ Important to remember is that you can use `toFixed` and in the future when you w
 
 
 
-### `isNaN()`
+### `Number.isNaN()`
 
 ##### The isNaN() function determines whether a value is an illegal number (Not-a-Number).
 
@@ -560,21 +584,31 @@ Important to remember is that you can use `toFixed` and in the future when you w
 
 
 ```js
-isNaN(123) //false
-isNaN(-1.23) //false
-isNaN('123') //false
+Number.isNaN(123) //false
+Number.isNaN(-1.23) //false
+Number.isNaN('123') //false
 
-isNaN('Hello') //true
-isNaN('NaN') //true
-isNaN(NaN) //true
-isNaN(0 / 0) //true
+Number.isNaN('Hello') //true - it is a String
+Number.isNaN('NaN') //true - it is a String
+Number.isNaN(NaN) // true
+Number.isNaN(0 / 0) //true - division of  0 / 0  returns NaN value
 
+Number.isNaN('')	// false
+Number.isNaN(true) // false 
+
+```
+
+
+
+
+
+Using older version `isNaN` causes edge cases.
+
+```js
 // Caveats
 isNaN('') //false - Empty string doesn't show as an illegal number/result  
 isNaN(true) //false  - Boolean value doesn't show as an illegal number/result  
 ```
-
-
 
 
 
@@ -844,7 +878,7 @@ console.log(name.length); // <== 3
 
 
 
-JavaScript includes a **String library of methods** to simplify some of the most common tasks on strings. 
+JavaScript includes a **String prototype methods** to simplify some of the most common tasks on strings. 
 
 
 

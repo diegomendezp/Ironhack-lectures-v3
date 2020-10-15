@@ -69,23 +69,25 @@ code .
 
 ## What is JavaScript?
 
-**JavaScript is a lightweight compiled programming language with first-class functions**.
+**JavaScript is a lightweight compiled, dynamically typed programming language with first-class functions**.
 
 
 
-- **compiled programming language** - the JavaScript engine actually *compiles* the program on the fly and then immediately runs the compiled code.
+- **compiled programming language** - the JavaScript engine actually *compiles* the program to the machine language on the fly and then immediately runs the compiled code.
 
   
 
-  <u>Compiled language</u> <u>is compiled fully to the machine language</u>,  and then run. 
+- **Dynamically-Typed language:** No need to declare the data type of the variable, it is determined during the run-time.
 
   
+
   
-  JS is dynamically typed, but not interpreted.
-  
-  
-  
-  <u>Interpreted language is being saved same as it is written no translating</u>, and is <u>translated line by line on runtime</u>. - faster in development but not as fast as compiled language.
+
+  ~~**Advanced**~~
+
+  ~~JS is not interpreted, it is compiled.~~
+
+  ~~<u>Interpreted language is being saved same as it is written no translating</u>, and is <u>translated line by line on runtime</u>. - faster in development but not as fast as compiled language.~~
 
 
 
@@ -114,17 +116,31 @@ code .
 
 #### [ECMAScript](https://www.ecma-international.org/publications/standards/Ecma-262.htm)
 
-***ECMAScript* is the standard for JavaScript** and its implementation.(  it's most popular implementation.)
+ - **ECMAScript** is the language implementation standard for JavaScript.
 
+   
 
+   
 
-The versions of ECMAScript (shorter *ES*) that are still in use are :
+   The versions of ECMAScript (shorter *ES*) that are still in use are :
 
-- **ES5** (from 2009.), 
- - **ES6** (from 2015.),
- - **ES7** (2016.)
- - **ES8** ( 2017)
- - **ES9** ( 2018)
+   \- **ES5** (2009.)
+
+   \- **ES6** (2015.)
+
+   \- **ES7** (2016.)
+
+   \- **ES8** ( 2017.)
+
+   \- **ES9** ( 2018.)
+
+   \- **ES10** ( 2019.)
+
+   \- **ES2020** aka ES11 (2020.)
+
+   
+
+   *Each version of ECMAScript introduces new features to the language, while keeping the language backward-compatible.
 
 
 
@@ -264,7 +280,7 @@ in older versions of JavaScript, you will find keyword **var** which is used to 
 #### VARIABLE DECLARATION with `var`
 
 ```js
-var user;  // variable declaration
+var user;  // variable declaration - creating a container
 ```
 
 ```js
@@ -280,7 +296,7 @@ After we declare a variable, we store some value in it.
 This is called **variable initialization.**
 
 ```js
-user = 'John';  // variable initialization
+user = 'John';  // variable initialization - putting a value inside
 age = 30;  // variable initialization
 ```
 
@@ -319,7 +335,7 @@ Rules for naming variables:
 ```js
 // Naming a variable:
 // - JS is case sensitive
-// - First chaacter can't be number
+// - First character can't be number
 var a;
 var color;
 var _private; // convention - common practice
@@ -378,9 +394,27 @@ var return = 'hola'; // <== error, you can't name variable "return"
 
 ### Dynamically typed
 
-JavaScript is a **dynamically typed language** and that means **new variables can be created during the runtime**, and the **type of variables is determined at runtime**. 
+JavaScript is a **dynamically typed language** which means that **data type that variables are storing is not statically predetermined, but it is determined during the runtime**.
 
- Simply put variable can be assigned different value of a different type at runtime.
+Statically typed languages like Java or C++ , require you to declare the data type of your variables before you use them. 
+
+###### For example in Java (static typing):
+
+##### `example.java`
+
+```java
+// Java example
+int num;
+num = 5;
+```
+
+
+
+Dynamically-typed languages do not require you to declare the data type of the variable. You can just go ahead and create the variable. The data type will be determied during the run-time.
+
+
+
+ Simply put: variables in JavaScript can be assigned different value of a different type at runtime.
 
 
 
@@ -395,10 +429,10 @@ You can reassign values and change the data type of variables in JavaScript (exc
 ```js
 var favoriteFood;
 
-favoriteFood = "Steak";
+favoriteFood = "Risotto";
 console.log(favoriteFood); 
 
-favoriteFood = "Pizza";
+favoriteFood = "Pie";
 console.log(favoriteFood);
 console.log(typeof favoriteFood);
 
@@ -407,8 +441,8 @@ console.log(favoriteFood);
 console.log(typeof favoriteFood);
 
 // console:
-// Steak
-// Pizza <== as we can see, the variable changed value from 'Steak' to 'Pizza'
+// Risotto
+// Pie <== as we can see, the variable changed value from 'Risotto' to 'Pie'
 // 123  <== as we can see, variable changed the data type from stirng to number
 ```
 
