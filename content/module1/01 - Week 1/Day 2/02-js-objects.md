@@ -1,54 +1,45 @@
----
-title: JS Objects
-date: 2018-11-12 11:22:06 +0000
-weight: 11
-week: 1
-day: 4
-pre: "<b>11. </b>"
-
----
 ## Learning Objectives
 
 
 
-But objects can contain many values. Think of an object as a bag for other values.
+### What is an Object ?
+
+Objects is a container data structure used to store values of any type. 
+
+We can think of an object being a bag for other values.
 
 
 
-##### Object is a collection of values and functions that belong together. 
+##### 		Object is a collection of values and functions, stored and accessible by named keys.
 
-
-
-The value's in object can be any type:  strings, numbers, arrays, functions and even other objects!
-
-
-
-
-
-##### How do we call them ?
-
-​	**Properties** - values stored in an object - they hold some value
-
-​	**Methods** - functions stored in an object - they do something
+The values stored in objects can be of any type:  String, Number, Boolean, Array, Function, Object, etc.
 
 
 
 
 
-Properties and methods are stored in the object as **key: value** pairs
+
+
+### Object Syntax
 
 
 
-**syntax**
+Every value stored in the objects is stored as a **`key : value`**  pair.
+
+
+
+**Properties** - values stored in an object - they hold some value.
+
+**Methods** - functions stored in an object - they do something.
+
+
 
 ```js
 /*
 var obj = {
     key: value,
     key: value
-}
-*/
-// Each pair is separated with coma 
+}											*/
 
 var person = {
     name: 'Sarah',
@@ -57,6 +48,14 @@ var person = {
 ```
 
 
+
+
+
+
+
+
+
+### Difference between Arrays and Objects
 
 
 
@@ -70,7 +69,9 @@ var person = {
 
 
 
-## Declaring an object
+
+
+## Creating an Object
 
 ### Object literal
 

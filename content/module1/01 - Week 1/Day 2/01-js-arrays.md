@@ -6,13 +6,122 @@
 
 ### What is an array?
 
-- Array is a type of object in JavaScript. 
+- Arrays are list-like containers used to store items together.
 
-- Array is used to store multiple values.
+  
 
-* Array can hold mixed values : strings, numbers, booleans, objects, other arrays, even functions
+- Arrays keep the list of items ordered by numbered indexes, making it easy to traverse (loop over) and access data.
 
-- Array stores values as per numbered indexes.
+  
+
+- Arrays is a special type of object, having specific methods used to work with lists of data.
+
+  
+
+- Array can hold mixed values : strings, numbers, booleans, objects, other arrays, even functions.
+
+
+
+
+
+
+
+
+
+### **List-like data structure**
+
+
+
+Arrays is a list-like data structure.
+
+
+
+We can represent and store any amount of ordered items in an array.
+
+
+
+For example if we have a list of names written by hand
+
+
+
+**SIMPLE LIST (no code):**
+
+```js
+students:
+  1. Anna,
+  2. Bob,
+  3. Joan,
+  4. Ely
+```
+
+We can represent it as an array:
+
+```js
+var students = ['Anna', 'Bob', 'Joan', 'Ely'];
+```
+
+
+
+
+
+
+
+
+
+
+
+### Array - zero based indexing
+
+**Arrays use zero based indexing.** 
+
+Meaning that the first item starts on index 0.
+
+```js
+students:
+  1. Anna,
+  2. Bob,
+  3. Joan,
+  4. Ely
+```
+
+
+
+```js
+var students = ['Anna', 'Bob', 'Joan', 'Ely'];
+```
+
+
+
+| **Index** | 0      | 1     | 2      | 3     |
+| --------- | ------ | ----- | ------ | ----- |
+| **Value** | “Anna” | “Bob” | “Joan” | “Ely” |
+
+
+
+
+
+
+
+
+
+We can access individual elements in the array by their position in the array. For example:
+
+```js
+var students = ['Anna', 'Bob', 'Joan', 'Ely'];
+
+var jake = students[1];
+
+// COMPLETE THE REST :
+var mike = students[];
+var joan = students[];
+var anna = students[];
+```
+
+
+
+
+
+
 
 
 
@@ -72,18 +181,16 @@ console.log(example2);	// [undefined, undefined, undefined]
 
 ### Accessing  elements - `arr[index]`
 
-**Arrays use zero based indexing.** Meaning that the first item starts on index 0.
-
 
 
 We can access individual elements in the array by their position in the array. For example
 
-| **Index** | 0       | 1      | 2      | 3      |
-| --------- | ------- | ------ | ------ | ------ |
-|           | “Pedro” | “Jake” | “Joan” | “Mike” |
+| **Index** | 0      | 1     | 2      | 3     |
+| --------- | ------ | ----- | ------ | ----- |
+| **Value** | “Anna” | “Bob” | “Joan” | “Ely” |
 
 ```js
-var students = ['Anna', 'Jake', 'Sarah', 'Bob', 'Joan', 'Jack', 'Mike'];
+var students = ['Anna', 'Bob', 'Joan', 'Ely'];
 
 var jake = students[1];
 
@@ -92,6 +199,8 @@ var mike = students[];
 var joan = students[];
 var anna = students[];
 ```
+
+
 
 
 
@@ -289,16 +398,20 @@ arrayNames.splice(-2); // ['Anna', 'Jennifer']
 
 What if we want to do something with every element of the array.
 
-For example we want to do a console log for each element.
+
+
+For example we may want to  log each element of the array.
 
 
 
 #### We can use a `for` loop 
 
 ```javascript
-var arr = [1332, 1232, 4332, 9873]
-for ( var ix = 0; ix < arr.length; ix++) {
-  console.log(ix, arr[ix] / 100);
+var students = ['Anna', 'Bob','Joan', 'Ely', 'Tom'];
+
+for ( var i = 0; i < students.length; i++) {
+  var el = arr[i];
+  console.log(el);
 }
 ```
 
@@ -316,6 +429,8 @@ Let's check the MDN:
 
 
 
+
+
 **syntax**
 
 ```js
@@ -328,6 +443,20 @@ arr.forEach( function (currentValue [, index [, array]]) {
     // Do something ...
 });
 ```
+
+
+
+#### `forEach()`
+
+```js
+var students = ['Anna', 'Bob','Joan', 'Ely', 'Tom'];
+
+students.forEach( function(el) {
+  console.log(el)
+})
+```
+
+
 
 
 
@@ -358,12 +487,15 @@ In our case once each element is read, the forEach invokes the callback.
 **Example 1**
 
 ```javascript
-console.log('before');
-var arr = [1, 2, 3, 4, 5];
-arr.forEach(function (element, index) {
+console.log('BEFORE');
+
+var arr = ['Anna', 'Bob','Joan', 'Ely', 'Tom'];
+
+arr.forEach( function (element, index) {
   console.log('index', index, 'element', element, 'square', element * element);
 })
-console.log('after');
+
+console.log('AFTER');
 ```
 
 
@@ -409,6 +541,8 @@ console.log(newArr2);
 
 
 
+
+
 ### Mutating and Non-mutating
 
 **Note to remember :**  
@@ -421,17 +555,11 @@ console.log(newArr2);
 
 **Mutating:** 	splice,  shift,  unshift,  pop,  push
 
-**Non-mutating:** slice, concat
+**Non-mutating:**  slice,  concat
 
 
 
 
-
-
-
-## Visualization of arrays
-
-### [Array visualization](https://www.cs.usfca.edu/~galles/visualization/StackArray.html)
 
 
 
@@ -439,6 +567,7 @@ console.log(newArr2);
 
 ## Resources
 
+- [Array visualization](https://www.cs.usfca.edu/~galles/visualization/StackArray.html)
 - [Split](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/split)
 - [Regular Expressions](https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions)
 - [Mutating vs. No Mutating](https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/)
@@ -446,5 +575,3 @@ console.log(newArr2);
 <https://www.codeanalogies.com/objects-arrays-practice>
 
 
-
-## Ironhack Learning Platform 

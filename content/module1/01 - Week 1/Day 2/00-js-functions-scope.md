@@ -658,7 +658,7 @@ function subtractNumbers (num1, num2) {
 }
 
 // Why ? 
-// Function Declarations are hoisted to the top of the script, before the program runs.
+// Function Declarations are hoisted to the top of the current scope, before the program runs.
 ```
 
 
@@ -671,9 +671,9 @@ function subtractNumbers (num1, num2) {
 
 
 
-##### As well in JavaScript,  `var` declarations are hoisted to the top, and are given the value undefined.
+##### As well in JavaScript,  `var` declarations are hoisted to the top of the scope they belong (function or global), and are given the value undefined.
 
-This is JS Engine optimisation technique.  It creates variables before the run-time.
+This is the JS Engine optimisation technique, where it creates the variables before the run-time.
 
 
 
