@@ -6,11 +6,15 @@
 
 
 
+
+
 ### What is a data structure
 
 A data structure is *a particular way of organizing data.*
 
 *The better we can organize our data, the better we can represent people, places, objects, items; the world around us, in code.*
+
+
 
 
 
