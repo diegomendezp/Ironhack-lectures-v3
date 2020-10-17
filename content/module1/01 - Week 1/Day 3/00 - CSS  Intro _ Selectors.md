@@ -14,15 +14,90 @@ In this chapter you will:
 
 
 
+
+
+
+
+
+
 ## CSS: Cascading Style Sheets
 
-[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) is a style sheet language used to describe the “rules” that will define the look of your webpage. Without CSS, all the pages would look as plain text and images 
+[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) is a style sheet language used to describe the “rules” that will define the look of your webpage. Without CSS, all the pages would look as plain text and images.
+
+
+
+
+
+
+
+## CSS Syntax
+
+- ### rule-set (css syntax)
+
+  
+
+  - selector {  property: value   }
+  - each **property: value;**   -->  is called declaration block
+
+
+
+
+- **Selector(s):** Points to the element(s) that we will apply the style rule to.
+- **Declaration block:**  These declarations specify the element’s properties and the values we want to set.
+
+
+
+
+
+```css
+selectors {
+  property: value;
+  property: value;
+}
+```
+
+
+
+### Example
+
+```css
+p {
+  color: red;
+}
+```
+
+
+
+```css
+body {
+  background-color: blue;
+}
+```
+
+
+
+- Can you identify what the selector is in this rule?
+- Can you identify the declaration block?
+
+
+
+## 
+
+
+
+
+
+
+
+## Applying CSS to HTML
+
+
 
 
 
 ### Inline Styles - adding style as a `style` attribute to the element
 
-```
+```html
 <body style="background-color: #00D1AC; width: 200px; height: 100px">
 ```
 
@@ -74,13 +149,6 @@ An internal CSS is defined in the `<head>` section of an HTML page, within a `<s
 
 To use an external style sheet, add a link to it in the `<head>` section of the HTML page:
 
-The **proper way to apply CSS styles** into HTML code is to have **two separate files**:
-
-- one for content, and
-- one for styles
-
-Separating responsibilities helps us **reuse styles in different pages**,
-
 
 
 
@@ -95,6 +163,8 @@ body {
 }
 ```
 
+
+
 In the HTML page  `<head>`
 
 ```html
@@ -105,40 +175,23 @@ In the HTML page  `<head>`
 
 
 
-## CSS structure
+### Multiple stylesheets
 
-- ### rule-set (css syntax)
+
+
+A **common practice when organising CSS styles**  is to have **separate files**:
+
+-  file for default styles
+
+- File for styles for the specific content
 
   
 
-  - selector {  property: value   }
-  - each **property: value;**   -->  is called declaration block
+Separating responsibilities helps us **reuse styles in different pages**,
 
 
 
 
-- **Selector(s):** Points to the element(s) that we will apply the style rule to.
-- **Declaration block:**  These declarations specify the element’s properties and the values we want to set.
-
-```css
-selectors {
-  property: value;
-  property: value;
-}
-```
-
-
-
-### Example
-
-```css
-body {
-  background-color: blue;
-}
-```
-
-- Can you identify what the selector is in this rule?
-- Can you identify the declaration block?
 
 
 
@@ -299,7 +352,11 @@ Omitting the asterisk with simple selectors has the same effect. For instance, `
 
 
 
-### properties - most used ones (at least 10 - 15).
+
+
+### Common CSS properties- 
+
+##### most used ones (at least 10 - 15).
 
 
 
@@ -310,6 +367,10 @@ Omitting the asterisk with simple selectors has the same effect. For instance, `
 
 
 
+
+
+
+### Demo: Common CSS properties-
 
 ```html
 <section>
@@ -366,15 +427,6 @@ ul {
 	list-style-type:	disc; /* | square | circle */
 }
 ```
-
-
-
-
-
-### size units :
-
-- **absolute** - *px*, *cm*, *inch*
-- **relative**-  *%*, ***em*** (font-size of the **parent** element),  **rem** (**root element font-size**), *vw*, *vh*
 
 
 
@@ -468,33 +520,81 @@ margin: 10px 10px;/* Top & bottom, right & left */
 
 
 
-- ### specificity
+### Size units :
 
-  If 2 or more CSS rules point to the same element, browser uses specificity to determine which one applies.
+- **absolute** - *px*, *cm*, *inch*
 
-  
+- **relative**-  
 
-  ### [OPEN IMAGE](https://miro.medium.com/max/2748/1*gRcGHlkSxtlBqyoeiC3jVw.png)
+  - ***%***,      - relative to:  the **parent element** (specific property value)
 
-  ![](https://miro.medium.com/max/2748/1*gRcGHlkSxtlBqyoeiC3jVw.png)
+  - ***em***     - relative to:  the **parent** element **font-size**),
 
-  
+  -  ***rem***  - relative to:  the **root** element **font-size**),
 
-   Specificity calculation:
+    
 
-  ​	**- element, pseudo element ( ::before, ::after )** - 1pts
+  -  ***vw*** -  relative to: **viewport width**
 
-  ​	**- attr, class, pseudo selector (:hover, :visited) -** 10pt
+  -  ***vh*** -  relative to: **viewport height**
 
-  ​	**- IDs -** 100 pts
-  
-  ​	**- inline style -** 1000 pts
-  
-  
-  
-  ​	- multiple nested selectors - `div p {color: red}` vs `p { color: blue }`
-  
-  ​	- `!important` - is a wild card and will be applied even over inline style if used in any style declaration (even 1pt value) `p { color: red !important}`
+
+
+
+
+**Pixels** `px` are relative to the viewing device, and represent a single dot on the screen, which vary depending on the screens [DPI](https://techterms.com/definition/dpi#:~:text=Stands%20for%20%22Dots%20Per%20Inch,be%20shown%20in%20an%20image.) (dots per inch) resolution.
+
+
+
+**Relative** length units are used to scale better between different viewport sizes and devices.
+
+
+
+
+
+#### [Codepen: Basic `rem` unit example](https://codepen.io/Denzelzeldi/pen/JjKXxeL?editors=1100)
+
+#### [Codepen: Basic `em` unit example](https://codepen.io/Denzelzeldi/pen/MWeyLre)
+
+#### [Codepen: *Nested* elements `em` units](https://codepen.io/Denzelzeldi/pen/ZEOWwrp)
+
+
+
+
+
+
+
+
+
+
+
+### Specificity
+
+If 2 or more CSS rules point to the same element, browser uses specificity to determine which one applies.
+
+
+
+### [OPEN IMAGE](https://miro.medium.com/max/2748/1*gRcGHlkSxtlBqyoeiC3jVw.png)
+
+![](https://miro.medium.com/max/2748/1*gRcGHlkSxtlBqyoeiC3jVw.png)
+
+
+
+ Specificity calculation:
+
+​	**- element, pseudo element ( ::before, ::after )** - 1pts
+
+​	**- attr, class, pseudo selector (:hover, :visited) -** 10pt
+
+​	**- IDs -** 100 pts
+
+​	**- inline style -** 1000 pts
+
+
+
+​	- multiple nested selectors - `div p {color: red}` vs `p { color: blue }`
+
+​	- `!important` - is a wild card and will be applied even over inline style if used in any style declaration (even 1pt value) `p { color: red !important}`
 
 
 
@@ -508,79 +608,27 @@ margin: 10px 10px;/* Top & bottom, right & left */
 
 
 
-- ### pseudo-class selectors
+### Pseudo-class selectors and Pseudo-elements
 
-  - `:hover`
+**Pseudo-classes** let you apply a style to an element when a specific state occurs on the element, for example :hover.
 
-  - `:visited`
+- `:hover`
 
-  - `:active`
+- `:visited`
 
-    ​	
+- `:active`
 
-    ```html
-    <p>This paragraph contains a link:
-      <a href="#">This link will turn red while you click on it.</a>
-      The paragraph will get a gray background while you click on it or the link.
-    </p>
-    ```
+  ​	
 
-    ```css
-    a:link { color: blue; }          /* Unvisited links */
-    a:visited { color: purple; }     /* Visited links */
-    a:hover { background: yellow; }  /* Hovered links */
-    a:active { color: red; }         /* Active links */
-    
-    p:active { background: #eee; }   /* Active paragraphs */
-    
-    a::before {
-      font-size: 20px;
-      content: "•";
-      padding-right: 10px;
-      color: red;
-    }
-    
-    a::after {
-      font-size: 20px;
-      content: "•";
-      padding-left: 8px;
-      color: red;
-    }
-    ```
+  
+  
+  #### [Codepen: CSS - Pseudo-class selector example](https://codepen.io/Denzelzeldi/pen/dyXMrNL)
+  
+  #### 
 
 
 
-
-
-- ### CSS reset
-
-  <https://meyerweb.com/eric/tools/css/reset/
-
-  **CSS Reset** is a short, often compressed, or “minified,” set of **CSS **rules that **resets** the styling of all HTML elements to a consistent baseline. **Resets** are particularly useful for normalizing the text size and removing all margins.
-
-- ### import 
-
-  used to import additional css stylesheet or the css reset stylesheet
-
-
-
-```css
-@import "newstyle.css";
-
-/*
-
-OR the following  syntax
-
-@import "newstyle.css";
-
-IMPORT THE CSS RESET 
-
-*/
-```
-
-
-
-
+## Positioning
 
 
 
@@ -597,17 +645,15 @@ IMPORT THE CSS RESET
 
 
 
-- ### overflow (scroll, hidden, auto, visible(default))
-
-  ​	<https://codepen.io/Denzelzeldi/pen/jJdwbz>
-
 
 
 
 
 - ### CSS Layout - position  (static, relative, fixed, absolute, sticky)
 
-  ​	<https://codepen.io/Denzelzeldi/pen/QoYgqB>
+  ​	[Codepen: CSS positon property example](https://codepen.io/Denzelzeldi/pen/QoYgqB)
+
+  
 
   ​	**static** - default value, positioned with the flow of the page
 
@@ -625,9 +671,62 @@ IMPORT THE CSS RESET
 
 
 
+
+
+- ### overflow (scroll, hidden, auto, visible(default))
+
+  ​	[Codepen: overflow property example](https://codepen.io/Denzelzeldi/pen/jJdwbz)
+
+
+
+
+
+
+
 - ### 100% of what!?
 
-  <https://codepen.io/Denzelzeldi/pen/XGOgvm>
+  [Codepen Example: Positioning and sizing with %](https://codepen.io/Denzelzeldi/pen/XGOgvm)
+
+
+
+
+
+
+
+
+
+
+
+## CSS reset
+
+<https://meyerweb.com/eric/tools/css/reset/
+
+**CSS Reset** is a short, often compressed, or “minified,” set of **CSS **rules that **resets** the styling of all HTML elements to a consistent baseline. 
+
+**Resets** are particularly useful for normalizing the text size and removing all margins.
+
+
+
+
+
+
+
+
+
+## @import 
+
+Used to import additional css stylesheet or the css reset stylesheet
+
+
+
+```css
+@import "newstyle.css";
+
+/*
+From a URL
+@import url("newstyle.css");
+*/
+```
 
 
 
