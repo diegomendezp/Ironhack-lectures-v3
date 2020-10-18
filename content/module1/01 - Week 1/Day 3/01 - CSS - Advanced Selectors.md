@@ -59,7 +59,7 @@ parent > child {
 ### Descendant Selector - (matches descendants in depth)
 
 ```css
-selector1 selector2 {
+element descendants {
   property: value;
 }
 ```
@@ -104,10 +104,16 @@ One of the goals of this course is to teach you to keep the HTML as tidy, clean,
 ### Adjacent Sibling - (next to the element)
 
 ```css
-formerElement + targetElement {
+element + targetElement {
   property: value;
 }
 ```
+
+
+
+
+
+
 
 ```html
 <div>
@@ -124,9 +130,11 @@ formerElement + targetElement {
 div {
   background-color: green;
 }
+
 #former { 
  background-color: red;
 }
+
 #former + div {
   background-color: yellow;
 }
@@ -149,6 +157,16 @@ div {
 
 
 ## Multiple selection - apply same rule-set on multiple selectors
+
+
+
+And this method can work with more complicated selectors as well.
+
+
+
+You can mix selectors as much as you need to create awesome and beautiful web pages!
+
+
 
 **syntax**
 
@@ -198,11 +216,71 @@ h2, h6, div > p {
 
 
 
-And this method can work with more complicated selectors as well.
+
+
+<iframe height="265" style="width: 100%;" scrolling="no" title="CSS Selectors - Multiple selection" src="https://codepen.io/Denzelzeldi/embed/mdEEJOK?height=265&theme-id=light&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/Denzelzeldi/pen/mdEEJOK'>CSS Selectors - Multiple selection</a> by Uros Cirkovic
+  (<a href='https://codepen.io/Denzelzeldi'>@Denzelzeldi</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
 
 
 
-You can mix selectors as much as you need to create awesome and beautiful web pages!
+
+
+
+
+
+
+
+
+
+
+## General Sibling Selector
+
+```css
+element ~ siblings {
+  property: value;
+}
+```
+
+
+
+```html
+<h1>General Sibling Selector</h1>
+
+<div>
+  <p>Paragraph 2.</p>
+</div>
+
+<h4> Sub Headline </h4>
+
+
+<p>Paragraph 3.</p>
+
+
+<p>Paragraph 4.</p>
+```
+
+
+
+```css
+div ~ p {
+  background-color: cornflowerblue;
+}
+```
+
+
+
+
+
+<p class="codepen" data-height="265" data-theme-id="light" data-default-tab="html,result" data-user="Denzelzeldi" data-slug-hash="qBNNdmX" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="General Sibling Selector">
+  <span>See the Pen <a href="https://codepen.io/Denzelzeldi/pen/qBNNdmX">
+  General Sibling Selector</a> by Uros Cirkovic (<a href="https://codepen.io/Denzelzeldi">@Denzelzeldi</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+
 
 
 
@@ -240,6 +318,13 @@ element[attr-name="value"] {
 
 
 
+<iframe height="265" style="width: 100%;" scrolling="no" title="CSS Attribute selector" src="https://codepen.io/Denzelzeldi/embed/ZEOOGxp?height=265&theme-id=light&default-tab=css,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/Denzelzeldi/pen/ZEOOGxp'>CSS Attribute selector</a> by Uros Cirkovic
+  (<a href='https://codepen.io/Denzelzeldi'>@Denzelzeldi</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+
+
+
 
 
 ## Summary
@@ -253,5 +338,5 @@ In this Unit, we have learnt:
 
 ## Extra Resources
 
-- [Css-tricks](https://css-tricks.com/attribute-selectors/) | Interesting article explaining further uses of attribute selectors in the real world.
+- [css-tricks - Article: attribute selectors](https://css-tricks.com/attribute-selectors/) | Interesting article explaining further uses of attribute selectors in the real world.
 - ###### [CSS Selectors](http://www.w3schools.com/cssref/css_selectors.asp) | All selectors available
