@@ -36,7 +36,7 @@ Glovo
 
 
 
-##### TResponsive design focus is on mobile first. 
+##### Responsive design focus is on mobile first. 
 
 ##### Instead of making an app for desktop and then trimming it to fit the mobile, we instead make it for mobile first with most essential features and then work up from there when creating a desktop version.
 

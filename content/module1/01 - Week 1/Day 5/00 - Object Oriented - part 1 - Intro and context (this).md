@@ -6,7 +6,11 @@
 
 
 
-**Objects** are the main key/tool/means of OOP. We will try to explain this through example.
+
+
+
+
+**Objects** are the main key/tool/means of OOP. We will try to explain this through an example.
 
 
 
@@ -14,11 +18,19 @@
 
 
 
+We can construct objects in few different ways
+
+- Object literal (manual way)
+- Factory funciton (we won't show it this time)
+- Class or Constructor Function ( using OOP principles: abstraction, inheritance )
+
+
+
 #### Object literals
 
 Lets say that we want to make many similar objects.
 
-for example if we are creating a game, we may create many players.
+for example if we are  to create a database of vehicles, we may need to create many objects manually.
 
 This can bring a lot of typing and work. 
 
@@ -74,6 +86,47 @@ console.log(car3);
 ```
 
 
+
+
+
+### Class or function constructor
+
+
+
+Let's see how the above can be abstracted (abstraction) and made easier and more structured.
+
+This is just a brief example. In the next lecture we will, dive into the syntax.
+For now it is "kind off" intuitive easy to understand how the below class  "kind of" works:
+
+```js
+class Car {
+  constructor(brand, color, model, averageSpeed, year) {
+    // this represents the new object that will be created
+    this.brand = brand; 
+    this.color = color; 
+    this.model = model; 
+    this.averageSpeed = averageSpeed;
+    this.year = year;
+
+    this.mileage = 0;
+  }
+}
+
+
+const car1 = new Car('Seat', 'white', 'Ibiza', 60, 2020 )
+const car2 = new Car('Seat', 'blue', 'Ibiza', 60, 2019 )
+const car3 = new Car('Seat', 'red', 'Ibiza', 60, 2018 )
+```
+
+
+
+
+
+
+
+
+
+<br>
 
 
 

@@ -75,7 +75,7 @@ console.log(arr1);
 
   This means that it sorts the array that calls the method, and returns reference to that same array at the end.
 
-- Sort method sorts the array elements according to their string Unicode values - >  [Unicode Table](<https://en.wikipedia.org/wiki/List_of_Unicode_characters#Control_codes>). Therefore sorting of numbers is done slightly different.
+- By default: `sort()` method sorts the array elements according to their string Unicode values - >  [Unicode Table](<https://en.wikipedia.org/wiki/List_of_Unicode_characters#Control_codes>). Therefore sorting of numbers is done slightly different.
 - Sorting of the numbers must be done with the compare function provided, to avoid numeric elements being sorted by their Unicode value.
 
 <br>

@@ -228,9 +228,9 @@ const reduced = array.reduce( function(accumulator, currentValue, currentIndex, 
 **Example 1** **- reduce an array of numbers (sum)** 
 
 ```js
-const array = [10, 19, 41, 30];
+const numbers = [10, 19, 41, 30, 450];
 
-const reducedNumbers = array.reduce( function (total, currentNum) {
+const reducedNumbers = numbers.reduce( function (total, currentNum) {
     let updatedAccumulator = acummulator + currentNum;
     return updatedAccumulator;
     // same as acummulator = accumulator + currentNum
@@ -238,7 +238,7 @@ const reducedNumbers = array.reduce( function (total, currentNum) {
 
 
 // ES6:
-const reducedNumbers2 = array.reduce( (total, currentNum) => {
+const reducedNumbers2 = numbers.reduce( (total, currentNum) => {
     let updatedAccumulator = acummulator + currentNum;
     return updatedAccumulator;
     // same as acummulator = accumulator + currentNum
