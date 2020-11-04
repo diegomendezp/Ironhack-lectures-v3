@@ -372,9 +372,17 @@ console.log(greeting() );
 
 ## Scope
 
+
+
+#### What is Scope ?
+
 ##### A scope is context/area in which variable or a function  is visible from different parts of code.
 
 
+
+
+
+#### Scope - types of scope:
 
 In JavaScript there are two types of scope:
 
@@ -1027,14 +1035,24 @@ chicken();
 
 
 
-### Never change the passed arguments 
+### Naming a function
+
+##### Functions are named using camelCase notation
+
+##### When naming functions use the `verbSomething`  syntax. 
+
+##### Example `sayHello`, `printDetails`
 
 
 
-Changing the arguments in the function often creates a code that is hard to debug.
+### Don't change the passed arguments 
+
+
+
+Changing the function arguments often creates a code that is hard to debug/maintain.
 
 ```js
-// BAD - changing the parameters invites bugs and bug prone code
+// BAD - changing the parameters invites bugs and creates bug prone code
 function concatFullName(firstName, lastName) {
   firstName = firstName + ' ' + lastName;
   return firstName;

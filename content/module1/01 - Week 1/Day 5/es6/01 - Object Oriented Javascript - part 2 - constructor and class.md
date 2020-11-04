@@ -26,7 +26,7 @@ In order to create multiple of same structure we need object constructors. These
 
 ### Metaphor of blueprint (prototype/class)  for a car and the actual car as a product/object
 
-![img](https://qph.fs.quoracdn.net/main-qimg-1eb4338a347e9001090228055d017f0c.webp)
+### [IMAGE](https://qph.fs.quoracdn.net/main-qimg-1eb4338a347e9001090228055d017f0c.webp)
 
 
 
@@ -180,7 +180,7 @@ class HybridCar extends Car {
 	}
   
   // creates a static method that can be called only from class HybridCar
-  static printClassName() {
+  static getClassName() {
     console.log("class name is HybridCar");
   }
   
@@ -190,7 +190,7 @@ class HybridCar extends Car {
 console.log(HybridCar.prototype);
 
 // Use of the static method
-HybridCar.printClassName();
+HybridCar.getClassName();
 
 // keyword `new` makes the function a constructor, and point `this` to a new object
 var hybridBmw = new HybridCar ("BMW", "i3", "hybrid");

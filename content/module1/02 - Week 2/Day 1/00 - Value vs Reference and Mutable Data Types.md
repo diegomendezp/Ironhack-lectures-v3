@@ -49,7 +49,7 @@ There are 7 basic *data types* in *JavaScript*.  Primitive data types are string
   let aCopy = a;
   let bCopy = b;
   
-  // Distinct variables, hold the same value (values were copied (re-created in memory))
+  // Distinct variables, hold the same value (values were copied (re-created in the memory))
   console.log('a -> ',a);	//	10
   console.log('aCopy -> ',aCopy);	//	10
   

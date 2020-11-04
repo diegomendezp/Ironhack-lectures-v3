@@ -588,6 +588,4 @@ console.log(newArr2);
 - [Regular Expressions](https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions)
 - [Mutating vs. No Mutating](https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/)
 
-<https://www.codeanalogies.com/objects-arrays-practice>
-
 

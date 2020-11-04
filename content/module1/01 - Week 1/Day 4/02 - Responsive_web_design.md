@@ -253,19 +253,29 @@ CSS viewport units were specially are units relative to the viewport size.
 
 
 
-- **px**. It specifies the height of the letters in CSS pixels
+- **px**. Absolute unit
 
   
 
-- **em**. It’s relative to parent’s font size. 
-
-  i.e. 2em = 20px if parent element’s `font-size` is 10px.
+  **Pixels** `px` are relative to the viewing device, and represent a single dot on the screen, which vary depending on the screens [DPI](https://techterms.com/definition/dpi#:~:text=Stands%20for%20%22Dots%20Per%20Inch,be%20shown%20in%20an%20image.) (dots per inch) resolution.
 
   
 
-- **rem**. It’s **relative to the root  element** font size (`<html>`). 
+- ***em***     - relative to:  the **parent** element **font-size**),
 
-  i.e. 1em = 10px if html element’s `font-size` is 10px.
+- ***rem***  - relative to:  the **root** element **font-size**),
+
+
+
+
+
+**Relative** length units are used to scale better between different viewport sizes and devices.
+
+
+
+
+
+
 
 
 

@@ -383,6 +383,3 @@ persons[0].friends.push('Uros');
 
 
 
-## Resources
-
-## Ironhack Learning Platform

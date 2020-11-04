@@ -44,6 +44,7 @@ code .
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>DOM Manipulation</title>
+    <link rel="stylesheet" href="./styles/style.css">
   </head>
   <body>
     <a href="#" id="google-link" class="link">Google</a>
@@ -55,8 +56,8 @@ code .
 
     <button id="add-item-button">Add item</button>
 
-    <!-- make sure you load .js file in the end so it executes when the DOM is ready -->
-    <script src="index.js"></script>
+<!-- make sure to load your .js file at the end so that it executes when the DOM is ready -->
+        <script src='./scripts/index.js'></script>
   </body>
 </html>
 
@@ -70,29 +71,6 @@ code .
 'use strict'
 
 console.log('JS connected');
-```
-
-
-
-**index.js**
-
-```js
-// Get all elements with class="link"
-let linksHTMLCollection = document.getElementsByClassName('link');
-
-console.log(linksHTMLCollection);
-```
-
-
-
-**index.js**
-
-```js
-// Get all "<div></div>" elements
-let divsHTMLCollection = document.getElementsByTagName('div');
-
-console.log(divsHTMLCollection);
-
 ```
 
 
@@ -238,7 +216,7 @@ body.appendChild(articleContent);
 **index.js**
 
 ```js
-// 1. Create an image node
+// 1. Create an image element
 
 
 // 2. Add the src attribute with the link to an image
@@ -255,7 +233,7 @@ body.appendChild(articleContent);
 **EXERCISE - Possible solution**
 
 ```js
-let articleImage = document.createElement('img');
+const articleImage = document.createElement('img');
 articleImage.setAttribute(
   'src',
   'https://techcrunch.com/wp-content/uploads/2019/07/internet-heartbeat.gif',
@@ -293,26 +271,15 @@ body.insertBefore(articleImage, articleBrief);
 
 
 
-### Clear an existing element
 
- `innerHTML` **returns everything inside the element**, not only text. This means all the HTML inside, including tags, will be returned.
 
-```js
-// Clear an existing element
-
-console.log(contentDiv.innerHTML);
-contentDiv.innerHTML = ""; // clears the whole element
-```
+<br>
 
 
 
 
 
-
-
-
-
-## Events in JavaScript elements
+## DOM Events -
 
 **index.js**
 
@@ -369,7 +336,7 @@ function removeMouseOver () {
 
 
 ```css
-.open {
+t.open {
   height: 200px;
   width: 100%;
   border: 2px solid black;
@@ -573,6 +540,35 @@ pTags.forEach(paragraphNode => {
 
 
 <br>
+
+
+
+
+
+
+
+### Clear an existing element
+
+ `innerHTML` **returns everything inside the element**, not only text. This means all the HTML inside, including tags, will be returned.
+
+```js
+// Clear an existing element
+
+console.log(contentDiv.innerHTML);
+contentDiv.innerHTML = ""; // clears the whole element
+```
+
+
+
+We can also use the following methods.
+
+| [`node.removeChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild) | Remove child node |
+| ------------------------------------------------------------ | ----------------- |
+| [`node.remove()`](https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove) | Remove node       |
+
+
+
+
 
 
 

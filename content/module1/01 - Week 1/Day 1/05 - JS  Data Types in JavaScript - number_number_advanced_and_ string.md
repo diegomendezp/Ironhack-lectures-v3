@@ -728,6 +728,7 @@ var string3 = `string three`; // with back ticks - also called template literals
 **Back ticks have “extra” functionality**, using them we can:
 
 - **embed (interpolate) variables and expressions in the strings**:
+- Write multi-line strings
 
 
 
@@ -813,7 +814,7 @@ console.log(favActor);
 
 
 
-Some characters have to be **escaped** with `\`  (backslash) to avoid `SyntaxError`.
+[Some characters](Escape_notation) have to be **escaped** with `\`  (backslash) to avoid `SyntaxError`.
 
  -  USING QUOTES
 

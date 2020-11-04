@@ -378,9 +378,7 @@ To add multiple animations to a selector,  separate the values with a comma.
 Example
 
 ```css
-.div {
-  animation: myslidein 2s, myrotate 1.75s;
-}
+  animation: moveAround 3s, boxSlideIn 1s;
 ```
 
 

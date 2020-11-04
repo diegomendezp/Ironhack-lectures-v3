@@ -24,11 +24,15 @@ code .
 
 ## TDD
 
-TDD is an approach to writing software where you write tests **before** you write application code.
+TDD is an approach to writing software where we write tests **before** we write application code.
 
-The primary goal of TDD is to make the code clearer, simple and bug-free.
+The primary goal of TDD is to make the code clearer, simpler and bug-free.
 
-The simple concept of TDD is to write and correct the failed tests before writing new code (before development). 
+
+
+The main idea of TDD is to write and correct the failed tests before writing new code (before development). 
+
+
 
 **Tests are nothing but requirement conditions enforced through the suite of tests**, which need to be fullfilled by a program/feature before considered ready. 
 
@@ -58,13 +62,17 @@ The simple concept of TDD is to write and correct the failed tests before writin
 
 TDD is composed out of three steps:
 
-1. **RED PHASE**: Write tests and **watch them fail**. This methodology is properly applied when we make sure the test fails and we have to be forced to fix it. - **red**
+1. **RED PHASE**: Write tests and **watch them fail**. This methodology is properly applied when we make sure the test fails and we have to write the code to fix it/against it. - **red**
 
-2. **GREEN PHASE:** Write the simplest, easiest possible code to make the test pass. STtart by writting code to pass 1st test and so on in order. - **green**
+   
+
+2. **GREEN PHASE:** Write the simplest, easiest possible code to make the test pass. Start by writting code to pass 1st test and so on in order. - **green**
+
+   
 
 3. **REFACTORING PHASE:** Refactor and simplify the application code, implement necesarry design patterns, and optimizations. Refactor the code to improve the maintainability following clean code practices, all without breaking the test. - **refactor**
 
-   
+    
 
 
 
@@ -87,6 +95,26 @@ These steps are followed once and again in a loop until we finish the method. To
 
 
 
+
+
+##### What we want at the end:
+
+```js
+'use strict'
+
+// The end result is the function that works in the following way
+
+centsToDecimals(1000);    //   10.00$
+
+centsToDecimals(50340);   //   503.40$
+
+centsToDecimals(4);       //   00.04$
+```
+
+
+
+
+
 ```js
 // Create a function that converts cents to decimal value
 
@@ -104,13 +132,11 @@ function centsToDecimals(centValue) {
 // function centsToDecimals:
 
 
-
-// Tests
 // Should return undefined when the parameter passed is a string
 
-// Should return undefined when NaN or undefined value is passed as a parameter
+// Should return undefined when NaN or undefined value is passed as argument
 
-// Should return undefined when the parameter is not passed
+// Should return undefined when the argument is not passed
 
 // Should convert value from cents to floating point number with 2 decimals
 ```

@@ -20,6 +20,16 @@
 
 
 
+```html
+<div>Fancy div</div>
+
+<div id="new-div">New div</div>
+
+<div id="padded-div">Div with padding</div>
+
+<div id="margin-div">Div with margin</div>
+```
+
 
 
 ### Padding property
@@ -86,18 +96,6 @@ with `padding: 10px` what are the width and height of the div ?
 ##### `border-width`, `border-style` and `border-color`. 
 
 ##### We can also use the shorthand `border: <width> <style> <color> `
-
-```html
-<div>Fancy div</div>
-
-<div id="new-div">New div</div>
-
-<div id="padded-div">Div with padding</div>
-
-<div id="margin-div">Div with margin</div>
-```
-
-
 
 
 
@@ -172,6 +170,30 @@ div {
 	What are the width and height of the div ?
 */
 ```
+
+
+
+
+
+<br>
+
+
+
+### **The standard CSS box model**
+
+In the standard box model, if you give a box a width and a height attribute, 
+
+this defines the **width** and height of the inner ***content box***.
+
+
+
+Any padding and border is then added to that width and height.
+
+
+
+By default, browsers use the standard box model. 
+
+
 
 
 

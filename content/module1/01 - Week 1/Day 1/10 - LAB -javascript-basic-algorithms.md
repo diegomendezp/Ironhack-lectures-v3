@@ -23,7 +23,7 @@ day: 2
   - Start investigating some methods like .toUpperCase()
 
 
-  
+
 ## Issues:
   - They have to work in repl.it and submit in Github Gist.
   - They have the result for all the exercice in starter-code folder

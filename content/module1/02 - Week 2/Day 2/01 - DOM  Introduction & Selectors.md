@@ -26,6 +26,12 @@ One parent can have one or many children nodes.
 
 
 
+### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1e69925bf7c951d9943654a612c1ee83.png)
+
+![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_1e69925bf7c951d9943654a612c1ee83.png)
+
+
+
 ### [OPEN IMAGE](https://i.imgur.com/m08deQC.png)
 
 
@@ -51,13 +57,14 @@ code .
 
 <br>
 
-
+##### `index.html`
 
 ```html
 <!DOCTYPE>
 <html>
 <head>
   <title>DOM Intro</title>
+  <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
   <h1>DOM INTRO</h1>
@@ -69,12 +76,26 @@ code .
 
     <!-- Load the .js file at the end so that 
       it executes only after the DOM is ready -->
-    <script src="index.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>
 ```
 
 
+
+
+
+##### `/styles/styles.css`
+
+```css
+#first,
+#second,
+.third {
+  border: 1px solid black;
+  height: 100px;
+}
+
+```
 
 
 
@@ -124,8 +145,10 @@ console.log(document);
 
 ```js
 // TO GET THE ELEMENT FROM DOM YOU CAN USE "getElementById" 
-let firstDiv = document.getElementById("first");
-let secondDiv = document.getElementById("second");
+
+// Getting DOM elements and saving their reference for later use
+const firstDiv = document.getElementById("first");
+const secondDiv = document.getElementById("second");
 
 console.log(firstDiv);
 console.log(secondDiv);
@@ -161,56 +184,6 @@ firstDiv.innerHTML = secondDiv.innerHTML;
 
 
 
-### Each element is a `HTMLElement` Object
-
-Each element is an `HTMLElement` Object which gives it methods and properties that we can use to manipulate it.
-
-Instead of hard coding style and behavior in `html` or `css`, these methods enable us to work with the element from JavaScript file.
-
-
-
-### [List of HTML Object properties - W3S](https://www.w3schools.com/jsref/dom_obj_all.asp)
-
-
-
-### [List of HTML Object Properties - MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
-
-
-
-
-
-## Elements attributes and content
-
-
-
-- We can modify the element by using the methods that each `HTMLElement` has. 
-
-- [element.style](https://developer.mozilla.org/en/docs/Web/API/HTMLElement/style),  allows us to change the styles from JavaScript.
-
-
-
-
-
-### [CSS Properties Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference)
-
-
-
-**index.js**
-
-```js
-// index.js
-// ...
-
-// TO ADD THE CSS STYLE TO THE ELEMENT USE `.style` property
-firstDiv.style.backgroundColor = "red";
-firstDiv.style.border          = "4px yellow dashed";
-firstDiv.style.fontSize        = "50px";
-firstDiv.style.marginTop       = "30px";
-firstDiv.style.paddingBottom   = "30px";
-```
-
-
-
 
 
 ### Accessing Elements by Class Name
@@ -230,9 +203,9 @@ firstDiv.style.paddingBottom   = "30px";
 // returns an HTML Collection (array-like object) 
 // of all elements which have the given class name
 
-let theHTMLCollection = document.getElementsByClassName('third');
+const htmlCollection = document.getElementsByClassName('third');
 
-console.log(theHTMLCollection);
+console.log(htmlCollection);
 ```
 
 
@@ -272,10 +245,10 @@ e.g. `const divArray = Array.from(divsHTMLCollection)`
 ```js
 // The HTML Collection is an array-like object but is not an array (usuall array methods are unavailable). 
 // Turn HTML Collection into an array, using spread operator [...] 
-let divArray = [...theHTMLCollection];
+const elementsArr = [...htmlCollection];
 
 
-console.log(divArray); // <== [div.third, div.third, div.third]
+console.log(elementsArr); // <== [div.third, div.third, div.third]
 ```
 
 
@@ -308,39 +281,6 @@ let divsArray = [...divsHTMLCollection];
 
 
 
-**QUICK EXERCISE:**
-
-```js
-// Loop over the `allDivsArray` using `.forEach()` array method and for every element set the following style:
-
-  element.style.width = "300px";
-  element.style.height = "50px";
-	element.style.border = "1px solid black"
-```
-
-
-
-
-
-**ANSWER**
-
-```js
-// TO LOOP OVER AND STYLE ARRAY OF ELEMENTS WE CAN USE `forEach`
-divsArray.forEach( function (element) {
-  element.style.width = "300px";
-  element.style.height = "50px";
-	element.style.border = "1px solid black"
-})
-```
-
-
-
-
-
-
-
-
-
 ### Accessing First Found Selector -
 
 ###  [`querySelector()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
@@ -348,6 +288,8 @@ divsArray.forEach( function (element) {
 
 
 The [querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) returns the **first element** within the document  that matches the specified group of selectors.
+
+
 
 **index.js**
 
@@ -399,6 +341,95 @@ let allDivs = document.querySelectorAll(".third, #first");
 
 console.log(allDivs);
 ```
+
+
+
+
+
+### Each element is a `HTMLElement` Object
+
+Each element is an `HTMLElement` Object which gives it methods and properties that we can use to manipulate it.
+
+Instead of hard coding style and behavior in `html` or `css`, these methods enable us to work with the element from JavaScript file.
+
+
+
+### [List of HTML Object properties - W3S](https://www.w3schools.com/jsref/dom_obj_all.asp)
+
+
+
+### [List of Element  Properties - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+
+
+
+
+
+## Elements attributes and content
+
+
+
+- We can modify the element by using the methods that each `Element` has. 
+
+- [element.style](https://developer.mozilla.org/en/docs/Web/API/HTMLElement/style),  allows us to change the styles from JavaScript.
+
+
+
+
+
+### [CSS Properties Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference)
+
+
+
+**index.js**
+
+```js
+// index.js
+// ...
+
+// TO ADD THE CSS STYLE TO THE ELEMENT USE `.style` property
+firstDiv.style.backgroundColor = "red";
+firstDiv.style.border          = "4px solid black";
+firstDiv.style.fontSize        = "50px";
+firstDiv.style.marginTop       = "30px";
+firstDiv.style.paddingBottom   = "30px";
+```
+
+
+
+
+
+
+
+
+
+**QUICK EXERCISE:**
+
+```js
+// Loop over the `allDivsArray` using `.forEach()` array method and for every element set the following style:
+
+  element.style.width = "300px";
+  element.style.height = "50px";
+	element.style.border = "1px solid black"
+```
+
+
+
+
+
+**ANSWER**
+
+```js
+// TO LOOP OVER AND STYLE ARRAY OF ELEMENTS WE CAN USE `forEach`
+divsArray.forEach( function (element) {
+  element.style.width = "300px";
+  element.style.height = "50px";
+	element.style.border = "1px solid black"
+})
+```
+
+
+
+
 
 
 

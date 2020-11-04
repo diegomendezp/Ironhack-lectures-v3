@@ -27,7 +27,7 @@ This can bring a lot of typing and work.
 ##### Example
 
 ```js
-let car1 = {
+let bmw = {
   brand: 'BMW',
   color: 'red',
   model: '530 M3',
@@ -36,7 +36,7 @@ let car1 = {
   mileage: 0
 };
 
-let car2 = {
+let toyota = {
   brand: 'Toyota',
   color: 'red',
   model: 'Rav4',
@@ -45,33 +45,63 @@ let car2 = {
   mileage: 0
 };
 
-let car3 = {
-  brand: 'Tesla',
-  color: 'red',
-  model: 'Model S',
-  averageSpeed: 75,
-  year: 2012,
-  mileage: 0
-};
 
-
-function drive (hours, averageSpeed) { 
-	return hours * averageSpeed;
-};
-
-
-console.log(car1);
-console.log(car2);
-console.log(car3);
-
-car1.mileage = drive(1400, car1.averageSpeed);
-car2.mileage = drive(1050, car2.averageSpeed);
-car3.mileage = drive(900, car3.averageSpeed);
-
-console.log(car1);
-console.log(car2);
-console.log(car3);
+console.log(bmw);
+console.log(toyota);
 ```
+
+
+
+
+
+<br>
+
+
+
+### Class or function constructor
+
+
+
+Let's see how the above can be abstracted (abstraction) and made easier and more structured.
+
+This is just a brief example. In the next lecture we will, dive into the syntax.
+For now it is "kind off" intuitive easy to understand how the below class  "kind of" works:
+
+```js
+class Car {
+  constructor(brand, color, model, averageSpeed, year) {
+    // this represents the new object that will be created
+    this.brand = brand; 
+    this.color = color; 
+    this.model = model; 
+    this.averageSpeed = averageSpeed;
+    this.year = year;
+
+    this.mileage = 0;
+  }
+}
+
+
+const car1 = new Car('Seat', 'white', 'Ibiza', 60, 2020 )
+const car2 = new Car('BMW', 'blue', 'Series 5', 140, 2019 )
+const car3 = new Car('Toyoya', 'red', 'Corolla', 60, 2018 )
+```
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
 
 
 
