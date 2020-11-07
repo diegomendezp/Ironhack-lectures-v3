@@ -1,11 +1,11 @@
-# Express | Dynamic Views
+# Express | Server Side Rendering Basics
 
 ## Learning Goals
 
 After this lesson you will be able to:
 
 - Create `views` in Express.
-- Understand what `dynamic templates` are and why we use them.
+- Understand what `tepmplate engine` , templates and server side rendering are and why we use them.
 - Understand and use `HandlebarsJS` for creating dynamic templates.
 - Use `if`, `with` and `each` block helpers.cd 
 
@@ -18,13 +18,13 @@ After this lesson you will be able to:
 #### Create the file structure
 
 ```bash
-mkdir 01-express-dynamic-views
+mkdir 01-express-server-side-rendering
 
-cd 01-express-dynamic-views
+cd 01-express-server-side-rendering
 
 mkdir public
 
-mkdir public/css
+mkdir public/css public/js
 
 touch app.js index.html public/css/style.css
 
@@ -88,7 +88,7 @@ app.get('/about', (req, res, next) => {
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Document</title>
+      <title>Express SSR</title>
     </head>
     <body>
       <h1 style="color: green;">This is our second route</h1>
@@ -168,7 +168,8 @@ app.get('/home', (req, res, next) => {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Express Dynamic Views</title>
+    <title>Express SSR</title>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <h1>Index.html page</h1>
@@ -193,19 +194,24 @@ app.get('/home', (req, res, next) => {
 
 
 
-## [Handlebars.js](<http://handlebarsjs.com/>)
+## [Express React Views](https://github.com/reactjs/express-react-views)
 
 
 
-### What is Handlebars.js ?
+### What is Express React Views ?
 
 
 
- [**Handlebars.js**](http://handlebarsjs.com/) is a popular templating engine, JavaScript library, based on the **Mustache Templating Language**.
+Express React Views is a templating engine, JavaScript library, based on the JSX. JSX is the syntax extension of JavaScript which enables mixing HTML and JSX in one file.
+JSX is very common nowdays and it got it's fame thanks to React.
+
+So, by learning how to create things with JSX, you are also partially learning the syntax that you will need later for React.
 
 
 
-*Template engine* helps us to create an HTML *template* with minimal code and reuse it with different data. 
+*Template engine* helps us to create an HTML *template*. It is basically a stencil or a skeleton of our HTML page.
+
+With template engine we create a HTML *template* and inject some data to it on the server, before sending it to the client as a custom HTML page.
 
 
 
@@ -213,15 +219,13 @@ Some of the most well-known JavaScript templating engines are [Mustache](http://
 
 
 
-With template engine we create a HTML *template* and inject some data on the server before sending it to the client.
+We use templating engine to be able to do the server side rendering. We create and prepare the HTML page completely on the back-end. 
+
+We add data to the HTML template and when that is ready we serve it to the client.
 
 
 
-We use templating engine to be able to do the server side rendering. We create and prepare the HTML page completely on the back-end and then when ready we serve it to the client.
-
-
-
-These files that represent what will be rendered on the client side (front-end) are called <u>Views</u>. 
+The template files used to create the HTML pages sent to the client (front-end) are called <u>Views</u>. 
 
 <br>
 
@@ -229,7 +233,7 @@ These files that represent what will be rendered on the client side (front-end) 
 
 
 
-## Install handlebars & start serving Views
+## Install Express React Views & start serving Views
 
 
 
@@ -241,7 +245,7 @@ These files that represent what will be rendered on the client side (front-end) 
 
 ```bash
 mkdir views
-touch views/index.hbs
+touch views/Layout.jsx views/Home.jsx
 ```
 
 
@@ -252,7 +256,7 @@ touch views/index.hbs
 
 #### Notice that we use a new extension: 
 
-####  `.hbs` instead of ~~`.html`~~ 
+####  `.jsx` instead of ~~`.html`~~ 
 
 
 
@@ -260,10 +264,10 @@ touch views/index.hbs
 
 
 
-#### Install handlebars
+#### Install Express React Views
 
 ```bash
-npm install --save hbs
+npm install express-react-views react react-dom
 ```
 
 
@@ -279,12 +283,16 @@ npm install --save hbs
 ##### `app.js`
 
 ```js
-// SET THE VIEW ENGINE
-// Set the folder containing the view `hbs` files
-app.set('views', __dirname + '/views');
+// Import express-react-views
+const erv = require("express-react-views");
 
-// Set HBS as the view engine used for rendering the HTML
-app.set('view engine', 'hbs');
+
+// SET THE VIEW ENGINE
+// Set the folder containing the View/Template `jsx` files
+app.set('views', __dirname + '/views');
+// Set `express-react-views` as the view engine used for rendering HTML
+app.set('view engine', 'jsx');
+app.engine('jsx', erv.createEngine());
 ```
 
 
