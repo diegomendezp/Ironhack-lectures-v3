@@ -4,8 +4,8 @@
 
 After this lesson you will be able to:
 
-- Create `views` in Express.
-- Understand what `tepmplate engine` , templates and server side rendering are and why we use them.
+- Server side render HTML pages and serve them with Express.
+- Understand what a `templating engine` , templates and server side rendering are and why we use them.
 - Understand and use `HandlebarsJS` for creating dynamic templates.
 - Use `if`, `with` and `each` block helpers.cd 
 
@@ -26,7 +26,7 @@ mkdir public
 
 mkdir public/css public/js
 
-touch app.js index.html public/css/style.css
+touch app.js home.html public/css/style.css
 
 code .
 ```
@@ -40,7 +40,11 @@ code .
 #### Initialize the project and install dependencies
 
 ```bash
-npm init
+npm init -y
+
+
+# -y flag tells the generator to use the defaults instead of asking questions
+
 
 npm i --save express
 
@@ -128,7 +132,9 @@ We can use  `res.sendFile` to send a file to the browser.
 
 ###### [`__dirname`](https://nodejs.org/api/modules.html#modules_dirname) 
 
-**`__dirname`** - is the directory name of the current module where the value `__dirname` is accessed. 
+**`__dirname`** - is the directory name of the current module/file in which the value `__dirname` is used. 
+
+
 
 This is the same as the `path.dirname(__filename)` .
 
@@ -147,7 +153,7 @@ app.use(express.static('public'));
 
 // Sending a html file
 app.get('/home', (req, res, next) => {
-  res.sendFile(`${__dirname}/index.html`);
+  res.sendFile(`${__dirname}/home.html`);
 });
 ```
 
@@ -157,9 +163,9 @@ app.get('/home', (req, res, next) => {
 
 
 
-### Update `index.html`
+### Update `home.html`
 
-##### `index.html`
+##### home.html`
 
 ```html
 <!DOCTYPE html>
@@ -172,10 +178,10 @@ app.get('/home', (req, res, next) => {
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <h1>Index.html page</h1>
+    <h1>home.html page</h1>
     <h4>
       This page was sent from the server using:
-      <pre>res.sendFile(`${__dirname}/index.html`)</pre>
+      <pre>res.sendFile(`${__dirname}/home.html`)</pre>
     </h4>
   </body>
 </html>
@@ -292,48 +298,71 @@ const erv = require("express-react-views");
 app.set('views', __dirname + '/views');
 // Set `express-react-views` as the view engine used for rendering HTML
 app.set('view engine', 'jsx');
-app.engine('jsx', erv.createEngine());
+app.engine('jsx', erv.createEngine() );
 ```
 
 
 
 <br>
 
-#### Add content to the `index.hbs` view file
+### Create the folder for view/template files
 
-##### `views/index.hbs`
+```bash
+mkdir views
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>My first view</title>
-  <link rel="stylesheet" href="stylesheets/style.css">
-</head>
-<body>
-  <h1>Ironhackers Be Like</h1>
-  <img src="https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif">
-</body>
-</html>	
+touch views/Home.jsx
 ```
 
 
 
 <br>
 
-#### Update `app.js` to `res.render()` the `index` view
+#### Add content to the `Home.jsx` view file
+
+##### `views/Home.jsx`
+
+```jsx
+const React = require("react");
+
+function Home() {
+  
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title> Home </title>
+        <link rel="stylesheet" href="stylesheets/style.css" />
+      </head>
+      <body>
+        <h1>Ironhackers Be Like</h1>
+        <img src="https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif" />
+      </body>
+    </html>
+  );
+  
+}
+
+// We export the file so that other code can access it as a module and use it.
+
+module.exports = Home;
+
+```
+
+
+
+<br>
+
+#### Update `app.js` to `res.render()` the `Home` view
 
 ##### `app.js`
 
 ```js
 // render the view using handlebars
-app.get('/', (req, res, next) => {
+app.get('/home', (req, res, next) => {
   
-  // res.send('hello world');       	<---- REMOVE
+  // res.sendFile(__dirname + "/home.html");       	<---- REMOVE
   
-  // send `views/index.hbs` to be displayed in the browser			<---- ADD
-  res.render('index');	//  																		<---- ADD
+  res.render('Home');    	// <---- ADD
 });
 ```
 
@@ -343,8 +372,9 @@ app.get('/', (req, res, next) => {
 
 ## :rotating_light:
 
-<h2 style="color: red">Delete the file <pre>index.html</prepre> 
+<h2 style="color: red">Delete the file <pre>index.html</prepre> if present 
 </h2>
+
 
 <h2>If not deleted it will be loaded automatically by express when visiting the home endpoint `/`</h2>
 
@@ -356,11 +386,21 @@ app.get('/', (req, res, next) => {
 
 ### ***
 
-### [Visit `localhost:3000/`](http://127.0.0.1:3000/)
+### [Visit `localhost:3000/home`](http://127.0.0.1:3000/home)
 
 
 
 <br>
+
+
+
+
+
+### Rules of jsx:
+
+- Self closing tags must have a slash at the end: `<img/>`,  `<link/>`,  `<br/>`, etc.
+- Some attribute names are slightly different than HTML: `className`, `charSet`
+- Code returned from the function must have 1 main parent element. Other elements can be nested inside.
 
 
 
@@ -374,9 +414,10 @@ Create a new View that will serve the **About** page:
 
 - Create a new route for `GET` request  with the endpoint `/about`:
 
-- It should render a new view file, from `views/about.hbs`.
-- In the newly created template file `about.hbs`:
+- It should render a new view file, from `views/About.jsx`.
+- In the newly created template file `About.jsx`:
   - Create an `h1` with your name.
+  - Create an `h2` with your favourite book/movie/serie quote.
   - Add an image from [giphy](https://giphy.com/) that you like.
 
 
@@ -389,17 +430,436 @@ Create a new View that will serve the **About** page:
 
 
 
-## Handlebars - Templating in action
+### JSX comes with full power of JavaScript
+
+
+
+JSX enables us to embed Javascript code inside of the HTML, in order to create our HTML page more dynamicaly.
+
+
 
 ```bash
-touch views/student.hbs
+touch views/About.jsx
 ```
 
 
 
+##### `views/About.jsx`
+
+```jsx
+const React = require('react');
+
+
+const obj = {
+  name: 'John',
+  city: 'Barcelona',
+  bootcamp: 'WebDev'
+}
+
+const users = ['Bob', 'Sarah', 'Anna', 'Uros'];
+
+
+function getContent(lang) {
+  if (lang === 'en') {
+    return 'Intensive courses & bootcamps in Web Development, UX/UI Design, Data Analytics & Cybersecurity'
+  }
+  else if (lang === 'es') {
+    return 'Cursos intensivos y bootcamps de desarrollo web, diseño UX/UI, análisis de datos y ciberseguridad'
+  }
+}
+
+
+function About() {
+  return(
+    <div>
+      <h1>Uros</h1>
+      <h2>"Don't wish it was easier, wish you were better. "<sub>Jim Rohn</sub> </h2>
+      <img src="https://i.giphy.com/media/3o7qDLkrKr034Z3hQI/giphy.webp" alt=""/>
+
+      <br/>
+      2 + 2 = { 2 + 2 }
+
+      <p> Name: { obj.name } </p>
+      <p> City: {obj.city} </p>
+      <p> Bootcamp: {obj.bootcamp} </p>
+
+      <p> First user - { users[0] } </p>
+      <p> Last user - { users[3] } </p>
+
+      <h3> { getContent('es') } </h3>
+
+    </div>
+  )
+}
+
+
+
+module.exports = About;
+```
+
+
+
+<br>
+
+
+
+## JSX functions are reusable components
+
+```bash
+touch  views/StudentsPanel.jsx
+```
+
+
+
+
+
+Every **jsx**  function returning HTML is reusable. It is created as a reusable component, thanks to React.
+
+It enables us to easily separate concerns and separate code into smaller reusable parts.
+
+
+
+Initialy we could write the entire view structure inside of the same file, in the following way.
+
+##### `views/StudentsPanel.jsx`
+
+```jsx
+const React = require("react");
+const StudentCard = require('./StudentCard');
+
+function StudentsPanel() {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Student Card</title>
+        <link rel="stylesheet" href="css/style.css" />
+      </head>
+      <body>
+        <h1>Students Panel</h1>
+        
+        <section className="student-card">
+          <h2>Student Card</h2>
+          <h3>Details</h3>
+
+         	<div className="img-container">
+            <img src="" alt="" />
+          </div>
+          <p className="name">First Name:</p>
+          <p className="name">Last Name:</p>
+
+        	<button>See Profile</button>
+        </section>
+        
+      </body>
+    </html>
+  );
+}
+
+module.exports = StudentsPanel;
+
+```
+
+
+
+
+
+
+
+### Create smaller components
+
+
+
+But if we want to repeat certain parts of code, we can do it in a better easier way, by creating additional components.
+
+
+
+We can move the code from `StudentsPanel.jsx` into another component 
+
+```bash
+mkdir views/components
+
+touch views/components/StudentCard.jsx
+```
+
+
+
+##### `views/compnents/StudentCard.jsx`
+
+```jsx
+const React = require("react");
+
+function StudentCard() {
+
+  return (
+        <section className="student-card">
+          <h2>Student Card</h2>
+          <h3>Details</h3>
+
+          <div className="img-container">
+            <img src="" alt="" />
+          </div>
+          <p className="name">First Name:</p>
+          <p className="name">Last Name:</p>
+
+          <button>See Profile</button>
+        </section>
+  );
+}
+
+module.exports = StudentCard;
+
+```
+
+
+
+
+
+### Use a smaller component in the View
+
+##### `views/StudentsPanel.jsx`
+
+```jsx
+const React = require("react");
+const StudentCard = require('./StudentCard');      // <-- IMPORT THE COMPONENT
+
+// Reusing a smaller component within the StudentsPanel
+
+function StudentsPanel() {
+  return (
+    {/*  ...  */}
+      <body>
+        <h1>Students Panel</h1>
+        <StudentCard/>            {/*  <==  ADD */}
+        <StudentCard/>            {/*  <==  ADD */}
+        <StudentCard/>            {/*  <==  ADD */}
+
+      </body>
+    {/*  ...  */}
+  );
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+### Injecting data to a component - props
+
+Components are very powerful as they enable us to inject custom data to them.
+
+Data injected in the component is called - ***props***.
+
+
+
+
+
+In the above example we could customize the data that each `StudentCard` component is showing.
+
+##### `views/StudentsPanel.jsx`
+
+```jsx
+/*
+...
+*/
+
+function StudentsPanel() {
+  return (
+    {/*  ...  */}
+      <body>
+        <h1>Students Panel</h1>
+                                                           
+        <StudentCard fName="Uros" lName="Cirkovic" />       {/*  <==  UPDATE */}
+        <StudentCard/>
+        <StudentCard/>
+
+      </body>
+    {/*  ...  */}
+  );
+}
+```
+
+
+
+
+
+<br>
+
+
+
+##### `views/components/StudentCard.jsx`
+
+```jsx
+function StudentCard ( props ) {															// <==  UPDATE
+  // props ===>   {  fName: 'Uros',   lName: 'Cirkovic' }
+  
+  return (
+        <section className="student-card">
+          <h2>Student Card</h2>
+          <h3>Details</h3>
+
+          <div className="img-container">
+            <img src="" alt="" />
+          </div>
+          <p className="name">First Name: { props.fName } </p>
+          <p className="name">Last Name:  { props.lName } </p>
+
+          <button>See Profile</button>
+        </section>
+  );
+}
+
+module.exports = StudentCard;
+
+```
+
+
+
+
+
+
+
+
+
+Each Component is created as a separate part, therefore enabling us to pass different data to each component.
+
+##### `views/StudentsPanel.jsx`
+
+```jsx
+/*
+...
+*/
+
+function StudentsPanel() {
+  return (
+    {/*  ...  */}
+      <body>
+        <h1>Students Panel</h1>
+                                                           
+        <StudentCard fName="Uros" lName="Cirkovic" />       {/*  <==  UPDATE */}
+        <StudentCard fName="John" lName="Doe" />
+        <StudentCard/>
+
+      </body>
+    {/*  ...  */}
+  );
+}
+
+// In this way we reuse components to re-create parts with same structure, 
+// but with different content.
+```
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+
+```jsx
+/*
+...
+*/
+
+function StudentsPanel() {
+  return (
+    {/*  ...  */}
+      <body>
+        <h1>Students Panel</h1>
+                                                           
+        <StudentCard 
+          fName="Uros" 
+          lName="Cirkovic" 
+          photo="https://i.imgur.com/h0uGpjB.jpg"         {/*  <==  UPDATE */}
+        />
+        <StudentCard fName="John" lName="Doe" />
+        <StudentCard/>
+
+      </body>
+    {/*  ...  */}
+  );
+}
+
+// In this way we reuse components to re-create parts with same structure, 
+// but with different content.
+```
+
+
+
+
+
+```jsx
+  
+	// ...
+        <section className="student-card">
+          <h2>Student Card</h2>
+          <h3>Details</h3>
+
+          <div className="img-container">
+            <img src={ props.photo } alt="" />			  {/* <==  UPDATE   */}
+          </div>
+  
+          <p className="name">First Name: { props.fName }</p>
+          <p className="name">Last Name: { props.lName } </p>
+
+	// ...
+}
+
+```
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+### [Exercise - pass the props (20 min)](https://github.com/ross-u/ssr-basics---props-exercise)
+
+
+
+
+
+<br>
+
+
+
+### Passing props during the  `res.render`
+
 When rendering a template we can pass it data that we want to inject into the template.
 
 To do this we pass the data as the second parameter to the method:  `res.render('view-name', data)`.
+
+```js
+res.render('ViewName', data);
+```
+
+
+
+```bash
+touch views/Welcome.jsx
+```
 
 
 
@@ -408,173 +868,13 @@ To do this we pass the data as the second parameter to the method:  `res.render(
 ```js
 // create a template and pass it the data
 // that can be used inside of the template page
-app.get('/student', (req, res, next) => {
+app.get('/welcome', (req, res, next) => {
   let data = {
     name: "Ironhacker",
     bootcamp: "IronHack Barcelona - WebDev"
   };
 
-  res.render('student', data);
-});
-```
-
-
-
-##### `student.hbs`
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Home</title>
-</head>
-<body>
-  <h1>Hello {{name}}!</h1>
-  <p>Welcome to the {{bootcamp}}.</p>
-  
-  <img src="http://giphygifs.s3.amazonaws.com/media/FQyQEYd0KlYQ/giphy.gif">
-</body>
-</html>
-```
-
-
-
-
-
-<br>
-
-
-
-## Handlebars - Escaping HTML
-
-HTML strings within the currly braces ``{{ }}`` are not automatically parsed.
-
-By default Handlebars escapes HTML values included in a expression with the `{{ }}`, and shows them as a string.
-
-
-
-#### Try the following
-
-##### `app.js`
-
-```js
-bootcamp: '<h3>IronHack WebDev</h3>'
-```
-
-
-
-
-
-##### To parse the HTML strings, use the triple-stash: `{{{ }}}`.
-
-This will ensure that any HTML tag is parsed as an HTML element and not as a string.
-
-
-
-##### `student.hbs`
-
-```handlebars
-<p>Welcome to the {{{ bootcamp }}} .</p>
-```
-
-
-
-<br>
-
-
-
-### Be aware:
-
-When not sanitizing the input from the user we may end up with the situation where malicious script being injected in the view.
-
-Using `{{{ }}}` leaves the input unsanitized, meaning that HTML characters are not escaped.
-
-
-
-The below string will be evaluated as a valid HTML code. Notice what happens!
-
-
-
-##### `app.js`
-
-```js
-//  bootcamp: '<h3>IronHack WebDev</h3>',
-
-    bootcamp: `<script>
-      var password = prompt(\` You were logged out. \n \n Enter Your Password: \`);
-
-      console.log('BANG! - GOT THE PASSWORD:', password);
-
-      setTimeout(() => {
-        document.body.innerHTML = \`<h1>you've been pwned! (╯ ͠° ͟ʖ ͡°)╯┻━┻ </h1>\`
-      }, 5000)
-
-      setTimeout(() => {
-        window.location.href = "https://www.youtube.com/watch?v=b48HJQL5Hoo";
-      }, 9000)</script>`
-```
-
- 
-
-<br>
-
-
-
-## Handlebars Helper Features
-
-
-
-### `if` - block helper
-
-####  `{{ #if <argument> }}  {{ /if }}` 
-
-- You can use the `if` helper to render a block conditionally. 
-
-- If it's **argument** has any of the values:  `false`, `undefined`, `null`, `""`, `0`, or `[]`, **Handlebars** will not render the block.
-
-
-
-##### `student.hbs`
-
-```handlebars
-	<hr>
-	
-	<h3>#if</h3>
-	
-	{{#if message}}
-    <h3>
-    	message - This won't be displayed if message property doesn't exist!
-    </h3>
-  {{/if}}
-
-  {{#if name}}
-    <h3>
-    	name - This will be displayed if name exists!
-    </h3>
-  {{/if}}
-```
-
-
-
-<br>
-
-
-
-#### Add the `message` property to the data, so that it is rendered in the `if` helper 
-
-
-
-##### `student.hbs`
-
-```js
-app.get('/student', (req, res, next) => {
-  let data = {
-    name: 'Ironhacker',
-    bootcamp: '<h3>IronHack WebDev</h3>',
-    message: "Rocking it!"
-  };
-  res.render('index', data);
+  res.render('Welcome', data);
 });
 ```
 
@@ -584,27 +884,36 @@ app.get('/student', (req, res, next) => {
 
 
 
-## Using `else` condition
+##### `components/Welcome.jsx`
+
+```jsx
+const React = require('react');
+
+// Passing the props data via the `res.render`
+
+function Welcome (props) {
+  
+  return(
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>Welcome</title>
+      </head>
+      <body>
+        <h1>Hello {props.name} !</h1>
+        <p>Welcome to the {props.bootcamp} .</p>
+        
+        <img src="http://giphygifs.s3.amazonaws.com/media/FQyQEYd0KlYQ/giphy.gif" />
+      </body>
+    </html>
+  )
+}
 
 
-
-Add the following, below the existing code in the `student.hbs` view.
-
-##### `student.hbs`
-
-```handlebars
-<hr>
-
-<h3>#if</h3>
-<h3>#else</h3>
-
-
-{{#if address}}
-    <h2>"address" exists - {{ address }}</h2>
-{{else}}
-  <h2>"address" doesn't exist - This will be displayed</h2>
-{{/if}}
+module.exports = Welcome;
 ```
+
+
 
 
 
@@ -612,39 +921,17 @@ Add the following, below the existing code in the `student.hbs` view.
 
 
 
-### `unless` block helper
+### Conditionals
 
-`unless` will render the block if the argument has a value that handlebars considers **falsy** (  `false`, `undefined`, `null`, `0`, `""`, `[]` )
-
-##### `student.hbs`
-
-```handlebars
-<hr>
-
-<h3>#unless</h3>
-
-{{#unless address}}
-  <h3>WARNING: We can't find the address!</h3>
-{{/unless}}
+```bash
+touch components/Conditionals.jsx
 ```
 
 
 
-If we add the `address` property, then the warning should disappear!
-
-```js
-app.get('/student', (req, res, next) => {
-  let data = {
-    name: 'Ironhacker',
-    message: 'Rocking it!',
-    address: 'Barcelona'
- // address: 0							won't be rendered
- // address: ''							won't be rendered
- // address: []							won't be rendered
-    
-  };
-  
-  res.render('student', data);
+```jsx
+app.get("/conditional", (req, res, next) => {
+  app.render("Conditionals");
 });
 ```
 
@@ -652,345 +939,149 @@ app.get('/student', (req, res, next) => {
 
 
 
+##### `components/Conditionals.jsx`
+
+```jsx
+const React = require("react");
+
+const isLoggedIn = true;
+const photo = "https://i.imgur.com/kdOOnTL.jpg";
+// const photo = undefined;
+
+
+// Example on conditional rendering in JSX
+
+function Conditionals(props) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>Conditionals</title>
+      </head>
+      <body>
+        {
+          isLoggedIn 
+            ? <h3> Logged In!</h3> 
+            : <h3> Not Logged in :(</h3>
+        }
+
+        { photo ? <img src={ photo } alt=""/> : null }
+      </body>
+    </html>
+  );
+}
+
+module.exports = Conditionals;
+
+```
+
+
+
 <br>
 
 
 
-###  `each` block helper
 
 
 
-The `each` block helps us to iterate over a list of elements, mainly `objects` and `array`.
 
 
 
-Add the array to the `data` that we will use to iterate over.
+### Lists and mapping 
 
-##### `app.js`
+### 
+
+```bash
+touch components/List.jsx
+```
+
+
+
+We can use arrays and array.map method to dynamically create lists in our components.
 
 ```js
-app.get('/student', (req, res, next) => {
-  let data = {
-    name: "Ironhacker",
-    message: "Rocking it!",
-    address: "Barcelona",
-    cities: ["Miami", "Madrid", "Barcelona", "Paris", "México City", "Berlín"]
-  };
-  res.render('student', data);
+app.get("/list", (req, res, next) => {
+  app.render("List");
 });
 ```
 
 
 
-<br>
 
 
+##### `components/List.jsx`
+
+```jsx
+const React = require("react");
+
+// Example of rendering lists with array.map() in JSX
+
+function List () {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>List</title>
+      </head>
+      <body>
+        {
+          [
+            <p> Barcelona </p>,
+            <p> Madrid </p>,
+            <p> Paris </p>,
+            <p> Berlin </p>,
+            <p> Miami </p>,
+          ]
+        }
+      </body>
+    </html>
+  );
+}
+
+module.exports = List;
 
-##### `student.hbs`
 
-```html
-<hr>
-
-<h3>#each</h3>
-
-<ul>
-  {{#each cities}}
-    <li>{{this}}</li>
-  {{/each}}
-</ul>
-```
-
-
-
-<br>
-
-
-
-#### `{{ #each <collection> }} {{ else }}`
-
-
-
-##### To `{#each <collection>}` we can optionally provide an `{{else}}` section, which will display only when the list is empty.
-
-
-
-##### `student.hbs`
-
-```html
-<hr>
-
-<h3>#each #else - fallback option for lists</h3>
-
-<ul>
-  {{#each countries}}  {{!--  no countries property exist in data --}}
-    <li>{{this}}</li>
-  {{else}}
-    <p>No countries yet!</p>
-  {{/each}}
-</ul>
-```
-
-
-
-<br>
-
-
-
-#### `@index`
-
-When looping through items in `each`, you can optionally reference the current loop **index** via `{{@index}}`
-
-
-
-##### `student.hbs`
-
-```html
-<hr>
-
-<h3>@index</h3>
-
-<ul>
-  {{#each cities}}
-    <li>{{@index}}: {{this}}</li>
-  {{/each}}
-</ul>
-```
-
-
-
-<br>
-
-
-
-#### `@key`
-
-Additionally for `object` iteration, `{{@key}}` references the current key name when iterating over an object for example:
-
-
-
-##### `app.js`
-
-```js
-app.get('/student', (req, res, next) => {
-  let data = {
-    name: "Ironhacker",
-    message: "Rocking it!",
-    address: "Barcelona",
-    cities: ["Miami", "Madrid", "Barcelona", "Paris", "México", "Berlín"],
-    countries: ["Spain", "France", "Germany", "Portugal", "United States", "Brazil"],
-    info: { name: 'Ironhacker', campus: 'Barcelona', year: 2019}
-  };
-  res.render('student', data);
-});
-```
-
-
-
-<br>
-
-
-
-##### `student.hbs`
-
-```handlebars
-<hr>
-
-<h3>@key</h3>
-
-<ul>
-{{#each info}}
-  
-  <li>{{@key}}: {{this}}</li>
-  
-{{/each}}
-</ul>
-```
-
-
-
-<br>
-
-
-
-#### `@first` - `@last` - from the array
-
-The first and last steps of iteration are noted via the `@first` and `@last` variables when iterating over an array.
-
-```html
-<hr>
-
-<h3>@first - @last</h3>
-
-<ul>
-  {{#each cities}}
-  
-    {{#if @first}}
-      <li><b> First: {{this}}</b></li>
-  
-    {{else if @last}}
-      <li><i>Last: {{this}}</i></li>
-  
-    {{else}}
-      <li>{{this}}</li>
-  
-    {{/if}}
-  
-  {{/each}}
-</ul>
-```
-
-
-
-<br>
-
-
-
-###  `with` block helper
-
-Commonly, Handlebars evaluates its templates against the context/data passed into the compiled method. 
-
-
-
-To access the nested data we can either use the dot notation or by using the built-in `#with` block helper.
-
-
-
-For example, passing the following data:
-
-```js
-app.get('/student', (req, res, next) => {
-  let data = {
-    name: "Ironhacker",
-    bootcamp: "<span>IronHack WebDev</span>",
-    message: 'Rocking it',
-    
-    addressInfo: {								// <-- UPDATE
-      street: "Barcelona",		// <-- UPDATE
-      number: 96							// <-- UPDATE
-    },												// <-- UPDATE
-    
-    cities: ["Miami", "Madrid", "Barcelona", "Paris", "México", "Berlín"],
-    info: { name: 'Ironhacker', campus: 'Barcelona', year: 2019 }
-  };
-
-  res.render('student', data);
-});
-```
-
-We can do this:
-
-```handlebars
-<hr>
-
-<h3>#with</h3>
-
-<h3>Hello {{name}} {{lastName}}!</h3>
-
-{{#with addressInfo}}
-  <p>{{street}}, {{number}}</p>
-{{/with}}
-```
-
-
-
-Using the `with` helper, we shift the context from where we get the data, so that we can refer to `{{addressInfo.street}}` and `{{addressInfo.number}}`, as `{{street}}` and `{{number}}`.
-
-
-
-
-
-<br>
-
-
-
-## [Lecture Notes for the students](https://gist.github.com/ross-u/f97c131891de6f1a1f86a6cacb1f4cb9)
-
-
-
-<br>
-
-
-
-### Additional - handlebars helpers
-
-
-
-#### Incrementing `@index` by one using/registering a new handlebars helper:
-
-
-
-##### - Require `hbs` package 
-
-##### - Register the new helper function
-
-
-
-##### `app.js`
-
-```js
-const hbs = require('hbs');
-
-// Register a new helper function	
-hbs.registerHelper("oneUp", function(value) {
-  return parseInt(value) + 1;
-})
-```
-
-
-
-##### `views/students.hbs`
-
-```handlebars
-  <h3>@index</h3>
-
-  <ul>
-    {{#each cities}}
-    <li>{{oneUp @index}}: {{this}}</li>
-    {{/each}}
-  </ul>
 ```
 
 
 
 
 
-#### Create a helper function to uppercase a string
+We can also do it dynamically by using `array.map` method.
+
+When mapping we must always include the `key` attribute on the returned element. We can use indexes for this.
+
+```jsx
+const React = require("react");
+
+// Example on conditional rendering in JSX
+
+const cities = [ 'Barcelona', 'Madrid', 'Paris', 'Berlin', 'Miami'];
+
+function List () {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>List</title>
+      </head>
+      <body>
+        {
+          cities.map( (city, i) => {
+            return <p key={i} > {city} </p>
+          })
+        }
+      </body>
+    </html>
+  );
+}
+
+module.exports = List;
 
 
-
-##### `app.js`
-
-```js
-const hbs = require('hbs');
-
-// Register a new helper function	
-hbs.registerHelper("toUpperCase", function(value) {
-  return String(value).toUpperCase();
-})
 ```
 
 
 
-##### `views/students.hbs` 
-
-```handlebars
-  <h3>#each #else - fallback option for lists</h3>
-
-  <ul>
-    {{#each countries}}
-    <li> {{toUpperCase this}} </li>        {{!--    <--- UPDATE       --}}
-    {{else}}
-    <p>No countries yet!</p>
-    {{/each}}
-  </ul>
-```
 
 
-
-<br>
-
-
-
-### Handlebars Documentation
-
-<http://handlebarsjs.com/>
