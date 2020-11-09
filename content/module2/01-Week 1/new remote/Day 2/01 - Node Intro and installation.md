@@ -4,8 +4,6 @@
 
 ## Lecture Brief
 
-- What is a CLI
-
 - V8 Engine:
 
   - written in C++
@@ -34,7 +32,9 @@
 
 - Check if NodeJS is installed `node --version` & `npm --version`
 
--  Once installed, NodeJS comes automatically with the `npm`.
+- What is a CLI  ?
+
+-  Once installed NodeJS comes automatically with the `npm`.
 
 - Run a `test.js` file  that `console.log`s, from terminal with `node`.
 
@@ -91,16 +91,6 @@
 
 
 ## Lecture *** 
-
-
-
-### CLI
-
-Command Line interface - Program where you type things in your computer rather than clicking - example Bash on Linux, Terminal on Mac, Command Prompt on Windows.
-
-
-
-When working with node.js you will be working with it from the Command Line Interface , CLI .
 
 
 
@@ -198,6 +188,22 @@ npm --version
 
 
 #### [NodeJS - official page](https://nodejs.org/en/)
+
+
+
+<br>
+
+
+
+
+
+### CLI
+
+Command Line interface - Program where you type things in your computer rather than clicking - example Bash on Linux, Terminal on Mac, Command Prompt on Windows.
+
+
+
+When working with node.js you will be working with it from the Command Line Interface , CLI .
 
 
 
