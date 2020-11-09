@@ -79,13 +79,17 @@
 ### Create the file structure
 
 ```bash
-mkdir 02-express-handlebars-code-along
+mkdir 02-express-ssr-demo
 
-cd 02-express-handlebars-code-along
+cd 02-express-ssr-demo
 
-mkdir public views public/css views/partials
+mkdir public views public/css views/components
 
-touch app.js .gitignore moviesData.js public/css/styles.css views/index.hbs views/layout.hbs views/movies.hbs
+
+touch app.js .gitignore moviesData.js public/css/styles.css 
+
+touch views/Home.jsx views/Layout.jsx views/Movies.jsx
+
 
 code .
 ```
@@ -112,14 +116,13 @@ code .
 
 ```bash
 # Create package.json
-npm init
-
-# Answer the questions prompt
+npm init -y
 
 
 # Install dependencies
+npm i express 
 
-
+npm i express-react-views react react-dom
 
 
 
@@ -138,8 +141,9 @@ npm i --save-dev nodemon
 
 ```json
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon app.js"
+    "start": "node app.js",
+    "start:dev": "nodemon -e '*' app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
 ```
 
@@ -155,24 +159,24 @@ npm i --save-dev nodemon
 
 ```js
 const express = require("express");
-const hbs = require("hbs");
 const app = express();
+
+const erv = require('express-react-views');
 
 const PORT = 3000;
 const movies = require("./moviesData");
 
-// SET THE TEMPLATING ENGINE
-app.set("view engine", "hbs");
+
+// SET THE VIEW ENGINE
+app.set('view engine', 'jsx');
 
 // SET THE DIRECTORY USED TO SERVE VIEWS
-app.set("views", __dirname + "/views");
+app.set('views', __dirname + '/views');
+app.engine('jsx', erv.createEngine() );
 
+// MIDDLEWARE
 // SET THE STATIC FOLDER FOR PUBLIC FILES
-app.use(express.static(__dirname + "/public"));
-
-// SET THE DIRECTORY USED TO SERVE PARTIALS
-hbs.registerPartials(__dirname + "/views/partials");
-
+app.use( express.static('public'));
 
 // ROUTES
 //
@@ -192,7 +196,7 @@ app.listen(PORT, () => console.log(`Server listening at PORT ${PORT}`));
 
 ```bash
 # This will run the script we saved in the package.json
-npm run start
+npm run start:dev
 ```
 
 
@@ -212,7 +216,7 @@ npm run start
 ```js
 // ROUTES
 app.get("/", (req, res, next) => {
-  res.render("index");
+  res.render("Home");
 });
 
 app.get("/movies", (req, res, next) => {
@@ -222,7 +226,7 @@ app.get("/movies", (req, res, next) => {
     movies: moviesSlice
   };
 
-  res.render("movies", data);
+  res.render("Movies", data);
 });
 
 ```
@@ -238,18 +242,23 @@ app.get("/movies", (req, res, next) => {
 ##### `public/css/styles.css`
 
 ```css
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .view-container {
-  min-height: 600px;
+  min-height: 100vh;
   padding: 20px 50px;
 }
 
 .navbar {
-  background:#131c6e;
+  background: #131c6e;
   color: white;
   padding: 10px;
 }
@@ -260,7 +269,7 @@ body, html {
   margin-bottom: 30px;
 }
 
-.navbar a{
+.navbar a {
   text-decoration: none;
   color: white;
   padding: 10px 30px;
@@ -275,7 +284,7 @@ body, html {
 }
 
 footer {
-  background:#131c6e;
+  background: #131c6e;
   color: white;
   padding: 10px 20px;
 }
@@ -296,23 +305,23 @@ footer {
   padding: 0px 20px;
   margin: 10px;
   width: 300px;
-  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
 .category-card {
   border: 1px solid black;
   padding: 25px 30px;
   border-radius: 4px;
-  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
-.category-card h3, .card h3{
+.category-card h3,
+.card h3 {
   margin-top: -10px;
 }
 
-
 .category-card a {
-  background:#131c6e;
+  background: #131c6e;
   color: white;
   text-decoration: none;
   border: 1px solid black;
@@ -339,37 +348,41 @@ footer {
 
 
 
-##### `views/layout.hbs`
+##### `views/Layout.jsx`
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>IHMDB</title>
-  <link rel="stylesheet" href="css/styles.css">    
-</head>
+```jsx
+const React = require("react");
 
-<body>
+function Layout(props) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>IHMDB</title>
+        <link rel="stylesheet" href="/css/style.css" />
+      </head>
 
-  <nav class="navbar">
-    <h3> IHMDB - IronHack Movies Database </h3>
-    <div class="navbar-nav">
-      <a href="/">Home</a>
-      <a href="/movies">Movies</a>
-    </div>
-  </nav>
+      <body>
+        <nav className="navbar">
+          <h3> IHMDB - IronHack Movies Database </h3>
+          <div className="navbar-nav">
+            <a href="/">Home</a>
+            <a href="/movies">Movies</a>
+          </div>
+        </nav>
 
-  <div class='view-container'>
-    {{{ body }}}
-  </div>
+        <div className="view-container">{props.children}</div>
 
-  <footer>
-    <h4>IHMBD - All Rights Reserved.</h4>
-  </footer>
-  
-</body>
-</html>
+        <footer>
+          <h4>IHMBD - All Rights Reserved.</h4>
+        </footer>
+      </body>
+    </html>
+  );
+}
+
+module.exports = Layout;
+
 ```
 
 
@@ -378,26 +391,38 @@ footer {
 
 
 
-##### `views/index.hbs`
+##### `views/Home.jsx`
 
-```html
-<div>
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
 
-  <header>
-    <h2>IHMDB</h2>
-  </header>
+function Home() {
+  return (
+    <Layout>
 
-  <main class="cards-container">
+      <header>  <h2>IHMDB</h2>  </header>
 
-    <div class='category-card'>
-      <h3>Movies List</h3> <br>
-      <p>Click the button to see the list of movies.</p> <br>
-      <a href="/movies"> See Movies </a>
-    </div>
+      <main className="cards-container">
 
-  </main>
+        <div className="category-card">
+          <h3>Movies List</h3> 
+          <br />
 
-</div>
+          <p>Click the button to see the list of movies.</p>
+          <br />
+          
+          <a href="/movies"> See Movies </a>
+        </div>
+
+      </main>
+
+    </Layout>
+  );
+}
+
+module.exports = Home;
+
 ```
 
 
@@ -406,25 +431,31 @@ footer {
 
 
 
-##### `views/movies.hbs`
+##### `views/Movies.jsx`
 
-```html
-<div>
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
 
-  <header>
-    <h2>Movies List</h2>
-  </header>
-
-  <main class="cards-container">
-
-
-    {{#each movies}}
-      {{this.title}}
-    {{/each}}
+function Movies (props) {
   
-  </main>
-  
-</div>
+  return (
+    <Layout>
+      <header>
+        <h2>Movies List</h2>
+      </header>
+
+      <main className="cards-container">
+        {props.movies.map((movie) => {
+          return movie.title;
+        })}
+      </main>
+    </Layout>
+  );
+}
+
+module.exports = Movies;
+
 ```
 
 
@@ -433,18 +464,35 @@ footer {
 
 
 
-### Create `movieCard.hbs` partial
+### Create `MovieCard.jsx` component
 
-##### `views/paritals/movieCard.hbs`
 
-```html
-<article class="card">
-  <img src="{{this.photo}}" alt="">
-  <div>
-    <h3>{{this.title}}</h3>
-    <p><strong>Rank:</strong> {{this.rank}}</p>
-  </div>
-</article>
+
+```bash
+touch views/components/MovieCard.jsx
+```
+
+
+
+##### `views/components/MovieCard.jsx`
+
+```jsx
+const React = require("react");
+
+function MovieCard(props) {
+
+  return (
+    <article className="card">
+      <img src={props.photo} alt="" />
+      <div>
+        <h3>{props.title}</h3>
+        <p> <strong>Rank:</strong> {props.rank} </p>
+      </div>
+    </article>
+  );
+}
+
+module.exports = MovieCard;
 ```
 
 
@@ -455,30 +503,43 @@ footer {
 
 
 
-### Update `movies.hbs` View to use `movieCard` partial
+### Update `Movies.jsx` view to use `<MovieCard />` component
 
 
 
-`views/movies.hbs`
+##### `views/Movies.jsx`
 
-```handlebars
-<div>
-
-  <header>
-    <h2>Movies List</h2>
-  </header>
-
-  <main class="cards-container">
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
+const MovieCard = require("./components/MovieCard");
 
 
-    {{#each movies}}
-      {{!-- UPDATE BELOW --}}
-      {{> movieCard this}}
-    {{/each}}
+function Movies(props) {
   
-  </main>
-  
-</div>
+  		{/* ... */}
+
+      <main className="cards-container">
+ 
+        {
+      		props.movies.map((movie) => {          {/* <=== ADD <MovieCard /> */}
+            return (
+              <MovieCard
+                key={movie.id}
+                photo={movie.photo}
+                title={movie.title}
+                rank={movie.rank}
+              />
+            );
+        })}
+    
+      </main>
+    </Layout>
+  );
+}
+
+module.exports = Movies;
+
 ```
 
 
@@ -492,7 +553,7 @@ footer {
 ### Run the server
 
 ```bash
-npm run start
+npm run start:dev
 ```
 
 
@@ -516,33 +577,6 @@ npm run start
 <br>
 
 
-
-## Skipping the layout
-
-- We can skip the layout for a current view by creating property `layout` on the `data` object we pass to the view.
-
-
-
-##### `app.js`
-
-```js
-app.get("/movies", (req, res, next) => {
-  const moviesSlice = movies.slice(0, 40);
-
-  const data = {
-    movies: moviesSlice,
-    layout: false						//  <-- UPDATE
-  };
-
-  res.render("movies", data);
-});
-```
-
-
-
-
-
-<br>
 
 
 

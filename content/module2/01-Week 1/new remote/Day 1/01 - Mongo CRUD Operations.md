@@ -33,10 +33,12 @@ CRUD is an acronym for **Create**, **Read**, **Update**, **Delete** which are th
 db.users.insertOne({ name: "Your name", age: 29 })
 
 
-db.users.insertMany([
-  { name: "Chris", city: "Barcelona, Spain" },
-  { name: "Ana", city: "Barcelona, Spain"}
-])
+db.users.insertMany(
+	[
+  	{ name: "Chris", city: "Barcelona, Spain" },
+  	{ name: "Ana", city: "Barcelona, Spain"}
+	]
+)
 ```
 
 
@@ -148,7 +150,7 @@ db.users.find({ $nor: [{ age: 40}, {name: "Anna"}] })
 
 - [`find`](https://docs.mongodb.com/manual/reference/method/db.collection.find/#db.collection.find) method  also takes a  second argument, called a [projection](https://docs.mongodb.com/v3.2/tutorial/project-fields-from-query-results/).
 
-- Projection allows us to specify which fields should returns from each document in the result.
+- Projection allows us to specify which fields should return from each document in the result.
 
 
 
@@ -186,7 +188,7 @@ db.users.find({ name: "Anna"})
 db.users.find({ name: "Anna"}, {age: 1})
 
 #to include `age` field and exclude `_id` field from the result
-db.users.find({ name: "Anna"}, {age: 0, _id: 1})
+db.users.find({ name: "Anna"}, {age: 1, _id: 0})
 ```
 
 
@@ -207,17 +209,18 @@ db.users.find({ name: "Anna"}, {age: 0, _id: 1})
 # update the first matching instance in the collection - `dbuo`
 db.users.updateOne(
 	{ name: "Anna"},
-	{ $set: {name: "Ana - Updated 1"} }
+	{ $set: {name: "Anna - Updated 1"} }
 )
 
 db.users.find().pretty()
 
 db.users.updateOne(
 	{ name: "Anna"},
-	{ $set: {name: "Ana - Updated 2"} }
+	{ $set: {name: "Anna - Updated 2"} }
 )
 
 db.users.find().pretty()
+
 
 
 var phone = { "personal" : "", "work" : "", "ext" : 0 }
@@ -309,6 +312,18 @@ Removes the current database, deleting the associated data files.
 db.dropDatabase()
 ```
 
+
+
+<br>
+
+
+
+
+
+## [MongoDB - Lecture Notes For The Students](https://gist.github.com/ross-u/cf1f144c7706610e9f70c2700f8b391d)
+
+
+
 <br>
 
 
@@ -322,7 +337,3 @@ db.dropDatabase()
 <br>
 
 
-
-
-
-## [MongoDB - Lecture Notes For The Students](https://gist.github.com/ross-u/cf1f144c7706610e9f70c2700f8b391d)

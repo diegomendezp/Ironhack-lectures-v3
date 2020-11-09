@@ -8,7 +8,7 @@
 
 
 
-- [Databases](https://en.wikipedia.org/wiki/Database) are **programs allow us to save and retrieve data** of our applications. 
+- [Databases](https://en.wikipedia.org/wiki/Database) are **programs that allow us to save and retrieve data** of our applications. 
 - Until now, every program that we wrote used to reset/refresh every time we run it (variables will be delete as soon we reload or exit).
 
 
@@ -58,11 +58,15 @@ var mydoc = {
 
 
 
+<br>
+
+## Installing MongoDB
 
 
 
 
-##### [MongoDB - IH Learning Unit](http://materials.ironhack.com/s/H1XmRnG6VV7#mongodb-installation)
+
+### [Prework - 3 Advanced Environment Setup](https://preview.my.ironhack.com/lms/courses/course-v1:IRONHACK+WDPREWORK3+MASTER?moduleId=ironhack-course-chapter_2)
 
 
 
@@ -108,12 +112,9 @@ var mydoc = {
 
 ### `ObjectId` type
 
-- `ObjectIDd is a MongoDB type used to identify documents in a collection uniquely. 
-
+- `ObjectId` is a MongoDB type used to identify documents in a collection uniquely. 
 - MongoDB will create them automatically for us. 
-
 - When we create a document in MongoDB it automatically creates a key `_id` for the document.
-
 - This is a unique `_id` key under which the document is stored.
 
 
