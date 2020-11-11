@@ -8,7 +8,17 @@
 
 During this demo we are going to make our laptop into a server, being open and listening to the incoming HTTP requests on port 3000, on our current IP address.
 
+
+
 We will use our local IP address to which we refer to as `localhost`.
+
+
+
+*The **localhost** is the default name describing the local computer address also known as the **loopback address**.*
+
+
+
+*The loopback also has an IP address representation 127.0.0.1.* 
 
 
 
@@ -61,13 +71,23 @@ We will talk about that in the next lesson.
 
 
 ```bash
-mkdir 01-node-http-server && cd 01-node-http-server
+mkdir 02-node-http-server && cd 02-node-http-server
 
 touch server.js
 
 code .
 
 ```
+
+
+
+```bash
+npm init -y
+```
+
+
+
+
 
 
 
@@ -82,9 +102,10 @@ const server = http.createServer();
 server.listen(3000, () => {
   console.log(`Server running at port 3000`);
 });
+
+// Port numbers range from 0 - 65535
+// We use the port to open a specific entry point for the incoming requests
 ```
-
-
 
 
 
@@ -186,7 +207,7 @@ const server = http.createServer((request, response) => {
     
     else {																// domain.com/*
       response.statusCode = 404;
-      response.write('404 Page');
+      response.write('404 Page :/ ');
       response.end();
     }
   });
@@ -251,13 +272,9 @@ Standard ports:  **:80** ( **HTTP** ) and **:443** ( **HTTPS** ) .
 Create the folder for the repo
 
 ```bash
-pwd
+mkdir 03-node-http-server-part2
 
-ls
-
-mkdir 02-node-http-server-part2
-
-cd 02-node-http-server-part2
+cd 03-node-http-server-part2
 ```
 
 
@@ -267,9 +284,9 @@ cd 02-node-http-server-part2
 ### [Repo with static files](https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-)
 
 ```bash
-git clone https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-.git
+git clone https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-.git .
 
-cd Node.js-Serving-Static-Files-Code-Along-
+rm -rf .git
 
 code .
 ```
@@ -307,7 +324,7 @@ const fs = require('fs');
 // server.js
 
 // Our port to listen for incoming HTTP requests
-const port = 3000;
+const PORT = 3000;
 
 // create the server
 const server = http.createServer((request, response) => {
@@ -329,7 +346,7 @@ const server = http.createServer((request, response) => {
 						<h1 style="font-size: 80px">404</h1>
 					</body>
 				</html>`
-                    );
+       );
       response.end();
     }
     
@@ -337,8 +354,8 @@ const server = http.createServer((request, response) => {
 
 
 // start the server
-server.listen(port, () => {
-  console.log(`Server running at PORT ${port}`);
+server.listen(PORT, () => {
+  console.log(`Server running at PORT ${PORT}`);
 });
 ```
 
@@ -358,8 +375,8 @@ server.listen(port, () => {
 // Inside the `http.createServer((request, response) =>`  callback
 
 		// If domain is  www.page.com/about.html the parsed
-		// string saved to `let` `path` will be '/about.html'
-		let path = url.parse(request.url).pathname;
+		// string saved to `path` will be '/about.html'
+		const path = url.parse(request.url).pathname;
 
 
     if (request.url === '/index.html') {
@@ -479,6 +496,20 @@ Instead we will use a the framework - [ExpressJS](https://expressjs.com/) which 
 
 
 
+
+<br>
+
+
+
+### [What is Node.js](<https://www.youtube.com/watch?v=uVwtVBpw7RQ>) - 4 min
+
+### [NodeJS Architecture](https://www.youtube.com/watch?v=XUSHH0E-7zk) - 4 min
+
+
+
+
+
+<br>
 
 
 

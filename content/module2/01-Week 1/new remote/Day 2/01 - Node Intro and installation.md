@@ -116,9 +116,13 @@ Machine language is a language that your computer processor speaks and it is ver
 
 - V8 engine converts JavaScript into machine language and gives it to the processor.
 
-- V8 was initially made to be used in the browser,  however V8 can run alone. This means that you can use the V8 code and combine it with another C++ application / program.
+- V8 was initially made to be used in the browser. But as V8 is essentialy a C++ program it can also be run alone and paired with other C++ code. 
 
-- Node.js is a V8 engine with some additional C++ code added, that enables you to run JavaScript outside of the browser.  
+  This means that you can use the V8 code and combine it with another C++ application / program.
+
+
+
+
 
 
 
@@ -129,6 +133,14 @@ Machine language is a language that your computer processor speaks and it is ver
 ## NodeJS with V8
 
 ### [OPEN IMAGE](https://www.oscarblancarteblog.com/wp-content/uploads/2017/05/NodeJS-Architecture.png)
+
+
+
+
+
+Node.js is a V8 engine with some additional C++ code added, that enables you to run JavaScript outside of the browser.  
+
+
 
 ![](https://www.oscarblancarteblog.com/wp-content/uploads/2017/05/NodeJS-Architecture.png)
 
@@ -152,7 +164,7 @@ Machine language is a language that your computer processor speaks and it is ver
 
   
 
-Node.js is a server technology and a JavaScript runtime environment, it is not a framework nor a programming language.
+Node.js is a JavaScript runtime environment and  server technology and, it is not a framework nor a programming language.
 
 
 
@@ -199,11 +211,9 @@ npm --version
 
 ### CLI
 
-Command Line interface - Program where you type things in your computer rather than clicking - example Bash on Linux, Terminal on Mac, Command Prompt on Windows.
-
-
-
 When working with node.js you will be working with it from the Command Line Interface , CLI .
+
+Command Line interface - Program where you type things in your computer rather than clicking - example Bash on Linux, Terminal on Mac, Command Prompt on Windows.
 
 
 
@@ -266,10 +276,12 @@ node test.js
 
 
 
+### https://www.npmjs.com/about
+
 
 
 - `npm` is a Node Package manager that enables us to download and install different JavaScript files called 'packages' or 'modules' into our project.
-- Other alternative package manager is Yarn, however yarn is out of scope of this lecture and we will be using only `npm` as our package manager.
+- Other alternative package manager is Yarn, however yarn is out of scope of this lecture and we will be using only `npm` as our package manager during the bootcamp.
 
 
 
@@ -328,7 +340,7 @@ npm --version
 
 
 
-## [Get Started with `npm` - npm intro video](<https://docs.npmjs.com/about-npm/>) (3 min)
+## [Get Started with `npm` - npm intro video](https://www.youtube.com/watch?v=pa4dc480Apo) (3 min)
 
 
 
@@ -351,7 +363,7 @@ npm --version
 #### `npm init` creates a `package.json` file
 
 ```bash
-mkdir npm-getting-started  &&  npm-getting-started
+mkdir 01-npm-getting-started  &&  01-npm-getting-started
 
 touch index.js
 
@@ -365,7 +377,7 @@ code .
 While in the project folder, run the following command in the terminal:
 
 ```bash
-npm init
+npm init -y
 ```
 
 
@@ -374,7 +386,9 @@ npm init
 
 
 
-`npm init` will initiate a prompt of questions to be answered for the setup of the `package.json` file.
+`npm init`  without the `-y` flag will initiate a prompt of questions to be answered for the setup of the `package.json` file. 
+
+With `-y` flag those questions are populated by defaukt.
 
 
 
@@ -394,13 +408,13 @@ npm install --save chalk
 
 1. `npm install` grabs the package from the npm servers
 
-2. `--save` flag adds adds the package to our `package.json` file under `dependencies` .
+2. Package is also aded to the list of `dependencies` in the projects `package.json`.
 
 3. If not existing already, the`node_moudles` folders is created. This is where the acctual code for all packages is stored.
 
 
 
-If we want to have the module only for development and not for deployment, we can save it as a Development Dependency, using flag `--save-dev`.
+We can install a module but set it on the list of `devDependencies` which are packages that we will use only during the development phase. Not in production.
 
 ```bash
 npm install --save-dev nodemon
@@ -408,7 +422,11 @@ npm install --save-dev nodemon
 
 
 
+1. `npm install` grabs the package from the npm servers
 
+2. `--save-dev` flag will add the package  to the list of `dev-dependencies` in the projects `package.json`.
+
+   
 
 <br>
 
@@ -416,17 +434,13 @@ npm install --save-dev nodemon
 
 ### Differences between:
 
-###  `npm install`,
+###  `npm install` ( same as  `npm install --save` ),
 
-###  `npm install --save` and
+and
 
 ###  `npm install --save-dev`
 
 
-
-#### [OPEN IMAGE](https://i.imgur.com/qomoB1p.png)
-
-![](https://i.imgur.com/qomoB1p.png)
 
 
 
@@ -434,11 +448,11 @@ npm install --save-dev nodemon
 
 
 
-1. `npm install` will install the npm package to the node_modules folder  without adding it to the `package.json`
+1. `npm install` will install the npm package to the `node_modules` folder  without adding it to the `package.json`
 
    
 
-2. `npm install --save` - package(s) required by the application to run.
+2. ~~`npm install --save` - legacy ( same as `npm install`)~~
 
 
 
@@ -577,11 +591,11 @@ const greetings = {
 };
 
 /* 
-We export the greetings object, in order to be able to 
-require it from another file.
+We export the `greetings object` in order 
+to be able to require it from another file.
 */
- module.exports = greetings;
 
+ module.exports = greetings;
 ```
 
 
@@ -607,6 +621,15 @@ greet = {
 
 */
 
+
+console.log(greet.en);
+console.log(greet.es);
+console.log(greet.de);
+console.log(greet.fr);
+console.log(greet.it);
+
+
+// Printing colored output using `chalk`
 console.log( chalk.whiteBright.bgBlue.bold(greet.en) );
 
 console.log( chalk.yellow.bgRed.bold(greet.es) );
@@ -643,11 +666,7 @@ https://github.com/sindresorhus/vaca
 
 
 
-## [Exercise - from Learning Unit](http://materials.ironhack.com/s/BySQC2fpVE7#exercise) (10 min)
-
-Install a package from [this list of npm packages](https://github.com/sindresorhus/awesome-nodejs#weird), specifically the “weird” section.
-
-Use the installed package in your `index.js`. See its documentation to learn what it can do and how to use it.
+## [Exercise - Initialize npm and install a package](https://gist.github.com/ross-u/9eab7aa77bca58135202d8c96cb2d12f) (10 min)
 
 
 

@@ -87,9 +87,9 @@ Are never cached
 
 
 ```bash
-mkdir express-hello-world
+mkdir 02-express-server
 
-cd express-hello-world
+cd 02-express-server
 
 touch app.js
 

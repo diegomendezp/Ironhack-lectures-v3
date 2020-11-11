@@ -4,9 +4,21 @@
 
 
 
-### Client and Server
+## Client and Server
 
-All the devices connected to the Internet are either **servers** or **clients**.
+
+
+### [OPEN IMAGE](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
+
+![img](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
+
+
+
+
+
+<br>
+
+All the devices connected to the Internet are either **clients** or **servers**.
 
 
 
@@ -40,21 +52,15 @@ Resources have to be **requested** from the server.
 
 
 
-### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_52990f8d31567a1abd048415fdeedc90.png)
-
-
-
-![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_52990f8d31567a1abd048415fdeedc90.png)
 
 
 
 
+### [OPEN IMAGE](https://contentdeliverance.com/cms-school/wp-content/uploads/2011/05/client-server-diagram-internet.png)
 
 
 
-### [OPEN IMAGE](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
-
-![img](https://www.w3schools.in/wp-content/uploads/2019/01/client-server.jpg)
+![img](https://contentdeliverance.com/cms-school/wp-content/uploads/2011/05/client-server-diagram-internet.png)
 
 
 
@@ -74,19 +80,25 @@ Resources have to be **requested** from the server.
 
 
 
-1. **HTTP is a connectionless protocol.** 
-
-  After making the request the client disconnects from the server.
-
-  When the response is ready the server re-establishes the connection again and sends the response.
 
 
 
-2. **HTTP can be used to deliver any data as long as two computers are able to read it.**
+
+ 
+
+1. In HTTP protocol **data is being send via HTTP messages** in a response/request cycle.
 
    
 
-3. In HTTP protocol data is being send via HTTP messages in a response/request cycle.
+2. **HTTP is a connectionless protocol.** 
+
+After making the request the client disconnects from the server.
+
+When the response is ready the server re-establishes the connection again and sends the response.
+
+
+
+3. **HTTP can be used to deliver any data as long as two computers are able to read it.**
 
 
 
@@ -190,7 +202,9 @@ There are a vast amount of use-cases for cURL such as:
 
 #### Example 1 - 
 
-Creating a GET request
+Creating a GET request. 
+
+The **below prints HTTP  the response**
 
 ```bash
 curl -i -H "Accept: text/html" https://www.google.com/
@@ -231,7 +245,7 @@ Returns a response with status **405 - Method Not Allowed**
 Applications request many things from the servers:
 
 1. Request the initial HTML code
-2. Request the CSS file
+2. Request the CSS or JS or other file
 3. Request any images (each file is a separate request)
 4. Request any JavaScript files (file is a separate request)
 5. Request any font files (again, each one its own request)
@@ -275,7 +289,7 @@ IP address is like a street addresses for each computer/ machine.
 
 
 
-The **Domain Name System**, or **DNS** for short,allows us to use domain names.
+The **Domain Name System**, or **DNS** for short, allows us to use domain names.
 
 **DNS** is a system of online directories/ servers that hold IP addresses for the IP addresses that they belong to. 
 
@@ -302,6 +316,12 @@ DNS protocol - step by step:
 
 
 <br>
+
+
+
+### [DNS - Video (5 min)](https://www.youtube.com/watch?v=HsQOWfc3Wic)
+
+
 
 
 

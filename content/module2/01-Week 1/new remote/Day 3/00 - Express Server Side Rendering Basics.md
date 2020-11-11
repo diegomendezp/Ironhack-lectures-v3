@@ -200,7 +200,7 @@ npm i --save-dev nodemon
 
 
 
-### Sending text in the response
+### Create the server
 
 ##### `app.js`
 
@@ -209,28 +209,10 @@ const express = require('express');
 const app = express();
 
 
-// Sending a text string representing HTML DOM
-app.get('/first', (req, res, next) => {
-  res.send(`
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Express SSR</title>
-    </head>
-    <body>
-      <h1 style="color: green;">This is our first route</h1>
-      This page was sent from the server using:
-      <b><pre>res.send(\`HTML STRING\`)</pre></b>
-    </body>
-  </html>
-  `);
+
+app.listen(3000, () => {
+  console.log('Server is listening on port 3000')
 });
-
-
-
-app.listen(3000);
 ```
 
 
@@ -240,18 +222,6 @@ app.listen(3000);
 ##### 
 
 <br>
-
-
-
-## Views
-
-
-
-The above way would eventually get to be too verbose and make the application and code unreadable.
-
-
-
-Instead we can send the HTML files.
 
 
 
@@ -310,6 +280,7 @@ This is the same as the `path.dirname(__filename)` .
 ```html
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -317,6 +288,7 @@ This is the same as the `path.dirname(__filename)` .
     <title>Express SSR</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
+  
   <body>
     <nav>
       <div>
@@ -339,6 +311,7 @@ This is the same as the `path.dirname(__filename)` .
       </h4>
     </main>
   </body>
+  
 </html>
 
 ```
@@ -448,7 +421,7 @@ The template files used to create the HTML pages sent to the client (front-end) 
 
 
 
-#### Create a folder for views and file `views/index.hbs`
+#### Create a folder for views and file `views/Home.jsx`
 
 ```bash
 mkdir views
@@ -504,7 +477,11 @@ app.engine('jsx', erv.createEngine() );
 
 
 
+
+
 <br>
+
+
 
 ### Create the folder for view/template files
 
@@ -516,7 +493,11 @@ touch views/Home.jsx
 
 
 
+
+
 <br>
+
+
 
 #### Add content to the `Home.jsx` view file
 
@@ -698,7 +679,7 @@ const obj = {
 const users = ['Bob', 'Sarah', 'Anna', 'Uros'];
 
 
-function getContent(lang) {
+function getContent (lang) {
   if (lang === 'en') {
     return 'Intensive courses & bootcamps in Web Development, UX/UI Design, Data Analytics & Cybersecurity'
   }

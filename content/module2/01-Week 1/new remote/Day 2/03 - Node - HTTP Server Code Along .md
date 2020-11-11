@@ -267,7 +267,7 @@ cd 02-node-http-server-part2
 ### [Repo with static files](https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-)
 
 ```bash
-git clone https://github.com/ross-u/Node.js-Serving-Static-Files-Code-Along-.git
+/
 
 cd Node.js-Serving-Static-Files-Code-Along-
 
