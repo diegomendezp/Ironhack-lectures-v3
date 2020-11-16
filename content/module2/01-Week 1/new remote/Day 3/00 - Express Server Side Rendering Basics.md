@@ -238,7 +238,7 @@ We can use  `res.sendFile` to send a file back to the client.
 ##### `app.js`
 
 ```js
-// Add middleware for serving static filesd
+// Add middleware for serving static files
 
 // MIDDLEWARE
 app.use(express.static('public'));
@@ -1081,7 +1081,7 @@ function StudentsPanel() {
 
 
 
-### [Exercise - pass the props (20 min)](https://github.com/ross-u/ssr-basics---props-exercise)
+### [Exercise - pass the props (30 min)](https://github.com/ross-u/ssr-basics---props-exercise)
 
 
 
@@ -1243,7 +1243,7 @@ touch components/List.jsx
 
 
 
-We can use arrays and array.map method to dynamically create lists in our components.
+We can use arrays to create lists inside of our Templates and components.
 
 ```js
 app.get("/list", (req, res, next) => {
@@ -1389,6 +1389,7 @@ function Layout (props) {
       </nav>
 
       { props.children }
+      
     </body>
   </html>
   )

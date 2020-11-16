@@ -4,13 +4,7 @@
 
 <br>
 
-#### [Code Along - Example Done](https://github.com/ross-u/express-handlebars-layout-and-partials) (Use to copy the big files)
-
-
-
-<br>
-
-
+#### [OLD Code Along - Example Done](https://github.com/ross-u/express-handlebars-layout-and-partials) (Use only to copy the big files)
 
 
 
@@ -20,55 +14,7 @@
 
 
 
-### Layout
-
-
-
-- Layout is a file saved as `layout.hbs` inside of the registered **views** directory.
-
-- This file is loaded by default (hbs locates it by the name `layout.hbs`) and can be used as a shell or layout for the rest of the views. 
-
-- If the file by this name exists in views directory, handlebars will try to load it.
-
-- `{{{ body }}}` is used inside of the layout file to mark the place where view files will be loaded, with the layout surrounding them.  
-
-
-
-<br>
-
-
-
-### Partials (smaller components)
-
-- Partials allow for code reuse.
-
-- Partials serve as shared components that can be embedded multiple times inside of the handlebars view files.
-
-- In this sense partials serve as reusable components, created once and used many times.
-
-- Loading a partial is done with the following syntax:
-
-   `{{> partial-name  dataContext }}`
-
-  ```handlebars
-    <main class="cards-container">
-  
-      {{#each movies}}
-        {{> movieCard this}}
-      {{/each}}
-    
-    </main>
-  ```
-
-   
-
-
-
-<br>
-
-
-
-# Code Along
+# Demo / Code Along
 
 
 
@@ -353,7 +299,7 @@ footer {
 ```jsx
 const React = require("react");
 
-function Layout(props) {
+function Layout (props) {
   return (
     <html lang="en">
       <head>
@@ -371,7 +317,9 @@ function Layout(props) {
           </div>
         </nav>
 
-        <div className="view-container">{props.children}</div>
+        <div className="view-container"> 
+          { props.children } 
+        </div>
 
         <footer>
           <h4>IHMBD - All Rights Reserved.</h4>

@@ -96,9 +96,11 @@
 ### [Starter Repo - file structure & data only](<https://github.com/ross-u/Mongoose-advanced-schemas-models>)
 
 ```bash
-git clone https://github.com/ross-u/Mongoose-advanced-schemas-models.git
+mkdir 01-mongoose-schemas-models 
 
-cd Mongoose-advanced-schemas-models/
+cd 01-mongoose-schemas-models
+
+git clone https://github.com/ross-u/Mongoose-advanced-schemas-models.git .
 
 code .
 ```
@@ -110,7 +112,7 @@ code .
 ### Install the dependencies
 
 ```bash
-npm i
+npm install
 ```
 
 
@@ -168,7 +170,7 @@ const clientSchema = new Schema({
 ##### `schemas/paymentSchema.js`
 
 ```js
-{}const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 // CREATE A SCHEMA

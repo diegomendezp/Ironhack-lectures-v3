@@ -22,7 +22,7 @@ Mongo Shell  and MongoDB Limitations:
 
 - **It’s hard to enforce data consistency** (There is no way to enforce the structure of the documents).
 
-- There are ways to enforce data document structure, but they are not esy to implement or manage in pure MongoDB.
+- There are ways to enforce data document structure, but they are not easy to implement or manage in pure MongoDB.
 
   
 
@@ -33,6 +33,48 @@ To avoid these problems we need **an abstraction on top of our database connecti
 This abstraction is called an **ODM**.
 
 
+
+### Insert several documents of different structure to a collection using Compass
+
+```js
+{
+  "username": "bob123",
+  "email": "bob123@mail.com",
+  "address": "Barcelona, Pamplona 96",
+  "password": "asf@SG2sdfa23G"  
+}
+```
+
+
+
+```js
+{
+  "username": "sarah",
+  "email": "sarah@mail.com",
+  "address": {
+		"city": "Chicago",
+    "state": "Illinois",
+    "street": "1089 NW Avenue",
+    "country": "United States of America"
+	},
+  "password": "asf@SG2sdfa23G"  
+}
+```
+
+
+
+```js
+{
+  "firstName": "Anna",
+  "lastName": "Ryan",
+  "emailAddress": "annaryan@mail.com",
+  "location": {
+    "lon": 20.448,
+    "lat": 44.7866
+	},
+  "passcode": 12392012459
+}
+```
 
 <br>
 
@@ -86,9 +128,9 @@ Let’s start a new project and install it.
 
 ```bash
 # Create Directory
-mkdir 02-mongoose-orm
+mkdir 00-mongoose-orm
 
-cd 02-mongoose-orm
+cd 00-mongoose-orm
 
 touch app.js
 
@@ -108,7 +150,7 @@ code .
 npm init -y
 
 # install mongoose
-npm install --save mongoose
+npm install mongoose
 
 # install nodemon
 npm install --save-dev nodemon
@@ -169,6 +211,8 @@ mongoose.connect(
 
 
 
+
+
 ### Model
 
 - The **data model** (or just **model**) is what directly manages the data and querying logic. 
@@ -221,28 +265,9 @@ const Cat = mongoose.model("Cat", {
 
 ### CREATE A DOCUMENT INSTANCE
 
-```js
-// CALL MODEL TO CREATE A MODEL INSTANCE (STRUCTURED OBJECT)
-const kitty = new Cat({ name: 'Iron Kitty Cat', color: 'ironhack blue' });
-```
 
 
 
-
-
-#### Instance has the MongoDB methods that can be called from the instance itself.
-
-
-
-```js
-// `save()` - equivalent to `insertOne` method in mongo shell
-
-// INSERT THE DOCUMENT INSTANCE INTO THE COLLECTION
-// kitty.save( (err) => {
-//  if (err) console.log(err); // if instance cannot be saved for some reason
-//  else console.log(`instance saved to DB ${dbName}`);
-// });
-```
 
 
 
@@ -251,12 +276,9 @@ const kitty = new Cat({ name: 'Iron Kitty Cat', color: 'ironhack blue' });
 // it can be used to create one document
 
 // INSERT THE NEW DOCUMENT INTO THE COLLECTION
-const kitty = Cat.create({name: 'Iron Kitty Cat', color: 'ironhack blue'} , (err, res) => {
-  if (err) console.error(err);
-  else {
-    console.log('res :>> ', res);
-  }
-});
+Cat.create({name: 'Iron Kitty Cat', color: 'ironhack blue'})
+	.then( (createdDocument) => { console.log('createdDocument', createdDocument )  })
+  .catch( (err)=> {  console.log('Query Error: ', err)  });
 ```
 
 
@@ -296,13 +318,10 @@ Now check in mongo shell
 ### Return all the documents
 
 ```js
-
 // RETRIEVE ALL THE DOCUMENTS FROM THE COLLECTION `cats`
-// Using a callback:
-  Cat.find({}, (err, catsData) => {
-    if (err) console.log('Cat.find error', err);
-    else catsData.forEach((cat) => console.log('cat ->', cat));
-  });
+Cat.find({})
+  .then( (results) => console.log('RESULTS: ', results ))
+  .catch( (err)=> console.log('Query Error: ', err));
 ```
 
 
@@ -349,34 +368,6 @@ myPromise
 
 
 
-#### Let's refactor the `Cat.find`  to use promises instead of the callbacks.
-
-
-
-```js
-// RETRIEVE ALL THE DOCUMENTS FROM THE COLLECTION `cats`
-
-// Using thenables (mongoose type of Promise)
-Cat.find({})
-  .then( (results) => console.log('RESULTS: ', results ))
-  .catch( (err)=> console.log('Query Error: ', err));
-
-/* //Using callback instead of promises:
-  Cat.find({}, (err, cats) => {
-    if (err) console.log('Cat.find error', err);
-    else cats.forEach( (cat)=> console.log(' --> cat: ', cat.name));
-  });
-*/
-```
-
-
-
-
-
-<br>
-
-
-
 ### Promises All
 
 Sometimes we may need to do something only after all promises are finished.
@@ -396,7 +387,7 @@ To wait for multiple promisified operations to finish, we use `Promise.all`
 This will create new collection `dogs` in the database `mongoose-example`.
 
 ```js
-const Dog = mongoose.model('Dog', { name: String });
+const Dog = mongoose.model('Dog', { name: String, age: Number });
 ```
 
 
@@ -421,10 +412,11 @@ const arrayOfCats = [
   { name: 'fluffy', color: 'white' },
   { name: 'tiger', color: 'orange and black' },
 ];
+
 const arrayOfDogs = [ 
-  {name: 'daisy'},
-  {name: 'bella'},
-  {name: 'sudo'}
+  {name: 'daisy', age: 1 },
+  {name: 'bella', age: 3 },
+  {name: 'sudo', age: 6 }
 ];
 
 
@@ -433,7 +425,7 @@ const promise2 = Dog.insertMany( arrayOfDogs );
 
 
 Promise.all( [promise1, promise2] )
-  .then( (result) => console.log('Promise.all result: ', result));
+  .then( (result) => console.log('Promise.all result: ', result))
   .catch( (err) => console.error(err));
 ```
 
@@ -486,7 +478,7 @@ process.on('SIGINT', () => {
 
 
 
-### [REPO WITH THE FILE `example.js` : ](<https://github.com/ross-u/Mongoose-introduction-demo/blob/master/example.js>)
+
 
 
 

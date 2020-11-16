@@ -19,13 +19,13 @@ After this lesson you will be able to:
 #### Create files
 
 ```bash
-mkdir 00-express-params-query-get
+mkdir 00-express-params-query-get-post
 
-cd 00-express-params-query-get
+cd 00-express-params-query-get-post
 
 mkdir views
 
-touch app.js views/index.hbs
+touch app.js views/Search.jsx views/Signup.jsx
 
 code .
 ```
@@ -43,7 +43,7 @@ code .
 ```bash
 npm init -y
 
-npm install --save express hbs
+npm install express express-react-views react react-dom
 
 npm install --save-dev nodemon
 ```
@@ -61,7 +61,7 @@ The file structure should be as follows:
 |
 └── views/
 		|
-    └── index.hbs
+    └── Signup.jsx
 ```
 
 
@@ -80,7 +80,7 @@ The file structure should be as follows:
 
 ```json
 "scripts": {
-	"start": "nodemon app.js",
+	"start:dev": "nodemon -e '*' app.js",
 ```
 
 
@@ -101,24 +101,30 @@ ehbs + Tab
 
 ```js
 const express = require('express');
-const hbs = require('hbs');
+const erv = require("express-react-views");
 const app = express();
 const PORT = 3000;
 
 
-// SET THE TEMPLATE ENGINE
-app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
 
+// SET THE VIEW ENGINE
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', erv.createEngine() );
+
+
+// MIDDLEWARE:
 // SET THE STATIC FOLDER FOR PUBLIC FILES
 app.use(express.static(__dirname + '/public'));
 
-// REGISTER THE PARTIAL 
-hbs.registerPartials(__dirname + '/views/partials');
+
+
+//
+// ROUTES
 
 
 // START THE SERVER
-app.listen(PORT, () => console.log(`Server listening on port ${ PORT } !`));
+app.listen(PORT, () => console.log(`Server listening on port ${ PORT }`));
 ```
 
  
@@ -132,6 +138,7 @@ app.listen(PORT, () => console.log(`Server listening on port ${ PORT } !`));
 #### 1. Create route
 
 ```js
+// Example: route with a single param (dynamic part of the route)
 app.get('/users/:username', (req, res, next) => {
   console.log("req.params --> ", req.params);
   res.send();
@@ -144,8 +151,6 @@ app.get('/users/:username', (req, res, next) => {
 
 
 
-
-
 <br>
 
 
@@ -155,54 +160,16 @@ app.get('/users/:username', (req, res, next) => {
 Include additional parameters `/users/:username/books/:bookId`.
 
 ```js
+// Example: route with multiple params (dynamic parts of the route)
 app.get('/users/:username/books/:bookId', (req, res, next) => {
-  res.send(req.params)
+  console.log("req.params", req.params);
+  res.send();
 })
 ```
 
 
 
 #### Navigate to:	[`http://localhost:3000/users/ironhack/book/abcd123`](http://localhost:3000/users/ironhack/book/abcd123)
-
-
-
-<br>
-
-
-
-#### 3. Create a new Route
-
-```js
-app.get('/books/:bookId', (req, res, next) => {
-  res.send(req.params);
-})
-```
-
-
-
-#### Navigate to:	[`http://localhost:3000/books/1234asdf4567`](http://localhost:3000/books/1234asdf4567)
-
-
-
-<br>
-
-
-
-#### Examples
-
-Navigate to [Ironhack Labs Github Account](https://github.com/ironhack-labs) and check the URL.
-
-
-
-**How you think is Github server getting the info on which profile they should display? **
-
-**Do they use one route for each repository? Or maybe something like this ?**
-
-```js
-app.get('/:repository', (req, res, next) => {
-  res.send(req.params);
-})
-```
 
 
 
@@ -216,11 +183,11 @@ app.get('/:repository', (req, res, next) => {
 
 
 
-#### 4.  Create a new Route
+#### 3.  Create a new Route
 
 ```js
-// req.query
-
+// URL query string - req.query
+// localhost:3000/search?city=barcelona&bootcamp=webdev
 app.get('/search', (req, res, next) => {
   res.send(req.query)
 })
@@ -232,7 +199,35 @@ app.get('/search', (req, res, next) => {
 
 #### Navigate to
 
-####  [`http://localhost:3000/search?city=Barcelona&class=WebDev`](http://localhost:3000/search?city=Barcelona&class=WebDev)
+####  [`http://localhost:3000/search?city=Barcelona&bootcamp=webdev`](http://localhost:3000/search?city=barcelona&bootcamp=webdev)
+
+
+
+
+
+<br>
+
+
+
+#### 4. Different properties available on `req` object
+
+
+
+#### Create a new route `/test`
+
+```js
+// Example: userful properties of the `req` (request) object
+app.get('/test', (req, res, next) => {
+  console.log('req.path ->', req.path);
+  console.log('req.query ->', req.query);
+  console.log('req.params ->', req.params);
+  console.log('req.method ->', req.method);
+  console.log('req.headers ->', req.headers);
+  res.send();
+});
+```
+
+
 
 
 
@@ -257,10 +252,8 @@ or
 ##### `app.js`
 
 ```js
-app.get('/', (req, res) => {
-  res
-    .status(200)
-    .render('index')
+app.get('/', (req, res, next) => {
+  res.render("Search");
 })
 ```
 
@@ -280,26 +273,7 @@ app.get('/', (req, res) => {
 
 
 
-
-
-#### Create a new route `/email`
-
-```js
-app.get('/email', (req, res, next) => {
-  console.log('req.path ->', req.path);
-  console.log('req.query ->', req.query);
-  console.log('req.params ->', req.params);
-  console.log('req.method ->', req.method);
-  console.log('req.headers ->', req.headers);
-  res.send(req.query);
-});
-```
-
-
-
-
-
-#### Update `index.hbs`- Emmet abbr `formget`
+#### Update `Home.jsx`- Emmet abbr `formget`
 
 ```js
 formget + Tab
@@ -307,24 +281,41 @@ formget + Tab
 
 or
 
-##### `views/index.hbs`
+##### `views/Search.jsx`
 
-```html
-<form action='/email' method='GET'>
+```jsx
+const React = require("react");
 
-  <label for=''>Email</label>
-  <input type='text' name='Email'>
+function Search() {
+  return (
+    <form action="/search" method="GET">
+      <input type="text" name="search" placeholder="Look for..." />
+      <br />
 
-  <label for=''>Password</label>
-  <input type='text' name='Password'>
+      <button type="submit">Search</button>
+    </form>
+  );
+}
 
-  <button type='submit'>Submit</button>
-</form>
+module.exports = Search;
+
 ```
 
 
 
 
+
+#### Create the route to receive the values from GET form
+
+```js
+// Example: receiving data from the "GET form"
+app.get('/search', (req, res, next) => {
+  // Data sent by "GET form" are sent in the URL string and are available via the `req.query`
+  // common use case: Search form (Google, Amazon, etc.)
+  console.log("req.query", req.query);
+  res.send();
+})
+```
 
 
 
@@ -386,10 +377,11 @@ const bodyParser = require('body-parser');
 // ...
 //		...
 
-// parse application/x-www-form-urlencoded
+// SET PARSING OF THE `req.body`
+// PARSE FORM DATA: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json
+// PARSE JSON DATA: application/json
 app.use(bodyParser.json());
 ```
 
@@ -408,12 +400,9 @@ Update the `/email` route that handles the incoming form data:
 
 
 ```js
-// UPDATE METHOD:
-
-// .post
-app.post('/email', (req, res, next) => {
-  console.log('BODY', req.body);
-  res.send(req.query);
+// Example: rendering the Signup form
+app.get("/signup", (req, res, next) => {
+  res.render("Signup");
 });
 ```
 
@@ -423,21 +412,33 @@ app.post('/email', (req, res, next) => {
 
 
 
-##### `views/index.hbs`
+##### `views/Signup.jsx`
 
-```html
-<!-- Update method	  				POST	-->
+```jsx
+const React = require("react");
 
-<form action='/email' method='POST'>
 
-  <label for=''>Email</label>
-  <input type='text' name='Email'>
+function Signup() {
+  
+  return (
+    <form action="/signup" method="POST">
+      <label>Email</label>
+      <br />
+      <input type="email" name="Email" placeholder="Enter Email" />
+      <br />
+      
+      <label>Password</label>
+      <br />
+      <input type="password" name="Password" placeholder="Enter Password" />
+      <br />
+      
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
 
-  <label for=''>Password</label>
-  <input type='text' name='Password'>
 
-  <button type='submit'>Submit</button>
-</form>
+module.exports = Signup;
 ```
 
 
@@ -448,4 +449,31 @@ app.post('/email', (req, res, next) => {
 
 
 
-### [Pair Exercise - Send Form Data](https://gist.github.com/ross-u/23e07425a9eb9fe6b74a4f755d36689a) (30 min)
+
+
+#### Create the route to receive the data from the POST form
+
+```js
+
+// Example: receiving the "POST from" data
+app.post('/signup', (req, res, next) => {
+  console.log('req.body', req.body);
+  res.send();
+});
+```
+
+
+
+
+
+<br>
+
+#### All form input types can be found [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) on MDN.
+
+
+
+
+
+<br>
+
+### [Pair Exercise - Send Form Data](https://gist.github.com/ross-u/73c4d1e0b19a19659783a3e34bec0cac) (35 min)
