@@ -28,10 +28,6 @@ A generator is a **program that helps to create other application programs which
 
 
 
-#### [npm express-generator](https://www.npmjs.com/package/express-generator)
-
-
-
 #### [ExpressJS docs - generator](https://expressjs.com/en/starter/generator.html)
 
 

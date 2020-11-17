@@ -6,15 +6,15 @@
 
 <br>
 
+#### Authorization is related to signing up and the overall process of allowing users to access certain resources.
 
 
 
 
-#### When a user logs into our web app, authentication allows us to know which user (of all users in our system) is visiting the page.
 
-####  
+#### When a user logs into our web app, authentication will allow us to know which user (of all users in our system) is visiting the page.
 
-#### -  Authorization is related to signing up and the overall process of allowing users to access certain resources.
+
 
 
 
@@ -150,9 +150,21 @@ Cookies are a convenient way to carry information between sessions, without havi
 
 
 
-#### Fork and Clone the Previous repo -> [Node-Basic-Authorization](<https://github.com/ross-u/Node---Basic-Authorization---Code-Along-Done>)
+#### Fork the Previous repo -> [Node-Basic-Authorization](https://github.com/ross-u/m2-jsx-node-basic-authorization-example-done)
 
 
+
+```bash
+mkdir 01-node-complete-authentication
+
+cd 01-node-complete-authentication
+
+git clone https://github.com/ross-u/m2-jsx-node-basic-authorization-example-done .
+
+rm -rf .git
+
+code .
+```
 
 
 
@@ -163,7 +175,7 @@ Cookies are a convenient way to carry information between sessions, without havi
 #### Install the dependencies
 
 ```bash
-npm i
+npm install
 ```
 
 
@@ -175,7 +187,7 @@ npm i
 In the same directory install `express-session` and `connect-mongo`
 
 ```bash
-npm install --save  express-session  connect-mongo
+npm install express-session  connect-mongo
 ```
 
 
@@ -201,7 +213,7 @@ const MongoStore = require("connect-mongo")(session);
 
 //	https://www.npmjs.com/package/express-session#secret
 
-// Session middleware
+// SESSIONS MIDDLEWARE
 app.use(session({
   secret: "basic-auth-secret",
   // cookie: { maxAge: 3600000 * 1 },	// 1 hour
@@ -213,10 +225,12 @@ app.use(session({
   })
 }));
 
-//		BEFORE THE ROUTES
+//	BEFORE THE ROUTES
 
-// Routes
-app.use('/', router);
+// ROUTES
+// ...
+
+// ...
 ```
 
 
@@ -235,37 +249,47 @@ app.use('/', router);
 
 
 
-### Create a login form -  `views/auth-views/login.hbs`
+#### Create a login form -  `views/Login.jsx`
 
 
 
-##### `views/auth-views/login-form.hbs`
+##### `views/Login.jsx`
 
-```html
-<!--   views/auth-views/login-form.hbs    -->
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
 
+function Login(props) {
+  return (
+    <Layout title="Login">
 
-<form action="/auth/login" method="POST" id="form">
-  <h2>Login</h2>
+      <form id="form" action="/auth/login" method="POST">
+        <label>Username</label>
+        <br />
+        <input type="text" name="username" placeholder="Your username" />
 
-  <label for="username">Username</label>
-  <input type="text" name="username">
+        <label>Password</label>
+        <br />
+        <input type="password" name="password" />
 
-  <label for="password">Password</label>
-  <input type="password" name="password">
+        <button type="submit">Login</button>
+      </form>
+      {
+        props.errorMessage 
+          ? <div className="error-message"> {props.errorMessage}</div>
+          : null
+      }
 
-  
-  {{#if errorMessage }}
-    <div class="error-message">{{ errorMessage }}</div>
-  {{/if}}
+      <p className="account-message">
+        Don't have an account? <a href="/auth/signup">Sign up</a>
+      </p>
+      
+    </Layout>
+  );
+}
 
-  <button type="submit">Login</button>
-</form>
+module.exports = Login;
 
-
-<p class="account-message">
- Don't have an account? <a href="/auth/signup">Sign up</a>
-</p>
 ```
 
 
@@ -274,11 +298,11 @@ app.use('/', router);
 
 
 
-### Create a login route in the - `routes/auth-router.js` 
+#### Create a login route in the - `authRouter.js` 
 
 
 
-##### `routes/auth-router.js`
+##### `routes/authRouter.js`
 
 ```js
 const express = require('express');
@@ -299,7 +323,7 @@ const bcrypt = require('bcrypt');
 
 //  GET   '/auth/login'                              <--- ADD
 authRouter.get('/login', (req, res, next) => {
-  res.render("auth-views/login-form");
+  res.render("Login");
 });
 
 
@@ -404,25 +428,33 @@ module.exports = authRouter;
 
 
 
-### Update `index.hbs`
+### Update `Home.jsx`
 
-```html
-<h1>Home</h1>
-<p>Welcome</p>
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
 
-<div id="container">
-  <a href="/auth/signup">
-    <button>Sign up</button>
-  </a>
+function Home() {
+  return (
+    <Layout title="Home Page">
+      <div id="container">
+        <a href="/auth/signup">
+          <button>Sign up</button>
+        </a>
 
-  <a href="/auth/login">
-    <button>Login</button>
-  </a>
-  
-  <a href="/secret">
-    <button>Protected page (requires authentication!)</button>
-  </a>
-</div>
+        <a href="/auth/login">
+          <button>Login</button>
+        </a>
+        
+        <a href="/secret">
+          <button>Protected page (requires authentication!)</button>
+        </a>
+      </div>
+    </Layout>
+  );
+}
+
+module.exports = Home;
 
 ```
 
@@ -431,6 +463,25 @@ module.exports = authRouter;
 
 
 <br>
+
+
+
+
+
+### Create a view for the protected route `views/secret.hbs`
+
+
+
+##### `views/Secret.jsx`
+
+```html
+<div id="container">
+  <h1> <pre>/secret </pre> </h1>
+  <h2>You are in a session!</h2>
+</div>
+```
+
+
 
 
 
@@ -460,51 +511,21 @@ We check the `session.currentUser` on each incoming request to see if the user w
 
 
 
-### Create `routes/site-routes.js` , and use it to check if user is authenticated
+#### Create `routes/siteRoutes.js`  and the horizontal middleware checking if user is authenticated
 
 
 
-##### `routes/site-router.js`
+
+
+##### `routes/siteRouter.js`
 
 ```js
-// routes/site-router.js
-
+// routes/siteRouter.js
 const express = require("express");
 const siteRouter = express.Router();
 
-
-siteRouter.use((req, res, next) => {
-  if (req.session.currentUser) { // <== if there's user in the session (user is logged in)
-    next(); // ==> go to the next route ---
-  } 																//		|
-  else {                          	//    |
-  	res.redirect("/login");       	//    |
-  }                                 //    |
-});																	//		|
-// 		 ------------------------------------  
-//     | 
-//     V
-router.get("/secret", (req, res, next) => {
-  res.render("secret");
-});
-
-module.exports = siteRouter;
-```
-
-
-
-
-
-
-
-### OR Using the middleware helper function
-
-##### `routes/site-router.js`
-
-```js
-// routes/site-router.js
-
-const isLoggedIn = (req, res, next) => {
+// Helper function
+function isLoggedIn (req, res, next) {
   if (req.session.currentUser) {
     console.log('GOOD TO GO');
     next();
@@ -512,10 +533,15 @@ const isLoggedIn = (req, res, next) => {
     res.redirect('/auth/login');
   }
 }
- 
-//  ...
-//  ...
-  
+
+
+siteRouter.get("/secret", isLoggedIn, (req, res, next) => {
+  res.render("Secret");
+});
+
+
+
+module.exports = siteRouter;
 
 ```
 
@@ -533,14 +559,21 @@ const isLoggedIn = (req, res, next) => {
 
 ```js
 //	...
-const siteRouter = require('./routes/site-router');
+const siteRouter = require('./routes/siteRouter');				//  <==   ADD
 
 
 // Routes
-app.use('/', indexRouter);
-app.use('/auth', authRouter);
-app.use('/', siteRouter);	 // This router verifies the user's session (if logged in)
 
+app.use('/auth', authRouter);
+
+app.get("/", (req, res, next) => {
+  res.render("Home");
+});
+
+app.use('/', siteRouter);
+
+
+// ...
 ```
 
 
@@ -550,23 +583,6 @@ app.use('/', siteRouter);	 // This router verifies the user's session (if logged
 
 
 <br>
-
-
-
-
-
-### Create a view for the protected route `views/secret.hbs`
-
-
-
-##### `views/secret.hbs`
-
-```html
-<div id="container">
-  <h1> <pre>/secret </pre> </h1>
-  <h2>You are in a session!</h2>
-</div>
-```
 
 
 
@@ -600,7 +616,7 @@ app.use('/', siteRouter);	 // This router verifies the user's session (if logged
 
 
 
-##### `routes/auth-router.js`
+##### `routes/authRouter.js`
 
 ```js
 const express = require('express');
@@ -611,9 +627,9 @@ const authRouter = express.Router();
 
 //	...
 
-// GET 'auth/logout'
-authRouter.get('/logohut', (req, res, next) => {
-  req.session.destroy((err) => {
+// GET      auth/logout
+authRouter.get('/logout', (req, res, next) => {
+  req.session.destroy( (err) => {
     // can't access session here
     res.redirect("/auth/login");
   });
@@ -635,11 +651,11 @@ module.exports = authRouter;
 
 
 
-### Add logout button to `views/index.hbs`
+### Add logout button to `views/Home.jsx`
 
 
 
-##### `views/index.hbs`
+##### `views/Home.jsx`
 
 ```html
 <a href="/auth/logout">

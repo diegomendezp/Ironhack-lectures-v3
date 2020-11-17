@@ -24,7 +24,7 @@ After this lesson, you will be able to:
 
 
 
-Authorization is the process deciding what resources is the user authorized to access.
+Authorization is the process of deciding what resources is the user authorized to access.
 
 
 
@@ -56,7 +56,7 @@ On the other hand **authentication** describes the process of authenticating the
 
 
 
-###  Types of authorization
+###  Types of authentication
 
 
 
@@ -64,7 +64,9 @@ On the other hand **authentication** describes the process of authenticating the
 
 ![](https://uicookies.com/wp-content/uploads/2019/05/login-form-11.jpg)
 
-We have several ways to provide authorization in our applications.
+
+
+There are several different authentication approaches we could use in our app.
 
 
 
@@ -86,6 +88,8 @@ Some applications like Twitter authorize their users with a `username`.  **PROS*
 
 
 
+![](https://us.v-cdn.net/5020219/uploads/editor/7k/4u3wbctmoeqo.png)
+
 
 
 
@@ -96,7 +100,7 @@ With the rise of the social networks, a new way to authorize users appears: it�
 
 
 
-**Social Login** is single sign-on for end users. Using existing login information from a social network provider like *Facebook*, *Twitter*, or *Google*, the user can sign into a third party website instead of creating a new account.
+**Social Login** is single sign-on solution for the end users. Using existing login information from a social network provider like *Facebook*, *Twitter*, or *Google*, the user can sign into a third party website instead of creating a new account.
 
 
 
@@ -112,7 +116,7 @@ With the rise of the social networks, a new way to authorize users appears: it�
 
 
 
-#### A common factor in every authorization types is the password. 
+#### A common factor in every authentication approach is the password. 
 
 
 
@@ -200,7 +204,7 @@ There are a lot of algorithms used to encrypt data with hash functions. The most
 
 
 
-[Bcrypt](https://www.npmjs.com/package/bcrypt) is a hashing algorithm thats meant to transform a plain text password into something that's undecipherable.
+[Bcrypt](https://www.npmjs.com/package/bcrypt) is a hashing algorithm that is meant to transform a plain text password into something that's undecipherable.
 
 
 
@@ -248,7 +252,7 @@ Node.JS [bcrypt package](https://www.npmjs.com/package/bcrypt) allows us to encr
 
 
 
-### OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_83d7129f38bde763a2557d189ab98a7b.png)
+### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_83d7129f38bde763a2557d189ab98a7b.png)
 
 ![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_83d7129f38bde763a2557d189ab98a7b.png)
 
@@ -287,7 +291,7 @@ Node.JS [bcrypt package](https://www.npmjs.com/package/bcrypt) allows us to encr
 ### Create the project using express generator
 
 ```bash
-express --view=hbs 00-basic-auth
+npx express-generator --no-view 00-basic-auth
 
 cd 00-basic-auth
 ```
@@ -300,15 +304,19 @@ cd 00-basic-auth
 
 ```bash
 # Install all the dependencies listed in package.json by express generator
-npm i
+npm install
+
+
+# Install view engine dependencies
+npm install express-react-views react react-dom
 
 
 # Install mongoose and bcrypt
-npm i --save mongoose bcrypt
+npm install mongoose bcrypt
 
 
-# Install nodemone
-npm i --save-dev nodemon
+# Install nodemon
+npm install --save-dev nodemon
 ```
 
 
@@ -319,16 +327,17 @@ npm i --save-dev nodemon
 
 ```bash
 # Create additional folders and files
-mkdir views/auth-views
+mkdir views
 mkdir models
 
-touch views/auth-views/signup-form.hbs 
-touch models/user-model.js 
-touch routes/auth-router.js routes/index-router.js
+touch views/Layout.jsx views/Home.jsx views/Signup.jsx views/Error.jsx
+touch models/User.model.js 
+touch routes/authRouter.js
 
 
-# Remove routes/users
-rm routes/users.js routes/index.js
+# Remove routes/users routes/index and index.html 
+rm routes/users.js routes/index.js public/index.html
+
 
 
 code .
@@ -352,21 +361,20 @@ code .
  ┣ 📂node_modules
  ┃
  ┣ 📂models
- ┃ ┗ 📜user-model.js
+ ┃ ┗ 📜 User.model.js
  ┃
- ┣ 📂public
+ ┣ 📂public/
  ┃
  ┣ 📂routes
- ┃ ┣ 📜auth-router.js
- ┃ ┗ 📜index-router.js
+ ┃ ┗ 📜authRouter.js
+ ┃
  ┃
  ┣ 📂views
- ┃ ┣ 📂auth-views
- ┃ ┃ ┗ 📜signup-form.hbs
+ ┃ ┣ 📜Signup.jsx
+ ┃ ┣ 📜Home.jsx
  ┃ ┃
- ┃ ┣ 📜error.hbs
- ┃ ┣ 📜index.hbs
- ┃ ┗ 📜layout.hbs
+ ┃ ┣ 📜Error.jsx
+ ┃ ┗ 📜Layout.jsx
  ┃
  ┣ 📜app.js
  ┗ 📜package.json
@@ -376,20 +384,38 @@ code .
 
 
 
+#### Set the view engine
+
+
+
+##### `app.js`
+
+```js
+//	...
+
+
+const erv = require('express-react-views');			// <== ADD
+
+// SET THE VIEW ENGINE                      // <== ADD
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx',  erv.createEngine() );
+
+
+// MIDDLEWARE
+
+// ...
+```
 
 
 
 
 
-
-## Link the `routes/index.js` file and `routes/auth.js` 
+#### Link the `authRouter.js`  and create route to render `Home` view
 
 ​	
 
 ##### `app.js`
-
-~~`var indexRouter = require('./routes/index');`~~
-~~`var usersRouter = require('./routes/users');`~~
 
 ```js
 // app.js
@@ -397,8 +423,7 @@ code .
 // var indexRouter = require('./routes/index');	// REMOVE
 // var usersRouter = require('./routes/users');	// REMOVE
 
-const indexRouter = require('./routes/index-router');		// ADD
-const authRouter = require('./routes/auth-router');			// ADD
+const authRouter = require('./routes/authRouter');			// ADD
 
 //	...
 //	...
@@ -406,8 +431,14 @@ const authRouter = require('./routes/auth-router');			// ADD
 // app.use('/', indexRouter);				// REMOVE
 // app.use('/users', usersRouter);	// REMOVE
 
-app.use('/', indexRouter);				// ADD
+app.get('/', (req, res, next) => {
+  res.render('Home');
+});
+
 app.use('/auth', authRouter);	// ADD
+
+
+// ...
 ```
 
 
@@ -416,22 +447,138 @@ app.use('/auth', authRouter);	// ADD
 
 
 
-#### Add the home page route to the `routes/index-router.js`
+#### Create the `Layout` , `Home`, `Error` and `Signup` views
 
-##### `routes/index-router.js`
 
-```js
-// routes/index.js
 
-const express = require("express");
-const indexRouter = express.Router();
+First add the styles for the layout and the navbar
 
-// GET '/'
-indexRouter.get('/', (req, res, next) => {
-  res.render('index', {title: 'Basic auth code along'} );
-});
+##### `public/stylesheets/style.css`
 
-module.exports = indexRouter;
+```css
+body {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  background:  #2384c7;
+  color: white;
+  padding: 5px 20px;
+  box-shadow: 0px 1px 2px gray;
+}
+
+nav div {
+  display: flex;
+  align-items: center;
+}
+
+nav p {
+  color: white;
+  font-size: 20px;
+  display: inline;
+  margin-left: 10px;
+}
+
+nav img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background-color: aliceblue;
+}
+
+nav ul {
+  display: inline-flex;
+  align-items: center;
+}
+
+nav ul li {
+  list-style: none;
+  display: inline;
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+```
+
+
+
+
+
+
+
+##### `views/Layout.jsx`
+
+```jsx
+const React = require("react");
+
+function Layout(props) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title> {props.title} </title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+      </head>
+
+      <body>
+        <nav>
+          <div>
+            <img src="https://i.imgur.com/RP5vFgT.png" width="100px" alt="" />
+            <p>User's name</p>
+          </div>
+          <ul>
+            <li>
+              <a href="/auth/signup">Signup</a>
+            </li>
+            <li>
+              <a href="/auth/login">Login</a>
+            </li>
+          </ul>
+        </nav>
+
+        {props.children}
+      </body>
+    </html>
+  );
+}
+
+module.exports = Layout;
+
+```
+
+<br>
+
+
+
+##### `views/Home.jsx`
+
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
+
+function Home() {
+  return (
+    <Layout title="Home Page">
+      <h1>Home Page</h1>
+      <a href="/auth/signup">
+  			<button> SIGN UP </button>
+			</a>
+    </Layout>
+  );
+}
+
+module.exports = Home;
+
 ```
 
 
@@ -442,25 +589,23 @@ module.exports = indexRouter;
 
 
 
-#### Create a GET `/signup` route in the  `authRouter` 
+##### `views/Error.jsx`
 
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
 
+function Error (props) {
+  return (
+    <Layout title="Error">
+      <h1>Error</h1>
+      <p></p>
+    </Layout>
+  );
+}
 
-##### `routes/auth-router.js`
+module.exports = Error;
 
-```js
-// routes/auth-router.js
-const express = require("express");
-const authRouter = express.Router();
-const User = require("./../models/user-model");
-
-
-//	GET    '/auth/signup'
-authRouter.get("/signup", (req, res, next) => {
-  res.render("auth-views/signup-form");
-});
-
-module.exports = authRouter;
 ```
 
 
@@ -470,80 +615,6 @@ module.exports = authRouter;
 <br>
 
 
-
-
-
-## Create mongoose connection & `User` model
-
-
-
-#### Use the cheat sheet for module 2 -  <https://github.com/BCN-WEBDEV/cheatsheet/tree/master/m2/express-apps>
-
-
-
-
-
-#### Create mongoose connection
-
-##### `app.js`
-
-```js
-const mongoose = require("mongoose");
-const DB_NAME = 'basic-auth';
-
-//	...
-//	...
-
-mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-```
-
-
-
-<br>
-
-
-
-
-
-
-
-### Create `User` model
-
-
-
-##### `models/user-model.js`
-
-```js
-// models/user-model.js
-
-const mongoose = require("mongoose");
-const Schema   = mongoose.Schema;
-
-const userSchema = new Schema({
-  username: String,
-  password: String
-}, 
-{ 
-  timestamps: { 
-  	createdAt: 'created_at',
-  	updatedAt: 'updated_at'
-	}
-});
-
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
-```
-
-
-
-
-
-<br>
 
 
 
@@ -551,29 +622,42 @@ module.exports = User;
 
 
 
-##### `views/auth-views/signup-form.hbs`
+##### `views/Signup.jsx`
 
-```html
-<!--  views/auth-views/signup-form.hbs   -->
+```jsx
+//	views/Signup.jsx
 
-
-	<form id="form" action="/auth/signup" method="POST">
-    
-    <label for="username">Username</label><br>
-    <input type="text" name="username" placeholder="Your username">
-
-    <label for="password">Password</label><br>
-    <input type="password" name="password">
-
-    <button type="submit">Create account</button>
-  </form>
+const React = require("react");
+const Layout = require("./Layout");
 
 
-{{!-- error message display: --}} 
+function Signup (props) {
+  return (
+    <Layout title='Signup'>
 
-{{#if errorMessage}}
-  <div class="error-message">{{ errorMessage }}</div>
-{{/if}}
+      <form id="form" action="/auth/signup" method="POST">
+        <label>Username</label>
+        <br />
+        <input type="text" name="username" placeholder="Your username" />
+
+        <label>Password</label>
+        <br />
+        <input type="password" name="password" />
+
+        <button type="submit">Create account</button>
+      </form>
+      { props.errorMessage 
+        	? <div className="error-message"> { props.errorMessage }</div>
+        	: null
+      }
+   </Layout>
+  );
+}
+
+
+
+module.exports = Signup;
+
 ```
 
 
@@ -592,6 +676,7 @@ module.exports = User;
 
 ```css
 /* public/stylesheet/style.css */
+
 #form {
   margin: 30px auto;
   width: 380px;
@@ -652,22 +737,105 @@ button:hover {
 
 
 
-### Update home page `views/index.hbs`
+
+
+#### Create a GET `/signup` route in the  `authRouter` 
 
 
 
-##### `views/index.hbs`
+##### `routes/authRouter.js`
 
-```html
-<!--   views/index.hbs   -->
+```js
+// routes/authRouter.js
+const express = require("express");
+const authRouter = express.Router();
+const User = require("./../models/User.model");
 
 
-<!--   ...   -->
+//	GET    '/auth/signup'
+authRouter.get("/signup", (req, res, next) => {
+  res.render("Signup");
+});
+
+module.exports = authRouter;
+```
 
 
-<a href="/auth/signup">
-  <button> SIGN UP </button>
-</a>
+
+
+
+<br>
+
+
+
+
+
+## Create mongoose connection & `User` model
+
+
+
+#### Use the cheat sheet for module 2 -  <https://github.com/BCN-WEBDEV/cheatsheet/tree/master/m2/express-apps>
+
+
+
+
+
+#### Create mongoose connection
+
+##### `app.js`
+
+```js
+const mongoose = require("mongoose");
+const DB_NAME = 'basic-auth';
+
+//	...
+//	...
+
+mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+```
+
+
+
+
+
+<br>
+
+
+
+
+
+
+
+### Create `User` model
+
+
+
+##### `models/User.model.js`
+
+```js
+// models/User.model.js
+
+const mongoose = require("mongoose");
+const Schema   = mongoose.Schema;
+
+const userSchema = new Schema({
+  username: String,
+  password: String
+}, 
+{ 
+  timestamps: { 
+  	createdAt: 'created_at',
+  	updatedAt: 'updated_at'
+	}
+});
+
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
 ```
 
 
@@ -686,7 +854,7 @@ button:hover {
 
 ```js
 "scripts": {
-	"start:dev": "nodemon ./bin/www",
+	"start:dev": "nodemon -e '*' ./bin/www",
 ```
 
 
@@ -754,7 +922,7 @@ authRouter.post("/signup", (req, res, next) => {
   				// >  When the new user is created, redirect to the home page
   
   
-  	// catch errors from User.findOne
+  	// catch errors
 });
 ```
 
@@ -762,58 +930,72 @@ authRouter.post("/signup", (req, res, next) => {
 
 
 
-### Now build the auth route 
+<br>
+
+
+
+#### Now create the auth route `POST /auth/signup`
+
+##### `routes/authRouter.js`
 
 ```js
-// Require `bcrypt` to hash passwords and specify number for salt rounds
+// routes/authRouter.js
+
+// Require bcrypt
+// Create the variable for the number of salt rounds
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
-// POST    '/auth/signup'
-authRouter.post("/", (req, res, next) => {
-  // Deconstruct the `username` and `password` from request body
-  const { username, password } = req.body;
+//	GET    '/auth/signup'
+authRouter.get("/signup", (req, res, next) => {
+  res.render("Signup");
+});
 
-  
-  // Check if `username` and `password` are empty and display error message
-  if (username === '' || password === '') {
-    res.render('auth-views/signup-form', 
-      { errorMessage: 'Enter the username and password.'}
-     );
+
+// POST /auth/singup
+authRouter.post('/signup', (req, res, next) => {
+  const { username, password} = req.body;
+
+  if ( username === '' || password === '') {
+    const props = { errorMessage: 'Enter the username and password'};
+    res.render('Signup', props);
     return;
   }
-  
-  
-  	// Check the users collection to check the username
-    User.findOne({ username })
-    .then((user) => {
-      
-			// > if `username` already exists in the DB display error message
+
+
+  // Check the users collection if the username already exists
+  User.findOne( { username })
+    .then( ( user ) => {
+      // > if `username` already exists in the DB, display error message
       if ( user !== null ) {
-        res.render('auth-views/signup-form', { errorMessage:'The username already exists'});
+        const props = { errorMessage: 'The username already exists'};
+        res.render('Signup', props);
         return;
       }
-      
-      	// > If `username` doesn't exist generate salts and hash the password 
+
+      // > if `username` doesn't exist hash the password
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
-      
-      
-  		// > After hashing the password, create new user in DB and redirect to home 
-      User.create( { username, password: hashedPassword})
-      	.then(() => res.redirect('/'))
-        .catch((err) =>  {
-        	res.render(
-            'auth-views/signup-form',
-            { errorMessage:'Error while signing up the new user'}
-          )
-        );
-      
-     })
-     .catch((err) => next(err));	// catch errors from User.findOne
-  
-});
+
+      // > After hashing the password, create new user in DB
+      User.create({ username, password: hashedPassword })
+      .then( () => {
+          res.redirect('/');
+          // > When the new user is created, redirect to the home page
+        })
+        .catch( (err) => {
+          const props = { errorMessage: 'Error while signing up the new user'};
+          res.render('Signup', props);
+        });
+
+    })
+    .catch( (err) => console.log(err));  // catch errors from User.findOne
+    
+})
+
+module.exports = authRouter;
+
 ```
 
 
@@ -845,7 +1027,7 @@ authRouter.post("/", (req, res, next) => {
 #### Install the package
 
 ```bash
-npm i --save zxcvbn
+npm install zxcvbn
 ```
 
 
@@ -903,4 +1085,4 @@ We recommend you add the [re-captcha](https://www.npmjs.com/package/express-reca
 
 
 
-# [Code Along - done](<https://github.com/ross-u/Node---Basic-Authorization---Code-Along-Done>)
+# [Code Example - done](https://github.com/ross-u/m2-jsx-node-basic-authorization-example-done)
