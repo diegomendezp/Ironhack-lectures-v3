@@ -2,72 +2,23 @@
 
 
 
-## Intro to Axios
-
-Axios is a modern **Promise-based** HTTP client for JS which can be used in front-end and in Node.js backend, to create any type of HTTP request to the server.
+<br>
 
 
 
+#### Clone the starter code repository
 
+```bash
+git clone https://github.com/ross-u/axios-jsx-intro-starter-code.git
 
-Axios is relying on AJAX technology. **AJAX** stands for *Asynchronous JavaScript And XML*.
-
-
-
-
-
-### Axios - Main Features
-
-- Make [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) from the browser
-- Make `HTTP` requests from [Node.js](https://nodejs.org/api/http.html)
-- Supports the [Promise API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-- Intercept requests and responses
-- Transform requests and responses data
-- Cancel requests
-- Automatic transforms JSON into JS objects
-- Client-side support for protecting against [XSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
-
-
-
-
-
-
-
-## Request method aliases
-
-For convenience, the aliases have been provided for all supported request methods:
-
-
-
-<https://github.com/axios/axios>
-
-
-
-
-
-## Installing Axios
-
-
-
-**Using CDN**
-
-```
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-```
-
-**Using NPM**
-
-```
-$ npm install axios
+cd axios-jsx-intro-starter-code
 ```
 
 
 
 
 
-
-
-
+<br>
 
 
 
@@ -145,136 +96,210 @@ Now, you can try to get the data from some other API endpoint. It’s easy right
 
 
 
-### Simple axios GET request
+
+
+
+
+<br>
+
+
+
+#### Create the `Countries.jsx`
+
+
+
+##### `views/Countries.jsx`
+
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
+
+function Countries(props) {
+  return (
+    <Layout title="Countries">
+      <h1>LIST OF COUNTRIES:</h1>
+    </Layout>
+  );
+}
+
+module.exports = Countries;
+
+```
+
+
+
+
+
+<br>
+
+
+
+### Making requests to another API/server
+
+In order to be able to make request from our server to other APIs (aka other servers) we will need to install a package for HTTP requests.
+
+`fetch` interface is only available in the browser and not in NodeJS environment.
+
+
+
+
+
+<br>
+
+
+
+## Intro to Axios
+
+Axios is a modern **Promise-based** HTTP client for JS which can be used in front-end and in Node.js backend, to create any type of HTTP request to the server.
+
+
+
+
+
+Axios is relying on AJAX technology. **AJAX** stands for *Asynchronous JavaScript And XML*.
+
+
+
+
+
+### Axios - Main Features
+
+- Make [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) from the browser
+- Make `HTTP` requests from [Node.js](https://nodejs.org/api/http.html)
+- Supports the [Promise API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- Intercept requests and responses
+- Transform requests and responses data
+- Cancel requests
+- Automatic transforms JSON into JS objects
+- Client-side support for protecting against [XSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
+
+
+
+
+
+
+
+## Request method aliases
+
+For convenience, the aliases have been provided for all supported request methods:
+
+
+
+<https://github.com/axios/axios>
+
+
+
+
+
+## Installing Axios
+
+
+
+**Using CDN**
+
+```
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+```
+
+**Using NPM**
+
+```
+$ npm install axios
+```
+
+
+
+
+
+<br>
+
+
+
+#### Include axios and make a request before rendering
+
+
+
+<br>
+
+
+
+### Install axios as the package
 
 ```bash
-mkdir axios-1
-
-cd axios-1
-
-touch index.html index.js style.css
+npm install axios
 ```
 
 
 
-<br>
 
 
 
-##### `index.html`
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Rest Countries API</title>
-</head>
-  
-<body>
-  
-
-    <h1>Countries Info</h1>
-
-
-    <input id="the-input" type="text">    <!--  get the value from the input field -->
-    <button id="the-button">Get the country</button>
-    
-
-    <h2 id="country-header">COUNTRIES:</h2>
-    <div id="country-list"></div>        <!-- list data we get from the API here:  -->
-    
-  
-</body>
-</html>
-```
-
-
-
-<br>
-
-
-
-##### `index.js`
+##### `routes/siteRouter.js`
 
 ```js
-// index.js
+const express = require("express");
+const siteRouter = express.Router();
 
-const urlString = 'https://restcountries.eu/rest/v2/name/spain';
-const baseURL = 'https://restcountries.eu/rest/v2/name/';
+const axios = require("axios");
 
-const countryList = document.querySelector('#country-list');
-const button = document.querySelector("#the-button");
 
-// EXAMPLE 1
-// axios.get
-function getCountryInfo1(countryNameInput) {
-  axios.get(`${baseURL}${countryNameInput}`)
-    .then(responseFromAPI => {
-      const { data } = responseFromAPI;
-      let htmlString = '';
+siteRouter.get("/countries", (req, res, next) => {
+  axios
+    .get("https://restcountries.eu/rest/v2")
+    .then((response) => {
+        const countriesArr = response.data;
+        const props = { countriesArr: countriesArr };
 
-      data.forEach((countryObj) => {
-        htmlString += `
-          <h2>${countryObj.name}</h2>
-          <p>${countryObj.capital}</p>
-          <br>`
-      });
-
-      countryList.innerHTML = htmlString;
+        res.render("Countries", props);
     })
-    .catch(err => console.log('Error is: ', err));
-}
-
-
-
-// EXAMPLE 2 -  ALTERNATIVE WAY
-
-// axios.create([configObj])
-const getCountryByName = axios.create({ baseURL: baseURL, method: get });
-
-function getCountryInfo2 (countryNameInput) {
-
-  getCountryByName(`${countryNameInput}`)
-    .then(responseFromAPI => {
-      const { data } = responseFromAPI;
-      let htmlString = '';
-
-      data.forEach((countryObj) => {
-        htmlString += `
-          <h2>${countryObj.name}</h2>
-          <p>${countryObj.capital}</p>
-          <br>`
-      });
-
-      countryList.innerHTML = htmlString;
-    })
-    .catch(err => console.log('Error is: ', err));
-}
-
-button.addEventListener('click', () => {
-  const country = document.getElementById("the-input").value;
-  getCountryInfo2 (country);
+    .catch((err) => console.log(err));
 });
+
+
+module.exports = siteRouter;
+
 ```
 
 
 
 
 
+<br>
 
 
 
-
-​	
-
+#### Update the `Countries.jsx`
 
 
-# [EXERCISE - Axios GET and Chart.js](<https://github.com/ross-u/Exercise---Axios-GET-and-Chart.js>)
 
+##### `views/Countries.jsx`
 
+```jsx
+const React = require("react");
+const Layout = require("./Layout");
+
+function Countries(props) {
+  return (
+    <Layout title="Countries">
+      <h1>LIST OF COUNTRIES:</h1>
+      {
+        props.countriesArr.map((countryObj, i) => {
+        	return (
+          	<div key={i}>
+            	<h3>{countryObj.name}</h3>
+            	<p>{countryObj.capital}</p>
+            	<br />
+          	</div>
+        	);
+      	})}
+    </Layout>
+  );
+}
+
+module.exports = Countries;
+
+```
 
 
 

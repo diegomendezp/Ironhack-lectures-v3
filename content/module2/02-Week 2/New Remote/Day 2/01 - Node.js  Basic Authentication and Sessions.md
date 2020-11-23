@@ -128,7 +128,7 @@ Cookies are a convenient way to carry information between sessions, without havi
 
 ### [OPEN IMAGE](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_5308102df9341ab5a67d20d61bc61b15.png)
 
-![img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_5308102df9341ab5a67d20d61bc61b15.png)
+![[img](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_5308102df9341ab5a67d20d61bc61b15.png)](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_5308102df9341ab5a67d20d61bc61b15.png)
 
 
 
@@ -187,7 +187,7 @@ npm install
 In the same directory install `express-session` and `connect-mongo`
 
 ```bash
-npm install express-session  connect-mongo
+npm install express-session connect-mongo
 ```
 
 
