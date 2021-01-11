@@ -13,6 +13,8 @@ git clone https://github.com/ross-u/02-react-props-intro.git
 
 cd 02-react-props-intro
 
+rm -rf .git
+
 code .
 ```
 
@@ -32,27 +34,11 @@ npm i
 
 
 
-
-
 <br>
 
 
 
-### (Teacher) Create a new branch
-
-```bash
-git checkout -b wd-ft-mmm-yyyy
-```
-
-
-
-
-
-<br>
-
-
-
-### Component can have internal `state` 
+### `class` Components can have internal `state` 
 
 - `state` is an object  in react `class` components used to save the data/state related to the current component.
 
@@ -82,7 +68,7 @@ class MyComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="MyComponent">
         <p> Hello {this.state.name}</p>
       </div>
     );
@@ -165,7 +151,7 @@ class MyComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="MyComponent">
         <p> Hello {this.state.name}</p>
         <p> Welcome to {this.props.city}</p>  
       {/*  
@@ -185,6 +171,8 @@ export default MyComponent;
 
 
 <br>
+
+
 
 
 

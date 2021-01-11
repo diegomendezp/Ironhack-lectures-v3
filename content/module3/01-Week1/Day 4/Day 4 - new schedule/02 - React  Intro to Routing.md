@@ -80,13 +80,21 @@ The current location is the last item set in `history` through methods such as `
 
 
 ```bash
-git clone https://github.com/ross-u/React-routing-Starter-repo-.git
+mkdir 01-react-routing-intro
 
-cd React-routing-Starter-repo-
+cd 01-react-routing-intro
 
-npm i
+git clone https://github.com/ross-u/React-routing-Starter-repo-.git .
 
 code .
+```
+
+
+
+#### Install the dependencies
+
+```bash
+npm npm i
 ```
 
 
@@ -165,7 +173,7 @@ export default App;
 
 //	...
 
-import Dashboard from './components/Dashboard';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -213,10 +221,10 @@ export default App;
 
 //	...
 
-import Dashboard from './components/Dashboard';
-import About from './components/About';
-import Contact from './components/Contact';
-import Error from './components/Error';
+import Dashboard from './pages/Dashboard';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Error from './pages/Error';
 
 
 function App() {
@@ -599,8 +607,10 @@ import { Link, NavLink } from 'react-router-dom';
 
 ```css
 .selected-link {
-  background: rebeccapurple;
   text-shadow: 1px 0px 3px white;
+  color: #FFF;
+  border-bottom: rgba(255, 255, 255, 0.639) solid 2px;
+  padding-bottom: 5px;
 }
 ```
 
@@ -630,10 +640,10 @@ import { Link, NavLink } from 'react-router-dom';
 
 
 
-##### `src/components/DashboardWRedirect.js`
+##### `src/pages/DashboardWRedirect.js`
 
 ```jsx
-//	src/components/DashboardWRedirect.js
+//	src/pages/DashboardWRedirect.js
 
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router';			// <-- IMPORT Route and Redirect
@@ -646,23 +656,17 @@ class DashboardWRedirect extends Component {
 
   // CREATE A HELPER METHOD
 
-	//	Helper method which returns either Dashboard content or <Redirect>
-
-  checkIfLoggedIn = () => {
-    if ( ! this.state.isLoggedIn) return <Redirect to="/error" />;
+	//	Render either Dashboard content or <Redirect>
+  render() {
+    if (!this.state.isLoggedIn) return <Redirect to="/error" />
     else {
       return(
         <div>
           <h1>Dashboard With redirect</h1>
           <img src="https://i.imgur.com/F4hHytz.gif" alt="dashboard-gif"/>
-       </div>
+        </div>
       )
     }
-  }
-  
-
-  render() {
-    return <Route exact path="/" render={this.checkIfLoggedIn}/>
   }
 }
 
@@ -735,17 +739,7 @@ class DashboardWRedirect extends Component {
 
 
 
-
-
-
-
-
-
-
-
-# [**React Routing - Repo (Done)**](<https://github.com/ross-u/React-Routing-Done->)
-
-
+<br>
 
 
 

@@ -77,6 +77,56 @@ There are 8 falsy values.
 
 
 
+```js
+// All of the below statements will convert Falsy values to `false`
+
+if (false) {}
+
+if (null) {}
+
+if (undefined) {}
+
+if (0) {}
+
+if (-0) {}
+
+if (NaN) {}
+
+if ("") {}
+```
+
+
+
+```js
+if (false) {
+  console.log('log false');
+}
+
+if (null) {
+  console.log('log null');
+}
+
+if (undefined) {
+console.log('log undefined');
+}
+
+if (0) {
+  console.log('log 0')
+}
+
+if (-0) {
+  console.log('log -0')
+}
+
+if (NaN) {
+  console.log('log NaN')
+}
+
+if ("") {
+  console.log('log ""')
+}
+```
+
 
 
 #### Truthy values
@@ -91,7 +141,31 @@ A simplified way to think about it is:
 
 
 
+```js
+if (true) {
+  console.log('log true');
+}
 
+if ({}) {
+  console.log('log {}');
+}
+
+if ([]) {
+  console.log('log []');
+}
+if ("0") {
+  console.log('log 0');
+}
+if ("ironhack") {
+  console.log('log ironhack');
+}
+if (3.14) {
+  console.log('log 3.14');
+}
+if (-42) {
+  console.log('log -42');
+}
+```
 
 
 
@@ -150,13 +224,16 @@ expr1 && expr2
 ```
 
 ```js
-true  && true       // => true
+console.log( true  && true );     // => true
 
-true  && false      // => false
-false && true       // => false
-false && false      // => false
+console.log( true  && false );    // => false
+console.log( false && true );     // => false
+console.log( false && false );    // => false
 
-true  && (4 > 2)    // => true
+
+console.log( true  && (4 > 2)  );   // => true
+
+console.log( true  && (4 > 2) && false  );   // => false
 ```
 
 
@@ -173,7 +250,7 @@ Returns `true` even if only **one of the evaluated expressions is `true`**.
 var expr1 = true;
 var expr2 = false;
 
-expr1 || expr2	// true
+console.log(  expr1 || expr2  );	// true
 ```
 
 If they both are `false`, the result of the expression will be `false`.
@@ -181,11 +258,13 @@ If they both are `false`, the result of the expression will be `false`.
 
 
 ```js
-true  || true       // => true
-true  || false      // => true
-false || true       // => true
-false || false      // => false
-false || (4 > 2)    // true
+console.log(  false || false  );      // => false
+
+console.log(  true  || true  );       // => true
+console.log(  true  || false  );      // => true
+console.log(  false || true  );       // => true
+
+console.log(  false || (4 > 2)   );   // => true
 ```
 
 
@@ -216,19 +295,39 @@ The rules of logic guarantee that these evaluations are **always correct**. Note
 
 
 
-Example:
+Example 1:
+
+```js
+let a = true;
+let b = true;
+let c = true;
+let d = true;
+let e = true;
+let result = a && b && c && d && e;
+
+// What is the value of `result` ?
+console.log(result); // ==> true
+```
+
+
+
+
 
 ```js
 let a = false;
-let b = false;
-let c = false;
-let d = 4;
-let e = 'five';
-let result = a || b || c || d || e;
+let b = true;
+let c = true;
+let d = true;
+let e = true;
+let result = a && b && c && d && e;
 
 // What is the value of `result` ?
-console.log(result);
+console.log(result); // ==> false
 ```
+
+
+
+
 
 
 
@@ -236,11 +335,29 @@ console.log(result);
 
 #### NOT Operator (`!`)
 
-NOT operator, represented by **!** is used to negate the value of an expression.
+NOT operator, represented by **!** is used to negate/flip a Boolean value.
+
+```js
+// NOT operator `!`
+// is used to negate/flip the Boolean value or an expression.
+
+console.log(true); // true
+console.log(!true); // false
+
+console.log(false); // false
+console.log(!false); //true
+
+
+console.log( true && true  ); // true
+console.log( !(true && true) ); // false
+
+```
 
 
 
-It can also be used to convert any value to an opposite Boolean.
+
+
+It can also be used to convert any ***Truthy*** or ***Falsy*** value to an opposite Boolean.
 
 ```
 !expr1
@@ -249,10 +366,15 @@ It can also be used to convert any value to an opposite Boolean.
 If the expression is **true**, the result will be **false**, and vice versa.
 
 ```js
-!true 		// => false
-!false 		// => true
-!(4 > 2) 	// => false
+console.log('bob'); // 'bob'
+console.log(!'bob'); // false
+
+
+console.log(0); // 0
+console.log(!0); // true
 ```
+
+
 
 
 
@@ -315,28 +437,6 @@ console.log(typeof null);
 
 
 
-
-
-
-### ~~Primitive data types are copied by value~~
-
-~~Important to remember, in JS all primitive values are passed by value.~~ 
-
-~~Meaning when assigning a primitive value, the copy of the value is created and assigned to another variable.~~
-
-```js
-var myNumber = 10;
-var numberCopy = myNumber;  // Number 10 value is copied into another variable
-
-var myName = 'Sarah';
-var nameCopy = myName;	// String 'Sarah' is copied into another variable
-```
-
-
-
-
-
-~~Why did we mention this? Because objects which are non primitives are not being copied. We will talk about them in the upcoming days.~~
 
 
 

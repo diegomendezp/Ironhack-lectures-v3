@@ -13,6 +13,9 @@ git clone https://github.com/ross-u/01-react-jsx.git
 
 cd 01-react-jsx
 
+
+rm -rf .git
+
 code .
 ```
 
@@ -28,20 +31,6 @@ code .
 
 ```bash
 npm i
-```
-
-
-
-
-
-<br>
-
-
-
-### (Teacher) Create a new branch
-
-```bash
-git checkout -b wd-ft-mmm-yyyy
 ```
 
 

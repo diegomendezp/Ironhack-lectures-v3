@@ -60,13 +60,13 @@ code .
 
 
 
-#### Create `lib/Auth.js`
+#### Create `context/auth-context.js`
 
 ```jsx
-//	lib/Auth.js
+//	context/auth-context.js
 
 import React from "react";
-import authService from "./auth-service";// IMPORT functions for axios requests to API
+import authService from "./auth-service"; // IMPORT functions for axios requests to API
 const { Consumer, Provider } = React.createContext();
 
 
@@ -92,9 +92,9 @@ class AuthProvider extends React.Component {
   }
 
 
-  signup = (user) => {};
+  signup = (username, password) => {};
 
-  login = (user) => {};
+  login = (username, password) => {};
 	
 	logout = () => {};
 
@@ -134,12 +134,14 @@ export default AuthProvider;	//	  <--		WE COULD ALSO SET A DEFAULT EXPORT
 
 
 
-#### Finalize `signup()` , `login()` and `logout()` methods in `AuthProvider.js`
+#### Finalize `signup()` , `login()` and `logout()` methods in `auth-context.js`
 
 
+
+##### `context/auth-context.js`
 
 ```jsx
-//	lib/Auth.js
+//	context/auth-context.js
 
 // Provider
 class AuthProvider extends React.Component {
@@ -150,10 +152,9 @@ class AuthProvider extends React.Component {
   
   
   
-  signup = (user) => {
-    const { username, password } = user;
+  signup = (username, password) => {
     
-    authService.signup({ username, password })
+    authService.signup(username, password)
       .then((user) => this.setState({ isLoggedIn: true, user}) )
       .catch( (err) => console.log(err));
   };
@@ -162,10 +163,9 @@ class AuthProvider extends React.Component {
 
 
 
-  login = (user) => {
-    const { username, password } = user;
+  login = (username, password) => {
 
-    authService.login({ username, password })
+    authService.login(username, password)
       .then((user) => this.setState({ isLoggedIn: true, user }))
       .catch((err) => console.log(err));
   };
@@ -218,7 +218,7 @@ class AuthProvider extends React.Component {
 
 //	...
 
-import { AuthProvider } from "./lib/Auth";
+import { AuthProvider } from "./context/auth-context";
 
 //	...
 //			...
@@ -267,10 +267,10 @@ class App extends Component {
 
 
 
-##### `/lib/Auth.js`
+##### `context/auth-context.js`
 
 ```jsx
-//	lib/Auth.js
+//	context/auth-context.js
 
 
 //	...
@@ -281,7 +281,7 @@ class App extends Component {
 
 const withAuth = (WrappedComponent) => {
 
-  return class extends Component {
+  return class extends React.Component {
     render() {
       
       return (
@@ -342,7 +342,7 @@ const withAuth = (WrappedComponent) => {
 
 //	...
 
-import { withAuth } from "./../lib/Auth";				//			<-- UPDATE HERE
+import { withAuth } from "./../context/auth-context.js";				//			<-- UPDATE HERE
 
 //	...
 //			...
@@ -353,7 +353,7 @@ import { withAuth } from "./../lib/Auth";				//			<-- UPDATE HERE
     const { username, password } = this.state;
     //  console.log('Signup -> form submit', { username, password });
   
-    this.props.signup(username, password);			       //			<-- UPDATE HERE
+    this.props.signup( username, password );			       //			<-- UPDATE HERE
   };
 
 //			...
@@ -384,7 +384,7 @@ export default withAuth(Signup);			//			<-- UPDATE HERE
 
 //	...
 
-import { withAuth } from "../lib/Auth";				//			<-- UPDATE HERE
+import { withAuth } from "../context/auth-context.js";				//			<-- UPDATE HERE
 
 //	...
 //			...
@@ -395,7 +395,7 @@ import { withAuth } from "../lib/Auth";				//			<-- UPDATE HERE
     const { username, password } = this.state;
     //  console.log('Signup -> form submit', { username, password });		
   
-    this.props.login(username, password);			           //			<-- UPDATE HERE
+    this.props.login( username, password );			           //			<-- UPDATE HERE
   };
 
 //			...
@@ -417,20 +417,20 @@ export default withAuth(Login);				//			<-- UPDATE HERE
 
 #### Update `pages/Private.js` - to wrap the component and make it a consumer
 
-`pages/Prvate.js`
+##### `pages/Private.js`
 
 ```jsx
 //	pages/Private.js
 
 import React, { Component } from "react";
-import { withAuth } from "../lib/AuthProvider";			//			<-- UPDATE HERE
+import { withAuth } from "../context/auth-context.js";			//			<-- UPDATE HERE
 
 class Private extends Component {
   render() {
     return (
       <div>
         <h1>Private Route</h1>
-        <h1>Welcome {this.props.user.username}</h1>	  {/* 			<-- UPDATE HERE	      */}
+        <h1>Welcome {this.props.user && this.props.user.username}</h1>	{/*	<-- UPDATE */}
       </div>
     );
   }
@@ -455,7 +455,7 @@ export default withAuth(Private);				//			<-- UPDATE HERE
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { withAuth } from "../lib/AuthProvider";					//			<-- UPDATE HERE
+import { withAuth } from "../context/auth-context.js";					//			<-- UPDATE HERE
 
 class Navbar extends Component {
   render() {
@@ -526,30 +526,73 @@ export default withAuth(Navbar);				//			<-- UPDATE HERE
 
 ### Create `components/AnonRoute.js`
 
+
+
+#### Simplified
+
 ```jsx
 //	components/AnonRoute.js
 
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { withAuth } from "../lib/Auth";
+import { withAuth } from "../context/auth-context.js";
 
-function AnonRoute({ component: Component, isLoggedIn, ...rest }) {
+function AnonRoute(routeProps) {
+  // values coming from  <AnonRoute path="" exact component={}>
+  const PageComponent = routeProps.component;
+  const { path, exact } = routeProps;
+
+  // values coming through `withAuth` from `AuthProvider`
+  const isLoggedIn = routeProps.isLoggedIn;
+  const isLoading = routeProps.isLoading;
+
+  // If AuthProvider is still making request to get user data ( me() )
+  if (isLoading) return <p>Loading...</p>
+  
+  return (
+
+    <Route
+      path={path}
+      exact={exact}
+
+      render={ 
+        function (props) {
+          if (isLoggedIn) return <Redirect to="/private" />
+          else if (! isLoggedIn ) return <PageComponent {...props} />;
+        }
+      }
+      />
+  );
+}
+
+export default withAuth(AnonRoute);
+```
+
+
+
+<br>
+
+
+
+#### Succinct
+
+```jsx
+//	components/AnonRoute.js
+
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { withAuth } from "../context/auth-context.js";
+
+function AnonRoute({ component: PageComponent, isLoggedIn, isLoading ...rest }) {
+ if (isLoading) return <p>Loading</p>
+ 
  return (
   <Route
     {...rest}
     render={
-       (props) => !isLoggedIn ? <Component {...props} /> : <Redirect to="/private"/>
+       (props) => !isLoggedIn ? <PageComponent {...props} /> : <Redirect to="/private"/>
      }
   />
-     // <Route
-    //   {...rest}
-    //   render={ 
-    //     function (props) {
-    //       if (isLoggedIn) return <Redirect to="/private" />
-    //       else if (! isLoggedIn ) return <Component {...props} />;
-    //   }
-    //   }
-    // />
   );
 }
 
@@ -608,26 +651,69 @@ import AnonRoute from "./components/AnonRoute";
 
 ### Create `components/PrivateRoute.js`
 
+
+
 ```jsx
 //	components/PrivateRoute.js
 
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { withAuth } from "../lib/Auth";
+import { withAuth } from "../context/auth-context.js";
 
-function PrivateRoute({ component: Component, isLoggedIn, ...rest }) {
+function PrivateRoute(routeProps) {
+  // values coming from  <AnonRoute path="" exact component={}>
+  const PageComponent = routeProps.component;
+  const { path, exact } = routeProps;
+
+  // values coming through `withAuth` from `AuthProvider`
+  const isLoggedIn = routeProps.isLoggedIn;
+  const isLoading = routeProps.isLoading;
+
+  // If AuthProvider is still making request to get user data ( me() )
+  if (isLoading) return <p>Loading...</p>
+  
+  return (
+
+    <Route
+      path={path}
+      exact={exact}
+
+      render={ 
+        function (props) {
+          if (isLoggedIn) return <PageComponent {...props} />
+          else if (! isLoggedIn ) return <Redirect to="/login" />;
+        }
+      }
+      />
+  );
+}
+
+export default withAuth(PrivateRoute);
+```
+
+
+
+
+
+<br>
+
+
+
+```jsx
+//	components/PrivateRoute.js
+
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { withAuth } from "../context/auth-context.js";
+
+function PrivateRoute({ component: Component, isLoggedIn, isLoading ...rest }) {
+  if (isLoading) return <p>Loading</p>
+
   return (
    <Route
     {...rest}
     render={ (props)  => isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />}
    />
-    // <Route
-    //   {...rest}
-    //   render={function(props) {
-    //     if (isLoggedIn) return <Component {...props} />;
-    //     else if (!isLoggedIn) return <Redirect to="/login" />;
-    //   }}
-    // />
   );
 }
 
@@ -638,6 +724,8 @@ export default withAuth(PrivateRoute);
 
 
 <br>
+
+
 
 
 

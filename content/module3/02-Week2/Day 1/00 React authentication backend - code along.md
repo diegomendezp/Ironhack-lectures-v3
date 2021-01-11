@@ -52,21 +52,21 @@ npm i
 
 
 
-#### Create the `/signup` route in `routes/auth.js`
+#### Create the `/signup` route in `routes/auth.router.js`
 
 
 
 ```js
-//		routes/auth.js
+//		routes/auth.router.js
 
 // POST '/auth/signup'
 router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) => {
     const { username, password } = req.body;
 
-    try {																									 // projection
-      const usernameExists = await User.findOne({ username }, 'username');
+    try {
+      const user = await User.findOne({ username });
       
-      if (usernameExists) return next(createError(400));
+      if (user) return next(createError(400));  // Bad Request
       else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashPass = bcrypt.hashSync(password, salt);
@@ -80,7 +80,7 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
       }
     } 
     catch (error) {
-      next(createError(error));
+      next(createError(error));  // 500 Internal Server Error (by default)
     }
   },
 );
@@ -92,10 +92,10 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
 
 
 
-#### Create the `/login` route in `routes/auth.js`
+#### Create the `/login` route in `routes/auth.router.js`
 
 ```js
-//		routes/auth.js
+//		routes/auth.router.js
 
 //  POST    '/login'
 router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => {
@@ -131,17 +131,18 @@ router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => 
 
 
 
-#### Create the `/logout` route in `routes/auth.js`
+#### Create the `/logout` route in `routes/auth.router.js`
 
 ```js
-//		routes/auth.js
+//		routes/auth.router.js
 
 //  POST    '/logout'
 router.post('/logout', isLoggedIn, (req, res, next) => {
-  req.session.destroy();
-  res
-    .status(204)  //  No Content
-    .send();
+  req.session.destroy(function (err) {
+      res
+    		.status(204)  //  No Content
+    		.send();
+  });
 });
 ```
 
@@ -158,7 +159,7 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
 #### Create the `/private` route in `routes/auth.js`
 
 ```js
-//		routes/auth.js
+//		routes/auth.router.js
 
 //  GET    '/private'   --> Only for testing - Same as `/me` but it returns a message instead
 router.get('/private', isLoggedIn, (req, res, next) => {
@@ -213,7 +214,7 @@ module.exports = router;
 
 Postman will automatically save cookies on the Headers for the next requests. 
 
-Example: after `/signup` cookie is returned in the response and Postman will set that cookie on all the requests in the collection, so that next time we send request, that cookie with session.id is sent automatically to the server.
+Example: after `/auth/signup` cookie is returned in the response and Postman will set that cookie on all the requests in the collection, so that next time we send request, that cookie with session.id is sent automatically to the server.
 
 
 
@@ -225,10 +226,10 @@ Example: after `/signup` cookie is returned in the response and Postman will set
 
 
 
-#### Create the `/me` route in `routes/auth.js`
+#### Create the `/me` route in `routes/auth.router.js`
 
 ```js
-//		routes/auth.js
+//		routes/auth.router.js
 
 //  GET    '/me'
 router.get('/me', isLoggedIn, (req, res, next) => {

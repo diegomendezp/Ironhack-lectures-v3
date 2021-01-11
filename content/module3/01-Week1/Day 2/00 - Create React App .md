@@ -46,13 +46,13 @@ When you run `create-react-app`, it will always create the project with the late
 
 
 ```bash
- npx create-react-app 00-try-create-react-app
+npx create-react-app 00-intro-create-react-app
  
- cd 00-try-create-react-app
+cd 00-intro-create-react-app
 
 code .
 
- rm -rf .git
+rm -rf .git
 ```
 
 
@@ -206,7 +206,10 @@ For reference visit: [MDN - ES6 export](<https://developer.mozilla.org/en-US/doc
 import React from 'react';
 
 // importing logo from src folder - loaded as a file in the bundle if less than 10KB
-import logoFileFromSRC from '../logo.svg'; 
+import logoFileFromSRC from '../logo.svg';\
+
+// Files located in the public folder
+const logoPublic = "/logo192.png";
 
 // Logo served from the public folder (Production only):
 /* IMPORTANT: throws an error during development with create react app
@@ -279,7 +282,7 @@ export default App;
 
 
 
-### [EXERCISE - Pass the props (10 min)](<https://gist.github.com/ross-u/486f628ca631825a340cd2d118436bef>)
+### [EXERCISE - Pass the props (10-15 min)](<https://gist.github.com/ross-u/486f628ca631825a340cd2d118436bef>)
 
 
 
@@ -326,7 +329,7 @@ export default Header;
 
 
 
-
+For a hint check the example from the [ReactJS docs](https://reactjs.org/docs/composition-vs-inheritance.html#containment)  and this [Codpen example](https://codepen.io/gaearon/pen/gwZOJp?editors=0010) .
 
 <br>
 

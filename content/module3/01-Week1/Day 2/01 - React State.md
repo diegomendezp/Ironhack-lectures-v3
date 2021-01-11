@@ -110,14 +110,16 @@ import React from "react";
 
 function User(props) {
   return (
-    <div>
-      <h2 style={ { backgroundColor: props.theColor } }>
+    <div  style={{ width: "300px", textAlign: "center" }}>
+      
+      <h2 style={ { backgroundColor: 'cornflowerblue' } }>
         {/* Curly braces in JSX means processing a JavaScript expression, 
         this is the meaning of the outer braces. 
         Inner braces are from the object with style properties, to be applied*/}
-        Hello, {props.firstName}!
+        Hello, {props.name}!
       </h2>
       <img src={props.image} width="250" height="250" />
+      
     </div>
   );
 }
@@ -146,14 +148,13 @@ import User from './components/User';
 // App.js
 class App extends Component {
   state = {
-    backColor: "yellow",
     userA: {
-      name: "Harper",
-      avatar: "https://www.refreshmiami.com/wp-content/uploads/2018/07/55085_logo-ironhack.png"
+      firstName: "Bob",
+      avatar: "https://i.imgur.com/d1UsoDK.png"
     },
     userB: {
-      name: "Anna",
-      avatar: "https://s3.amazonaws.com/owler-image/logo/ironhack_owler_20180828_221413_original.png"
+      firstName: "Anna",
+      avatar: "https://i.imgur.com/6thUiuU.png"
     }
   };
 
@@ -168,14 +169,13 @@ class App extends Component {
         
         
         <User
-          theColor={this.state.backColor}	
-          firstName={this.state.userA.firstName}
-          image={this.state.userA.avatarUrl}
+          name={this.state.userA.firstName}
+          image={this.state.userA.avatar}
         />
         
         <User 
-          firstName={this.state.userB.firstName}
-          image={this.state.userB.avatarUrl}
+          name={this.state.userB.firstName}
+          image={this.state.userB.avatar}
         />
         
       
@@ -221,7 +221,6 @@ Usually changes to the state occur when the user interacts with the app.
 
 class App extends Component {
   state = {
-    backColor: 'yellow',
     userA: {...},
     userB: {...},
             
@@ -243,11 +242,11 @@ class App extends Component {
 
         <User
           theColor={this.state.backColor}
-          firstName={this.state.userA.firstName}
+          name={this.state.userA.firstName}
           image={this.state.userA.avatarUrl}
         />
         <User
-          firstName={this.state.userB.firstName}
+          name={this.state.userB.firstName}
           image={this.state.userB.avatarUrl}
         />
       </div>
@@ -374,6 +373,10 @@ It is `class` component which defines the `state` inside itself and one that upd
 ### React allows us to skip the `constructor` part
 
 The reason for this is that React is implementing the future ES Next new JavaScript feature proposal named [Class fields declarations](https://github.com/tc39/proposal-class-fields).
+
+
+
+
 
 
 

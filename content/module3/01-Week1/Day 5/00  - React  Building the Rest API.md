@@ -2,19 +2,23 @@
 
 
 
-## REST API
-
-stands for **Representational State Transfer**.
+<br>
 
 
 
-REST is a design pattern (for APIs) and describes how network resources are accessed.  
+## REST
 
-REST is not a standard nor a protocol.
+[REST](https://www.tutorialspoint.com/restful/index.htm) stands for **Representational State Transfer**.
 
 
 
-By using a REST interface, different clients can hit the same REST endpoints, perform  CRUD actions via HTTP mehods.
+[REST](https://www.tutorialspoint.com/restful/index.htm)  is a design pattern for APIs (backend/servers) and describes how network resources are accessed. 
+
+REST is not a standard nor a protocol. It is a guideline that developers should follow when creating APIs to ensure the API is following a uniform design pattern.
+
+
+
+By using a REST interface, different clients can hit the same REST endpoints of a server, perform CRUD actions via HTTP mehods.
 
 
 
@@ -22,13 +26,15 @@ This architecture pattern makes the interaction between a client and a server un
 
 
 
+<br>
 
 
-The name REpresentational State Transfer implies exchanging data. 
 
-The server acts as a data store, and the client retrieves and stores data. 
+The name *REpresentational State Transfer* implies exchange of data. 
 
-The server transfers object states to the client. The client can update these states too.
+The server acts as a data store, and the client retrieves and consumes data. 
+
+The server transfers resource objects to the client. The client can update these resources too.
 
 
 
@@ -38,13 +44,33 @@ Most REST APIs implement [CRUD](https://en.wikipedia.org/wiki/Create,_read,_upda
 
 
 
+<br>
+
+
+
+### RESTful API - basic guidelines
+
+
+
+- HTTP methods are what defines operations in well-formed REST APIs, not the URLs.    
+
+- URLs should not contain verbs.
+
+
+
+- When we want to retrieve, modify, or delete a record, we operate by making the request and using the correct HTTP method.
 
 
 
 
 
+- Well-designed REST APIs must provide response status code that makes it clear there is a problem.
 
 
+
+Below table is an example of correctly naming the server endpoints (routes), where route name is defined by the name of the resource (database collection) and operation is defined by a HTTP verb (`GET`,  `POST`,  `PUT`,  `DELETE` ).
+
+In addition the table describes what the expected request body of request is and as well what status code will be returned upon response.
 
 
 
@@ -54,63 +80,37 @@ Most REST APIs implement [CRUD](https://en.wikipedia.org/wiki/Create,_read,_upda
 | ------------------- | --------- | ------------ | -------------------------- | ------------------- |
 | `/api/projects`     | `GET`     | (empty)      | Returns all projects       | 200 OK              |
 | `/api/projects`     | `POST`    | JSON         | Creates a new project      | 201 Created         |
-| `/api/projects/:i`  | `GET`     | (empty)      | Returns the single project | 200 OK              |
-| `/api/projects/:i`  | `PUT`     | JSON         | Edits the projects         | 200 OK              |
+| `/api/projects/:id` | `GET`     | (empty)      | Returns the single project | 200 OK              |
+| `/api/projects/:id` | `PUT`     | JSON         | Edits the projects         | 200 OK              |
 | `/api/projects/:id` | `DELETE`  | (empty)      | Deletes the projects       | 204 No Content      |
 
 
 
 
 
+<br>
 
 
 
+### Build the API: The Project Management App
+
+We will be building the server/backend for our **Project Management** app, and we will have all these previously listed routes ,plus some more. So let’s start from the beginning.
 
 
 
+<br>
 
 
 
-
-**HTTP methods are what defines operations in well-formed REST APIs, not the URLs.   **
-
-**URLs should not contain verbs.**
+#### Clone the starter repo and install the dependencies
 
 
 
-
-
-**When we want to retrieve, modify, or delete a record, we operate by making the request and using the correct HTTP method.**
-
+#### [Starter repo URL](https://github.com/ross-u/React-Code-Along---Project-Management-Server.git)
 
 
 
-
-**Well-designed REST APIs must provide response status code that makes it clear there is a problem.**
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Build the API: The Project Management App
-
-We will be building the backend for our **Project Management** app, and we will have all these previously listed routes plus some more, but let’s start from the beginning.
-
-
-
-
-
-### Clone the starter repo and install the dependencies
-
-### [Starter repo](https://github.com/ross-u/React-Code-Along---Project-Management-Server.git)
+<br>
 
 ```bash
 git clone https://github.com/ross-u/React-Code-Along---Project-Management-Server.git
@@ -127,9 +127,11 @@ code .
 
 
 
+<br>
 
 
-### Create the `.env` file and add the following lines:
+
+#### Create the `.env` file and add the following lines:
 
 
 
@@ -142,20 +144,34 @@ MONGODB_URI=mongodb://localhost:27017/project-management
 
 
 
-
-
-### Start the app,  `npm run start:dev` 
-
+<br>
 
 
 
+#### Start the app,  `npm run start:dev` 
 
-### Create a model in file the `models/project-model.js`
 
-##### `models/project-model.js`
+
+<br>
+
+
+
+#### Create the `Project` model - `models/project.model.js`
+
+We will first start by creating our database and the collections. To do this, we will start with models.
+
+Remember, each model is responsible for one collection. Let's create `Project` model which will be managing the `projects` collection in our database, including the Schema that describes and enforces how each document saved in the collection must look like.
+
+
+
+<br>
+
+
+
+##### `models/project.model.js`
 
 ```js
-// models/project-model.js
+// models/project.model.js
 
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
@@ -180,12 +196,22 @@ module.exports = Project;
 
 
 
-### Create a model in the file `task-model.js`
+#### Create the `Task` model - `models/task.model.js`
 
-##### models/task-model.js
+Our API will be used to create projects and tasks. Each project may contain many tasks.
+
+Each task will be a document saved in the `tasks` collection and therefore we should create `Task` model to manage this collection.
+
+
+
+<br>
+
+
+
+##### `models/task.model.js`
 
 ```js
-// models/task-model.js
+// models/task.model.js
 
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
@@ -211,26 +237,48 @@ module.exports = Task;
 
 
 
-#### In the `project-routes.js`: 
+#### Create the  `project.router`: 
 
-#### 	- import `express`, `mongoose`, and instantiate Router 
-
-####     - import models `Project` and `Task`
-
-####  	- create the route `POST` `/project`
+Next step is to implement the project router logic. This router will be used to receive and handle all requests related to the `projects` collection and documents. 
 
 
 
-##### `routes/project-routes.js`
+Let's do the following steps in the `routes/project.router.js` file:
+
+
+
+- import `express`, `mongoose` using the NodeJS syntax (`require()`) 
+- Instantiate the `Router ` (`express.Router()`).
+
+- import models `Project` and `Task` using the NodeJS syntax (`require()`)
+- export the router using NodeJS syntax (`module.exports`).
+
+- create the route `POST` `/projects`
+
+  
+
+  Each route on our server should be created following REST design principles and therefore we must ensure that the we name the route properly (`/projects`) and ensure that the response `res` returns a status code that clearly describes the result of the finished request. In this case we will return the status code [`201` `Created`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_success), describing that `POST` request was successfull and that the resource was successfully created.
+
+  
+
+  In case of an error response should send the status code [`500` `Internal Server Error`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors) representing a generic message given when an unexpected condition was encountered.
+
+
+
+<br>
+
+
+
+##### `routes/project.router.js`
 
 ```js
-// routes/project-routes.js
+// routes/project.router.js
 const express = require('express');
 const mongoose = require('mongoose');
 const router  = express.Router();
 
-const Project = require('./../models/project-model');
-const Task = require('./../models/task-model');
+const Project = require('./../models/project.model');
+const Task = require('./../models/task.model');
 
 
 // POST '/api/projects'
@@ -242,7 +290,6 @@ router.post('/projects', (req, res, next) => {
       res
         .status(201)
         .json(createdProject);
-      // `res.json` is similar to ->  `res.send( JSON.stringify(createdProject) )`
     })
     .catch((err)=> {
       res
@@ -267,16 +314,45 @@ module.exports = router;
 
 #### Update `app.js`
 
+
+
+Import the `project.router` file by uncommenting the line provided in the `app.js` .
+
+ Remember that we have to use `require` when importing other files/modules as we are working in the backend with NodeJS.
+
+`import` and `export` are by default not available in NodeJS.
+
+
+
+<br>
+
+##### `app.js`
+
 ```js
 // app.js
-...
 
-//  const projectRouter = require('./routes/project-routes');
-//	const taskRouter = require('./routes/task-routes');
-...
+const projectRouter = require('./routes/project.router');    // <-- UNCOMMENT
+// const taskRouter = require('./routes/task.router');
+// const router = require('./routes/index');
+```
 
-// ROUTES MIDDLEWARE STARTS HERE:
-app.use('/api', projectRouter);
+
+
+<br>
+
+
+
+Connect the router and the routes coming from the `projectRouter`.
+
+<br>
+
+##### `app.js`
+
+```js
+// app.js
+
+// ROUTES MIDDLEWARE:
+app.use('/api', projectRouter);        // <-- UNCOMMENT
 //	app.use('/api', taskRouter);
 ```
 
@@ -288,18 +364,29 @@ app.use('/api', projectRouter);
 
 
 
-#### Now use [Postman](https://www.getpostman.com/) to test this route out.
+#### Test the route `POST` `/api/projects`.
+
+
+
+Using [Postman](https://www.getpostman.com/) test the newly created server route `POST` `/api/projects`.
+
+##### Method
 
 ```bash
-# POST 
+POST
+```
 
-# URL
+
+
+##### URL
+
+```bash
 http://localhost:5000/api/projects
 ```
 
 
 
-##### In the request Body send:
+##### Request Body (`JSON`):
 
 ```json
 {
@@ -307,6 +394,8 @@ http://localhost:5000/api/projects
   "description": "Get react skills and build an awesome final project"
 }
 ```
+
+<br>
 
 
 
@@ -320,18 +409,26 @@ http://localhost:5000/api/projects
 
 
 
-#### Create `GET` route for the creation of projects
+#### Create `GET` `/api/projects` route
+
+Next step is to create a `GET` route used for getting the projects.
+
+If the request gets fulfilled successfully we will return the status code [`200` `OK`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_success), describing that `GET` request was successfull and that the response will contain the requested resource (json with projects).
+
+In case of an error response should send the status code [`500` `Internal Server Error`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors) representing a generic message given when an unexpected condition was encountered.
+
+Notice that it is necessary to use `.populate()` as `Project` model has a field `tasks` holding the `ObjectId`s referencing the tasks.
 
 
 
-##### `routes/project-routes.js`
+<br>
+
+
+
+##### `routes/project.router.js`
 
 ```js
-// routes/project-routes.js
-
-//...
-//...
-
+// routes/project.router.js
 
 // GET '/api/projects'		 => to get all the projects
 router.get('/projects', (req, res, next) => {
@@ -339,11 +436,11 @@ router.get('/projects', (req, res, next) => {
   Project
     .find()
     .populate('tasks')
-    .then(allTheProjects => {
-      res.json(allTheProjects);
+    .then( (allTheProjects) => {
+      res.status(200).json(allTheProjects);
     })
     .catch(err => {
-      res.json(err);
+      res.status(500).json(err);
     })
 });
 
@@ -359,13 +456,33 @@ router.get('/projects', (req, res, next) => {
 
 
 
-#### Create a `GET` route in Postman for :
-
-`http://localhost:3000/api/projects`
+#### Test the route `GET` `/api/projects`.
 
 
 
-#### Test the route with Postman
+Using [Postman](https://www.getpostman.com/) test the newly created server route `GET` `/api/projects`.
+
+
+
+##### Method
+
+```bash
+GET
+```
+
+
+
+##### URL
+
+```bash
+http://localhost:5000/api/projects
+```
+
+
+
+##### Request Body:
+
+No request body. HTTP [`GET` messages use only Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#Body).
 
 
 
@@ -375,17 +492,27 @@ router.get('/projects', (req, res, next) => {
 
 
 
-#### Create route `GET` `/projects/:id` for getting project by id
+#### Create `GET` `/projects/:id` route
+
+Create the new  `GET` route used for getting a specific project by id.
 
 
 
-##### `routes/project-routes.js`
+Notice that in the below example we included a conditional statement to check if the request contains a valid Mongo `ObjectId`(checks if the value is a valid Hexadecimal string ).
+
+ This is an important step in which we prevent calls to the database for the requests tha contain invalid `ObjectId`. In case of an error due to the invalid `ObjectId` response should send the status code [`400 `Bad Request`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors) hinting that the error was probably caused by the client. This kind of error should include a message expanation of the error situation.
+
+
+
+<br>
+
+
+
+##### `routes/project.routes.js`
 
 ```js
-//	routes/project-routes.js
+//	routes/project.routes.js
 
-//	...
-//	...
 
 // GET '/api/projects/:id'		 => to get a specific project
 router.get('/projects/:id', (req, res) => {
@@ -402,10 +529,10 @@ router.get('/projects/:id', (req, res) => {
     .findById( id )
     .populate('tasks')
     .then( (foundProject) => {
-      res.status(200).json(foundProject);
+      res.status(200).json(foundProject);  // OK
     })
     .catch((err) => {
-      res.status(500).json(err);
+      res.status(500).json(err);		// Internal Server Error
     })
   });
 
@@ -423,37 +550,76 @@ router.get('/projects/:id', (req, res) => {
 
 
 
-
-
-### Create route `GET` `/projects/:id` to UPDATE project by id
+#### Test the route `GET` `/api/projects/:id`.
 
 
 
-##### `routes/project-routes.js`
+Using [Postman](https://www.getpostman.com/) test the newly created server route `GET` `/api/projects/:id`.
+
+##### Method
+
+```bash
+GET
+```
+
+
+
+##### URL
+
+```bash
+http://localhost:5000/api/projects/:id
+```
+
+:heavy_exclamation_mark:**NOTE:** Remember to include the `ObjectId` of a project document already existing in your database ( replace the **`:id`** part of the above **URL** with an id from your database ).
+
+
+
+##### Request Body:
+
+No request body. HTTP [`GET` messages/requests use only Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#Body).
+
+
+
+
+
+<br>
+
+
+
+#### Create  `PUT` `/projects/:id` route
+
+
+
+Create the `PUT` route used to *update* a specific project by id.
+
+
+
+<br>
+
+
+
+##### `routes/project.routes.js`
 
 ```js
-// routes/project-routes.js
+// routes/project.routes.js
 
-//	...
-
-//	...
 
 // PUT '/api/projects/:id' 		=> to update a specific project
 router.put('/projects/:id', (req, res, next)=>{
   const { id } = req.params;
   const { title, description } = req.body;
   
-  if(!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
 
   Project.findByIdAndUpdate(id, { title, description })
     .then(() => {
-      res.status(200).json({ message: `Project with ${req.params.id} is updated successfully.` });
+      res.status(200).send();
     })
     .catch(err => {
-      res.json(err);
+      res.status(500).json(err);
     })
 });
 ```
@@ -466,9 +632,40 @@ router.put('/projects/:id', (req, res, next)=>{
 
 
 
-### Test the route with Postman
+<br>
+
+#### Test the route `PUT` `/api/projects/:id`.
 
 
+
+Using [Postman](https://www.getpostman.com/) test the newly created server route `PUT` `/api/projects`.
+
+##### Method
+
+```bash
+PUT
+```
+
+
+
+##### URL
+
+```bash
+http://localhost:5000/api/projects/:id
+```
+
+:heavy_exclamation_mark:**NOTE:** Remember to include the `ObjectId` of a project document already existing in your database ( replace the **`:id`** part of the above **URL** with an id from your database ).
+
+
+
+##### Request Body (`JSON`):
+
+```json
+{
+  "title": "Learn React Hooks",
+  "description": "Upgrade my React skills"
+}
+```
 
 
 
@@ -478,16 +675,27 @@ router.put('/projects/:id', (req, res, next)=>{
 
 
 
-#### Create a delete route `/projects/:id`
+#### Create `DELETE` `/projects/:id` route
 
-##### `routes/project-routes.js`
+Create the `DELETE` route used to *delete* a specific project by id.
+
+
+
+If the request fulfils successfully we will return the status code [`202` `Accepted`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_success). 
+
+This status code is used to specify that the `DELETE` request was successfully received and that resource (project document) was already deleted or marked for deletion.
+
+
+
+<br>
+
+
+
+##### `routes/project.routes.js`
 
 ```js
-// routes/project-routes.js
+// routes/project.routes.js
 
-//	...
-
-//	...
 
 
 // DELETE '/api/projects/:id'   => to delete a specific project
@@ -501,9 +709,9 @@ router.delete('/projects/:id', (req, res)=>{
 
   Project.findByIdAndRemove(id)
     .then(() => {
-      res;
+      res
         .status(202)  //  Accepted
-        .json({ message: `Project with ${id} was removed successfully.` });
+        .send(`Document ${id} was removed successfully.`);
     })
     .catch( err => {
       res.status(500).json(err);
@@ -514,7 +722,37 @@ router.delete('/projects/:id', (req, res)=>{
 
 
 
+<br>
 
+
+
+#### Test the route `DELETE` `/api/projects/:id`.
+
+
+
+Using [Postman](https://www.getpostman.com/) test the newly created server route `DELETE` `/api/projects`.
+
+##### Method
+
+```bash
+DELETE
+```
+
+
+
+##### URL
+
+```bash
+http://localhost:5000/api/projects/:id
+```
+
+:heavy_exclamation_mark:**NOTE:** Remember to include the `ObjectId` of a project document already existing in your database ( replace the **`:id`** part of the above **URL** with an id from your database ).
+
+
+
+##### Request Body:
+
+No request body. HTTP [`DELETE` messages/requests use only Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#Body).
 
 
 
@@ -522,39 +760,44 @@ router.delete('/projects/:id', (req, res)=>{
 
 
 
-### Test the route with Postman
 
 
 
 
+
+
+### Create the  `task.router`: 
+
+Next step is to implement the task router logic. This router will be used to receive and handle all requests related to the `tasks` collection and documents. 
+
+
+
+Let's do the following steps in the `routes/task.router.js` file:
+
+- import `express` and `mongoose` using the NodeJS syntax ( `require()` ) .
+- Instantiate the `Router ` ( `express.Router()` ).
+
+- import models `Project` and `Task` using the NodeJS syntax ( `require()` ).
+
+- export the router using NodeJS syntax ( `module.exports` ).
+
+  
 
 <br>
 
 
 
-
-
-
-
-
-
-# Create task routes in
-
-## `routes/task-routes.js`
-
-
-
-
+##### `routes/task.router.js`
 
 ```js
-// routes/task-routes.js
+// routes/task.router.js
 
 const express = require('express');
 const mongoose = require('mongoose');
 const router  = express.Router();
 
-const Project = require("../models/project-model");
-const Task = require("../models/task-model");
+const Project = require("../models/project.model");
+const Task = require("../models/task.model");
 
 
 module.exports = router;
@@ -568,28 +811,42 @@ module.exports = router;
 
 
 
-### Import the router in `app.js` and set it in the middleware chain
+#### Update `app.js`
+
+
+
+Import the `task.router` file by uncommenting the line provided in the `app.js` .
+
+<br>
+
+
+
+##### `app.js`
+
+```js
+const projectRouter = require('./routes/project.router');
+const taskRouter = require('./routes/task.router');        // <-- UNCOMMENT
+// const router = require('./routes/index');
+```
+
+
+
+
+
+<br>
+
+
+
+Connect the router and the routes coming from the `projectRouter`.
 
 ##### `app.js`
 
 ```js
 // app.js
 
-const projectRouter = require('./routes/project-routes');
-const taskRouter = require('./routes/task-routes');					// <-- UNCOMMENT
-
-
-//	...
-
-//	...
-
-//	...
-
-
 // ROUTES MIDDLEWARE:
 app.use('/api', projectRouter);
-app.use('/api', taskRouter);			// <-- UNCOMMENT & UPDATE
-
+app.use('/api', taskRouter);        // <-- UNCOMMENT
 ```
 
 
@@ -602,12 +859,30 @@ app.use('/api', taskRouter);			// <-- UNCOMMENT & UPDATE
 
 
 
-### Create  `POST` `/api/tasks`
+#### Create  `POST` `/api/tasks` route
 
-##### `routes/task-routes.js`
+Create `POST` route used to create a new task. 
+
+Request should include the title and description of the task and as well id of the project to which the task belongs.
+
+Once the task document is created, the `_id` of the new task document must be added to the project document to which the task belongs to. 
+
+Below, we do this by first calling `Task.create()` to create the new task document and then `Project.findByIdAndUpdate` in order to add the `_id` of the new task to the corresponding project.
+
+
+
+We will return the status code [`201` `Created`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_success), describing that `POST` request was successfull and that the resource was successfully created.
+
+
+
+<br>
+
+
+
+##### `routes/task.router.js`
 
 ```js
-// routes/task-routes.js
+// routes/task.router.js
 
 // POST '/api/tasks'    => to create a new task
 router.post('/tasks', (req, res) => {
@@ -620,7 +895,10 @@ router.post('/tasks', (req, res) => {
   })
     .then((newTaskDocument) => {
 
-      Project.findByIdAndUpdate( projectID, { $push:{ tasks: newTaskDocument._id } })
+      Project.findByIdAndUpdate( 
+        projectId, 
+        { $push: { tasks: newTaskDocument._id } }
+      )
         .then((theResponse) => {
           res.status(201).json(theResponse);
         })
@@ -636,34 +914,83 @@ router.post('/tasks', (req, res) => {
 
 
 
+
+
+<br>
+
+
+
+#### Test the route `POST` `/api/tasks`.
+
+
+
+Using [Postman](https://www.getpostman.com/) test the newly created server route `POST` `/api/tasks`.
+
+##### Method
+
+```bash
+POST
+```
+
+
+
+##### URL
+
+```bash
+http://localhost:5000/api/tasks
+```
+
+
+
+##### Request Body (`JSON`):
+
+```json
+{
+  "title": "Learn React",
+  "description": "Get react skills and build an awesome final project",
+  "projectId": <_id OF THE EXISTING PROJECT DOCUMENT>
+}
+```
+
+:heavy_exclamation_mark:**NOTE:** Remember to include the `_id` of a project document already existing in your database ( replace the value of the **`projectId`** field in the above example  ).
+
+
+
 <br>
 
 
 
 
 
-### Create `GET` `/projects/:projectId/tasks/:taskId`
+#### Create `GET` `/tasks/:id` route
 
-Get one task by it's id
+Create the new  `GET ` route used for getting a specific task by id.
 
 
 
-##### `routes/task-routes.js`
+##### `routes/task.router.js`
 
 ```js
-// routes/task-routes.js
+// routes/task.router.js
 
-// GET '/api/projects/:projectId/tasks/:taskId'   => to retrieve a specific task
-router.get('/projects/:projectId/tasks/:taskId', (req, res) => {
+// GET '/api/tasks/:id'   => to retrieve a specific task
+router.get('/tasks/:id', (req, res) => {
   
-  const { taskId } = req.params;
+  const { id } = req.params;
   
-  Task.findById(taskId)
+  if ( !mongoose.Types.ObjectId.isValid(id)) {
+    res
+      .status(400)  //  Bad Request
+      .json({ message: 'Specified id is not valid'})
+    return;
+  }
+  
+  Task.findById(id)
     .then((foundTask) =>{
-        res.status(200).json(foundTask);
+        res.status(200).json(foundTask);  // OK
     })
-    .catch( err =>{
-        res.status(500).json(err);
+    .catch( err => {
+        res.status(500).json(err);		// Internal Server Error
     })
 });
 
@@ -671,7 +998,37 @@ router.get('/projects/:projectId/tasks/:taskId', (req, res) => {
 
 
 
+<br>
 
+
+
+#### Test the route `GET` `/api/tasks/:id`.
+
+
+
+Using [Postman](https://www.getpostman.com/) test the newly created server route `GET` `/api/tasks/:id`.
+
+##### Method
+
+```bash
+GET
+```
+
+
+
+##### URL
+
+```bash
+http://localhost:5000/api/tasks/:id
+```
+
+:heavy_exclamation_mark:**NOTE:** Remember to include the `ObjectId` of a project document already existing in your database ( replace the **`:id`** part of the above **URL** with an id from your database ).
+
+
+
+##### Request Body:
+
+No request body. HTTP [`GET` messages/requests use only Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#Body).
 
 
 
@@ -685,15 +1042,20 @@ router.get('/projects/:projectId/tasks/:taskId', (req, res) => {
 
 
 
-### Create `PUT` `/tasks/:id`
+#### Create `PUT` `/tasks/:id` route
+
+Create the `PUT` route used to *update* a specific task by id.
+
+
+
+<br>
+
+
+
+##### `routes/task.router.js`
 
 ```js
-// routes/task-routes.js
-
-//	...
-
-//	...
-
+// routes/task.router.js
 
 // PUT '/api/tasks/:id'    => to update a specific task
 router.put('/tasks/:id', (req, res) => {
@@ -705,14 +1067,14 @@ router.put('/tasks/:id', (req, res) => {
     return;
   }
 
-  Task.findByIdAndUpdate(id, { title, description })
+  Task.findByIdAndUpdate( id, { title, description })
     .then(() => {
       res
-        .status(201)
-        .json({ message: `Task with ${id} updated successfully.` });
+        .status(200)
+        .send();
     })
     .catch(err => {
-      res.json(err);
+      res.status(500).json(err);
     })
 });
 
@@ -726,16 +1088,68 @@ router.put('/tasks/:id', (req, res) => {
 
 
 
+#### Test the route `PUT` `/api/tasks/:id`.
+
+
+
+Using [Postman](https://www.getpostman.com/) test the newly created server route `GET` `/api/tasks`.
+
+##### Method
+
+```bash
+PUT
+```
+
+
+
+##### URL
+
+```bash
+http://localhost:5000/api/tasks/:id
+```
+
+:heavy_exclamation_mark:**NOTE:** Remember to include the `ObjectId` of a project document already existing in your database ( replace the **`:id`** part of the above **URL** with an id from your database ).
+
+
+
+##### Request Body (`JSON`):
+
+```json
+{
+  "title": "First task",
+  "description": "Watch a tutorial and check the documentation"
+}
+```
+
+
+
+<br>
+
+
+
 
 
 #### Create `DELETE` `/tasks/:id`
 
+
+
+Create the `DELETE` route used to *delete* a specific project by id.
+
+
+
+If the request fulfils successfully we will return the status code [`202` `Accepted`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_success). 
+
+
+
+<br>
+
+
+
+##### `routes/task.router.js`
+
 ```js
-// routes/task-routes.js
+// routes/task.router.js
 
-//	...
-
-//	...
 
 
 // DELETE '/api/tasks/:id'     => to delete a specific task
@@ -753,7 +1167,7 @@ router.delete('/tasks/:id', (req, res) => {
     .then(() => {
       res
         .status(202)
-        .json({ message: `Task with ${id} removed successfully.` });
+        .send(`Document ${id} was removed successfully.`);
     })
     .catch(err => {
       res.json(err);
@@ -772,23 +1186,35 @@ router.delete('/tasks/:id', (req, res) => {
 
 
 
-## Enable CORS requests
+#### Enable CORS - set CORS middleware
 
 
 
-By default, the browsers will block communication between apps from different origins (**IP + port**) for security reasons, so we need to configure our server in order to allow them.
+The browsers by default block communication between apps from different origins (**IP + port / Domain**) for security reasons. In our exercise our server (`localhost:5000`) and the React frontend app that we will be creating next (`localhost:3000`) will be running on different origins (**IP + port / Domain**). This mechanism is implemented in all browsers and it's name is CORS. 
+
+Therefore we need to configure our server to allow the future requests coming from our React front-end app (`localhost:3000`) running in the browser.
 
 
 
-Cross-Origin Resource Sharing ([CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)) is a mechanism that uses additional [HTTP](https://developer.mozilla.org/en-US/docs/Glossary/HTTP) headers to tell a browser to let a web application running at one origin (domain) have permission to access selected resources from a server at a different origin.
+Cross-Origin Resource Sharing ([CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)) is a mechanism that should be configured on the server. When CORS is configured the server uses additional [HTTP](https://developer.mozilla.org/en-US/docs/Glossary/HTTP) headers to tell a browser to let a web application running on a different origin (**IP + port / Domain**) to make a request to the server for a selected resource.
 
 
 
-### [5 min read - CORS](<https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS>)
+#### [CORS - 5 min read](<https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS>)
 
 
 
+<br>
 
+
+
+To allow requests from a different origin we will need to install a `cors` middleware package and include it in our middleware chain in `app.js`
+
+First install the `cors` package:
+
+
+
+<br>
 
 ```bash
 npm install cors --save
@@ -796,35 +1222,20 @@ npm install cors --save
 
 
 
-
-
 <br>
 
 
 
-### Update `app.js`
+#### Update `app.js`
 
+Import  `cors` middleware in `app.js`.
 
+##### `app.js`
 
 ```js
 // app.js
 
-//	...
-
 const cors = require('cors');
-
-//	...
-
-// ADD CORS SETTINGS TO ALLOW CROSS-ORIGIN INTERACTION:
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
-}));
-
-
-// ROUTES MIDDLEWARE:
-// ...
-
 ```
 
 
@@ -833,7 +1244,64 @@ app.use(cors({
 
 
 
-`credentials` will come to play when we introduce `users` and `origin` points to the **allowed url-s**,
+Add the `cors` middleware to the middleware chain in `app.js`. Add the middleware right after the comment saying `// CORS SETTINGS (MIDDLEWARE) TO ALLOW CROSS-ORIGIN INTERACTION:` in `app.js`
+
+
+
+<br>
+
+
+
+```js
+// app.js
+
+// CORS SETTINGS (MIDDLEWARE) TO ALLOW CROSS-ORIGIN INTERACTION:
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
+}));
+
+
+// ROUTES MIDDLEWARE:
+const projectRouter = require('./routes/project.router');
+const taskRouter = require('./routes/task.router');
+// const router = require('./routes/index');
+```
+
+
+
+The option `credentials` will come into play when we introduce `users` and cookies/sessions authentication.
+
+
+
+<br>
+
+
+
+### 
+
+#### Server (backend) `PORT`
+
+The `PORT`  value in the `.env` file in the server/backend should be `5000`, as our server/backend is running on `localhost:5000`.
+
+
+
+##### `.env`
+
+```bash
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/project-management
+```
+
+
+
+<br>
+
+
+
+#### React app (frontend) `PORT`
+
+Our client side React app which we will create in the next step will be running on port `3000`.
 
 
 
@@ -841,8 +1309,4 @@ app.use(cors({
 
 
 
-### The `PORT` in the `.env` file for our server should be: `PORT=5000`
-
-
-
-Our client side will be running on port 3000
+<br>

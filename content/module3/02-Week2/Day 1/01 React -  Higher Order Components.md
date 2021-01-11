@@ -167,12 +167,13 @@ import React from 'react';
 import axios from 'axios';
 
 // HOC starts with a wrapper function that returns a HOC
-function Higher(WrappedComponent) {
+function Higher (WrappedComponent) {
 
   const color = "SkyBlue";
 
   const getData = () => {
-    return axios.get('https://api.chucknorris.io/jokes/random');
+    const pendingPr = axios.get('https://api.chucknorris.io/jokes/random');
+    return pendingPr;
   };
   
 // HOC takes another component and injects data or functionality into it
@@ -209,19 +210,30 @@ export default Higher;
 //  /components/ArticlePreview.js
 
 import React, { Component } from 'react';
-import Higher from '../hoc/Higher';                {/* <--  IMPORT  */}
+import Higher from '../hoc/Higher';                // <--  IMPORT
 
 
 class ArticlePreview extends Component {
+  state = {
+    title: undefined,
+    description: undefined,
+    content: undefined
+  }
+
 	//	...
   
   //			...
 
 
-  loadMore = () => {                               {/* <--  ADD  */}
+  loadMore = () => {                               // <--  UPDATE
+
+    // this.setState({ content: "Lorem ipsum dolor" });
+    
     const pr = this.props.getData();
     pr
-      .then((response) => this.setState({ content: response.data.value }))
+      .then((response) => {
+        this.setState({ content: response.data.value })
+      })
       .catch((err) => console.log(err));
   }
   
@@ -232,14 +244,12 @@ class ArticlePreview extends Component {
         <h3>{this.state.title ? this.state.title : null}</h3>
         <p>{this.state.description ? this.state.description : null}</p>
 
+        
         {                                          {/* <--  ADD  */}
           this.state.content
             ? <p>{this.state.content}</p>
             : <div className="fade"> 
-            		<button 
-                  className="btn-more" 
-                  onClick={this.loadMore}
-                 >
+            		<button className="btn-more" onClick={this.loadMore} >
                   More
             		</button>
           		</div>

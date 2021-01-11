@@ -43,28 +43,6 @@ code .
 
 
 
-### (TEacher) create the new branch
-
-```bash
-git checkout -b wd-mmm-yyyy
-```
-
-<br>
-
-
-
-### Install the dependencies
-
-
-
-```
-npm i 
-```
-
-<br>
-
-
-
 ### Create the file structure
 
 
@@ -76,7 +54,7 @@ mkdir src/components
 # Create the component files
 touch src/components/List.js
 touch src/components/Navbar.js
-touch src/components/Navbar.css 
+touch src/components/Navbar.css
 ```
 
 
@@ -130,6 +108,35 @@ export default Navbar;
 
 
 
+##### `src/components/Navbar.cs`
+
+```css
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background:  #352275;
+  padding: 0px 40px;
+}
+
+#navbar li {
+  list-style: none;
+  display: inline-block;
+  margin: 0px 40px; 
+  font-size: 22px;
+  color:white;
+}
+
+div.nav-details > * {
+  display: inline-block;
+  color: royalblue;
+  font-size: 22px;
+}
+
+```
+
+
+
 <br>
 
 
@@ -150,22 +157,19 @@ import Navbar from './components/Navbar';
 
 import List from './components/List';
 
-// array of list item HTML elements that needs to be displayed
-
-const names = ['Bob', 'Sarah', 'Anna', 'Marc'];
-
-const cities = [
-  'Barcelona',
-  'Miami',
-  'Madrid',
-  'Paris',
-  'Amsterdam',
-  'Berlin',
-  'Sao Paulo',
-];
-
 
 class App extends Component {
+  state = {
+    students: ['Bob', 'Sarah', 'Anna', 'Marc'],
+
+		projects: [
+      { _id: '123fqw2asd', name: 'EatBCN', techStack: 'Express, Node, React'},
+      { _id: '985asw5erh', name: 'TravelLite', techStack: 'React, Express, Redux'},
+      { _id: '347jh45qww', name: 'IronClub', techStack: 'Express, Handlebars'},
+      { _id: '90r1h9t1ea', name: 'ChatApp', techStack: 'React, Express, SocketIO'},
+		]
+  }
+  
   render() {
     return (
       <div className="App">
@@ -204,7 +208,7 @@ export default App;
 				{ /* EXAMPLE 1 - List created by mapping over an array */ }
         <h2> Mapping over an array</h2>
         {
-          names.map( (nameStr) => <h4>{nameStr}</h4> )
+          this.state.students.map( (nameStr) => <h4>{nameStr}</h4> )
         }
 ```
 
@@ -221,7 +225,7 @@ export default App;
 
 				{ /* EXAMPLE 2 - List created by mapping over an array - in a component */ }
         <h2> List In a Component</h2>
-        <List cities={cities} />
+        <List studentProjects={this.state.projects} />
 ```
 
 
@@ -240,13 +244,13 @@ export default App;
 import React from "react";
 
 function List(props) {
-  const { cities } = props;
+  const { studentProjects } = props;
 
   return (
     <ul>
       {
-        cities.map(cityName => {
-        	return <li>{cityName}</li>;
+        studentProjects.map(projectObj => {
+        	return <li>{projectObj.name}</li>;
       	})
       }
     </ul>
@@ -329,9 +333,9 @@ If the keys change or there are no keys, then the **entire DOM is destroyed and 
 // src/components/List.js
 
         {
-          cities.map((cityName, index) => {								{/* UPDATE */}
-          	return <li key={index} > {cityName} </li>;			{/* UPDATE */}
-        	})
+        	studentProjects.map(projectObj => {								{/* UPDATE */}
+        		return <li key={projectObj.key}>{projectObj.name}</li>;								{/* UPDATE */}
+      		})
         }
 ```
 
@@ -507,93 +511,6 @@ Warning: Each child in a list should have a unique "key" prop.
 
 
 
-#### Let's create a `Card` component that we will use to render a list of movies
-
-
-
-**`src/components/Card.js`**
-
-```jsx
-// src/components/Card.js
-
-import React from 'react';
-
-// Destructuring the prop object immediately
-const Card = ({ movie }) => {
-  return (
-    <div key={movie._id }>
-      <h2>{movie.title}</h2>
-      <p>Director: {movie.director}</p>
-    </div>
-  )
-};
-
-export default Card;
-```
-
-
-
-
-
-<br>
-
-
-
-
-
-#### Create a `MovieList` component that renders list of movie objects.
-
-
-
-
-
-**`src/components/MovieList.js`**
-
-```jsx
-// src/components/MovieList.js
-
-import React from 'react';
-import Card from './Card';
-
-const movies = [
-  { _id:"2143lkjgfw8", title: "Jurassic Park", director: "Steven Spielberg" },
-  { _id:"jg59lkjgby5", title: "Sharknado", director: "Anthony C. Ferrante" },
-  { _id:"a45i3ljamv2", title: "Titanic", director: "James Cameron" }
-];
-
-const MovieList = () =>{
-  return (
-    <ul>
-      { 
-        movies.map( (movieObj) => {
-          return <Card key={ movieObj._id }  movie={movieObj} /> 
-        })
-      }
-    </ul>
-  )
-};
-
-export default MovieList; 
-```
-
-
-
-
-
-
-
-
-
-
-
-#### Let's create an improved `MovieList` and `ImprovedCard` Component that are even more dynamic.
-
-
-
-<br>
-
-
-
 #### First let's create an array of data we want to render - `src/data.js`
 
 
@@ -601,16 +518,50 @@ export default MovieList;
 **`src/data.js`**
 
 ```js
-//	src/data.js
-
 const data = [
-  { _id:"g2d3lkjgfa1", title: "The Godfather", director: "Francis Coppola",  rating: 9 },
-  { _id:"2143lkjgfd2", title: "Star Wars", director: "Rian Johnson",  rating: 8 },
-  { _id:"6r48lkjgff3", title: "The Shawshank Redemption", director: "Frank Darabont",  rating: 9 },
-  { _id:"3t439kj5fe4", title: "Jurassic Park", director: "Steven Spielberg",  rating: 5 },
-  { _id:"f1t3lnjgfo5", title: "Sharknado", director: "Anthony C. Ferrante",  rating: 2 },
-  { _id:"1e39kdj01i6", title: "Titanic", director: "James Cameron" ,  rating: 9}
-]
+  {
+    _id: "1bfde23f1",
+    title: "The Godfather",
+    director: "Francis Coppola",
+    hasOscars: true,
+    IMDbRating: 9.2
+  },
+  {
+    _id: "1bfde23f2",
+    title: "Star Wars",
+    director: "Rian Johnson",
+    hasOscars: true,
+    IMDbRating: 8.7
+  },
+  {
+    _id: "1bfde23f3",
+    title: "The Shawshank Redemption",
+    director: "Frank Darabont",
+    hasOscars: false,
+    IMDbRating: 9.3
+  },
+  {
+    _id: "1bfde23f4",
+    title: "Jurassic Park",
+    director: "Steven Spielberg",
+    hasOscars: false,
+    IMDbRating: 8.0
+  },
+  {
+    _id: "1bfde23f5",
+    title: "Sharknado",
+    director: "Anthony C. Ferrante",
+    hasOscars: false,
+    IMDbRating: 5.2
+  },
+  {
+    _id: "1bfde23f6",
+    title: "Titanic",
+    director: "James Cameron",
+    hasOscars: true,
+    IMDbRating: 8.9
+  }
+];
 
 export default data;
 ```
@@ -623,68 +574,27 @@ export default data;
 
 
 
-#### Create a new Card component
 
 
-
-**`src/components/ImprovedCard.js`**
-
-```jsx
-// src/components/ImprovedCard.js
-
-import React from 'react';
-
-const ImprovedCard = (props) => {
-  return (
-    <div>
-      <h2>{props.title}</h2>
-      <p>Director: {props.director}</p>
-      <p>Rating: {props.rating}</p>
-    </div>
-  )
-};
-
-export default ImprovedCard;
-```
+#### Create `MovieList` class component
 
 
 
 
 
-##### Instead of hard coding each prop name by name, we can spread the object inside of the component.
-
-
-
-
-
-
-
-#### Create `ImprovedMovieList` class component which takes array of any size.
-
-
-
-#### We will use `class` component  and `constructor` as we want to pass  movies through `props` and set them in the state.
-
-
-
-**`src/components/ImprovedMovieList.js`**
+**`src/components/MovieList.js`**
 
 ```jsx
-// src/components/ImprovedMovieList.js
+// src/components/MovieList.js
 import React, { Component } from 'react';
-import ImprovedCard from './ImprovedCard';
+import MovieCard from './MovieCard';
+
+import data from './../data';
 
 
-class ImprovedMovieList extends Component {
-  //  we use `constructor` as we pass movies through props to set the as `state` value
-  //  Even though  there is a use case for this pattern, 
-  //  Setting initial state from the props is an anti-pattern,
-  //	and `componentDidUpdate` lifecycle method should be used insted
-  constructor(props) {
-    super();
-    this.state = {
-      movies: props.moviesArray
-    }
+class MovieList extends Component {
+  state = {
+    movies: data
   }
 
   render() {
@@ -693,7 +603,7 @@ class ImprovedMovieList extends Component {
       <ul>
         { 
           this.state.movies.map( (oneMovie) => {
-            return <ImprovedCard key={oneMovie._id} {...oneMovie} /> 
+            return <MovieCard key={oneMovie._id} {...oneMovie} /> 
           })
         }
       </ul>
@@ -701,7 +611,7 @@ class ImprovedMovieList extends Component {
   }
 }
 
-export default ImprovedMovieList; 
+export default MovieList; 
 ```
 
 
@@ -709,6 +619,36 @@ export default ImprovedMovieList;
 <br>
 
 
+
+#### Create a new `MovieCard` component
+
+
+
+**`src/components/MovieCard.js`**
+
+```jsx
+// src/components/Card.js
+
+import React from 'react';
+
+const MovieCard = (props) => {
+  return (
+    <div className="MovieCard">
+      <h2>{props.title}</h2>
+      <p>Director: {props.director}</p>
+      <p>Rating: {props.IMDbRating}</p>
+    </div>
+  )
+};
+
+export default MovieCard;
+```
+
+
+
+
+
+<br>
 
 
 
@@ -722,15 +662,13 @@ export default ImprovedMovieList;
 //	...
 //	...
 
-import ImprovedMovieList from './components/ImprovedMovieList';
-
-import data from './data';
+import MovieList from './components/MovieList';
 
 //	...
 //			...
 
-		<h1>Improved Movie List</h1>
-		<ImprovedMovieList moviesArray={data} />
+		<h1>Movie List</h1>
+		<MovieList />
 ```
 
 
@@ -739,21 +677,21 @@ import data from './data';
 
 
 
-#### Lets create a delete button for each `imporvedCard`
+#### Lets create a delete button for each `Card`
 
 
 
-**`src/components/ImprovedCard.js`**
+**`src/components/MovieCard.js`**
 
 ```jsx
-// src/components/ImprovedCard.js
+// src/components/MovieCard.js
 
-const ImprovedCard = (props) => {
+const MovieCard = (props) => {
   return (
-    <div>
+    <div className="MovieCard">
       <h2>{props.title}</h2>
       <p>Director: {props.director}</p>
-      <p>Rating: {props.rating}</p>
+      <p>Rating: {props.IMDbRating}</p>
       
       <button 																{/*  ADD A BUTTON */}
         className="btn-delete"
@@ -779,14 +717,14 @@ const ImprovedCard = (props) => {
 
 
 
-#### Create a method in `ImprovedMoviesList` for removing movies.
+#### Create a method in `MoviesList` for removing movies.
 
 
 
-##### `src/components/ImprovedMoviesList.js`
+##### `src/components/MovieList.js`
 
 ```jsx
-//	src/components/ImprovedMoviesList.js
+//	src/components/MovieList.js
 
 
   deleteMovie = (movieId) => {  													//   <-- CREATE METHOD
@@ -804,7 +742,7 @@ const ImprovedCard = (props) => {
         { 
           this.state.movies.map( (oneMovie) => {
             return (
-              <ImprovedCard 
+              <Card 
                 key={shortid.generate()} 
                 {...oneMovie}
                 clickToDelete={ ()=> this.deleteMovie(oneMovie._id) }		{/*  UPDATE */}
@@ -827,15 +765,15 @@ const ImprovedCard = (props) => {
 
 
 
-##### Update `ImprovedMovieCard`
+##### Update `MovieCard`
 
 ```jsx
-const ImprovedCard = (props) => {
+const MovieCard = (props) => {
   return (
-    <div>
+    <div className="MovieCard">
       <h2>{props.title}</h2>
       <p>Director: {props.director}</p>
-      <p>Rating: {props.rating}</p>
+      <p>Rating: {props.IMDbRating}</p>
       
       <button
         className="btn-delete"
@@ -871,6 +809,13 @@ li {
   list-style: none;
 }
 
+.MovieCard {
+  border: 2px solid black;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
 h1 {
   padding:30px;
   border: 2px solid black;
@@ -890,14 +835,6 @@ button.btn-delete {
 
 }
 ```
-
-
-
-<br>
-
-
-
-### [Repo with code example](<https://github.com/ross-u/React---List-and-Keys---Done>)
 
 
 

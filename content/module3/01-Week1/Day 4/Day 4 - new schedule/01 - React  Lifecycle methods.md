@@ -14,7 +14,15 @@ Create a project and files
 
 ```bash
 # Create the react project
-ti
+npx create-react-app 00-react-lifecycle-methods
+
+cd 00-react-lifecycle-methods
+
+# Create the directory for components
+mkdir src/components
+
+# Create a component file
+touch src/components/Clock.js
 ```
 
 
@@ -34,6 +42,79 @@ git checkout wd-mmm-yyyy
 
 
 <br>
+
+
+
+### Create the components
+
+##### `App.js`
+
+```jsx
+import React from 'react';
+import './App.css';
+import Clock from './components/Clock';
+
+class App extends React.Component {
+  state = {
+    currentTime: 'N/A',
+    showClock: true
+  }
+
+  toggleClock = () => {
+    this.setState({ showClock: !this.state.showClock })
+  }
+
+  render () {
+    return (
+      <div className="App">
+        <h1>Lifecycle methods</h1>
+        <button onClick={this.toggleClock}>TOGGLE CLOCK</button>
+
+        {
+          this.state.showClock
+            ? <Clock />
+            : null
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+
+
+<br>
+
+
+
+##### `componenents/Clock.js`
+
+```jsx
+class Clock extends React.Component {
+  constructor() {
+    super();
+    this.state = { 
+      year: undefined
+    };
+    
+    console.log('IN CONSTRUCTOR');
+  };
+
+  
+  // custom methods and lifecycle methods go after the `constructor`- e.g. `render()`
+  
+  render() {
+    return (
+      <div>
+        <h1>Clock</h1>
+      </div>
+    )
+  }
+
+}
+```
 
 
 
@@ -91,7 +172,7 @@ Lifecycle methods are special methods that are called automatically by React dur
 
 
 
-They are also reffered to as **lifecycle hooks.** (Different than the new **[React Hooks API](<https://www.fullstackreact.com/articles/an-introduction-to-hooks-in-react/>)**)
+~~They are also reffered to as **lifecycle hooks.** (Different than the new **[React Hooks API](<https://www.fullstackreact.com/articles/an-introduction-to-hooks-in-react/>)**)~~
 
 
 
@@ -143,7 +224,7 @@ class Clock extends React.Component {
 	constructor(props) {
     super(props);
     this.state = { 
-      year: 2020
+      year: undefined
     };
     
 	  console.log('1 - IN CONSTRUCTOR');
@@ -164,7 +245,7 @@ class Clock extends React.Component {
 
 
 
-- We use it when we want to pass `props` to the class component.
+- We can use it to set value from the `props` in the `state` of the class component. However, this is an anti-pattern (bad practice).
 - By default it must contain `super` keyword, that receives `props` as argument from `constructor`
 - If we are setting the `state` in `constructor` we have to use `this` keyword
 - We can use it to `bind()` value of  `this` to the methods
@@ -286,7 +367,10 @@ class Clock extends React.Component {
 
   
 
-- We **shouldn't call `setState()`** here since this will lead to re-rendering of the component (causes performance issues).
+- We should be aware that **calling `setState()` here since this will lead to re-rendering** of the component (causes additional re-rendering of the component ).
+
+- `componentDidMount` should be used when it is needed to set the initial value of the `state` when the component is created, right after the first render. It is commonly used  to create a initial call to the API when component loads and set the data from the API to the `state`. It is as well used to set values from the props as the initial `state` .
+
 
 
 
@@ -350,7 +434,44 @@ class Clock extends React.Component {
     
     console.log('3 - IN "COMPONENT DID MOUNT"');				
     
+    
+    // Setting initial state using the data coming from the parent via `props`
+    
     this.setState({ year: this.props.currentYear });				// <-- ADD SET STATE
+  }
+```
+
+
+
+OR
+
+
+
+```jsx
+
+//	...
+
+class Clock extends React.Component {
+  constructor(props) {
+    	// ...
+  };
+
+ 
+  
+  componentDidMount() {																// <-- UPDATE CODE IN C.D.M
+		//	...
+    
+    console.log('3 - IN "COMPONENT DID MOUNT"');				
+    
+    // Setting initial state using the data coming from the request to the API
+    fetch('http://worldclockapi.com/api/json/est/now')
+    	.then((response) => response.json())
+    	.then((data) => {
+      		const yearFromAPI = data.ordinalDate;
+      		this.setState({ year: yearFromAPI });
+   		})
+    
+    
   }
 ```
 
@@ -561,7 +682,7 @@ class Clock extends React.Component {
 - `componentDidUpdate()` is invoked only during the ***updating*** phase, immediately after the re`render()` is finished. 
 - We ***shouldn’t update the state*** in `componentDidUpdate()`. <u>This can cause infinite loop</u> if the proper condition is not set, and it causes an extra re-rendering (affects component performance).
 - `componentDidUpdate()` gives us access to the `props` and `state` from when before the update was made( `componentDidUpdate(prevProps, prevState)` ). 
-- In `componentDidUpdate()` can do a comparison of  `prevProps` and `prevState`  versus current`this.props` and `this.state`.to see what exactly changed (if anything) and then react accordingly.
+- In `componentDidUpdate()` we can do a comparison of  `prevProps` and `prevState`  versus current`this.props` and `this.state`.to see what exactly changed (if anything) and then react accordingly.
 
 
 

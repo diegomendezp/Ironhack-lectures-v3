@@ -9,12 +9,12 @@
 
 
 ```bash
-# Clone the repo
-git clone https://github.com/ross-u/React---Routing-Advanced-Starter-repo-.git
+mkdir 02-react-routing-advanced
 
-cd React---Routing-Advanced-Starter-repo-
+cd 02-react-routing-advanced
 
-npm i
+
+git clone https://github.com/ross-u/React---Routing-Advanced-Starter-repo-.git .
 
 code .
 ```
@@ -50,34 +50,42 @@ npm i
 ##### `components/Projects.js`
 
 ```jsx
-//	components/Projects.js
+//	components/pages/Projects.js
 //	...
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';             {/*  IMPORT */}
 
 //	... 
 
-export const Projects = () => {
-  return (
-    <div>
-      <h2>Projects:</h2>
-      {
-        myProjects.map((project) => {
-          return (
-            <div key={project.id} className="project">
-              
-              <h3>
-                <Link to={`/projects/${project.id}`}>
-                  {project.name} 
-                </Link>  
-              </h3>
-              
-              <h4>{project.technologies}</h4>
-            </div>
-          )
-      })}
-  </div>
-  )
+class Projects extends React.Component {
+  state = {
+    projects: projects
+  }
+
+  render() {
+    const { projects } = this.state;
+    
+    return(
+      <div>
+        <h2>Projects:</h2>
+        {
+          projects.map((project) => {
+            return (
+              <div key={project.id} className="project">
+
+                <h3>
+                  <Link to={`/projects/${project.id}`}>  {/*  UPDATE */}
+                    {project.name} 
+                  </Link>  
+                </h3>
+
+                <h4>{project.technologies}</h4>
+              </div>
+            )
+        })}
+    </div>
+    )
+  }
 }
 ```
 
@@ -111,13 +119,13 @@ export const Projects = () => {
 
 
 
-##### `src/components/ProjectDetails.js`
+##### `src/pages/ProjectDetails.js`
 
 ```jsx
-// src/components/ProjectDetails.js
+// src/pages/ProjectDetails.js
 
-import React, { Component } from 'react';
-import { myProjects } from './Projects';
+import React from 'react';
+import { projects } from './../data';
 
 const ProjectDetails = (props) => {
     console.log(props);
@@ -142,14 +150,14 @@ export default ProjectDetails;
 //	src/App.js
 
 //	...
-import ProjectDetails from './components/ProjectDetails';
+import ProjectDetails from './pages/ProjectDetails';
 
 //	...
 //			...
 
 		 <Route exact path='/projects' component={Projects}/>
-     <Route exact path="/projects/:id" component={ProjectDetails} />
-
+     <Route exact path="/projects/:id" component={ProjectDetails} /> {/* ADD */}
+//			...
 //	...
 ```
 
@@ -212,7 +220,7 @@ import ProjectDetails from './components/ProjectDetails';
 // src/components/ProjectDetails.js
 
 import React from 'react';
-import { myProjects } from './Projects';
+import { projects } from './../data';
 import { Link } from 'react-router-dom';
 
 // helper function - retrieves a specific project by id
@@ -423,3 +431,8 @@ const projectDetails = (props) => {
 #### [React Router Training](https://reacttraining.com/react-router)
 
 #### [More Training](https://github.com/ReactTraining)
+
+
+
+
+

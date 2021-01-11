@@ -163,20 +163,20 @@ function findSmallest(array) {
   return min;
 }
 
-findSmallest([67, -7, 231, -55, 0]);
+findSmallest( [67, -7, 231, -55, 0] );
 ```
 
 
 
 
 
-## Expressions
+## ~~Expressions~~
 
-An expression is a combination of any `value` (number, string, array, object) and set of `operators` that result in another value.
+~~An expression is a combination of any `value` (number, string, array, object) and set of `operators` that result in another value.~~
 
 
 
-So we can say that the following is the example of *expression*:
+~~So we can say that the following is the example of *expression*:~~
 
 ```js
 // Expression
@@ -185,7 +185,7 @@ So we can say that the following is the example of *expression*:
 2 + 4
 ```
 
-Another example is this:
+~~Another example is this:~~
 
 ```js
 const result = ((7 + 5) / 3) - 8;
@@ -193,6 +193,8 @@ console.log(result);
 
 // => -4
 ```
+
+
 
 
 
@@ -255,13 +257,12 @@ It calculates the remainder of a continuous division.
 // remainder of a continuous division
 
 // Division example
-console.log(4/2);	// 2
-console.log(4/4);	// 0
+console.log(10/2);	// 5 
+console.log(10/3);	// 3.3333
 
 // Modulo example
-console.log(4 % 2);	// 0  -> even
-console.log(4 % 3);	// 1	-> odd
-
+console.log(10 % 2);	// 0  -> even
+console.log(10 % 3);	// 1	-> odd
 ```
 
 
@@ -291,6 +292,32 @@ These are the most used assignment operators:
 
 
 To see the full list, visit [Assignment Operators - Overview](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment_Operators#Overview).
+
+```js
+// Assignment Operators Example
+
+var result = 10;
+
+
+result = result + 2;  // 10 + 2
+console.log(result);
+
+
+result = result - 2;  // 12 - 2
+console.log(result);
+
+
+result = result * 2; //  10 * 2
+console.log(result);
+
+
+result = result / 2;	// 20 / 2
+console.log(result);
+
+
+result = result % 2;
+console.log(result);
+```
 
 
 
@@ -403,6 +430,7 @@ This object has built in methods that we can use to work with numbers.
 // Math has built in methods used to work with numbers
 
 
+// Math.round() - rounding numbers
 var result1 = Math.round(4.7);    // returns 5
 var result2 = Math.round(4.4);    // returns 4
 var result3 = Math.round(4.5);    // if .5 it rounds up
@@ -577,24 +605,35 @@ Important to remember is that you can use `toFixed` and in the future when you w
 
 ### `Number.isNaN()`
 
-##### The isNaN() function determines whether a value is an illegal number (Not-a-Number).
+##### The `Number.isNaN()` function determines whether a value is an illegal number (Not-a-Number).
 
 ##### This function returns true if the value equates to NaN. Otherwise it returns false.
 
 
 
+`Number.isNaN`  is a more robust (predictable/stable) version of the original, global [isNaN()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN).
+
 ```js
-Number.isNaN(123) //false
-Number.isNaN(-1.23) //false
-Number.isNaN('123') //false
+Number.isNaN(NaN);        // true
+Number.isNaN(Number.NaN); // true
+Number.isNaN(0 / 0);      // true
+Number.isNaN('abc' * 3);      // true
 
-Number.isNaN('Hello') //true - it is a String
-Number.isNaN('NaN') //true - it is a String
-Number.isNaN(NaN) // true
-Number.isNaN(0 / 0) //true - division of  0 / 0  returns NaN value
 
-Number.isNaN('')	// false
-Number.isNaN(true) // false 
+// e.g. these would have been true with global isNaN()
+Number.isNaN('NaN');      // false
+Number.isNaN(undefined);  // false
+Number.isNaN({});         // false
+Number.isNaN('blabla');   // false
+
+// These all return false
+Number.isNaN(true);       // false
+Number.isNaN(null);       // false
+Number.isNaN(37);         // false
+Number.isNaN('37');       // false
+Number.isNaN('37.37');    // false
+Number.isNaN('');         // false
+Number.isNaN(' ');        // false
 
 ```
 
@@ -748,17 +787,17 @@ console.log(`The username is: ${username}`);
 
 ```js
 var fruits = `
-1. banana 🍌
-2. apple 🍎
-3. orange 🍊
-4. cherry 🍒
+1. banana 
+2. apple 
+3. orange 
+4. cherry 
 `;
 
 console.log(fruits); 
-// 1. banana 🍌,
-// 2. apple 🍎,
-// 3. orange 🍊,
-// 4. cherry 🍒
+// 1. banana
+// 2. apple 
+// 3. orange 
+// 4. cherry 
 ```
 
 
@@ -883,6 +922,8 @@ JavaScript includes a **String prototype methods** to simplify some of the most 
 
 
 
+
+
 ### Adding To Strings
 
 `concatenate` strings using  `+` or `+=` operators.
@@ -890,14 +931,17 @@ JavaScript includes a **String prototype methods** to simplify some of the most 
 ```js
 // String concatenation  +   +=
 
-var emptyContainer = '';
-emptyContainer = emptyContainer += 'Hello';
-emptyContainer += ', welcome to Ironhack';
+var greeting = '';
 
-console.log(emptyContainer);
+greeting = greeting += 'Hello';
 
-// When concatenating:  number + string --> string
+greeting += ', welcome to Ironhack';
 
+console.log(greeting);
+
+
+
+// When concatenating:  number + string ==>> string
 var container = 123;
 container = container +  "abcde"
 console.log(container1);

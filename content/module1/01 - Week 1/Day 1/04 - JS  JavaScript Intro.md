@@ -95,30 +95,36 @@ code .
 
 
 
+### JavaScript Environments
+
+
+
 - JavaScript was <u>created to run in the browser</u>  (mostly used for the Web) 
 
-- but it is <u>also used in non-browser environments:</u> 
+- around 10 years ago it became possible to use it in <u> non-browser environments:</u> 
   - #### [Node.js (server side)](https://nodejs.org/en/) - created 2009 (by Ryan Dahl)
   
     - In 2018 node surpassed 1 billion downlads
   
-  - #### [Electron](https://electronjs.org/) - Desktop applications 
+  - #### [Electron](https://electronjs.org/) - Environment used for building desktop applications 
 
 
 
 
 
-#### Evolving **language** - Until now JavaScript went through a lot of updates and changes.
+#### 
 
 
 
 
 
-#### [ECMAScript](https://www.ecma-international.org/publications/standards/Ecma-262.htm)
+### [ECMAScript](https://www.ecma-international.org/publications/standards/Ecma-262.htm)
 
  - **ECMAScript** is the language implementation standard for JavaScript.
 
    
+
+   ##### Evolving **language** - Until now JavaScript went through a lot of updates and changes.
 
    
 
@@ -139,16 +145,20 @@ code .
    \- **ES2020** aka ES11 (2020.)
 
    
+   
+   **Each version of ECMAScript introduces new features to the language**, while keeping the language backward-compatible.
 
-   *Each version of ECMAScript introduces new features to the language, while keeping the language backward-compatible.
 
 
 
-We will start with the  **ES5 **, but later you will use mostly **ES6** and the newer JavaScript features and syntax.
 
 
 
 Enough of theory,  let’s move to JavaScript and  start writing  code.
+
+
+
+
 
 
 
@@ -219,6 +229,10 @@ The purpose behind naming them is to be able to **reference** them later on.
 
 
 
+
+
+
+
 #### *different values* can be stored in variables, known as **datatypes in JavaScript**:
 
 -  string
@@ -235,12 +249,13 @@ The purpose behind naming them is to be able to **reference** them later on.
 var myString = "Uros";
 var myNumber = 100;
 var myBoolean = true; // true or false
-var myNull = null;
 var myUndefined = undefined;
+var myNull = null;
 
 // Objects
-var myArray = [];
 var myObject = {};
+var myArray = [];
+
 
 // We won't use the below data types
 var mySymbol = Symbol();
@@ -280,11 +295,14 @@ in older versions of JavaScript, you will find keyword **var** which is used to 
 #### VARIABLE DECLARATION with `var`
 
 ```js
-var user;  // variable declaration - creating a container
+// Creating a variable - variable declaration
+
+var user;
 ```
 
 ```js
-var age, email, address; // Multiple variables declaration - one line
+// Declaring multiple variables on one line
+var age, email, address;
 ```
 
 
@@ -296,6 +314,8 @@ After we declare a variable, we store some value in it.
 This is called **variable initialization.**
 
 ```js
+// Assigning a value to a variable  =
+
 user = 'John';  // variable initialization - putting a value inside
 age = 30;  // variable initialization
 ```
@@ -309,8 +329,8 @@ age = 30;  // variable initialization
 #### We can make variable initialization at the time of variable creation.
 
 ```js
-var user2 = 'Sarah';  // variable declaration and initialization 
-var city = 30;  // variable declaration and initialization
+// variable declaration and assignment
+var city = 'Barcelona';
 ```
 
 
@@ -334,17 +354,26 @@ Rules for naming variables:
 
 ```js
 // Naming a variable:
-// - JS is case sensitive
+// - Names can contain letters, numbers and the symbols `_` and `$`
 // - First character can't be number
+// - JS is case sensitive
+
 var a;
 var color;
-var _private; // convention - common practice
+
+var _private; // convention - common practice (private variable)
+var HOURS;// convention - common practice (constant variables)
 var $button;
-var camelCase;	// camelCase
-var a_large_name;	// kebab_case
-var thisWayIsCalledCamelCase;
+
+var a_large_name;	// kebab_case (not a common convention in JS)
+var camelCase;	// camelCase (preferred in JS)
+var thisIsWayItsCalledCamelCase;
 var π;
 ```
+
+
+
+
 
 
 
@@ -392,6 +421,8 @@ var return = 'hola'; // <== error, you can't name variable "return"
 
 
 
+
+
 ### Dynamically typed
 
 JavaScript is a **dynamically typed language** which means that **data type that variables are storing is not statically predetermined, but it is determined during the runtime**.
@@ -410,11 +441,13 @@ num = 5;
 
 
 
+
+
 Dynamically-typed languages do not require you to declare the data type of the variable. You can just go ahead and create the variable. The data type will be determied during the run-time.
 
 
 
- Simply put: variables in JavaScript can be assigned different value of a different type at runtime.
+ Simply put: variables in JavaScript can be assigned different value of a different type after they are declared/initially created.
 
 
 
@@ -427,9 +460,12 @@ You can reassign values and change the data type of variables in JavaScript (exc
 
 
 ```js
-var favoriteFood;
+/* 
+In JS we can reassign values of variables (except when using `const` variables)
+*/
 
-favoriteFood = "Risotto";
+
+var favoriteFood = "Risotto";
 console.log(favoriteFood); 
 
 favoriteFood = "Pie";
@@ -460,8 +496,12 @@ console.log(typeof favoriteFood);
 
 
 
+When using `var` you have to be careful not to overwrite the existing variables, by re-declaring the variable with the same name.
+
+
+
 ```js
-// Redeclaring a variable
+// Redeclaring a variable - careful not to overwrite existing variables
 
 var favoriteCountry;
 
@@ -503,24 +543,41 @@ console.log(typeof myVar);
 
 #### Quick Overview:  VARIABLE DECLARATION with `let` and `const`.
 
-**`const`** is used when declaring a variable which value will be constant.
+**`const`** is used to declare a variable whose value will be constant, remain unchanged.
 
 These variables are called **constants** and if we try to change its values we will get the error back:
 
 
 
 ```js
+// const
+// `const` is used to declare a variable we want to remain unchanged, constant
+// `const` forbids the assignment of a new value after the variable creation
+// `const` must be assigned initial value, or it will throw error
+
 const name = "Ana";
-name = "Mariana";  // TypeError: Assignment to constant variable;
+name = "Mariana";  // 🚨 TypeError: Assignment to constant variable;
 
 // console:
 // unknown: "name" is read-only
 ```
 
-```js
-let name; // <== we can do this
 
-const price; // <== error 🚨 
+
+```js
+const price; 
+//  🚨 SyntaxError: Missing initializer in const declaration
+```
+
+
+
+```js
+// let
+// `let` is used to declare variables whose value we plan to change later
+// `let` can be declared empty, without an inital value
+
+let student; // <== we can do this
+
 ```
 
 
@@ -536,6 +593,14 @@ const price; // <== error 🚨
 ### 🥁Important naming rules 🥁
 
 **naming variables is one of the hardest and most serious things in programming**. It might seem a bit silly, but badly named variables can jeopardize the development and the product itself.
+
+
+
+### 
+
+
+
+### [Recommended Reading - variable naming](https://www.robinwieruch.de/javascript-naming-conventions)
 
 
 
@@ -588,3 +653,4 @@ MDN is the foundation for every  front end developer. Every time you need to rec
 - [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 - [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript) This will be your main resource for any JavaScript search. It has tutorials, guides and tools. This is the most thorough JavaScript Documentation.
 - [Understanding Javascript Variables](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Variables)
+- 

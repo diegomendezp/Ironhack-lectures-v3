@@ -6,19 +6,33 @@
 
 
 
-- [**Client Server Architecture**](#client-server-architecture)
 
-  - Multi-Page Application - image
 
-  - Single-Page Application - image
+- [**Creating large scalable and maintainable front-end applications**](#scalable-frontend-applications)
 
-    
+  - Issue with creating front-end using only HTML, CSS and JS
+  - Visual Example: MIRO
+  - How does a front-end framework like React solve issue of maintainability and scalability 
+
+  
 
 - [**What is a framework ?**](#what-is-a-framework)
 
   - Framework includes multiple libraries.
 
     
+
+  [**What is a front-end framework ?**](#what-is-a-frontend-framework)
+
+  - Framework includes multiple libraries.
+
+  
+
+- [**Client Server Architecture**](#client-server-architecture)
+
+  - Multi-Page Application - image
+
+  - Single-Page Application - image
 
     
 
@@ -66,7 +80,7 @@
   - Create **`src/index.js`** (explain what does this file do)
 
     -  `index.js` file injects the React app code into the `index.html`.
-    - `ReactDOM.render` injects react into `div#root`
+    -  `ReactDOM.render` injects react into `div#root`
 
     
 
@@ -95,6 +109,135 @@
 
 
 <hr>
+<br>
+
+
+
+<a name="scalable-frontend-applications"></a>
+
+## Creating large scalable and maintainable 
+
+## front-end applications
+
+
+
+<br>
+
+#### Issue with creating front-end using only HTML, CSS and JS
+
+As the frontend applications grow they tend to become unmanageable , hard to maintain and scale.
+
+
+
+When a front-end application size comes to a point where it starts encountering architecture problems as it grows, 
+
+like being very hard to organize and interconnect the logic across files and features,
+
+ front-end frameworks come to help.
+
+
+
+Framework is meant to help you build applications quicker by addressing common development problems.
+
+
+
+Let's take a look on how a complexity of a front-end app grows almost exponentially with every new page added, in the following visual example, to help us start seeing the possible benefits of using the front-end framework.
+
+
+
+<br>
+
+
+
+#### Visual example: MIRO board
+
+
+
+<br>
+
+#### How does a front-end framework like React solve issue of maintainability and scalability 
+
+
+
+- **Component-based - **Complex parts of the app are created as components and are easily reusable.
+
+  
+
+- **Separation of concerns** - Enables a clean modular design of the application, enabling developers to work on different parts of the application independently.
+
+  
+
+- **Speed - **React enables us to mainain a clear project structure which speeds the development. Component-based design makes it quicker to develop the app.
+
+  
+
+- **Collaboration - **React enforces certain design patterns which ensures the same ideas and patterns are implemented by all developers in the team.
+
+
+
+- **Speed:** Boilerplate code aimed at addressing common problems makes it easier for you to get your app up and running; .
+
+
+
+
+
+<br>
+
+
+
+<a name="what-is-a-framework"></a>
+
+## What is a Framework?
+
+**A software framework is:**
+
+> A universal, reusable software environment to facilitate faster development of applications and  software solutions.
+
+
+
+
+
+A framework serves as a development toolset/toolchain and may include:
+
+- Additional packages/libraries,
+
+- Compilers/transpilers,
+
+- Command Line Interface
+
+-  Predefined app structure (folder/file structure and configuration)
+
+- Set of well-tested design principles that must be followed
+
+  
+
+  
+
+**Benefits of using a software framework:**
+
+- **Structure** - In a framework, the overall program's flow of control is not dictated by the caller, but by the framework. Therefore a certain rules, structure and design principles must be followed by all developers working on the project, which mitigates bad practices and creation of [unmaintainable code](https://www.hackterms.com/spaghetti%20code).
+- **Abstraction** - Frameworks commonly provide methods for most common tasks, pre-configure toolchain.
+- **Scalability** - The above points are what enables us to create complex applications that are easier to maintain and scale up.
+
+
+
+
+
+
+
+<br>
+
+<a name="what-is-a-frontend-framework"></a>
+
+
+
+### What is a Front-end Framework ?
+
+A *front-end framework* is a structure and a set of tools (JS libraries and packages)  and logic, put together to help developers build and scale front-end applications faster and easier.
+
+
+
+
 
 
 
@@ -114,7 +257,7 @@
 
 ### Multi-Page Application
 
-We built applications where every URL request made by the browser, is responded back by the server, by a HTML document (View).
+We built applications where every URL request made by the browser, gets a response back from the server, containing an HTML document (View).
 
 
 
@@ -148,7 +291,13 @@ This results in a slow user interaction.
 
 
 
-<u>Nowadays</u> mostly Applications are created  as <u>Single pwage applications</u> and have  two parts:
+<u>Nowadays</u> most Frontend is done  as <u>Single page applications</u> and have  two parts:
+
+
+
+- **Frontend (client side)**  an app consisting of only 1 HTML used as the vesell for the app, where all the pages and functionality is created and handled by Javascript. This kind off app communicates to the backend only to get or send JSON data.
+
+
 
 
 
@@ -156,12 +305,10 @@ This results in a slow user interaction.
 
   
 
-- **Frontend (client side)**  a visible user interface, handles user input and communicates with the backend through APIs.
-
   
 
   ### [OPEN IMAGE](https://i.imgur.com/zgVlwDq.png)
-  
+
   ![img](https://i.imgur.com/zgVlwDq.png)
 
 
@@ -191,42 +338,6 @@ This results in a slow user interaction.
   
 
 <br>
-
-
-
-<a name="what-is-a-framework"></a>
-
-## What is a Framework?
-
-**A software framework is:**
-
-> A universal, reusable software environment to facilitate faster development of applications and  software solutions.
-
-
-
-
-
-~~A framework may include:~~
-
-- ~~Support programs,~~
-- ~~Compilers,~~
-- ~~Code libraries,~~
-- ~~Toolsets,~~
-- ~~APIs (Application Programming Interfaces).~~
-
-
-
-
-
-<br>
-
-
-
-### What is a Frontend Framework ?
-
-A *front-end framework* is a structure and a set of tools (JS libraries and packages)  and logic, put together to help developers build front end applications faster and easier.
-
-
 
 
 
@@ -265,7 +376,7 @@ It’s used for handling view layer (front-end) for web and mobile apps.
 - allows developers to create large web applications which can change data, without reloading the page. 
 - **The main purpose of React is to be fast, scalable, and simple.**
 - **Component-Based**. Build encapsulated components that have their own state, then use them to make complex UIs.  
-- Components are represented and used as **html** tags.
+- Thanks to JSX, Components are represented and used as **html** tags.
 - **All in one file - HTML,  JS (logic) and state (data).**.
 
 
@@ -286,11 +397,9 @@ It’s used for handling view layer (front-end) for web and mobile apps.
 
 ##### - Our React application will have just <u>one HTML page</u>, usually called `index.html`. 
 
-##### - On user interaction, React <u>app dynamically creates views</u> and displays them to the DOM.
+##### - Pages and <u>components are created by the .js scripts loaded with `index.html`</u>.
 
-##### - Views and <u>components are created by the .js scripts loaded with `index.html`</u>.
-
-##### - For every view change <u>React simulates the change of the URL (react routing)</u>.
+##### - For every page change <u>React simulates the change of the URL (react routing)</u>.
 
 
 
@@ -638,7 +747,7 @@ npm install --save react@16.3.2 react-dom@16.3.2
 
 -  ` webpack` creates the javascript bundles, takes multiple `js` files and bundles them into one (or few for big apps).
 
-- `webpack` takes all the `js` files from the `src/` folder and bundles them all to  `bundle.js` file ready for deployment/production.
+-  `webpack` takes all the `js` files from the `src/` folder and bundles them all to  `bundle.js` file ready for deployment/production.
 
 
 
@@ -771,6 +880,8 @@ It should exist and it should return a valid JSX element (including `null` - (or
 .App {
   margin: 15px;
   font-family: Arial, Helvetica, sans-serif;
+  border: 2px solid lightblue;
+  padding: 20px;
 }
 ```
 
@@ -786,7 +897,7 @@ It should exist and it should return a valid JSX element (including `null` - (or
 
 
 
-<span style="color: red">( If needed update `webpack-cli`  :</span>   `npm i webpack-cli@3.1.1 --save-dev` )
+<span style="color: red">( If needed update `webpack-cli`  :</span>   `npm i webpack-cli@3.1.1 --save-dev` )
 
 
 
@@ -859,8 +970,11 @@ import React from "react";
 import "./App.css";
 
 class App extends React.Component {
-  state = {
-    city: 'Barcelona'
+  constructor() {
+    super();
+    this.state = {
+      city: "Barcelona",
+    };
   }
 
   render() {
@@ -906,9 +1020,12 @@ import ListComponent from './ListComponent';							//  <-- ADD
 import './App.css';
 
 class App extends React.Component {
-  state = {
-    city: 'Barcelona',
-  };
+  constructor() {
+    super();
+    this.state = {
+      city: "Barcelona",
+    };
+  }
 
   render() {
     return (
@@ -931,7 +1048,7 @@ class App extends React.Component {
 
 **Possible solution**
 
-##### `src/MyComponent.js`
+##### `src/ListComponent.js`
 
 ```jsx
 import React from 'react';
@@ -939,7 +1056,7 @@ import React from 'react';
 class ListComponent extends React.Component {
   render() {
     return (
-      <div class="my-component">
+      <div className="ListComponent">
         <h5>This is my List Component</h5>
         <ul>
           <li>item 1</li>
@@ -968,7 +1085,7 @@ export default ListComponent;
 
 ### Install React Dev Tools
 
-
+`
 
 ## [React Dev Tools](<https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en>)
 
@@ -1041,8 +1158,16 @@ git clone https://github.com/ross-u/react-example-and-exercise.git
 ```
 
 - Navigate to the folder `react-example-and-exercise` and run `npm i`
-- Inside of `src` create the file `List.js` for the new component.
 
+```bash
+cd react-example-and-exercise
+
+npm i
+```
+
+
+
+- Inside of `src` folder create a new file `List.js` for the new component.
 - `List.js` component should be displaying the following content:
 
 ```html
@@ -1059,6 +1184,22 @@ git clone https://github.com/ross-u/react-example-and-exercise.git
 
 
 
-- Import the component in App.js  and add it inside the render  after the <Apartment />  components.
-- Run the app buy running the `npm run webpack` .
+- **`import`** the component in App.js  and add it inside the render after the existing content.
+- Run the app development server by running the command `npm run webpack` . This creates the build and serves it automatically in the browser.
 - Open `localhost:3000` to see the rendered app in the browser.
+
+
+
+
+
+---
+
+
+
+<br>
+
+## Additional Material
+
+
+
+#### [Article: Advantages and disadvantages of using a front-end framework](https://stackoverflow.blog/2020/02/03/is-it-time-for-a-front-end-framework/)

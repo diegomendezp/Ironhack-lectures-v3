@@ -11,9 +11,17 @@ After this lesson, you will be able to:
 
 
 
+<br>
 
 
-In this lesson, we will build a  `React` application to consume our REST API.
+
+### [Repo with the Step by Step instructions for Students](https://github.com/ross-u/m3-react-demo-ca-client)
+
+
+
+
+
+In this lesson, we will create a front-end  `React` application to consume our REST API (server/backend).
 
 
 
@@ -22,7 +30,9 @@ In this lesson, we will build a  `React` application to consume our REST API.
 
 
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">1</h2>
-#### Let’s start with creating the React app using CLI command:
+#### Create React app
+
+Let’s start with creating the React app using the `create-react-app` :
 
 ```bash
 npx create-react-app project-management-client
@@ -36,12 +46,12 @@ cd project-management-client
 
 
 
-We already updated the port where our server side is running-we changed it from `3000` to `5000`, so we have: 
+In the previous step we have already set the `PORT`  of our server to `5000`. Just as a reminder, our Express server (backend) and React app client (frontend) are running on different `PORT`s, so we have: 
 
 
 
-- `project-management-server` runs on `http://localhost:5000`
-- `project-management-client` runs on `http://localhost:3000`
+- `project-management-server` running on `http://localhost:5000`.
+- `project-management-client` running on `http://localhost:3000`.
 
 
 
@@ -51,10 +61,14 @@ We already updated the port where our server side is running-we changed it from 
 
 
 
-### Install `axios` for http requests and `react-router-dom`
+#### Install `axios` and `react-router-dom`
+
+
+
+Install `axios` for HTTP requests and `react-router-dom` for front-end routing:
 
 ```bash
-npm install axios react-router-dom --save
+npm install axios react-router-dom
 ```
 
 
@@ -63,13 +77,71 @@ npm install axios react-router-dom --save
 
 
 
-### Create folders for the components
+#### Run the React app
+
+
+
+Run the React app with `npm start`. 
 
 ```bash
-mkdir src/components     
-mkdir src/components/projects
-mkdir src/components/navbar
-mkdir src/components/tasks
+npm start
+```
+
+
+
+<br>
+
+
+
+##### Create folders for the components
+
+Run the following command from the terminal. Make sure to run it from the root directory of the React project/app. Below command will create folder structure for the components in our app.
+
+```bash
+mkdir src/components  
+mkdir src/pages
+
+mkdir src/pages/ProjectList
+mkdir src/pages/ProjectDetails
+mkdir src/pages/TaskDetails
+mkdir src/pages/Error
+
+mkdir src/components/Navbar
+mkdir src/components/AddProject
+mkdir src/components/EditProject
+mkdir src/components/AddTask
+```
+
+
+
+<br>
+
+
+
+##### Create component files
+
+Run the following command from the terminal. Make sure to run it from the root directory of the React project/app. Below command will create `.js` and `.css` files for our components.
+
+
+
+```bash
+touch src/pages/ProjectList/ProjectList.js
+touch src/pages/ProjectList/ProjectList.css
+touch src/pages/ProjectDetails/ProjectDetails.js
+touch src/pages/ProjectDetails/ProjectDetails.css
+touch src/pages/TaskDetails/TaskDetails.js
+touch src/pages/TaskDetails/TaskDetails.css
+touch src/pages/Error/Error.js
+touch src/pages/Error/Error.css
+
+touch src/components/Navbar/Navbar.js
+touch src/components/Navbar/Navbar.css
+touch src/components/AddProject/AddProject.js
+touch src/components/AddProject/AddProject.css
+touch src/components/EditProject/EditProject.js
+touch src/components/EditProject/EditProject.css
+touch src/components/AddTask/AddTask.js
+touch src/components/AddTask/AddTask.css
 ```
 
 
@@ -83,16 +155,14 @@ mkdir src/components/tasks
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">2</h2>
 #### Add styles to the app
 
-Before we start, let's add some basic styles to our app in  `src/App.css`.
+Before we start, let's add some basic styles to our app. Add the below styles to  `src/App.css`.
 
 
 
 ##### `src/App.css`
 
 ```css
-/* 
-    src/App.css 
-*/
+/*   src/App.css   */
 
 .App {
   text-align: center;
@@ -160,31 +230,54 @@ li {
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">3</h2>
 #### Setup the `<Router>` in `index.js`
 
+
+
+Import the `BrowserRouter` component from `react-router-dom` package, in the `index.js`. Do not delete any code that is already present in the file, but only add the code as per the below instructions.
+
+The below import statement is importing the `BrowserRouter` component and changing it's name to `Router` by using the `as` keyword, therefore making the component available under the name/indentifier `Rotuer`.
+
+
+
+<br>
+
 ##### `src/index.js`
 
 ```jsx
 // src/index.js
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-
-import { BrowserRouter as Router } from 'react-router-dom';     // <-- IMPORT
-
-
-ReactDOM.render((                                            // <-- ADD THE ROUTER
-  <Router>
-      <App />
-  </Router> 
-), document.getElementById('root'));
-
 // ...
-registerServiceWorker();
+
+import { BrowserRouter as Router } from 'react-router-dom';       // <-- IMPORT
 ```
 
 
+
+<br>
+
+
+
+Wrap the `<App>` with the previously imported `<Router></Router>` component, as in the example below:
+
+
+
+<br>
+
+
+
+##### `src/index.js`
+
+```jsx
+// src/index.js
+// ...
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
 
 
 
@@ -195,14 +288,26 @@ registerServiceWorker();
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">4</h2>
 
 
-### Create `<AddProject />` component.
+### Create the `<AddProject />` component.
 
 
 
-##### `src/components/projects/AddProject.js`
+This component will be a controlled component (React `class` component handling a form with inputs).
+
+It will contain 2 inputs `title` and `description` used to create a new project.
+
+Let's first create the `<form>` and the rest of the content that component will be rendering and the `state`.
+
+We will first only outline the methods `handleFormSubmit` and `handleChange` and then implement them in the next step.
+
+<br>
+
+
+
+##### `src/components/AddProject/AddProject.js`
 
 ```jsx
-// src/components/projects/AddProject.js
+//  src/components/AddProject/AddProject.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -226,12 +331,15 @@ class AddProject extends Component {
           <input type="text" 
             name="title" 
             value={this.state.title} 
-            onChange={ (e) => this.handleChange(e) }/>
+            onChange={ (e) => this.handleChange(e) }
+          />
           
           <label>Description:</label>
-          <textarea name="description" 
+          <textarea 
+            name="description" 
             value={this.state.description} 
-            onChange={ (e) => this.handleChange(e) } />
+            onChange={ (e) => this.handleChange(e) } 
+          />
           
           <input type="submit" value="Submit" />
         </form>
@@ -254,14 +362,20 @@ export default AddProject;
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">5</h2>
 
 
-#### Let's create the methods `handleFormSubmit` and `handleChange`
+#### Create methods `handleFormSubmit` and `handleChange`
+
+Let's implement the methods `handleFormSubmit` and `handleChange`:
 
 
 
-##### `src/components/projects/AddProject.js`
+<br>
+
+
+
+##### `src/components/AddProject/AddProject.js`
 
 ```jsx
-// src/components/projects/AddProject.js
+// src/components/AddProject/AddProject.js
 
 //	...
 
@@ -275,17 +389,17 @@ export default AddProject;
  
  
  
-handleFormSubmit = (event) => {
+ handleFormSubmit = (event) => {
     event.preventDefault();
     const {title, description } = this.state;
-    
-  axios.post("http://localhost:5000/api/projects", { title, description })
-  .then( () => {
-     // this.props.getData();
-     this.setState({title: "", description: ""});
-   })
-   .catch( (err) => console.log(err) )
- }
+     
+    axios.post("http://localhost:5000/api/projects", { title, description })
+    .then( () => {
+      // this.props.getData(); // leave this comment - we will used it later
+      this.setState({title: "", description: ""});
+    })
+    .catch( (err) => console.log(err) )
+  }
  
 
 
@@ -301,22 +415,41 @@ handleFormSubmit = (event) => {
 
 <br>
 
+
+
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">6</h2>
 
+#### Create the `<ProjectList />` component
 
-### Create a `<ProjectList />` component
 
-##### `src/App.js`
+
+This component will be used to show a list of all the projects and it will also be displaying the `<AddProject/>` component.
+
+
+
+Let's first create the `<form>` and the rest of the content that component will be rendering and the `state`.
+
+We will first only outline the basic structure of the component and add the `state` object containting a field `listOfProjects` initially being set as an empty array.
+
+In the future steps we will use the lifecycle method `componentDidMount` to make a request to our server,  get all the projects and set them in the `state` as the `listOfProjects`. But first, let's create the basic structure of our `ProjectList` component.
+
+
+
+<br>
+
+
+
+##### `src/pages/ProjectList/ProjectList.js`
 
 ```jsx
-// src/components/projects/ProjectList.js
+// src/pages/ProjectList/ProjectList.js
 
 import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';                // <== IMPORT
 import axios from 'axios';                            // <== IMPORT
 
-import AddProject from './AddProject';              // <== IMPORT
+import AddProject from './../components/AddProject/AddProject';  // <== IMPORT
 
 
 
@@ -329,10 +462,10 @@ class ProjectList extends Component {
 
     return(
       <div id="project-list">
-        <AddProject />                      {/*   <===     ADD        */}
+        <AddProject />
         
         <div>
-          {/* HERE WE DISPLAY ALL OF THE PROJECTS FROM API */}
+          {/* HERE WE DISPLAY ALL OF THE PROJECTS FROM THE API */}
         </div>
 
       </div>
@@ -356,9 +489,13 @@ export default ProjectList;
 
 
 
-### Update the `<ProjectList />` component 
+#### Update the `<ProjectList />` component - get data from the server
 
-### and create method to get projects from the server
+
+
+Add the lifecycle method `componentDidMount` to the component. We will create a helper method `getAllProjects` used to make the `axios` request to the server make a request to our server,  get all the projects and set them in the `state` as the `listOfProjects`. 
+
+
 
 
 
@@ -378,29 +515,69 @@ class ProjectList extends Component {
   
   //			...
 
-  getAllProjects = () => {}                         // <--  ADD
-
-  
-  
-  
-  componentDidMount() {                          // <--  ADD 
-    this.getAllProjects();
-    //  fetch the data from API before initial render, and save it in the state
+  getAllProjects = () =>{
+    axios.get(`http://localhost:5000/api/projects`)
+    .then((apiResponse) => {
+      this.setState({ listOfProjects: apiResponse.data })
+    })
   }
 
+  
+  
+  
+  componentDidMount() {
+    this.getAllProjects();
+    //  fetch the data from API after the initial render, and save it in the state
+  }
+
+// ...
+
+// ...
+```
 
 
 
-  render() {
-    const { listOfProjects } = this.state;					 //  <--  ADD
+
+
+<br>
+
+
+
+
+
+#### Update the content in the `render ` of the `ProjectList` component
+
+
+
+Next, we need to update what `ProjectList` is rendering to dispaly the new data ( `listOfProjects` ) received from the server/API.
+
+We should also pass the newly created method `getAllProjects` as the prop to the `<AddProject/>` component.
+
+Update the code in the `render` method of the `ProjectList` as per the below snippet:
+
+
+
+<br>
+
+
+
+##### `src/components/projects/ProjectList.js`
+
+```jsx
+// src/components/projects/ProjectList.js
+
+//	...
+
+render() {
+  	// deconstruct value from the `state`
+    const { listOfProjects } = this.state;					       //  <--  ADD
 
     return(
-      <div> 
+      <div>
         
-        <AddProject getData={this.getAllProjects} />     {/*    // <-- UPDATE     */}
+      {/* After adding a project, we will call `getData` to get all projects again */}
         
-
-      {/* After adding a project, we will GET all projects again from API */}
+      <AddProject getData={this.getAllProjects} />     {/*    // <-- UPDATE     */}
   
         <div>
           { 
@@ -431,39 +608,20 @@ export default ProjectList;
 
 
 
+<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">8</h2>
 
 
-#### Finish the method `getAllProjects()` in `<ProjectList>`
+#### Create a Route for `ProjectList`  in `App.js`
+
+Import the newly created `ProjectList` component in `App.js` and add a `<Route />` with the path `/projects` so that this page/component gets rendered whenever user visits the home page URL ( `localhost:3000/projects` ).
 
 
 
-##### `src/components/projects/ProjectList.js`
-
-```jsx
-// src/components/projects/ProjectList.js
-
-//	...
-
-  getAllProjects = () =>{
-    axios.get(`http://localhost:5000/api/projects`)
-    .then((apiResponse) => {
-      this.setState({ listOfProjects: apiResponse.data })
-    })
-  }
-```
-
-
+You will first need to remove the boilerplate JSX code created by the `create-react-app`.
 
 
 
 <br>
-
-
-
-<h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">8</h2>
-
-
-### Import `<ProjectList />`  and render it in `App.js`
 
 
 
@@ -477,15 +635,15 @@ export default ProjectList;
 //			...
 
 import { Switch, Route } from 'react-router-dom';               //	<--  ADD
-import ProjectList from './components/projects/ProjectList';	   //		<--  ADD
+import ProjectList from './pages/ProjectList/ProjectList';	   //		<--  ADD
 
 
 function App() {
   return (
     <div className="App">
       
-      <Switch>																												{/* ADD */}
-        <Route exact path="/projects" component={ProjectList}/>         {/* ADD */}
+      <Switch>																									{/* ADD */}
+        <Route exact path="/projects" component={ProjectList}/>    {/* ADD */}
       </Switch>
       
     </div>
@@ -497,31 +655,13 @@ function App() {
 
 
 
-
-
-
-
 <br>
-
-
-
-
-
-
-
-#### Start the server  before running react app.
-
-
-
-#### Run the app `npm start`  which will open the React app in the  browser.
 
 
 
 #### Using a created form submit a new Project.
 
-
-
-
+After linking the above page, visit the URL `localhost:3000/projects`.  `ProjectList` component should be displaying together with the `<AddProject />` component.
 
 
 
@@ -541,11 +681,19 @@ function App() {
 
 
 
-### `//`  Uncomment the line in `AddProject.js` -  `this.props.getData()` passed from the parent component.
+#### Refresh the list of projects -   `this.props.getData()` 
 
 ###  
 
-### It gets all projects every time new project is posted to the API.
+Calling the method `this.props.getData` (`getAllProjects` method from the `ProjectList`) after the new project is created refreshes the list of projects displayed in the `ProjectList`. 
+
+This happens because of invoking the function `getAllProjects` which gets all the projects from the server and updates the state via `this.setState`.
+
+
+
+Uncomment the line `this.props.getData` as per the below example:
+
+<br>
 
 
 
@@ -564,7 +712,8 @@ handleFormSubmit = (event) => {
 
     axios.post("http://localhost:5000/api/projects", { title, description })
     .then( () => {
-      this.props.getData();		//		   ⟸  UNCOMMENT THIS LINE * *
+      
+      this.props.getData();		//		              ⟸  UNCOMMENT THIS LINE * *
       
       this.setState({title: "", description: ""});
     })
@@ -589,14 +738,18 @@ handleFormSubmit = (event) => {
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">10</h2>
 
 
-#### Create a `<ProjectDetails /> `  component
+#### Create the `<ProjectDetails /> `  component
 
 
 
-##### `src/components/projects/ProjectDetails.js`
+This component will be used to show the data of the particular project.
+
+
+
+##### `src/pages/ProjectDetails/ProjectDetails.js`
 
 ```jsx
-// src/components/projects/ProjectDetails.js
+//  src/pages/ProjectDetails/ProjectDetails.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -608,7 +761,11 @@ class ProjectDetails extends Component {
   state = {}
   
   render(){
-    return <h1>Welcome to the project details page!</h1>
+    return (
+      <div>
+	      <h1>Project Details</h1>
+      </div>
+    )
   }
 }
 
@@ -627,31 +784,102 @@ export default ProjectDetails;
 
 
 
-#### Create `<Navbar>` component
+#### Create `Navbar` component
 
 
 
-##### `src/components/navbar/Navbar.js`
+Copy paste the code snippets provided below to create the `Navbar` component.
+
+
+
+<br>
+
+##### `src/components/Navbar/Navbar.js`
 
 ```jsx
-// src/components/navbar/Navbar.js
+//  src/components/Navbar/Navbar.js
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import './Navbar.css';
 
-const Navbar = () => {
-  return (
-    <nav className="nav-style">
-      <ul>
-        <li>
-          <Link to="/projects"> Projects </Link>
-        </li>
-    </ul>
-    </nav>
-  )
+
+class Navbar extends Component {
+  state = {
+    username: "User's name"
+  } 
+
+  render() {
+    return (
+      <nav id='navbar'>
+        <ul>
+
+          <NavLink 
+            activeClassName="selected-link" 
+            exact to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink 
+            activeClassName="selected-link" 
+            exact to="/projects"
+          >
+          Projects
+        </NavLink>
+
+        </ul>
+
+        <div className="nav-details">
+          <p className="nav-username">{this.state.username}</p>
+        </div>
+      </nav>
+    )
+  }
 }
 
 export default Navbar;
+```
+
+
+
+<br>
+
+
+
+##### `src/components/Navbar/Navbar.css`
+
+```css
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background:  #352275;
+  padding: 20px 40px;
+  margin-bottom: 30px;
+}
+
+#navbar * {
+  list-style: none;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0px 40px; 
+  font-size: 22px;
+  color:white;
+}
+
+div.nav-details > * {
+  display: inline-block;
+  color: royalblue;
+  font-size: 22px;
+}
+
+.selected-link {
+  text-shadow: 1px 0px 3px white;
+  color: #FFF;
+  border-bottom: rgba(255, 255, 255, 0.639) solid 2px;
+  padding-bottom: 5px;
+}
+
 ```
 
 
@@ -666,6 +894,14 @@ export default Navbar;
 
 
 
+Import and add the 2 newly created components `Navbar` and `ProjectDetails` to `App.js`.
+
+`Navbar` component should be displayed on each and every page.
+
+`ProjectDetails` page should be displayed when the user visits a route `/projects/:id` where `:id` will be a dynamic param value used to show the id of the specific project.
+
+
+
 ##### `src/App.js`
 
 ```jsx
@@ -675,9 +911,11 @@ export default Navbar;
 
 //			...
 
-import ProjectList from './components/projects/ProjectList';
-import Navbar from './components/navbar/Navbar';                    //	ADD
-import ProjectDetails from './components/projects/ProjectDetails';    //	ADD
+import ProjectList from './pages/ProjectList/ProjectList';
+
+import ProjectDetails from './pages/ProjectDetails/ProjectDetails';     //	IMPORT
+import Navbar from './components/Navbar/Navbar.js`';                      //	IMPORT
+
 
 function App() {
   return (
@@ -716,38 +954,65 @@ export default App;
 
 
 
-##### `src/components/projects/ProjectDetails.js`
+Project details page should contain a `state` and a `componentDidMount` method. Once the component is rendered we will need to make the request to the server/API and get the data of the specific project and then display it in the comonent.
+
+Id of the project should be available via the URL param and we should be able to access it via `this.props.match.params` object.
+
+
+
+<br>
+
+
+
+##### `src/pages/ProjectDetails/ProjectDetails.js`
 
 ```jsx
-// src/components/projects/ProjectDetails.js
+// src/pages/ProjectDetails/ProjectDetails.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 class ProjectDetails extends Component {
-  state = {			                              // <-- UPDATE / ADD THE STATE
+  state = {                                      // <-- UPDATE / ADD THE STATE
     title: " ",
     description: " ",
     tasks: []
   };
 
-  componentDidMount(){                                    // <-- ADD
+
+  componentDidMount() {                               // <-- ADD METHOD
       this.getSingleProject();
   }
 
-  getSingleProject = () => {                               // <-- ADD
-  /* here we do a GET request and then set the state */
-  }
 
-  render(){                                               // <-- ADD
+  getSingleProject = () => {                           // <-- ADD METHOD
+    const { id } = this.props.match.params;
+
+    axios.get(`http://localhost:5000/api/projects/${id}`)
+      .then( (apiResponse) =>{
+        const theProject = apiResponse.data;
+        const { title, description, tasks } = theProject;
+        this.setState( { title, description, tasks } );
+      })
+      .catch((err) => console.log(err));
+  }
+  
+  
+  
+  render(){
+    
     return(
       <div>
-        <h1>{this.state.title}</h1>
-        <h4>{this.state.description}</h4>    {/*       // <--- UPDATE           */}
-        <Link to={'/projects'}>
+        <h1>Project Details</h1>
+        
+        <h2>{this.state.title}</h2>             {/*    // <--- ADD       */}
+        <h4>{this.state.description}</h4>         {/*    // <--- ADD       */}
+        
+        <Link to={'/projects'}>                 {/*    // <--- ADD       */}
         	<button>Back</button>
         </Link>
+        
       </div>
     )
   }
@@ -758,47 +1023,6 @@ export default ProjectDetails;
 
 
 
-
-
-<br>
-
-
-
-
-
-#### Finalize `getSingleProject()` method in `<ProjectDetails>`
-
-
-
-##### `src/components/projects/ProjectDetails.js`
-
-```jsx
-// src/components/projects/ProjectDetails.js
-
-//	...
-
-//	...
-
-getSingleProject = () => {
-	const { id } = this.props.match.params;
-
-	axios.get(`http://localhost:5000/api/projects/${id}`)
-		.then( (apiResponse) =>{
-			const theProject = apiResponse.data;
-			this.setState(theProject);
-		})
-		.catch((err) => console.log(err));
-}
-
-//	...
-
-//	...
-```
-
-
-
-
-
 <br>
 
 
@@ -806,17 +1030,30 @@ getSingleProject = () => {
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">12</h2>
 
 
-#### Create `EditProject.js` component with a form to update a specific project.
+#### Create `EditProject` component 
+
+Create `EditProject.js` component with a form to update a specific project.
+
+`EditProject` will be a controlled component ( component that's handling a form with inputs).
+
+It will contain 2 inputs `title` and `description` used to update an existing project.
+
+We will create the method `handleFormSubmit` but leave it empty. In the step after this one we will add functionality to it, but for the moment leave it empty.
 
 
 
-##### `src/components/projects/EditProject.js`
+<br>
+
+
+
+##### `src/components/EditProject/EditProject.js`
 
 ```jsx
-// src/components/projects/EditProject.js
+// src/components/EditProject/EditProject.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
 class EditProject extends Component {
   state = {
@@ -827,10 +1064,11 @@ class EditProject extends Component {
     
   handleFormSubmit = (event) => {}
 
+  
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value })
-    //                 ▲   Assign value to property using "object bracket notataion"
+    //                ▲  Assign value to property using "object bracket notataion"
     //  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors
   }
 
@@ -845,8 +1083,7 @@ class EditProject extends Component {
             value={this.state.title} 
             onChange={this.handleChange}/>
           
-          <label>Description:</label>
-          
+          <label>Description:</label>    
           <textarea 
             name="description" 
             value={this.state.description} 
@@ -860,7 +1097,12 @@ class EditProject extends Component {
   }
 }
 
-export default EditProject;
+
+
+// By wrapping EditProject in withRouter, 
+// we inject react-router props (match, location, history)
+// to the component that help us to get value from the URL (this.props.match.params)
+export default withRouter(EditProject);
 ```
 
 
@@ -873,9 +1115,9 @@ export default EditProject;
 
 
 
-#### Finalize `handleFormSubmit` in `EditProject.js`
+#### Finalize the `handleFormSubmit` method in `EditProject.js`
 
-
+<br>
 
 ##### `src/components/projects/EditProject.js`
 
@@ -892,25 +1134,23 @@ export default EditProject;
 handleFormSubmit = (event) => {
   event.preventDefault();
   const { title, description } = this.state;
-  const { _id } = this.props.theProject;
+  const { id } = this.props.match.params;    // made available by withRouter()
+  
 
   axios.put(
-    `http://localhost:5000/api/projects/${_id}`,
+    `http://localhost:5000/api/projects/${id}`,
     { title, description }
   )
   .then( () => {
-    this.props.getTheProject();						     //  <---  hmmm
+    this.props.getTheProject();
     // this.props.history.push('/projects');    
     // after submitting the form, we could also redirect to '/projects'
   })
    .catch( (err) => console.log(err) )
 }
 
-
-
 //	...
 
-//	...
 ```
 
 
@@ -926,60 +1166,48 @@ handleFormSubmit = (event) => {
 
 #### Place component `<EditProject>`  in the `ProjectDetails.js`
 
+`EditProject` form will be displayed in the `ProjectDetails` page/component.
 
 
-##### `src/components/ProjectDetails.js`
+
+Import the `EditProject` component  in `ProjectDetails.js`:
+
+
+
+<br>
+
+##### `src/pages/ProjectDetails/ProjectDetails.js`
+
+```js
+import EditProject from './../../components/EditProject/EditProject';
+```
+
+
+
+<br>
+
+Add the component to the `render` so that it gets displayed right below the project details.
+
+##### `src/pages/ProjectDetails/ProjectDetails.js`
 
 ```jsx
-// src/components/projects/ProjectDetails.js
+// src/pages/ProjectDetails/ProjectDetails.js
 
 //	...
-
-//	...
-
-
-
-
-
-
-//	...
-
 //			...
-
-  renderEditForm = () => {
-    /* Check if the `state` is not empty when`renderEditForm` 
-    is triggered before the state gets populated. 
-     If the state is empty nothing can be passed to `EditProject` as the
-    value in `theProject` prop to populate the form  */
-    if (!this.state.title  && !this.state.description) return null;
-    else {
-      return (
-        <EditProject 
-          theProject={this.state}
-          getTheProject={this.getSingleProject} 
-          {...this.props} 
-         /> 
-       // {...this.props}  so that we can use 'this.props.history' in EditProject    
-      )      
-    }
-  }
+ 
   
-  
-  
-//  ...
-  
-//	  	...
-  
-    render() {
+  render() {
     return (
       <div>
         <h1>{this.state.title}</h1>
         <h4>{this.state.description}</h4>
+        
         <Link to={'/projects'}>
           <button>Back</button>
          </Link>
 
-        <div>{this.renderEditForm()} </div>   				{/* ADD */}
+         <EditProject getTheProject={this.getSingleProject} />    {/* ADD */}
       </div>
     )
   }
@@ -1000,21 +1228,15 @@ handleFormSubmit = (event) => {
 
 
 
-##### `src/components/projects/ProjectDetails.js`
+##### `src/pages/ProjectDetails/ProjectDetails.js`
 
 ```jsx
-// src/components/projects/ProjectDetails.js
+// src/pages/ProjectDetails/ProjectDetails.js
 
 //	...
+//			...
 
-//	...
-
-
-
-
-// DELETE PROJECT:
-
-  deleteProject = () => {
+  deleteProject = () => {														// <== CREATE METHOD
     const { id } = this.props.match.params;
     
     axios.delete(`http://localhost:5000/api/projects/${id}`)
@@ -1023,21 +1245,49 @@ handleFormSubmit = (event) => {
   }
   
   
-  
-  
-  
-  
-//       UPDATE  -  ADD TO `render()`
-  
-//  ...
-//  		...
-  
-      <button onClick={() => this.deleteProject()}>
-        Delete project
-      </button>
+//	...
 ```
 
 
+
+<br>
+
+
+
+Add the delete button to the `render()`:
+
+<br>
+
+##### `src/pages/ProjectDetails/ProjectDetails.js`
+
+```jsx
+// src/pages/ProjectDetails/ProjectDetails.js
+
+//	...
+//			...
+
+  render(){
+    return (
+      <div>
+	      <h1>Project Details</h1>
+
+        <h2>{this.state.title}</h2>    
+        <h4>{this.state.description}</h4>
+        
+        <Link to={'/projects'}>        
+        	<button>Back</button>
+        </Link>
+
+
+        <EditProject getTheProject={this.getSingleProject} />
+
+        <button onClick={this.deleteProject}>                   {/* ADD */}
+          Delete project
+        </button>
+      </div>
+    )
+  }
+```
 
 
 
@@ -1048,63 +1298,86 @@ handleFormSubmit = (event) => {
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">15</h2>
 
 
+
 ### Create `AddTask` component
 
 
 
-##### `src/components/tasks/AddTask.js`
+##### `src/components/AddTask/AddTask.js`
 
 ```jsx
-// src/components/tasks/AddTask.js
+// src/components/AddTask/AddTask.js
 
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
 class AddTask extends Component {
-  constructor(props){
-    super(props);
-    this.state = { title: '', description: '', isShowing: false};
-  }
+  state = { 
+    title: '',
+    description: '',
+    isShowing: false
+  };
+
    
   handleFormSubmit = (event) => {}
   
+  
   toggleForm = () => this.setState({isShowing: !this.state.isShowing});
+
+
 
   handleChange = (event) => {  
     const {name, value} = event.target;
     this.setState({[name]: value});
   }
+  
+  
+  displayForm = () => {
+    return(
+      <div>
+        <form>
+          <input 
+            type="text" 
+            placeholder='Title'
+            name="title" 
+            value={this.state.title}
+            onChange={this.handleChange}
+          />
+
+          <input 
+            name="description" 
+            placeholder='Description'
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+
+          <button onClick={this.handleFormSubmit}>Submit</button>
+        </form>
+      </div>
+    )
+  }
+  
 
   render(){
     return(
       <div>
-        <button onClick={this.toggleForm}> Add task </button>
+        <button onClick={this.toggleForm}> 
+          {this.state.isShowing ? 'Close' : 'Add task'}
+        </button>
 
         {
-          !this.state.isShowing ?
-           null
-          :
-          (<div>
-            <form>
-              <input type="text" placeholder='Title'
-                name="title" value={this.state.title}
-                onChange={ (e) => this.handleChange(e)}/>
-              
-              <input name="description" placeholder='Description'
-                value={this.state.description}
-                onChange={ (e) => this.handleChange(e)} />
-              
-              <button onClick={this.handleFormSubmit}>Submit</button>
-            </form>
-          </div>)
+          !this.state.isShowing 
+            ? null
+            : this.displayForm()
         }
       </div>
     )
   }
 }
 
-export default AddTask;
+export default withRouter(AddTask);
 ```
 
  
@@ -1121,41 +1394,34 @@ export default AddTask;
 
 
 
-##### `src/components/tasks/AddTask.js`
+##### `src/components/AddTask/AddTask.js`
 
 ```jsx
-// components/tasks/AddTask.js
+// components/AddTask/AddTask.js
 
 //	...
-
-//	...
-
+//		...
 
 
-handleFormSubmit = (event) => {
-    event.preventDefault();
-    const { title, description } = this.state;
-    const { projectId } = this.props; 
-  
- // we need to know to which project the task belongs, 
- // therefore we get it's 'id'
-                                                
-    axios.post("http://localhost:5000/api/tasks",{ title, description, projectId })
-      .then( () => {
-      
-     // after form submit, GET project again to display the updated task list  
-        this.props.getUpdatedProject();
-        this.setState({title: '', description: ''});
-    })
-    .catch( error => console.log(error) )
-}
+  handleFormSubmit = (event) => {
+      event.preventDefault();
+      const { title, description } = this.state;
+      const { id } = this.props.match.params;   // made available by withRouter()
+
+   // we need to know to which project the task belongs, 
+   // therefore we get project 'id'
+
+      axios.post("http://localhost:5000/api/tasks",{ title, description, projectId: id })
+        .then( () => {
+
+       // after form submit, GET project again to display the updated task list  
+          this.props.getUpdatedProject();
+          this.setState({title: '', description: ''});
+      })
+      .catch( error => console.log(error) )
+  }
 
 
-
-
-
-
-//	...
 
 //	...
 ```
@@ -1175,71 +1441,61 @@ handleFormSubmit = (event) => {
 
 #### Add component `<AddTask />` to the `ProjectDetails.js`
 
+Import `AddTask` in the `ProjectDetails` component.
 
 
-##### `src/components/projects/ProjectDetails.js`
+
+<br>
+
+
+
+##### `src/pages/projects/ProjectDetails.js`
 
 ```jsx
-// src/components/projects/ProjectDetails.js  
+// src/pages/projects/ProjectDetails.js  
 
-//	...
-
-//	...
-
-
-
-import AddTask from "./../tasks/AddTask";
-
-
-
-
-//	...
-
-//				...
-
-
-
-// Create helper/rendering function
-renderAddTaskForm = () => {
-  if( ! this.state.title && !this.state.description) return null;
-  else {
-  	return (<AddTask 
-             projectId={this.state._id} 
-             getUpdatedProject={this.getSingleProject}
-            />)
-  }
-}	
-
-
-
-
-//	...
-
-//			...
-
-
-
-
-
-			// INSIDE `render()` put `renderAddTaskForm` 
-			// as the last thing before closing the 
-
-
-
-        <button onClick={() => this.deleteProject()}>
-    	    Delete project
-  	    </button>
-
-        { this.renderAddTaskForm() }							{/* Render AddTask form  */}
-
-		//	...
-
-//	...
-
-
+import AddTask from "./../../components/AddTask/AddTask";
 ```
 
 
+
+<br>
+
+Display the `<AddTask />` component on the bottom after all the previous content.
+
+##### `src/pages/projects/ProjectDetails.js`
+
+```jsx
+// src/pages/projects/ProjectDetails.js 
+
+  render(){
+    return (
+      <div>
+	      <h1>Project Details</h1>
+
+        <h2>{this.state.title}</h2>    
+        <h4>{this.state.description}</h4>
+        
+        <Link to={'/projects'}>        
+        	<button>Back</button>
+        </Link>
+
+
+        <EditProject getTheProject={this.getSingleProject} />
+
+        <button onClick={this.deleteProject}>
+          Delete project
+        </button>
+
+        <AddTask getUpdatedProject={this.getSingleProject} />             {/* ADD */}
+      </div>
+    )
+  }
+
+
+
+//	...
+```
 
 
 
@@ -1254,47 +1510,41 @@ renderAddTaskForm = () => {
 
 
 
-##### `src/components/projects/ProjectDetails.js`
+The `state` of the `ProjectDetails` component already contain all information about the project that we need. The last step would be to display all of the `tasks` coming from the state of th
+
+##### `src/pages/ProjectDetails/ProjectDetails.js`
 
 ```jsx
-// src/components/projects/ProjectDetails.js  
+// src/pages/ProjectDetails/ProjectDetails.js  
 
-//	...
+{/*					
+		INSIDE OF THE `render` - on the bottom						
+		
+    After the last line of code, render list of tasks
+*/}
 
-//			...
-
-
-{/*					INSIDE OF THE `render`						*/}
-
-				{ this.renderAddTaskForm() }
-
-
-
-				// AFter the last line of code, render list of tasks	
+					
 	
-        { 
-          (this.state.tasks.length === 0) 
-            ? <h2>NO TASKS TO DISPLAY</h2>
-            : this.state.tasks.map((task) => {
+    { 
+      (this.state.tasks.length === 0) 
+        ? <h2>NO TASKS TO DISPLAY</h2>
+        : this.state.tasks.map((task) => {
             return(
-               <Link 
-                 key={task._id}
-                 to={`/projects/${this.state._id}/tasks/${task._id}`}
-               >
-                
-                 <div className="task">
-                   <h2>{ task.title }</h2>
-                 </div>
-                
-               </Link>
+              <Link 
+                key={task._id}
+                to={`/projects/${this.state._id}/tasks/${task._id}`}
+                >
+
+                <div className="task">
+                  <h2>{ task.title }</h2>
+                </div>
+
+              </Link>
             )
-            
-        	})
-      	}
 
-//		...
+      })
+    }
 
-//	...
 ```
 
 
@@ -1310,7 +1560,7 @@ renderAddTaskForm = () => {
 <h2 style="background-color: #66D3FA; color: white; display: inline; padding: 10px; border-radius: 10;">18</h2>
 
 
-#### Update routes, and create route to render `<TaskDetails>`
+#### Create Route to render `<TaskDetails>`
 
 
 
@@ -1325,7 +1575,7 @@ renderAddTaskForm = () => {
 
 
 
-import TaskDetails from './components/tasks/TaskDetails';    // 			<-- ADD
+import TaskDetails from './components/tasks/TaskDetails';    // 			<-- IMPORT
 
 
 
@@ -1339,9 +1589,15 @@ class App extends Component {
           <Route exact path="/projects" component={ProjectList}/>
           <Route exact path="/projects/:id" component={ProjectDetails} />
           
-   {/* ADD - route to display task details */}
-          <Route exact path="/projects/:id/tasks/:taskId" component={TaskDetails} /> 
-   {/* ADD */}
+          
+          {/* ADD - route to display task details */}
+          
+          <Route                                       {/* ADD Route*/}
+            exact
+            path="/projects/:id/tasks/:taskId"
+            component={TaskDetails}
+          /> 
+
           
         </Switch>
       </div>
