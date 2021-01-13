@@ -52,9 +52,9 @@ There are 7 primitive data types:
 
 
 ```bash
-mkdir 05-js-numbers-strings
+mkdir 01-js-numbers-strings
 
-cd 05-js-numbers-strings
+cd 01-js-numbers-strings
 
 vanilla-js
 
@@ -772,20 +772,6 @@ var string3 = `string three`; // with back ticks - also called template literals
 
 
 ```js
-// Templates literals/strings - using back ticks ``
-// We can embed variables and expressions with: ${}
-
-var username = 'Sarah';
-console.log(`Hello, ${username} !`);
-
-console.log(`The username is: ${username}`);
-```
-
-
-
-- Or for the **new lines** (simply use enter):
-
-```js
 var fruits = `
 1. banana 
 2. apple 
@@ -950,6 +936,24 @@ console.log(container1);
 
 
 
+### String interpolation with backticks ``
+
+
+
+```js
+// Templates literals/strings - using back ticks ``
+// We can embed variables and expressions with: ${}
+
+var username = 'Sarah';
+console.log(`Hello, ${username} !`);
+
+console.log(`The username is: ${username}`);
+```
+
+
+
+
+
 ### Accessing characters
 
 ####  str[i] or charAt() method
@@ -964,7 +968,7 @@ Strings use **zero based indexing**, so the first character starts at index **0*
 
 ```js
 // Accessing string characters
-//  Strings use **zero based indexing**, so the first character starts at index 0
+//  Strings use zero based indexing, so the first character starts at index 0
 
 // string[i]
 // string.charAt(i)

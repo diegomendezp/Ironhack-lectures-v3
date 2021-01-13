@@ -23,9 +23,9 @@ After this lesson you will be able to:
 ### Create a folder structure
 
 ```bash
-mkdir 04-js-intro
+mkdir 00-js-intro
 
-cd 04-js-intro
+cd 00-js-intro
 
 vanilla-js
 

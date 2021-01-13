@@ -1,0 +1,40 @@
+body {
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(10, minmax(200px, auto));
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  /*SHORTHAND  grid-gap: 15px; */
+  align-items: center;
+  justify-items: start;
+
+}
+
+.grid-container div{
+  background: peru;
+  padding: 25px;
+}
+
+.grid-container div:nth-child(even){
+  background: rebeccapurple;
+  padding: 25px;
+}
+
+#two {
+  justify-self: end;
+  align-self: start;
+}
+
+#three {
+  justify-self: center;
+  align-self: center;
+}
+
+#four {
+  justify-self: start;
+  align-self: end;
+}

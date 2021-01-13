@@ -1,0 +1,1445 @@
+---
+course:
+  name: 'WDFT'
+  number: MASTER
+  version: '5.1'
+  chapter:
+    ##     ##  #######  ########  ##     ## ##       ########       ##
+    ###   ### ##     ## ##     ## ##     ## ##       ##           ####
+    #### #### ##     ## ##     ## ##     ## ##       ##             ##
+    ## ### ## ##     ## ##     ## ##     ## ##       ######         ##
+    ##     ## ##     ## ##     ## ##     ## ##       ##             ##
+    ##     ## ##     ## ##     ## ##     ## ##       ##             ##
+    ##     ##  #######  ########   #######  ######## ########     ######
+    - name: 'Tips & tricks for success'
+      sequential:
+        - name: 'Info tab'
+          vertical:
+            - name: '[EXTRA] Code of Conduct during the bootcamp'
+              component:
+                - type: html
+                  file: info/code-of-conduct.md
+            - name: '[EXTRA] Link to  the GitHub class organization'
+              component:
+                - type: html
+                  file: info/gh-class-org.md
+            - name: '[EXTRA] Guidelines on how to submit the labs'
+              component:
+                - type: html
+                  file: info/guidelines-labs.md
+            - name: '[EXTRA] No class dates'
+              component:
+                - type: html
+                  file: info/no-class-dates.md
+            - name: '[EXTRA] Contacts'
+              component:
+                - type: html
+                  file: info/contacts.md
+            - name: '[EXTRA] Career Services'
+              component:
+                - type: html
+                  file: info/career.md
+            - name: '[EXTRA] Technical interview prep'
+              component:
+                - type: html
+                  file: other/tech-interviews.md
+            - name: '[EXTRA] Upcoming events'
+              component:
+                - type: html
+                  file: info/events.md
+        - name: 'Module 1'
+          vertical:
+            - name: '[EXTRA] Time distribution'
+              component:
+                - type: html
+                  file: info/ft-time-dist-m1.md
+            - name: '[EXTRA] Module 1 - topics - overview'
+              component:
+                - type: html
+                  file: info/topics-m1.md
+            - name: '[EXTRA] Expectations'
+              component:
+                - type: html
+                  file: info/expectations.md
+            - name: '[EXTRA] Requirements for win-win'
+              component:
+                - type: html
+                  file: info/requirements-m1.md
+        - name: 'Module 2'
+          vertical:
+            - name: '[EXTRA] Time distribution'
+              component:
+                - type: html
+                  file: info/ft-time-dist-m2.md
+            - name: '[EXTRA] Module 2 - topics - overview'
+              component:
+                - type: html
+                  file: info/topics-m2.md
+            - name: '[EXTRA] Expectations'
+              component:
+                - type: html
+                  file: info/expectations.md
+            - name: '[EXTRA] Requirements for win-win'
+              component:
+                - type: html
+                  file: info/requirements-m2.md
+        - name: 'Module 3'
+          vertical:
+            - name: '[EXTRA] Time distribution'
+              component:
+                - type: html
+                  file: info/ft-time-dist-m3.md
+            - name: '[EXTRA] Module 3 - topics - overview'
+              component:
+                - type: html
+                  file: info/topics-m3.md
+            - name: '[EXTRA] Expectations'
+              component:
+                - type: html
+                  file: info/expectations.md
+            - name: '[EXTRA] Requirements for win-win'
+              component:
+                - type: html
+                  file: info/requirements-m3.md
+    - name: 'Week 1'
+      sequential:
+        - name: 'Day 1' ##### M1 - W1 - D1 #####
+          vertical:
+            - name: 'JS | JavaScript Intro'
+              component:
+                - type: html
+                  file: module-1/week-1/js-intro.md
+            - name: 'JS | Data Types in JavaScript - number & string'
+              component:
+                - type: html
+                  file: module-1/week-1/js-datatypes-1.md
+            - name: 'JS | Data Types in JavaScript - boolean, undefined & null and Immutability'
+              component:
+                - type: html
+                  file: module-1/week-1/js-datatypes-2.md
+            - name: '[SELF_GUIDED] JS | Numbers as Data Types - Advanced Topics'
+              component:
+                - type: html
+                  file: module-1/week-1/numbers-advanced.md
+            - name: 'JS | Conditionals and Loops'
+              component:
+                - type: html
+                  file: module-1/week-1/js-conditionals-loops.md
+            - name: 'VCS | Git Intro'
+              component:
+                - type: html
+                  file: module-1/week-1/self-guided/git-intro.md
+            - name: '[LAB] LAB | JavaScript Basic Algorithms'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-basic-algorithms.md
+                - type: deliverable
+                  display_name: basic-algorithms
+                  deliverable_identifier: lab-javascript-basic-algorithms
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+        - name: 'Day 2' ##### M1 - W1 - D2 #####
+          vertical:
+            - name: 'JS | Functions Intro'
+              component:
+                - type: html
+                  file: module-1/week-1/js-functions-intro.md
+            - name: 'JS | Data Types in JavaScript - Arrays'
+              component:
+                - type: html
+                  file: module-1/week-1/js-arrays.md
+            - name: 'Pair Programming Introduction'
+              component:
+                - type: html
+                  file: module-1/week-1/self-guided/pair-programming.md
+            - name: '[LAB] LAB | JavaScript Functions and Arrays'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-functions-and-arrays.md
+                - type: deliverable
+                  display_name: functions-and-arrays
+                  deliverable_identifier: lab-javascript-functions-and-arrays
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'HTML | Introduction'
+              component:
+                - type: html
+                  file: module-1/week-1/html-intro.md
+            - name: 'CSS | Intro & Selectors'
+              component:
+                - type: html
+                  file: module-1/week-1/css-intro.md
+            - name: 'CSS | Advanced Selectors'
+              component:
+                - type: html
+                  file: module-1/week-1/css-advanced-selectors.md
+            - name: '[SELF_GUIDED] Bonus: CSS | Positioning'
+              component:
+                - type: html
+                  file: module-1/week-1/css-positioning.md
+            - name: '[LAB] LAB | CSS Recipes clone'
+              component:
+                - type: html
+                  file: module-1/labs/lab-css-recipes-clone.md
+                - type: deliverable
+                  display_name: recipes-clone
+                  deliverable_identifier: lab-css-recipes-clone
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '![KATA] CodeWars - Intro'
+              component:
+                - type: html
+                  file: module-1/week-1/self-guided/codewars.md
+        - name: 'Day 3' ##### M1 - W1 - D3 #####
+          vertical:
+            - name: 'JS | Data Types in JavaScript - Objects'
+              component:
+                - type: html
+                  file: module-1/week-1/js-objects.md
+            - name: 'JS | Arrays & Objects'
+              component:
+                - type: html
+                  file: module-1/week-1/js-objects-arrays.md
+            - name: '[LAB] LAB | JavaScript Clue'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-clue.md
+                - type: deliverable
+                  display_name: clue
+                  deliverable_identifier: lab-javascript-clue
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+                        - name: 'CSS | Box Model'
+              component:
+                - type: html
+                  file: module-1/week-1/css-box-model.md
+            - name: 'CSS | Responsive Web Design'
+              component:
+                - type: html
+                  file: module-1/week-1/css-responsive-design.md
+            - name: 'CSS | Flexbox'
+              component:
+                - type: html
+                  file: module-1/week-1/css-flexbox.md
+            - name: '[LAB] LAB | CSS Spotify clone'
+              component:
+                - type: html
+                  file: module-1/labs/lab-css-spotify-clone.md
+                - type: deliverable
+                  display_name: spotify-clone
+                  deliverable_identifier: lab-css-spotify-clone
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+        - name: 'Day 4' ##### M1 - W1 - D4 #####
+          vertical:
+            - name: 'JS | Functions Advanced'
+              component:
+                - type: html
+                  file: module-1/week-1/js-functions-advanced.md
+            - name: 'JS | Arrays - Map, Reduce & Filter'
+              component:
+                - type: html
+                  file: module-1/week-1/js-arrays-filter-map-reduce.md
+            - name: 'JS | Arrays - Sort & Reverse'
+              component:
+                - type: html
+                  file: module-1/week-1/js-arrays-sort-reverse.md
+            - name: '[LAB] LAB | Greatest movies of all time'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-greatest-movies.md
+                - type: deliverable
+                  display_name: greatest-movies
+                  deliverable_identifier: lab-javascript-greatest-movies
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+        - name: 'Day 5' ##### M1 - W1 - D5 #####
+          vertical:
+            - name: "JS | OOP - objects, methods and the 'this' keyword"
+              component:
+                - type: html
+                  file: module-1/week-1/js-oop-1.md
+            - name: 'JS | OOP - class and inheritance'
+              component:
+                - type: html
+                  file: module-1/week-1/js-oop-2.md
+            - name: '[SELF_GUIDED] JS | OOP - Function constructor vs. Class'
+              component:
+                - type: html
+                  file: module-1/week-1/js-oop-3.md
+            - name: '[LAB] LAB | JavaScript Vikings'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  display_name: vikings
+                  deliverable_identifier: lab-javascript-vikings
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'Reinforcement session'
+              component:
+                - type: html
+                  file: module-1/week-1/recap.md
+            - name: '[SELF_GUIDED] Bonus: LAB | CSS Instagram clone'
+              component:
+                - type: html
+                  file: module-1/labs/lab-css-instagram-clone.md
+            - name: '[SELF_GUIDED] Bonus: LAB | CSS Flexbox Slack'
+              component:
+                - type: html
+                  file: module-1/labs/lab-css-flexbox-slack.md
+            # QUALIFIED ASSESSMENT
+            - name: '![LAB] JS Foundations'
+              component:
+                # - type: html
+                #   file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  # display_name: vikings
+                  deliverable_identifier: '5f7dc3e6782691000ce887d8'
+                  # deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+    ######################################################################################
+    - name: 'Week 2'
+      sequential:
+        - name: 'Day 1' ##### M1 - W2 - D1 #####
+          vertical:
+            - name: 'Reinforcement session'
+              component:
+                - type: html
+                  file: module-1/week-1/recap.md
+            - name: 'JS | Value vs Reference and Mutable Data Types'
+              component:
+                - type: html
+                  file: module-1/week-1/value-reference-mutability.md
+            - name: 'JS | Variable scope, hoisting and shadowing'
+              component:
+                - type: html
+                  file: module-1/week-2/js-scope-hoist-shadow.md
+            - name: 'JS | Async & Callbacks'
+              component:
+                - type: html
+                  file: module-1/week-2/js-async-callbacks.md
+            - name: '[LAB] LAB | JS Chronometer - iteration 1'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-chronometer.md
+                - type: deliverable
+                  display_name: chronometer
+                  deliverable_identifier: lab-javascript-chronometer
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] JS | Debugging, Error Handling and JS Hint'
+              component:
+                - type: html
+                  file: module-1/week-2/js-debugging.md
+            - name: '[SELF_GUIDED] Bonus: LAB | JavaScript Koans'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-koans.md
+            - name: '[SELF_GUIDED] Bonus: JS | Context & Function invocation'
+              component:
+                - type: html
+                  file: module-1/week-2/js-context-function-invocation.md
+        - name: 'Day 2' ##### M1 - W2 - D2 #####
+          vertical:
+            - name: 'DOM | Introduction & Selectors'
+              component:
+                - type: html
+                  file: module-1/week-1/dom-introduction-selectors.md
+            - name: 'DOM | Manipulation'
+              component:
+                - type: html
+                  file: module-1/week-1/dom-manipulation.md
+            - name: '[LAB] LAB | DOM Ironhack Cart'
+              component:
+                - type: html
+                  file: module-1/labs/lab-dom-ironhack-cart.md
+                - type: deliverable
+                  display_name: ironhack-cart
+                  deliverable_identifier: lab-dom-ironhack-cart
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            # - name: "[SELF_GUIDED] Bonus: DOM | Simon Game"
+            #   component:
+            #   - type: html
+            #     file: module-1/week-2/simon-game.md
+
+            - name: '[LAB] LAB | JS Chronometer - iteration 2-3-4'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-chronometer.md
+            - name: '[SELF_GUIDED] Bonus: LAB | JavaScript Advanced Algorithms'
+              component:
+                - type: html
+                  file: module-1/labs/lab-javascript-advanced-algorithms.md
+        - name: 'Day 3' ##### M1 - W2 - D4 #####
+          vertical:
+            - name: 'Canvas | Intro & Basic Drawing'
+              component:
+                - type: html
+                  file: module-1/week-2/canvas-intro.md
+            - name: 'Canvas | Styling, Text and Images'
+              component:
+                - type: html
+                  file: module-1/week-2/canvas-drawing-text-styles.md
+            # QUALIFIED ASSESSMENT
+            - name: '![LAB] JS OOP'
+              component:
+                # - type: html
+                #   file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  # display_name: vikings
+                  deliverable_identifier: '5f7dc5e3782691000ee88b54'
+                  # deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'Canvas | Basic Animations'
+              component:
+                - type: html
+                  file: module-1/week-2/canvas-basic-animations.md
+            - name: '[SELF_GUIDED] Bonus LAB | Canvas Hangman'
+              component:
+                - type: html
+                  file: module-1/labs/lab-canvas-hangman.md
+                - type: deliverable
+                  display_name: canvas-hangman
+                  deliverable_identifier: lab-canvas-hangman
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] Bonus LAB | Canvas Race Car'
+              component:
+                - type: html
+                  file: module-1/labs/lab-canvas-race-car.md
+                - type: deliverable
+                  display_name: canvas-race-car
+                  deliverable_identifier: lab-canvas-race-car
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            
+            # QUALIFIED ASSESSMENT
+            - name: '![LAB] JS DOM'
+              component:
+                # - type: html
+                #   file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  # display_name: vikings
+                  deliverable_identifier: '5f7dc7b2bc6341a9eda41419'
+                  # deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+        - name: 'Day 4' ##### M1 - W2 - D3 #####
+          vertical:
+            - name: 'Canvas | Codealong - Basic Animations'
+              component:
+                - type: html
+                  file: module-1/week-2/canvas-basic-animations-codealong.md
+            - name: 'JS | Testing & Jasmine'
+              component:
+                - type: html
+                  file: module-1/week-2/js-testing-jasmine.md
+            - name: '[SELF_GUIDED] Bonus LAB | Intro to testing with Jasmine'
+              component:
+                - type: html
+                  file: module-1/labs/lab-testing-jasmine.md
+                - type: deliverable
+                  display_name: testing-jasmine
+                  deliverable_identifier: lab-testing-jasmine
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'             
+            - name: 'CSS | Bootstrap Docs'
+              component:
+                - type: html
+                  file: module-1/week-2/css-bootstrap-intro.md
+            - name: '[SELF_GUIDED] Bonus: CSS - Style Normalizing & Grid Systems'
+              component:
+                - type: html
+                  file: module-1/week-2/css-grid-systems.md
+            - name: '[SELF_GUIDED] Bonus LAB | Bootstrap Cloning Revera'
+              component:
+                - type: html
+                  file: module-1/labs/lab-bootstrap-cloning-revera.md
+                - type: deliverable
+                  display_name: cloning-revera
+                  deliverable_identifier: lab-bootstrap-cloning-revera
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+        - name: 'Day 5' ##### M1 - W2 - D5 #####
+          vertical:
+            - name: 'CSS | Transitions & Animations'
+              component:
+                - type: html
+                  file: module-1/week-1/css-transitions-animations.md
+            - name: 'Lab review - reinforcement of Canvas concept'
+              component:
+                - type: html
+                  file: module-1/week-1/canvas-reinforcement.md
+            - name: '[EXTRA] Juice your game!'
+              component:
+                - type: html
+                  file: module-1/week-2/juice-your-game.md
+            - name: '[RITUALS] Project planning session'
+              component:
+                - type: html
+                  file: other/project-planning.md
+            - name: '[SELF_GUIDED] Bonus: Project Management'
+              component:
+                - type: html
+                  file: module-1/week-2/self-guided/agile-kanban.md
+            - name: 'VCS | Git and GitHub + GitHub Pages'
+              component:
+                - type: html
+                  file: module-1/week-2/git-github-pages-deploy.md
+            - name: '[PROJECT] Project #1 Guidelines: The Game'
+              component:
+                - type: html
+                  file: module-1/project-1.md
+            - name: '[SELF_GUIDED] Bonus: Canvas | Transformations and Compositing'
+              component:
+                - type: html
+                  file: module-1/week-2/canvas-transformations-compositing.md
+            - name: '[SELF_GUIDED] Bonus: Canvas | Advanced Animations'
+              component:
+                - type: html
+                  file: module-1/week-2/canvas-advanced-animations.md
+            - name: '[SELF_GUIDED] Bonus: LAB | Canvas Flappy Birds'
+              component:
+                - type: html
+                  file: module-1/labs/lab-canvas-flappybirds.md
+
+    #####################################################################################
+    - name: 'Week 3'
+      sequential:
+        - name: 'Day 1' ##### M1 - W3 - D1 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Anagrams'
+              component:
+                - type: html
+                  file: module-1/week-3/kata-anagrams.md
+            - name: '[SELF_GUIDED] Bonus: Structure your code'
+              component:
+                - type: html
+                  file: module-1/week-2/self-guided/js-good-patterns.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 2' ##### M1 - W3 - D2 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Clocky Mc Clock-Face'
+              component:
+                - type: html
+                  file: module-1/week-3/kata-clocky-mc-clock-face.md
+            - name: '[SELF_GUIDED] Bonus: Markdown and READMEs'
+              component:
+                - type: html
+                  file: module-1/week-2/self-guided/markdown-intro.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 3' ##### M1 - W3 - D3 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Sorting a 2D array'
+              component:
+                - type: html
+                  file: module-1/week-3/kata-sorting-2d-array.md
+            - name: '[SELF_GUIDED] Bonus: Advanced Command Line'
+              component:
+                - type: html
+                  file: module-1/week-1/self-guided/command-line.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+            - name: '[PROJECT] Presentation practice (mandatory)'
+              component:
+                - type: html
+                  file: other/presentations.md
+        - name: 'Day 4' ##### M1 - W3 - D4 #####
+          vertical:
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+            - name: '[PROJECT] Presentations - Project #1'
+              component:
+                - type: html
+                  file: other/final-presentation.md
+        - name: 'Day 5' ##### M1 - W3 - D5 #####
+          vertical:
+            - name: '[RITUALS] Project 1 retrospective'
+              component:
+                - type: html
+                  file: other/project-retro.md
+            - name: '[RITUALS] Project 1 feedback'
+              component:
+                - type: html
+                  file: other/project-feedback.md
+            - name: '[RITUALS] Module 1 retrospective'
+              component:
+                - type: html
+                  file: module-3/week-7/retrospective.md
+            - name: 'JS | Destructuring Assignment and Parameter Handling'
+              component:
+                - type: html
+                  file: module-1/week-2/js-es6-advanced.md
+            - name: 'ES6 | Promises'
+              component:
+                - type: html
+                  file: module-2/week-4/js-es6-promises.md
+            - name: '[LAB] LAB | #Promise me a dinner'
+              component:
+                - type: html
+                  file: module-2/labs/lab-es6-promises.md
+                - type: deliverable
+                  display_name: es6-promises
+                  deliverable_identifier: lab-es6-promises
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] LAB | ES6 JavaScript Koans'
+              component:
+                - type: html
+                  file: module-2/labs/lab-es6-javascript-koans.md
+
+
+    ######################################################################################
+
+    ##     ##  #######  ########  ##     ## ##       ########     #######
+    ###   ### ##     ## ##     ## ##     ## ##       ##          ##     ##
+    #### #### ##     ## ##     ## ##     ## ##       ##                 ##
+    ## ### ## ##     ## ##     ## ##     ## ##       ######       #######
+    ##     ## ##     ## ##     ## ##     ## ##       ##          ##
+    ##     ## ##     ## ##     ## ##     ## ##       ##          ##
+    ##     ##  #######  ########   #######  ######## ########    #########
+
+    - name: 'Week 4'
+      sequential:
+
+        - name: 'Day 1' ##### M2 - W4 - D2 #####
+          vertical:
+            - name: 'How the Internet works'
+              component:
+                - type: html
+                  file: module-2/week-4/self-guided/how-does-the-internet-work.md
+            - name: 'Node | Intro & Installation'
+              component:
+                - type: html
+                  file: module-2/week-4/node-npm-intro.md
+            - name: 'Node | The Internet & HTTP Server'
+              component:
+                - type: html
+                  file: module-2/week-4/node-http.md
+            - name: '[LAB] LAB | Intro Node'
+              component:
+                - type: html
+                  file: module-2/labs/lab-intro-node.md
+                - type: deliverable
+                  display_name: intro-node
+                  deliverable_identifier: lab-intro-node
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'Express | Introduction'
+              component:
+                - type: html
+                  file: module-2/week-4/express-intro.md
+            - name: '[LAB] LAB | Express Basic Site'
+              component:
+                - type: html
+                  file: module-2/labs/lab-express-basic-site.md
+                - type: deliverable
+                  display_name: express-basic-site
+                  deliverable_identifier: lab-express-basic-site
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+        - name: 'Day 2' ##### M2 - W4 - D3 #####
+          vertical:
+            - name: 'Express | Dynamic Views'
+              component:
+                - type: html
+                  file: module-2/week-4/express-dynamic-views.md
+            - name: 'Express | Layouts & Partials'
+              component:
+                - type: html
+                  file: module-2/week-4/express-layouts.md
+            - name: 'What is an API?'
+              component:
+                - type: html
+                  file: module-2/week-5/api-microservices.md
+            - name: '[LAB] LAB | IronBeers'
+              component:
+                - type: html
+                  file: module-2/labs/lab-ironbeers.md
+                - type: deliverable
+                  display_name: ironbeers
+                  deliverable_identifier: lab-ironbeers
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'MongoDB | Introduction'
+              component:
+                - type: html
+                  file: module-2/week-4/mongo-intro.md
+            - name: '[SELF_GUIDED] MongoDB | Shell & CRUD operations'
+              component:
+                - type: html
+                  file: module-2/week-4/mongo-shell-crud.md
+            - name: 'MongoDB | MongoDB Compass CRUD Operations'
+              component:
+                - type: html
+                  file: module-2/week-4/mongo-compass-crud.md
+            - name: 'MongoDB | Data Models'
+              component:
+                - type: html
+                  file: module-2/week-4/mongo-data-models.md
+            - name: '[LAB] LAB | MongoDB - Advanced Querying'
+              component:
+                - type: html
+                  file: module-2/labs/lab-advance-querying-mongo.md
+                - type: deliverable
+                  display_name: advanced-querying-mongo
+                  deliverable_identifier: lab-advance-querying-mongo
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] MongoDB | Indexing & Aggregation Framework'
+              component:
+                - type: html
+                  file: module-2/week-4/self-guided/mongo-advanced.md
+        - name: 'Day 3' ##### M2 - W4 - D4 #####
+          vertical:
+            - name: 'Mongoose | Introduction'
+              component:
+                - type: html
+                  file: module-2/week-4/mongoose-intro.md
+            - name: 'Mongoose | Schemas, Models & Documents'
+              component:
+                - type: html
+                  file: module-2/week-4/mongoose-schemas-models-documents.md
+            - name: '[LAB] LAB | Mongoose Recipes'
+              component:
+                - type: html
+                  file: module-2/labs/lab-mongoose-recipes.md
+                - type: deliverable
+                  display_name: mongoose-recipes
+                  deliverable_identifier: lab-mongoose-recipes
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'Reinforcement session'
+              component:
+                - type: html
+                  file: module-1/week-1/recap.md
+        - name: 'Day 4' ##### M2 - W4 - D5 #####
+          vertical:
+            - name: '[KATA] CodeWars'
+              component:
+                - type: html
+                  file: module-1/week-1/self-guided/codewars.md
+            - name: 'Express | GET Method - Route Params & Query String'
+              component:
+                - type: html
+                  file: module-2/week-4/express-get-params.md
+            - name: 'Express | POST Method - Request Body'
+              component:
+                - type: html
+                  file: module-2/week-4/express-post-params.md
+            - name: '[LAB] LAB | Express Spotify'
+              component:
+                - type: html
+                  file: module-2/labs/lab-express-spotify.md
+                - type: deliverable
+                  display_name: express-spotify
+                  deliverable_identifier: lab-express-spotify
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'Lab review - reinforcement of Express GET and POST concept'
+              component:
+                - type: html
+                  file: module-2/week-4/get-post-reinforcement.md
+            - name: '[SELF_GUIDED] Node | Asynchrony'
+              component:
+                - type: html
+                  file: module-2/week-4/self-guided/node-async.md
+        - name: 'Day 5' ##### M2 - W5 - D1 #####
+          vertical:
+            - name: 'Express | Express Generator'
+              component:
+                - type: html
+                  file: module-2/week-4/express-generator.md
+            - name: 'Mongoose&Express | List - Read Documents'
+              component:
+                - type: html
+                  file: module-2/week-4/mongoose-express-list-read.md
+            - name: 'Mongoose&Express | Basic CRUD'
+              component:
+                - type: html
+                  file: module-2/week-4/mongoose-express-basic-crud.md
+            - name: 'Mongoose&Express | Documents Relationships'
+              component:
+                - type: html
+                  file: module-2/week-4/mongoose-express-relationships.md
+            - name: '[LAB] LAB | Mongoose Movies'
+              component:
+                - type: html
+                  file: module-2/labs/lab-mongoose-movies.md
+                - type: deliverable
+                  display_name: mongoose-movies
+                  deliverable_identifier: lab-mongoose-movies
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+    ######################################################################################
+
+    - name: 'Week 5'
+      sequential:
+        - name: 'Day 5' ##### M2 - W5 - D1 #####
+          vertical:
+            - name: '[LAB] LAB | Express Cinema'
+              component:
+                - type: html
+                  file: module-2/labs/lab-express-cinema.md
+                - type: deliverable
+                  display_name: express-cinema
+                  deliverable_identifier: lab-express-cinema
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[LAB] LAB | Express Drones'
+              component:
+                - type: html
+                  file: module-2/labs/lab-express-drones.md
+                - type: deliverable
+                  display_name: express-drones
+                  deliverable_identifier: lab-express-drones
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+        - name: 'Day 2' ##### M2 - W5 - D3 #####
+          vertical:
+            - name: "Node | The concern on users' security"
+              component:
+                - type: html
+                  file: module-2/week-5/node-bcrypt.md
+            - name: 'Node | User registration'
+              component:
+                - type: html
+                  file: module-2/week-5/user-registration.md
+            - name: 'Node | Form validation'
+              component:
+                - type: html
+                  file: module-2/week-5/form-validation.md
+            - name: 'Node | Basic Authentication & Sessions'
+              component:
+                - type: html
+                  file: module-2/week-5/node-basic-authentication.md
+            - name: '[LAB] LAB | Express basic auth'
+              component:
+                - type: html
+                  file: module-2/labs/lab-express-basic-auth.md
+                - type: deliverable
+                  display_name: express-basic-auth
+                  deliverable_identifier: lab-express-basic-auth
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '![SELF_GUIDED] Passport | Sign Up, Login, Logout'
+              component:
+                - type: html
+                  file: module-2/week-5/node-passport-login.md
+            - name: '![SELF_GUIDED] LAB | Authentication with passport'
+              component:
+                - type: html
+                  file: module-2/labs/lab-authentication-with-passport.md
+            - name: '![SELF_GUIDED] Passport | Security & Roles'
+              component:
+                - type: html
+                  file: module-2/week-5/node-passport-roles.md
+            - name: '![SELF_GUIDED] LAB | Passport roles'
+              component:
+                - type: html
+                  file: module-2/labs/lab-passport-roles.md
+            - name: '![SELF_GUIDED] Passport | Strategies and Social Login'
+              component:
+                - type: html
+                  file: module-2/week-5/node-passport-strategies.md
+        # still to be added:
+        # - name: "VCS | Collaboration with GitHub"
+        #   component:
+        #   - type: html
+        #     file: module-2/week-5/git-github-collaboration.md
+        - name: 'Day 3' ##### M2 - W5 - D4 #####
+          vertical:
+            - name: 'AXIOS | GET Request'
+              component:
+                - type: html
+                  file: module-2/week-5/axios-get.md
+            - name: 'AXIOS | POST, PUT and DELETE request'
+              component:
+                - type: html
+                  file: module-2/week-5/axios-post-put-delete.md
+            - name: '[SELF_GUIDED] Bonus: LAB | Financial data graphing'
+              component:
+                - type: html
+                  file: module-2/labs/lab-financial-data-graphing.md
+            - name: '[SELF_GUIDED] JSON Server'
+              component:
+                - type: html
+                  file: module-2/week-5/json-server.md
+            - name: '![LAB] LAB | AXIOS CRUD Characters'
+              component:
+                - type: html
+                  file: module-2/labs/lab-ajax-crud-characters.md
+                - type: deliverable
+                  display_name: ajax-crud-characters
+                  deliverable_identifier: lab-ajax-crud-characters
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+            # QUALIFIED ASSESSMENT
+            - name: '![LAB] ExpressJS custom middlewares'
+              component:
+                # - type: html
+                #   file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  # display_name: vikings
+                  deliverable_identifier: '5f6ded388e3816000b14c9f3'
+                  # deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '![LAB] NodeJS and MongoDB CRUD app'
+              component:
+                # - type: html
+                #   file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  # display_name: vikings
+                  deliverable_identifier: '5f7e2d20bc6341d244a3f4b3'
+                  # deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+        - name: 'Day 4' ##### M2 - W5 - D2 #####
+          vertical:
+            - name: '[RITUALS] Project planning session'
+              component:
+                - type: html
+                  file: other/project-planning.md
+            - name: '[PROJECT] Project #2 Guidelines: Full-stack Web Application'
+              component:
+                - type: html
+                  file: module-2/project-2.md
+
+        - name: 'Day 5' ##### M2 - W5 - D5 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: 'Express | File Upload with Cloudinary'
+              component:
+                - type: html
+                  file: module-2/week-5/file-upload-cdn.md
+            - name: '[SELF_GUIDED] Express | File Upload'
+              component:
+                - type: html
+                  file: module-2/week-5/node-file-upload.md
+            - name: '[SELF_GUIDED] Bonus: LAB | File Upload'
+              component:
+                - type: html
+                  file: module-2/labs/lab-file-upload.md
+            - name: '[SELF_GUIDED] Bonus: LAB | IronRooms'
+              component:
+                - type: html
+                  file: module-2/labs/lab-express-rooms-with-reviews.md
+                - type: deliverable
+                  display_name: express-rooms-with-reviews
+                  deliverable_identifier: lab-express-rooms-with-reviews
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: 'Deploy to Heroku'
+              component:
+                - type: html
+                  file: module-2/week-5/node-heroku-atlas-deploy.md
+
+    ######################################################################################
+
+    - name: 'Week 6'
+      sequential:
+        - name: 'Day 1' ##### M2 - W6 - D1 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Persistent Bugger'
+              component:
+                - type: html
+                  file: module-2/week-6/kata-persistent-bugger.md
+            - name: '[SELF_GUIDED] Software Engineering Principles'
+              component:
+                - type: html
+                  file: module-2/week-5/self-guided/software-engineering-principles.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 2' ##### M2 - W6 - D2 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Playing with digits'
+              component:
+                - type: html
+                  file: module-2/week-6/kata-playing-with-digits.md
+            - name: '[SELF_GUIDED] Google Maps | Geolocation'
+              component:
+                - type: html
+                  file: module-2/week-5/google-maps-geolocation.md
+            - name: '[SELF_GUIDED] Google Maps & Express'
+              component:
+                - type: html
+                  file: module-2/week-5/google-maps-express.md
+            - name: '[SELF_GUIDED] LAB | Coffee and books'
+              component:
+                - type: html
+                  file: module-2/labs/lab-coffee-and-books.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 3' ##### M2 - W6 - D3 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Find the missing letter'
+              component:
+                - type: html
+                  file: module-2/week-6/kata-find-the-missing-letter.md
+            - name: '[SELF_GUIDED] Nodemailer'
+              component:
+                - type: html
+                  file: module-2/week-5/nodemailer.md
+            - name: '[SELF_GUIDED] LAB | Nodemailer'
+              component:
+                - type: html
+                  file: module-2/labs/lab-nodemailer.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+            - name: '[PROJECT] Presentation practice (optional)'
+              component:
+                - type: html
+                  file: other/presentations.md
+        - name: 'Day 4' ##### M2 - W6 - D4 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Street Fighter 2 - Character selection'
+              component:
+                - type: html
+                  file: module-2/week-6/kata-street-fighter-2.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+            - name: '[PROJECT] Presentation practice (mandatory)'
+              component:
+                - type: html
+                  file: other/presentations.md
+        - name: 'Day 5' ##### M2 - W6 - D5 #####
+          vertical:
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+            - name: '[PROJECT] Presentations - Project #2'
+              component:
+                - type: html
+                  file: other/final-presentation.md
+            - name: '![RITUALS] Project 2 retrospective'
+              component:
+                - type: html
+                  file: other/project-retro.md
+            - name: '![RITUALS] Project 2 feedback'
+              component:
+                - type: html
+                  file: other/project-feedback.md
+            - name: '![RITUALS] Module 2 retrospective'
+              component:
+                - type: html
+                  file: other/module-retro.md
+
+    ######################################################################################
+
+    ##     ##  #######  ########  ##     ## ##       ########     #######
+    ###   ### ##     ## ##     ## ##     ## ##       ##          ##     ##
+    #### #### ##     ## ##     ## ##     ## ##       ##                 ##
+    ## ### ## ##     ## ##     ## ##     ## ##       ######       #######
+    ##     ## ##     ## ##     ## ##     ## ##       ##                 ##
+    ##     ## ##     ## ##     ## ##     ## ##       ##          ##     ##
+    ##     ##  #######  ########   #######  ######## ########     #######
+
+    - name: 'Week 7'
+      sequential:
+        - name: 'Day 1' ##### M3 - W7 - D1 #####
+          vertical:
+            - name: 'React | Intro to React - Create React app from the scratch'
+              component:
+                - type: html
+                  file: module-3/week-7/react-intro-babel-webpack.md
+            - name: 'React | Create React App, JSX and React elements'
+              component:
+                - type: html
+                  file: module-3/week-7/cra-jsx-elements.md
+            - name: 'React | Intro to Components & Props'
+              component:
+                - type: html
+                  file: module-3/week-7/comps-props-intro.md
+            - name: 'React | Components & Props Extended'
+              component:
+                - type: html
+                  file: module-3/week-7/comps-props-extended.md
+            - name: '[LAB] LAB | Hello Ironhack'
+              component:
+                - type: html
+                  file: module-3/labs/lab-hello-ironhack.md
+                - type: deliverable
+                  display_name: hello-ironhack
+                  deliverable_identifier: lab-hello-ironhack
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[LAB] LAB | Bulma'
+              component:
+                - type: html
+                  file: module-3/labs/lab-bulma-components.md
+                - type: deliverable
+                  display_name: bulma-components
+                  deliverable_identifier: lab-bulma-components
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '!HOF exercises'
+              component:
+                - type: html
+                  file: module-3/week-7/hof-katas.md
+        - name: 'Day 2' ##### M3 - W7 - D2 #####
+          vertical:
+            - name: 'React | State'
+              component:
+                - type: html
+                  file: module-3/week-7/state.md
+            
+            - name: 'React | List & Keys'
+              component:
+                - type: html
+                  file: module-3/week-7/list-keys.md
+            - name: 'React | Conditional Rendering'
+              component:
+                - type: html
+                  file: module-3/week-7/conditional-rendering.md
+            - name: '[LAB] LAB | React IronContacts'
+              component:
+                - type: html
+                  file: module-3/labs/lab-react-ironcontacts.md
+                - type: deliverable
+                  display_name: react-ironcontacts
+                  deliverable_identifier: lab-react-ironcontacts
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] Bonus - LAB | React training [steps 1-7]'
+              component:
+                - type: html
+                  file: module-3/labs/lab-react-training.md
+                - type: deliverable
+                  display_name: react-training
+                  deliverable_identifier: lab-react-training
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] React | Composition and Inheritance - general concept'
+              component:
+                - type: html
+                  file: module-3/week-7/composition-inheritance-general.md
+            - name: '[SELF_GUIDED] React | Using composition in React'
+              component:
+                - type: html
+                  file: module-3/week-7/using-composition-in-react.md
+
+        - name: 'Day 3' ##### M3 - W7 - D3 #####
+          vertical:
+            - name: 'React | Forms'
+              component:
+                - type: html
+                  file: module-3/week-7/forms.md
+            - name: 'React | Lifting State Up'
+              component:
+                - type: html
+                  file: module-3/week-7/lifting-state-up.md            
+            - name: '[LAB] LAB | React IronNutrition'
+              component:
+                - type: html
+                  file: module-3/labs/lab-react-ironnutrition.md
+                - type: deliverable
+                  display_name: react-ironnutrition
+                  deliverable_identifier: lab-react-ironnutrition
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] Bonus - LAB | Thinking in React'
+              component:
+                - type: html
+                  file: module-3/labs/lab-thinking-in-react.md
+        - name: 'Day 4' ##### M3 - W7 - D4 #####
+          vertical:
+            - name: 'Lab review - reinforcement of state, props, forms in React'
+              component:
+                - type: html
+                  file: module-3/week-7/state-props-forms-reinforcement.md
+            - name: 'React | Lifecycle methods'
+              component:
+                - type: html
+                  file: module-3/week-7/lifecycle-methods.md
+            - name: 'React | Intro to Routing'
+              component:
+                - type: html
+                  file: module-3/week-7/routing-intro.md
+            - name: 'React | Routing Advanced'
+              component:
+                - type: html
+                  file: module-3/week-7/routing-advanced.md
+            - name: '[LAB] LAB | Wiki Countries'
+              component:
+                - type: html
+                  file: module-3/labs/lab-wiki-countries.md
+                - type: deliverable
+                  display_name: wiki-countries
+                  deliverable_identifier: lab-wiki-countries
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[LAB] LAB | React Training [steps 8 and up]'
+              component:
+                - type: html
+                  file: module-3/labs/lab-react-training.md
+                - type: deliverable
+                  display_name: react-training
+                  deliverable_identifier: lab-react-training
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+            - name: '[SELF_GUIDED] React | Lifting State Up - advanced'
+              component:
+                - type: html
+                  file: module-3/week-7/additional-lifting-state-up.md
+            - name: '[SELF_GUIDED] React | Composition vs. Inheritance'
+              component:
+                - type: html
+                  file: module-3/week-7/sg-composition-inheritance.md
+
+            # QUALIFIED ASSESSMENT
+            - name: '![LAB] React fundamentals 1'
+              component:
+                # - type: html
+                #   file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  # display_name: vikings
+                  deliverable_identifier: '5f7ecfb978269152aee840df'
+                  # deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+        - name: 'Day 5' ##### M3 - W7 - D5 #####
+          vertical:
+            - name: 'React | Connecting React app to the backend'
+              component:
+                - type: html
+                  file: module-3/week-7/connecting-react-to-backend.md
+            - name: 'React | Building the Rest API'
+              component:
+                - type: html
+                  file: module-3/week-7/front-back-integration-I.md
+            - name: 'React | Integrating the React App'
+              component:
+                - type: html
+                  file: module-3/week-7/front-back-integration-II.md
+            - name: '[LAB] LAB | React IronBeers'
+              component:
+                - type: html
+                  file: module-3/labs/lab-react-ironbeers.md
+                - type: deliverable
+                  display_name: react-ironbeers
+                  deliverable_identifier: lab-react-ironbeers
+                  deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+    ######################################################################################
+
+    - name: 'Week 8'
+      sequential:
+        - name: 'Day 1' ##### M3 - W8 - D1 #####
+          vertical:
+            - name: 'React | Authentication'
+              component:
+                - type: html
+                  file: module-3/week-8/authentication.md
+
+        - name: 'Day 2' ##### M3 - W8 - D2 #####
+          vertical:
+            - name: 'React & Express | File Upload'
+              component:
+                - type: html
+                  file: module-3/week-8/file-upload.md
+            - name: '[SELF_GUIDED] Bonus: LAB | Profile App'
+              component:
+                - type: html
+                  file: module-3/labs/lab-profile-app.md
+            - name: 'React | Deployment '
+              component:
+                - type: html
+                  file: module-3/week-8/deployment.md
+            - name: '[SELF_GUIDED] React | Deployment on Netlify'
+              component:
+                - type: html
+                  file: module-3/week-8/deploy-netlify.md
+            # - name: 'Deploy to Heroku'
+            #   component:
+            #   - type: html
+            #     file: module-2/week-5/node-heroku-deploy.md
+            - name: '[PROJECT] Project #3 Guidelines: MERN Web Application'
+              component:
+                - type: html
+                  file: module-3/project-3.md
+            - name: '[RITUALS] Project planning session'
+              component:
+                - type: html
+                  file: other/project-planning.md
+
+            # QUALIFIED ASSESSMENT
+            - name: '![LAB] React fundamentals 2'
+              component:
+                # - type: html
+                #   file: module-1/labs/lab-javascript-vikings.md
+                - type: deliverable
+                  # display_name: vikings
+                  deliverable_identifier: '5f7ed0e6a0a8fd1532a001d7'
+                  # deliverable_description: Submit the url to your work here.
+                  deliverable_duedate: '2030-10-28'
+
+        - name: 'Day 3' ##### M3 - W8 - D3 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Scramblies'
+              component:
+                - type: html
+                  file: module-3/week-8/kata-scramblies.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 4' ##### M3 - W8 - D4 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Balancing parentheses'
+              component:
+                - type: html
+                  file: module-3/week-8/kata-balancing-parentheses.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 5' ##### M3 - W8 - D5 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Pete the baker'
+              component:
+                - type: html
+                  file: module-3/week-8/kata-pete-the-baker.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+
+    #####################################################################################
+
+    - name: 'Week 9'
+      sequential:
+        - name: 'Day 1' ##### M3 - W9 - D1 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Directions reduction'
+              component:
+                - type: html
+                  file: module-3/week-8/kata-directions-reduction.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 2' ##### M3 - W9 - D2 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[KATA] Code interview test: Sum of pairs'
+              component:
+                - type: html
+                  file: module-3/week-9/kata-sum-of-pairs.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+            - name: '[PROJECT] Presentation practice (optional)'
+              component:
+                - type: html
+                  file: other/presentations.md
+        - name: 'Day 3' ##### M3 - W8 - D2 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: "[KATA] Code interview test: Don't eat the last cake"
+              component:
+                - type: html
+                  file: module-3/week-9/kata-dont-eat-last-cake.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+            - name: '[PROJECT] Presentation practice (mandatory)'
+              component:
+                - type: html
+                  file: other/presentations.md
+        - name: 'Day 4' ##### M3 - W9 - D4 #####
+          vertical:
+            - name: '[RITUALS] Stand ups'
+              component:
+                - type: html
+                  file: other/stand-ups.md
+            - name: '[PROJECT] Project development'
+              component:
+                - type: html
+                  file: other/project-dev.md
+        - name: 'Day 5' ##### M3 - W9 - D5 #####
+          vertical:
+            - name: '[PROJECT] Presentations - Project #3'
+              component:
+                - type: html
+                  file: other/final-presentation.md

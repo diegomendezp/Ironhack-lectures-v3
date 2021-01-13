@@ -1,0 +1,92 @@
+body {
+  background: white;
+}
+
+.details {
+  font-size: 20px;
+  font-weight: 200;
+}
+
+h3 {
+  display: block;
+  border: 2px solid white;
+  height: 400px;
+}
+
+
+
+/* MEDIA QUERIES */
+
+/* Mobile first, we start from the smallest viewport width */
+
+/* From 320px and up */
+@media (min-width: 320px) {
+  body {
+    background-color: blue;
+  }
+  h3 {
+    display: block;
+  }
+  
+}
+
+/* From 768px and up */
+@media (min-width: 768px) {
+ body {
+    background-color: green;
+  }
+  h3 {
+    visibility: hidden;
+  }
+}
+
+/* From 1024px and up */
+@media (min-width: 1024px) {
+ body {
+    background-color: yellow;
+  }
+  h3 {
+    visibility: visible;
+  }
+  
+}
+
+/* From 1224px and up */
+@media (min-width: 1224px) {
+ body {
+    background-color: orange;
+  }
+  h3 {
+    visibility: visible;
+    display: block;
+  }
+  
+}
+
+/* From 1824px and up */
+@media (min-width: 1824px) {
+  body {
+    background-color: aqua;
+  }
+  h3 {
+    visibility: visible;
+    display: block;
+  }
+  
+}
+
+
+/* CUSTOM MEDIA QUERY - including max-width breakpoint */
+
+/* From 800px and up, until 900px */
+@media (min-width: 800px) and (max-width: 900px) {
+  body {
+    background-color: red;
+  }
+  h3 {
+    visibility: visible;
+    display: block;
+  }
+  
+}
+ 

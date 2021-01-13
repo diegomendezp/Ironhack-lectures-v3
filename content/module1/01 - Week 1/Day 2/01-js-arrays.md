@@ -532,6 +532,8 @@ console.log('Result', result);
 
 
 
+<br>
+
 
 
 ### `concat`
@@ -559,6 +561,10 @@ console.log(newArr2);
 
 
 
+<br>
+
+
+
 ### Mutating and Non-mutating
 
 **Note to remember :**  
@@ -576,6 +582,8 @@ console.log(newArr2);
 
 
 
+
+<br>
 
 
 
