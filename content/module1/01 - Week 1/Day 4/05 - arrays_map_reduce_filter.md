@@ -91,38 +91,11 @@ let newArray = arrayFrom.map( function ( currentValue[, index [, array]])) {
 const array = ['50', '60', '70'];
 
 // ES5:
-var newArray1 = array.map( function (number){
+var doubled = array.map( function (number) {
   return number * 2;
 })
-console.log(newArray);
 
-// ES6:
-const newArray2 = array.map( (number) => number * 2)
-console.log(newArray);
-
-
-
-// ***********
-const indexArray1 = array.map( function (ele, index, originalArr) {
-    return index;
-});
-console.log(indexArray1);
-
-// ES6:
-const indexArray2 = array.map( (ele, index, originalArr ) => index );
-console.log(indexArray2);
-
-
-
-// ***********
-const matrixArray1 = array.map( function (ele, index, originalArr ) {
-  return originalArray;
-});
-console.log(matrixArray1);
-
-// ES6:
-const matrixArray2 = array.map( (ele, index, originalArr ) => originalArr );
-console.log(matrixArray2);
+console.log(doubled);
 
 ```
 
@@ -136,7 +109,7 @@ console.log(matrixArray2);
 let students = [
 	{firstName: 'John', lastName: 'Carr'},
   {firstName: 'Leonardo', lastName: 'Di Vittorio'},
-  {firstName: 'Sarah', lastName: 'O\'Connor'},
+  {firstName: 'Sarah', lastName: "Connor"},
 ]
 
 let studentNames = students.map( function (element) {
@@ -144,12 +117,6 @@ let studentNames = students.map( function (element) {
 });
 
 console.log(studentNames);
-
-// Quick Excercise
-// Redo the same function in ES6
-
-
-// Create an array that contains new objects containing the index and the fullName, like {fullName: 'John Carr', index: 0}
 ```
 
 
@@ -168,6 +135,10 @@ console.log(studentNames);
 
 
 
+<br>
+
+
+
 ### Get the final grade exercise  - Solution 
 
 ```js
@@ -183,6 +154,81 @@ const finalGrades = students.map( (student) => {
 ```
 
 
+
+
+
+
+
+<br>
+
+
+
+
+
+### `.filter()`
+
+##### The `.filter()` method iterates over an array and creates a new array with all elements that pass the condition we set.
+
+
+
+**Remember**: if the `return` in the function is `true`, that element will be saved in the new array.
+
+
+
+**syntax**
+
+```js
+const newArray = array.filter( function (element) {
+	// `return` `true` to save (include) the element in newArray
+  // `return` `false` to skip the element and exclude it from the newArray
+})
+```
+
+
+
+**Example 1:**
+
+
+
+```js
+const numbers = [1, 2, 3, 4, 5, 6];
+
+const filteredNumbers = numbers.filter( function (number) {
+  return number > 3; // this evaluates to true
+  
+// Same as :  
+// if (number > 3) return true;
+});
+
+console.log(filteredNumbers);
+```
+
+<br>
+
+
+
+
+
+**Example 2 :**
+
+```js
+const numbers = [1, 2, 3, 4, 5, 6];
+
+const evenNumbers = numbers.filter( function (number) {
+  return (number % 2) === 0; // this evaluates to true
+  
+// Same as :  
+// if (number % 2 === 0) return true;
+});
+
+console.log(evenNumbers);
+```
+
+
+
+
+
+<br>
 
 
 
@@ -231,18 +277,12 @@ const reduced = array.reduce( function(accumulator, currentValue, currentIndex, 
 const numbers = [10, 19, 41, 30, 450];
 
 const reducedNumbers = numbers.reduce( function (total, currentNum) {
-    let updatedAccumulator = acummulator + currentNum;
-    return updatedAccumulator;
-    // same as acummulator = accumulator + currentNum
+    let updatedTotal = total + currentNum;
+    return updatedTotal;
+    // same as 
+  	// return total += currentNum
 }, 0);
 
-
-// ES6:
-const reducedNumbers2 = numbers.reduce( (total, currentNum) => {
-    let updatedAccumulator = acummulator + currentNum;
-    return updatedAccumulator;
-    // same as acummulator = accumulator + currentNum
-}, 0);
 
 ```
 
@@ -318,75 +358,6 @@ const ageTotal = people.reduce( (sum, person) => {
 
 
 <br>
-
-
-
-### `.filter()`
-
-##### The `.filter()` method iterates over an array and creates a new array with all elements that pass the condition we set.
-
-
-
-**Remember**: if the `return` in the function is `true`, that element will be saved in the new array.
-
-
-
-**syntax**
-
-```js
-const newArray = array.filter( function (element) {
-	// if `return` `true` save the element in newArray;
-  // if `return` `false` skip current element, and to next one in array
-})
-```
-
-
-
-**Example 1:**
-
-
-
-```js
-const numbers = [1, 2, 3, 4, 5, 6];
-
-const filteredNumbers = numbers.filter( function (number) {
-  return number > 3; // this evaluates to true
-  
-// Same as :  
-// if (number > 3) return true;
-});
-
-console.log(filteredNumbers);
-```
-
-<br>
-
-
-
-
-
-**Example 2 :**
-
-```js
-const numbers = [1, 2, 3, 4, 5, 6];
-
-const evenNumbers = numbers.filter( function (number) {
-  return number % 2 === 0; // this evaluates to true
-  
-// Same as :  
-// if (number % 2 === 0) return true;
-});
-
-console.log(evenNumbers);
-
-
-
-// Cleaner way to write it is
-
-const evenNumbers2 = numbers.filter(function (number) {
-  return number % 2 === 0; // same as above
-});
-```
 
 
 

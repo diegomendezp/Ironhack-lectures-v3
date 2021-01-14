@@ -60,12 +60,18 @@ console.log('globalGreetings', globalGreetings);
 
 
 // Task 3. Create an object and name it 'greeting'. 
-	// Copy the functions from the array "globalGreetings" to the object 'greeting' 
-  // by using the dot notation.
+	// Copy the functions from the array "globalGreetings" to the object 'greeting' and make them into methods with new names:
+  // `inEnglish`, `inSpanish`, `inRussian`.
 	
-  // greetings.inEnglish() should log "Hello" to the console.
-	// greetings.inSpanish() should log "Hola" to the console.
-	// greetings.inRussian() should log "Privjet" to the console.
+	// After you are done uncomment the below line to see if it is working:
+
+  /*
+  	
+  greeting.inEnglish() // should log "Hello" 
+	greeting.inSpanish() // should log "Hola" 
+	greeting.inRussian() // should log "Privjet" 
+	
+	*/
 
 let greeting = {};
 greeting.inEnglish = globalGreetings[0];

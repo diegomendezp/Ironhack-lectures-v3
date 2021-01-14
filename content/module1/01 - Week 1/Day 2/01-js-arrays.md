@@ -402,7 +402,7 @@ arrayNames.splice(-2); // ['Anna', 'Jennifer']
 
 
 
-### [Array warm up - Exercise](https://gist.github.com/ross-u/b83dd87e4230a34854022155a8bdea3a) (10 min)
+### [Array Employees - Exercise](https://gist.github.com/ross-u/b83dd87e4230a34854022155a8bdea3a) (10 min)
 
 
 
