@@ -124,7 +124,7 @@ console.log('JS connected');
 
 ### The document object
 
-Every website can be accessed by the JavaScript DOM using the **document** object, which is instantiated automatically when we render the page.
+All web page content can be accessed through  JavaScript DOM using the **document** object, which is available automatically in the when we render the page.
 
 
 

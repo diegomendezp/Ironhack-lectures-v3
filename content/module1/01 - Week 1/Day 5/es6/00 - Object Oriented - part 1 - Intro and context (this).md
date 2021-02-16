@@ -10,7 +10,7 @@
 
 
 
-### Ways of constructing the objects
+### Different ways to construct  objects
 
 
 
@@ -27,21 +27,17 @@ This can bring a lot of typing and work.
 ##### Example
 
 ```js
-let bmw = {
+const bmw = {
   brand: 'BMW',
-  color: 'red',
   model: '530 M3',
   averageSpeed: 90,
-  year: 2018,
   mileage: 0
 };
 
-let toyota = {
+const toyota = {
   brand: 'Toyota',
-  color: 'red',
   model: 'Rav4',
   averageSpeed: 60,
-  year: 2014,
   mileage: 0
 };
 
@@ -58,7 +54,7 @@ console.log(toyota);
 
 
 
-### Class or function constructor
+### Class 
 
 
 
@@ -69,22 +65,19 @@ For now it is "kind off" intuitive easy to understand how the below class  "kind
 
 ```js
 class Car {
-  constructor(brand, color, model, averageSpeed, year) {
+  constructor(brand, model, averageSpeed) {
     // this represents the new object that will be created
     this.brand = brand; 
-    this.color = color; 
     this.model = model; 
     this.averageSpeed = averageSpeed;
-    this.year = year;
-
     this.mileage = 0;
   }
 }
 
 
-const car1 = new Car('Seat', 'white', 'Ibiza', 60, 2020 )
-const car2 = new Car('BMW', 'blue', 'Series 5', 140, 2019 )
-const car3 = new Car('Toyoya', 'red', 'Corolla', 60, 2018 )
+const car1 = new Car('Seat', 'Ibiza', 60 )
+const car2 = new Car('BMW',  'Series 5', 140 )
+const car3 = new Car('Toyoya', 'Corolla', 60 )
 ```
 
 
@@ -284,8 +277,6 @@ var carObj = new Car();
 
 
 ## [**What is This - Exercise**](https://gist.github.com/ross-u/4d9429d70ef93b08922f4abc783c03c0) - (15 min)
-
-
 
 
 

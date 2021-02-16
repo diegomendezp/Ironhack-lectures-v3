@@ -1,6 +1,6 @@
 ![img](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
 
-# ES6 | Scope
+# JS | Scope
 
 ## Learning Goals
 
@@ -132,9 +132,7 @@ If created in the function, it is locally scoped to that function, otherwise it 
 
 - **Block** - block is any code between open and closed curly braces `{}`.
 
-  
-
-- `let` and `const`  **cannot be accessed** **before** they are **declared** (temporal dead zone)
+  0
 
   
 
@@ -312,7 +310,7 @@ function scopeTest() {
   console.log('local scope x -> ', x);  //  100
 }
 scopeTest();
-console.log('global scope x -> ', x);  //  5
+console.log('global scope x -> ', x);  0//  5
 ```
 
 

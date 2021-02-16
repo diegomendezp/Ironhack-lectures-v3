@@ -56,7 +56,7 @@ code .
 
     <button id="add-item-button">Add item</button>
 
-<!-- make sure to load your .js file at the end so that it executes when the DOM is ready -->
+        <!-- Load your .js file at the end so that it executes when the DOM is ready -->
         <script src='./scripts/index.js'></script>
   </body>
 </html>
@@ -305,17 +305,17 @@ button.addEventListener('mouseover', backgroundRed);
 button.addEventListener('mouseout', backgroundWhite);
 button.addEventListener('click', removeMouseOver);
 
-function backgroundRed () {
+function backgroundRed (event) {
   this.style.backgroundColor = 'red';
   this.style.font.size = "40px";
 }
 
-function backgroundWhite () {
+function backgroundWhite (event) {
   this.style.backgroundColor = 'white';
   this.style.font.size = "20px";
 }
 
-function removeMouseOver () {
+function removeMouseOver (event) {
 	this.style.backgroundColor = 'aquamarine';
   button.removeEventListener('mouseover', backgroundRed);
   button.removeEventListener('click', removeMouseOver);
@@ -336,7 +336,7 @@ function removeMouseOver () {
 
 
 ```css
-t.open {
+.open {
   height: 200px;
   width: 100%;
   border: 2px solid black;

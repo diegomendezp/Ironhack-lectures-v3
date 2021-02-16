@@ -202,7 +202,7 @@ ReactDOM.render(<MyComponent />, document.getElementById('react-container'))
 // In the package.json - modify build command
   "scripts": {
     "build": "webpack && serve",
-     ...
+     // ...
   },
 ```
 
@@ -210,8 +210,9 @@ ReactDOM.render(<MyComponent />, document.getElementById('react-container'))
 
 ```javascript
 // Modify the `webpack.config.js`
-...
-.....
+// ...
+//    ...
+
 use: {	// specify which loader we want to use
           loader: 'babel-loader',
           options: {

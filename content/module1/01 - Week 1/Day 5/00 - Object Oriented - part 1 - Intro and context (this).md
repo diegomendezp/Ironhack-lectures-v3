@@ -4,7 +4,7 @@
 
  [**Object-oriented programming (OOP)**](https://en.wikipedia.org/wiki/Object-oriented_programming) is a programming paradigm (model/standard) based on the concept of “objects”, which can contain data, in the form of *attributes* / properties ), and code in the form of functions/procedures ( known as *methods*).
 
-
+s
 
 
 
@@ -132,7 +132,7 @@ const car3 = new Car('Seat', 'red', 'Ibiza', 60, 2018 )
 
 
 
-##  Special function's keyword `this` (pointer)
+##  Special function's keyword `this` 
 
 
 

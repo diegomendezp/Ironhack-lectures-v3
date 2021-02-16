@@ -167,7 +167,7 @@ Let's take a look on how a complexity of a front-end app grows almost exponentia
 
   
 
-- **Speed - **React enables us to mainain a clear project structure which speeds the development. Component-based design makes it quicker to develop the app.
+- **Speed - **React enables us to mainain a clear project structure which speeds up the development. Component-based design makes it quicker to develop the app.
 
   
 
@@ -215,8 +215,8 @@ A framework serves as a development toolset/toolchain and may include:
 
 **Benefits of using a software framework:**
 
-- **Structure** - In a framework, the overall program's flow of control is not dictated by the caller, but by the framework. Therefore a certain rules, structure and design principles must be followed by all developers working on the project, which mitigates bad practices and creation of [unmaintainable code](https://www.hackterms.com/spaghetti%20code).
-- **Abstraction** - Frameworks commonly provide methods for most common tasks, pre-configure toolchain.
+- **Structure** - In a framework, the overall program's flow of control is not dictated by the user, but by the framework. Therefore a certain rules, structure and design principles must be followed by all developers working on the project, which mitigates bad practices and creation of [unmaintainable code](https://www.hackterms.com/spaghetti%20code).
+- **Abstraction** - Frameworks commonly provide methods for most common tasks, a pre-configured toolchain.
 - **Scalability** - The above points are what enables us to create complex applications that are easier to maintain and scale up.
 
 
@@ -373,8 +373,9 @@ It’s used for handling view layer (front-end) for web and mobile apps.
 
 **React key features :**
 
-- allows developers to create large web applications which can change data, without reloading the page. 
 - **The main purpose of React is to be fast, scalable, and simple.**
+
+- allows developers to create large web applications which can change data, without reloading the page. 
 - **Component-Based**. Build encapsulated components that have their own state, then use them to make complex UIs.  
 - Thanks to JSX, Components are represented and used as **html** tags.
 - **All in one file - HTML,  JS (logic) and state (data).**.
@@ -613,10 +614,11 @@ We are using it only as an example and it should be the only use case.
 
 
 ```bash
-git clone https://github.com/ironhack-labs/react-module-day1-start.git
+mkdir 01-react-basic-setup
 
-cd react-module-day1-start
+cd 01-react-basic-setup
 
+git clone https://github.com/ironhack-labs/react-module-day1-start.git . 
 
 code .
 ```
@@ -630,7 +632,7 @@ code .
 #### Install the depenedencies
 
 ```bash
-npm i
+npm install
 ```
 
 
@@ -679,7 +681,7 @@ touch src/App.css
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Ironhack React</title>
+    <title>React Basics</title>
   </head>
   <body>
     
@@ -728,12 +730,23 @@ npm install --save react@16.3.2 react-dom@16.3.2
 
 
 
-### What do `babel` and `webpack` packages do ?
+### React - Development Toolchain
 
 
 
-- `babel` and `webpack` packages work together.
-- They take the code written in JSX syntax and make it into ES5 `js`.
+##### What do `babel` and `webpack` packages do ?
+
+
+
+`babel` and `webpack` packages are part of so called React Development Toolchain and are used toghether with React.
+
+React development Toolchain is a set of packages that provide us the development environment and structure. 
+
+
+
+
+
+- `babel` and `webpack` packages work together, to convert the code written in JSX syntax into ES5 `js` and output the code ready to be loaded in the browser.
 
 
 
@@ -767,56 +780,13 @@ npm install --save react@16.3.2 react-dom@16.3.2
 
 
 
-#### Create **`src/index.js`** (and what does this file do)
+##### Everything starts / links from `App.js`,  all react components. 
 
-
-
-##### -   `index.js` file injects the React app code into the `index.html`.
-
-
-
-##### -	We use `ReactDOM.render` to inject the main component `App` into the `div#root` .
-
-
-
-##### `src/index.js`
-
-```js
-//	src/index.js - Injects the App to DOM
-
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App.js";
-
-ReactDOM.render(
-  <App />,
-  document.getElementById("root")
-);
-```
-
-
+##### We call `App.js` our root component.
 
 
 
 <br>
-
-
-
-
-
-##### This file `src/index.js` is the main connection to our react app and the root component `App.js` which is injected into the DOM  `<div id="root">` element.
-
-
-
-##### Everything starts / links from `App.js`,  all react components. We call `App.js` our root component.
-
-
-
-
-
-<br>
-
-
 
 
 
@@ -890,6 +860,55 @@ It should exist and it should return a valid JSX element (including `null` - (or
 
 
 <br>
+
+
+
+#### Create **`src/index.js`** (and what does this file do)
+
+
+
+##### -   `index.js` file injects the React app code into the `index.html`.
+
+
+
+##### -	We use `ReactDOM.render` to inject the main component `App` into the `div#root` .
+
+
+
+##### `src/index.js`
+
+```js
+//	src/index.js - Injects the App to DOM
+
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App.js";
+
+ReactDOM.render(
+  <App />,
+  document.getElementById("root")
+);
+```
+
+
+
+
+
+<br>
+
+
+
+
+
+##### This file `src/index.js` is the main connection to our react app and the root component `App.js` which is injected into the DOM  `<div id="root">` element.
+
+
+
+
+
+<br>
+
+
 
 
 

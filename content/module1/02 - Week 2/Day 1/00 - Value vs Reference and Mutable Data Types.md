@@ -8,7 +8,40 @@ https://www.ecma-international.org/ecma-262/10.0/index.html#sec-ecmascript-langu
 
 
 
-There are 7 basic *data types* in *JavaScript*.  Primitive data types are string, number, boolean, null, undefined, symbol. Everything else is an **Object** type.
+There are 8 [*data types*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#data_and_structure_types) in *JavaScript*. 
+
+Primitive data types are:
+
+- [String](https://developer.mozilla.org/en-US/docs/Glossary/String),
+
+- [Number](https://developer.mozilla.org/en-US/docs/Glossary/Number),
+
+- [Boolean](https://developer.mozilla.org/en-US/docs/Glossary/Boolean),
+
+- [null](https://developer.mozilla.org/en-US/docs/Glossary/Null) (special primitive - structural root primitive used for prototypal inheritahce mechanism in JS),
+
+- [undefined](https://developer.mozilla.org/en-US/docs/Glossary/Undefined),
+
+- [Symbol](https://developer.mozilla.org/en-US/docs/Glossary/Symbol). 
+
+- [BigInt](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)
+
+  
+  
+
+  Everything else is an object ( derived from the **Object** constructor):
+
+  - **Object**
+
+  - **Array**
+
+  - **Function** (a function in JavaScript is also an object - [furher details on MDN funciton data type page](https://developer.mozilla.org/en-US/docs/Glossary/Function))
+
+    
+
+  - and some special use case objects such as Date object, Map, Set , etc.
+
+  
 
 
 
@@ -28,11 +61,17 @@ There are 7 basic *data types* in *JavaScript*.  Primitive data types are string
 
 
 
-### Primitives - when passed are copied, the value from the variable is copied (not the reference)
+### Primitives - 
+
+When passed around primitive values are copied.
+
+Meaning that when using `=` to do an assignment, the primitive data value is copied to the variable.
+
+
 
 - Primitives: **string, number, boolean, null, undefined, Symbol, BigInt.** 
 
-- Everything else is an Object type - **object, array, function** (Date, RegEx).
+- 
 
 - Variables with **primitives** (data types) **hold the value** that we assigned to it.
 
@@ -151,15 +190,21 @@ let arr3 = arr1;
   
   
   
+  
+  
+  <br>
+  
+  
+  
   ### Let's practice :
   
-  
+	
   
   **Question 1**
   
   ```js
   let obj1 = {
-	  title: "foo";
+    title: "foo";
   }
   
   let obj2 = obj1;
@@ -189,6 +234,8 @@ let arr3 = arr1;
   console.log(person2); // ->	  What is the result?
   
   ```
+
+
 
 
 
@@ -450,23 +497,23 @@ console.log(studentsCopy); // [ [ 'Ana', 'John', 'Fabio' ], [ 'Alex', 'Mike', 'V
 
 
 
-## Mutability
+## ~~Mutability~~
 
-Mutable methods are the ones that mutate/change the original array or object.
+~~Mutable methods are the ones that mutate/change the original array or object.~~
 
-Immutable are ones that perform an action but don't change the original object or array.
+~~Immutable are ones that perform an action but don't change the original object or array.~~
 
 
 
-##### Array methods - mutable/immutable
+##### ~~Array methods - mutable/immutable~~
 
-| Mutable methods | Immutable method alternative             | What they do |
-| :-------------- | :--------------------------------------- | :----------- |
-| `.push()`       | `.concat()`                              | adding       |
-| `.unshift()`    | `...` ES6 spread operator                | adding       |
-| `.splice()`     | `.slice()`                               | removing     |
-| `.pop()`        | `.slice()` and `...` ES6 spread operator | removing     |
-| `.shift()`      | `.filter()`                              | removing     |
+| ~~Mutable methods~~ | ~~Immutable method alternative~~             | ~~What they do~~ |
+| :------------------ | :------------------------------------------- | :--------------- |
+| ~~`.push()`~~       | ~~`.concat()`~~                              | ~~adding~~       |
+| ~~`.unshift()`~~    | ~~`...` ES6 spread operator~~                | ~~adding~~       |
+| ~~`.splice()`~~     | ~~`.slice()`~~                               | ~~removing~~     |
+| ~~`.pop()`~~        | ~~`.slice()` and `...` ES6 spread operator~~ | ~~removing~~     |
+| ~~`.shift()`~~      | ~~`.filter()`~~                              | ~~removing~~     |
 
 
 
